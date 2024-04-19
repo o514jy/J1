@@ -27,5 +27,15 @@ public:
 			return distribution(generator);
 		}
 	}
+
+	static std::string WstrToStr(const std::wstring& source)
+	{
+		return std::string().assign(source.begin(), source.end());
+	}
+
+	static std::wstring StrToWstr(const std::string& source)
+	{
+		return std::wstring().assign(source.begin(), source.end());
+	}
 };
 

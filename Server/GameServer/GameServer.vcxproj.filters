@@ -19,6 +19,18 @@
     <Filter Include="Game\Object">
       <UniqueIdentifier>{ba4992f5-7866-498c-8f3b-81dd9e017c41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{00a7663c-0b8e-4478-b04b-22bdaa14adfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Room">
+      <UniqueIdentifier>{d597dad3-3ad4-4de8-9ec6-7f020e7b3e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{3c8fa84b-82dd-4a6e-9093-404a3b50b801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Skill">
+      <UniqueIdentifier>{c2a0ba9e-8b75-4c7b-a0e5-e44e48ae6709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -48,10 +60,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectUtils.cpp" />
     <ClCompile Include="Player.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
@@ -63,6 +71,42 @@
     </ClCompile>
     <ClCompile Include="Creature.cpp">
       <Filter>Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomBase.cpp">
+      <Filter>Game\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="StartRoom.cpp">
+      <Filter>Game\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillBase.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillComponent.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalAttack.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,10 +134,6 @@
     <ClInclude Include="Utils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectUtils.h" />
     <ClInclude Include="Player.h">
       <Filter>Game\Object</Filter>
     </ClInclude>
@@ -105,6 +145,45 @@
     </ClInclude>
     <ClInclude Include="Creature.h">
       <Filter>Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomBase.h">
+      <Filter>Game\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="StartRoom.h">
+      <Filter>Game\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillBase.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillComponent.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalAttack.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,5 +199,13 @@
     <None Include="..\Common\protoc-21.12-win64\bin\GenPackets.bat">
       <Filter>Protocol</Filter>
     </None>
+    <None Include="..\..\Common\Data\GameData.json">
+      <Filter>Data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="GameData.xml">
+      <Filter>Data</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

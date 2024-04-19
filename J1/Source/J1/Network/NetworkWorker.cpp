@@ -118,7 +118,7 @@ bool RecvWorker::ReceiveDesiredBytes(uint8* Results, int32 Size)
 	SendWorker
 -----------------*/
 
-SendWorker::SendWorker(FSocket* Socket, PacketSessionRef Session)
+SendWorker::SendWorker(FSocket* Socket, PacketSessionRef Session) : Socket(Socket), SessionRef(Session)
 {
 	Thread = FRunnableThread::Create(this, TEXT("SendWorkerThread"));
 }
@@ -140,7 +140,7 @@ uint32 SendWorker::Run()
 	{
 		SendBufferRef SendBuffer;
 
-		if (TSharedPtr<PacketSession> Session = SessionRef.Pin())
+		if (PacketSessionRef Session = SessionRef.Pin())
 		{
 			if (Session->SendPacketQueue.Dequeue(OUT SendBuffer))
 			{

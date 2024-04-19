@@ -11,5 +11,6 @@ class J1_API AJ1GameMode : public AGameModeBase
 public:
 	AJ1GameMode(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
-
+public:
+	virtual void BeginPlay() override;
 };

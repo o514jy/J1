@@ -27,6 +27,9 @@ PROTOBUF_CONSTEXPR PosInfo::PosInfo(
   , /*decltype(_impl_.x_)*/0
   , /*decltype(_impl_.y_)*/0
   , /*decltype(_impl_.z_)*/0
+  , /*decltype(_impl_.dest_x_)*/0
+  , /*decltype(_impl_.dest_y_)*/0
+  , /*decltype(_impl_.dest_z_)*/0
   , /*decltype(_impl_.yaw_)*/0
   , /*decltype(_impl_.state_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -39,11 +42,33 @@ struct PosInfoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PosInfoDefaultTypeInternal _PosInfo_default_instance_;
+PROTOBUF_CONSTEXPR SkillInfo::SkillInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.object_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.skill_attack_id_)*/0
+  , /*decltype(_impl_.skill_q_id_)*/0
+  , /*decltype(_impl_.skill_w_id_)*/0
+  , /*decltype(_impl_.skill_e_id_)*/0
+  , /*decltype(_impl_.skill_r_id_)*/0
+  , /*decltype(_impl_.skill_dash_id_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SkillInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SkillInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SkillInfoDefaultTypeInternal() {}
+  union {
+    SkillInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SkillInfoDefaultTypeInternal _SkillInfo_default_instance_;
 PROTOBUF_CONSTEXPR ObjectInfo::ObjectInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.pos_info_)*/nullptr
+  , /*decltype(_impl_.skill_info_)*/nullptr
   , /*decltype(_impl_.object_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.template_id_)*/0
   , /*decltype(_impl_.object_type_)*/0
+  , /*decltype(_impl_.creature_type_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ObjectInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ObjectInfoDefaultTypeInternal()
@@ -55,7 +80,7 @@ struct ObjectInfoDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ObjectInfoDefaultTypeInternal _ObjectInfo_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Struct_2eproto[2];
+static ::_pb::Metadata file_level_metadata_Struct_2eproto[3];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Struct_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Struct_2eproto = nullptr;
 
@@ -70,8 +95,24 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.x_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.y_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.z_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.dest_x_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.dest_y_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.dest_z_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.yaw_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.state_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.object_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_attack_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_q_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_w_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_e_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_r_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SkillInfo, _impl_.skill_dash_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -79,36 +120,49 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.object_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.template_id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.object_type_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.pos_info_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.creature_type_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.skill_info_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::PosInfo)},
-  { 12, -1, -1, sizeof(::Protocol::ObjectInfo)},
+  { 15, -1, -1, sizeof(::Protocol::SkillInfo)},
+  { 28, -1, -1, sizeof(::Protocol::ObjectInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_PosInfo_default_instance_._instance,
+  &::Protocol::_SkillInfo_default_instance_._instance,
   &::Protocol::_ObjectInfo_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"n\n\007"
-  "PosInfo\022\021\n\tobject_id\030\001 \001(\004\022\t\n\001x\030\002 \001(\002\022\t\n"
-  "\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\022\013\n\003yaw\030\005 \001(\002\022\"\n\005stat"
-  "e\030\006 \001(\0162\023.Protocol.MoveState\"o\n\nObjectIn"
-  "fo\022\021\n\tobject_id\030\001 \001(\004\022)\n\013object_type\030\002 \001"
-  "(\0162\024.Protocol.ObjectType\022#\n\010pos_info\030\003 \001"
-  "(\0132\021.Protocol.PosInfob\006proto3"
+  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"\236\001\n"
+  "\007PosInfo\022\021\n\tobject_id\030\001 \001(\004\022\t\n\001x\030\002 \001(\002\022\t"
+  "\n\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\022\016\n\006dest_x\030\005 \001(\002\022\016\n\006"
+  "dest_y\030\006 \001(\002\022\016\n\006dest_z\030\007 \001(\002\022\013\n\003yaw\030\010 \001("
+  "\002\022\"\n\005state\030\t \001(\0162\023.Protocol.MoveState\"\236\001"
+  "\n\tSkillInfo\022\021\n\tobject_id\030\001 \001(\004\022\027\n\017skill_"
+  "attack_id\030\002 \001(\005\022\022\n\nskill_q_id\030\003 \001(\005\022\022\n\ns"
+  "kill_w_id\030\004 \001(\005\022\022\n\nskill_e_id\030\005 \001(\005\022\022\n\ns"
+  "kill_r_id\030\006 \001(\005\022\025\n\rskill_dash_id\030\007 \001(\005\"\334"
+  "\001\n\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004\022\023\n\013temp"
+  "late_id\030\002 \001(\005\022)\n\013object_type\030\003 \001(\0162\024.Pro"
+  "tocol.ObjectType\022#\n\010pos_info\030\004 \001(\0132\021.Pro"
+  "tocol.PosInfo\022-\n\rcreature_type\030\005 \001(\0162\026.P"
+  "rotocol.CreatureType\022\'\n\nskill_info\030\006 \001(\013"
+  "2\023.Protocol.SkillInfob\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 269, descriptor_table_protodef_Struct_2eproto,
+    false, false, 589, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
-    &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 2,
+    &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 3,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
     file_level_metadata_Struct_2eproto, file_level_enum_descriptors_Struct_2eproto,
     file_level_service_descriptors_Struct_2eproto,
@@ -141,6 +195,9 @@ PosInfo::PosInfo(const PosInfo& from)
     , decltype(_impl_.x_){}
     , decltype(_impl_.y_){}
     , decltype(_impl_.z_){}
+    , decltype(_impl_.dest_x_){}
+    , decltype(_impl_.dest_y_){}
+    , decltype(_impl_.dest_z_){}
     , decltype(_impl_.yaw_){}
     , decltype(_impl_.state_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -161,6 +218,9 @@ inline void PosInfo::SharedCtor(
     , decltype(_impl_.x_){0}
     , decltype(_impl_.y_){0}
     , decltype(_impl_.z_){0}
+    , decltype(_impl_.dest_x_){0}
+    , decltype(_impl_.dest_y_){0}
+    , decltype(_impl_.dest_z_){0}
     , decltype(_impl_.yaw_){0}
     , decltype(_impl_.state_){0}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -234,17 +294,41 @@ const char* PosInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
-      // float yaw = 5;
+      // float dest_x = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
+          _impl_.dest_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float dest_y = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
+          _impl_.dest_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float dest_z = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
+          _impl_.dest_z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float yaw = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
           _impl_.yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.MoveState state = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+      // .Protocol.MoveState state = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_state(static_cast<::Protocol::MoveState>(val));
@@ -316,21 +400,51 @@ uint8_t* PosInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_z(), target);
   }
 
-  // float yaw = 5;
+  // float dest_x = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_x = this->_internal_dest_x();
+  uint32_t raw_dest_x;
+  memcpy(&raw_dest_x, &tmp_dest_x, sizeof(tmp_dest_x));
+  if (raw_dest_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_dest_x(), target);
+  }
+
+  // float dest_y = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_y = this->_internal_dest_y();
+  uint32_t raw_dest_y;
+  memcpy(&raw_dest_y, &tmp_dest_y, sizeof(tmp_dest_y));
+  if (raw_dest_y != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_dest_y(), target);
+  }
+
+  // float dest_z = 7;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_z = this->_internal_dest_z();
+  uint32_t raw_dest_z;
+  memcpy(&raw_dest_z, &tmp_dest_z, sizeof(tmp_dest_z));
+  if (raw_dest_z != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(7, this->_internal_dest_z(), target);
+  }
+
+  // float yaw = 8;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = this->_internal_yaw();
   uint32_t raw_yaw;
   memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
   if (raw_yaw != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_yaw(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(8, this->_internal_yaw(), target);
   }
 
-  // .Protocol.MoveState state = 6;
+  // .Protocol.MoveState state = 9;
   if (this->_internal_state() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      6, this->_internal_state(), target);
+      9, this->_internal_state(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -381,7 +495,34 @@ size_t PosInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float yaw = 5;
+  // float dest_x = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_x = this->_internal_dest_x();
+  uint32_t raw_dest_x;
+  memcpy(&raw_dest_x, &tmp_dest_x, sizeof(tmp_dest_x));
+  if (raw_dest_x != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float dest_y = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_y = this->_internal_dest_y();
+  uint32_t raw_dest_y;
+  memcpy(&raw_dest_y, &tmp_dest_y, sizeof(tmp_dest_y));
+  if (raw_dest_y != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float dest_z = 7;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_z = this->_internal_dest_z();
+  uint32_t raw_dest_z;
+  memcpy(&raw_dest_z, &tmp_dest_z, sizeof(tmp_dest_z));
+  if (raw_dest_z != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float yaw = 8;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = this->_internal_yaw();
   uint32_t raw_yaw;
@@ -390,7 +531,7 @@ size_t PosInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // .Protocol.MoveState state = 6;
+  // .Protocol.MoveState state = 9;
   if (this->_internal_state() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
@@ -439,6 +580,27 @@ void PosInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
     _this->_internal_set_z(from._internal_z());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_x = from._internal_dest_x();
+  uint32_t raw_dest_x;
+  memcpy(&raw_dest_x, &tmp_dest_x, sizeof(tmp_dest_x));
+  if (raw_dest_x != 0) {
+    _this->_internal_set_dest_x(from._internal_dest_x());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_y = from._internal_dest_y();
+  uint32_t raw_dest_y;
+  memcpy(&raw_dest_y, &tmp_dest_y, sizeof(tmp_dest_y));
+  if (raw_dest_y != 0) {
+    _this->_internal_set_dest_y(from._internal_dest_y());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_dest_z = from._internal_dest_z();
+  uint32_t raw_dest_z;
+  memcpy(&raw_dest_z, &tmp_dest_z, sizeof(tmp_dest_z));
+  if (raw_dest_z != 0) {
+    _this->_internal_set_dest_z(from._internal_dest_z());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = from._internal_yaw();
   uint32_t raw_yaw;
   memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
@@ -481,14 +643,350 @@ void PosInfo::InternalSwap(PosInfo* other) {
 
 // ===================================================================
 
+class SkillInfo::_Internal {
+ public:
+};
+
+SkillInfo::SkillInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SkillInfo)
+}
+SkillInfo::SkillInfo(const SkillInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SkillInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.object_id_){}
+    , decltype(_impl_.skill_attack_id_){}
+    , decltype(_impl_.skill_q_id_){}
+    , decltype(_impl_.skill_w_id_){}
+    , decltype(_impl_.skill_e_id_){}
+    , decltype(_impl_.skill_r_id_){}
+    , decltype(_impl_.skill_dash_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.skill_dash_id_) -
+    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.skill_dash_id_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.SkillInfo)
+}
+
+inline void SkillInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.object_id_){uint64_t{0u}}
+    , decltype(_impl_.skill_attack_id_){0}
+    , decltype(_impl_.skill_q_id_){0}
+    , decltype(_impl_.skill_w_id_){0}
+    , decltype(_impl_.skill_e_id_){0}
+    , decltype(_impl_.skill_r_id_){0}
+    , decltype(_impl_.skill_dash_id_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SkillInfo::~SkillInfo() {
+  // @@protoc_insertion_point(destructor:Protocol.SkillInfo)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SkillInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SkillInfo::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SkillInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SkillInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.skill_dash_id_) -
+      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.skill_dash_id_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SkillInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint64 object_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.object_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_attack_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.skill_attack_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_q_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.skill_q_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_w_id = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.skill_w_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_e_id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.skill_e_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_r_id = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.skill_r_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skill_dash_id = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.skill_dash_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SkillInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SkillInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 object_id = 1;
+  if (this->_internal_object_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_object_id(), target);
+  }
+
+  // int32 skill_attack_id = 2;
+  if (this->_internal_skill_attack_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_skill_attack_id(), target);
+  }
+
+  // int32 skill_q_id = 3;
+  if (this->_internal_skill_q_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_skill_q_id(), target);
+  }
+
+  // int32 skill_w_id = 4;
+  if (this->_internal_skill_w_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_skill_w_id(), target);
+  }
+
+  // int32 skill_e_id = 5;
+  if (this->_internal_skill_e_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_skill_e_id(), target);
+  }
+
+  // int32 skill_r_id = 6;
+  if (this->_internal_skill_r_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_skill_r_id(), target);
+  }
+
+  // int32 skill_dash_id = 7;
+  if (this->_internal_skill_dash_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_skill_dash_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SkillInfo)
+  return target;
+}
+
+size_t SkillInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SkillInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 object_id = 1;
+  if (this->_internal_object_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_object_id());
+  }
+
+  // int32 skill_attack_id = 2;
+  if (this->_internal_skill_attack_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_attack_id());
+  }
+
+  // int32 skill_q_id = 3;
+  if (this->_internal_skill_q_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_q_id());
+  }
+
+  // int32 skill_w_id = 4;
+  if (this->_internal_skill_w_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_w_id());
+  }
+
+  // int32 skill_e_id = 5;
+  if (this->_internal_skill_e_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_e_id());
+  }
+
+  // int32 skill_r_id = 6;
+  if (this->_internal_skill_r_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_r_id());
+  }
+
+  // int32 skill_dash_id = 7;
+  if (this->_internal_skill_dash_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skill_dash_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SkillInfo::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SkillInfo::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SkillInfo::GetClassData() const { return &_class_data_; }
+
+
+void SkillInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SkillInfo*>(&to_msg);
+  auto& from = static_cast<const SkillInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SkillInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_object_id() != 0) {
+    _this->_internal_set_object_id(from._internal_object_id());
+  }
+  if (from._internal_skill_attack_id() != 0) {
+    _this->_internal_set_skill_attack_id(from._internal_skill_attack_id());
+  }
+  if (from._internal_skill_q_id() != 0) {
+    _this->_internal_set_skill_q_id(from._internal_skill_q_id());
+  }
+  if (from._internal_skill_w_id() != 0) {
+    _this->_internal_set_skill_w_id(from._internal_skill_w_id());
+  }
+  if (from._internal_skill_e_id() != 0) {
+    _this->_internal_set_skill_e_id(from._internal_skill_e_id());
+  }
+  if (from._internal_skill_r_id() != 0) {
+    _this->_internal_set_skill_r_id(from._internal_skill_r_id());
+  }
+  if (from._internal_skill_dash_id() != 0) {
+    _this->_internal_set_skill_dash_id(from._internal_skill_dash_id());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SkillInfo::CopyFrom(const SkillInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SkillInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SkillInfo::IsInitialized() const {
+  return true;
+}
+
+void SkillInfo::InternalSwap(SkillInfo* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SkillInfo, _impl_.skill_dash_id_)
+      + sizeof(SkillInfo::_impl_.skill_dash_id_)
+      - PROTOBUF_FIELD_OFFSET(SkillInfo, _impl_.object_id_)>(
+          reinterpret_cast<char*>(&_impl_.object_id_),
+          reinterpret_cast<char*>(&other->_impl_.object_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SkillInfo::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Struct_2eproto_getter, &descriptor_table_Struct_2eproto_once,
+      file_level_metadata_Struct_2eproto[1]);
+}
+
+// ===================================================================
+
 class ObjectInfo::_Internal {
  public:
   static const ::Protocol::PosInfo& pos_info(const ObjectInfo* msg);
+  static const ::Protocol::SkillInfo& skill_info(const ObjectInfo* msg);
 };
 
 const ::Protocol::PosInfo&
 ObjectInfo::_Internal::pos_info(const ObjectInfo* msg) {
   return *msg->_impl_.pos_info_;
+}
+const ::Protocol::SkillInfo&
+ObjectInfo::_Internal::skill_info(const ObjectInfo* msg) {
+  return *msg->_impl_.skill_info_;
 }
 ObjectInfo::ObjectInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -501,17 +999,23 @@ ObjectInfo::ObjectInfo(const ObjectInfo& from)
   ObjectInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.pos_info_){nullptr}
+    , decltype(_impl_.skill_info_){nullptr}
     , decltype(_impl_.object_id_){}
+    , decltype(_impl_.template_id_){}
     , decltype(_impl_.object_type_){}
+    , decltype(_impl_.creature_type_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_pos_info()) {
     _this->_impl_.pos_info_ = new ::Protocol::PosInfo(*from._impl_.pos_info_);
   }
+  if (from._internal_has_skill_info()) {
+    _this->_impl_.skill_info_ = new ::Protocol::SkillInfo(*from._impl_.skill_info_);
+  }
   ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.object_type_) -
-    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.object_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.creature_type_) -
+    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.creature_type_));
   // @@protoc_insertion_point(copy_constructor:Protocol.ObjectInfo)
 }
 
@@ -521,8 +1025,11 @@ inline void ObjectInfo::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.pos_info_){nullptr}
+    , decltype(_impl_.skill_info_){nullptr}
     , decltype(_impl_.object_id_){uint64_t{0u}}
+    , decltype(_impl_.template_id_){0}
     , decltype(_impl_.object_type_){0}
+    , decltype(_impl_.creature_type_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -539,6 +1046,7 @@ ObjectInfo::~ObjectInfo() {
 inline void ObjectInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.pos_info_;
+  if (this != internal_default_instance()) delete _impl_.skill_info_;
 }
 
 void ObjectInfo::SetCachedSize(int size) const {
@@ -555,9 +1063,13 @@ void ObjectInfo::Clear() {
     delete _impl_.pos_info_;
   }
   _impl_.pos_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.skill_info_ != nullptr) {
+    delete _impl_.skill_info_;
+  }
+  _impl_.skill_info_ = nullptr;
   ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.object_type_) -
-      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.object_type_));
+      reinterpret_cast<char*>(&_impl_.creature_type_) -
+      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.creature_type_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -575,19 +1087,44 @@ const char* ObjectInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.ObjectType object_type = 2;
+      // int32 template_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.template_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.ObjectType object_type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_object_type(static_cast<::Protocol::ObjectType>(val));
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.PosInfo pos_info = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // .Protocol.PosInfo pos_info = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_pos_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.CreatureType creature_type = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_creature_type(static_cast<::Protocol::CreatureType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.SkillInfo skill_info = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_skill_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -627,18 +1164,38 @@ uint8_t* ObjectInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_object_id(), target);
   }
 
-  // .Protocol.ObjectType object_type = 2;
+  // int32 template_id = 2;
+  if (this->_internal_template_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_template_id(), target);
+  }
+
+  // .Protocol.ObjectType object_type = 3;
   if (this->_internal_object_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_object_type(), target);
+      3, this->_internal_object_type(), target);
   }
 
-  // .Protocol.PosInfo pos_info = 3;
+  // .Protocol.PosInfo pos_info = 4;
   if (this->_internal_has_pos_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::pos_info(this),
+      InternalWriteMessage(4, _Internal::pos_info(this),
         _Internal::pos_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.CreatureType creature_type = 5;
+  if (this->_internal_creature_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_creature_type(), target);
+  }
+
+  // .Protocol.SkillInfo skill_info = 6;
+  if (this->_internal_has_skill_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::skill_info(this),
+        _Internal::skill_info(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -657,11 +1214,18 @@ size_t ObjectInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.PosInfo pos_info = 3;
+  // .Protocol.PosInfo pos_info = 4;
   if (this->_internal_has_pos_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.pos_info_);
+  }
+
+  // .Protocol.SkillInfo skill_info = 6;
+  if (this->_internal_has_skill_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.skill_info_);
   }
 
   // uint64 object_id = 1;
@@ -669,10 +1233,21 @@ size_t ObjectInfo::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_object_id());
   }
 
-  // .Protocol.ObjectType object_type = 2;
+  // int32 template_id = 2;
+  if (this->_internal_template_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_template_id());
+  }
+
+  // .Protocol.ObjectType object_type = 3;
   if (this->_internal_object_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_object_type());
+  }
+
+  // .Protocol.CreatureType creature_type = 5;
+  if (this->_internal_creature_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_creature_type());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -697,11 +1272,21 @@ void ObjectInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
     _this->_internal_mutable_pos_info()->::Protocol::PosInfo::MergeFrom(
         from._internal_pos_info());
   }
+  if (from._internal_has_skill_info()) {
+    _this->_internal_mutable_skill_info()->::Protocol::SkillInfo::MergeFrom(
+        from._internal_skill_info());
+  }
   if (from._internal_object_id() != 0) {
     _this->_internal_set_object_id(from._internal_object_id());
   }
+  if (from._internal_template_id() != 0) {
+    _this->_internal_set_template_id(from._internal_template_id());
+  }
   if (from._internal_object_type() != 0) {
     _this->_internal_set_object_type(from._internal_object_type());
+  }
+  if (from._internal_creature_type() != 0) {
+    _this->_internal_set_creature_type(from._internal_creature_type());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -721,8 +1306,8 @@ void ObjectInfo::InternalSwap(ObjectInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ObjectInfo, _impl_.object_type_)
-      + sizeof(ObjectInfo::_impl_.object_type_)
+      PROTOBUF_FIELD_OFFSET(ObjectInfo, _impl_.creature_type_)
+      + sizeof(ObjectInfo::_impl_.creature_type_)
       - PROTOBUF_FIELD_OFFSET(ObjectInfo, _impl_.pos_info_)>(
           reinterpret_cast<char*>(&_impl_.pos_info_),
           reinterpret_cast<char*>(&other->_impl_.pos_info_));
@@ -731,7 +1316,7 @@ void ObjectInfo::InternalSwap(ObjectInfo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ObjectInfo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Struct_2eproto_getter, &descriptor_table_Struct_2eproto_once,
-      file_level_metadata_Struct_2eproto[1]);
+      file_level_metadata_Struct_2eproto[2]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -740,6 +1325,10 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::Protocol::PosInfo*
 Arena::CreateMaybeMessage< ::Protocol::PosInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::PosInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SkillInfo*
+Arena::CreateMaybeMessage< ::Protocol::SkillInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SkillInfo >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::ObjectInfo*
 Arena::CreateMaybeMessage< ::Protocol::ObjectInfo >(Arena* arena) {

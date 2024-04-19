@@ -11,8 +11,10 @@ public:
 	virtual ~Player();
 
 public:
-	weak_ptr<GameSession> session;
+	/** initialize **/
+	virtual void SetInfo(int32 templateId) override;
 
-
+public:
+	shared_ptr<PlayerData> _playerDataRef;
 };
 

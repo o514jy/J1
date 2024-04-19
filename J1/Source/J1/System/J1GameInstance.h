@@ -10,6 +10,15 @@ UCLASS()
 class J1_API UJ1GameInstance : public UGameInstance
 {
 	GENERATED_BODY()
+public:
+	UJ1GameInstance(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+public:
+	virtual void Init() override;
+	virtual void Shutdown() override;
+
+public:
+	virtual void BeginPlay();
 
 public:
 	UPROPERTY(EditAnywhere)

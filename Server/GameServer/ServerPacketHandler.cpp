@@ -3,10 +3,12 @@
 #include "BufferReader.h"
 #include "BufferWriter.h"
 #include "Protocol.pb.h"
-#include "Room.h"
-#include "ObjectUtils.h"
+#include "RoomBase.h"
 #include "Player.h"
 #include "GameSession.h"
+#include "ObjectManager.h"
+#include "RoomManager.h"
+#include "StartRoom.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -43,11 +45,10 @@ bool Handle_C_LOGIN(PacketSessionRef& session, Protocol::C_LOGIN& pkt)
 bool Handle_C_ENTER_GAME(PacketSessionRef& session, Protocol::C_ENTER_GAME& pkt)
 {
 	// 플레이어 생성
-	PlayerRef player = ObjectUtils::CreatePlayer(static_pointer_cast<GameSession>(session));
-
+	PlayerRef player = GObjectManager->CreatePlayer(static_pointer_cast<GameSession>(session), 1);
+	
 	// 방에 입장
-	GRoom->DoAsync(&Room::HandleEnterPlayer, player);
-	//GRoom->HandleEnterPlayerLocked(player);
+	GRoomManager->GetStartRoom()->DoAsync(&StartRoom::HandleEnterPlayer, player);
 
 	return true;
 }
@@ -60,7 +61,7 @@ bool Handle_C_LEAVE_GAME(PacketSessionRef& session, Protocol::C_LEAVE_GAME& pkt)
 	if (player == nullptr)
 		return false;
 
-	RoomRef room = player->room.load().lock();
+	RoomBaseRef room = player->room.load().lock();
 	if (room == nullptr)
 		return false;
 
@@ -77,12 +78,45 @@ bool Handle_C_MOVE(PacketSessionRef& session, Protocol::C_MOVE& pkt)
 	if (player == nullptr)
 		return false;
 
-	RoomRef room = player->room.load().lock();
+	RoomBaseRef room = player->room.load().lock();
 	if (room == nullptr)
 		return false;
 
-	room->DoAsync(&Room::HandleMove, pkt);
-	//room->HandleMove(pkt);
+	room->DoAsync(&RoomBase::HandleMove, pkt);
+
+	return true;
+}
+
+bool Handle_C_NOTIFY_POS(PacketSessionRef& session, Protocol::C_NOTIFY_POS& pkt)
+{
+	auto gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->player.load();
+	if (player == nullptr)
+		return false;
+
+	RoomBaseRef room = player->room.load().lock();
+	if (room == nullptr)
+		return false;
+
+	room->DoAsync(&RoomBase::HandleNotifyPos, pkt);
+
+	return true;
+}
+
+bool Handle_C_SKILL(PacketSessionRef& session, Protocol::C_SKILL& pkt)
+{
+	auto gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->player.load();
+	if (player == nullptr)
+		return false;
+
+	RoomBaseRef room = player->room.load().lock();
+	if (room == nullptr)
+		return false;
+
+	room->DoAsync(&RoomBase::HandleSkill, pkt);
 
 	return true;
 }

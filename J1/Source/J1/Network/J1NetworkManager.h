@@ -9,9 +9,15 @@
 class AJ1Player;
 
 UCLASS()
-class J1_API UJ1NetworkManager : public UGameInstanceSubsystem
+class J1_API UJ1NetworkManager : public UGameInstanceSubsystem, public FTickableGameObject
 {
 	GENERATED_BODY()
+public:
+	// Tick마다 HandleRecvPackets을 호출한다.
+	virtual void Tick(float DeltaTime) override;
+	virtual bool IsTickable() const override;
+	virtual TStatId GetStatId() const override;
+
 public:
 	// Server에 Connect 시도를 통해 입장한다.
 	UFUNCTION(BlueprintCallable)
@@ -47,6 +53,10 @@ public:
 
 	void HandleMove(const Protocol::S_MOVE& MovePkt);
 
+	void HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt);
+
+	void HandleSkill(const Protocol::S_SKILL& SkillPkt);
+
 public:
 	// GameServer
 	class FSocket* Socket;
@@ -54,13 +64,6 @@ public:
 	int16 Port = 7777;
 
 	TSharedPtr<class PacketSession> GameServerSession;
-
-public:
-	UPROPERTY()
-	TMap<uint64, AJ1Player*> Players;
-
-	UPROPERTY()
-	TObjectPtr<AJ1Player> MyPlayer;
 };
 
 /**

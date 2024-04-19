@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
+using UnrealBuildTool.Rules;
 
 public class J1 : ModuleRules
 {
@@ -8,7 +9,26 @@ public class J1 : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Sockets", "Networking", "EnhancedInput" });
+        PublicDependencyModuleNames.AddRange(new string[] { 
+            "Core", 
+            "CoreUObject", 
+            "Engine", 
+            // Input
+            "InputCore",
+            "EnhancedInput",
+            // Network
+            "Sockets", 
+            "Networking", 
+            // Niagara
+            "Niagara",
+            // AI
+            "NavigationSystem",
+            "AIModule",
+            // GAS
+            "GameplayTags",
+            // Json
+            "Json",
+             });
 
         PrivateDependencyModuleNames.AddRange(new string[] { "ProtobufCore" });
 

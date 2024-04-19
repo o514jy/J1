@@ -12,6 +12,7 @@ class Job
 public:
 	Job(CallbackType&& callback) : _callback(std::move(callback))
 	{
+		_cancled = false;
 	}
 
 	template<typename T, typename Ret, typename... Args>
@@ -21,14 +22,21 @@ public:
 		{
 			(owner.get()->*memFunc)(args...);
 		};
+
+		_cancled = false;
 	}
 
 	void Execute()
 	{
-		_callback();
+		if (_cancled == false)
+			_callback();
 	}
 
+	void SetCancled(bool flag) { _cancled = flag; }
+	bool GetCancled() { return _cancled; }
+
 private:
-	CallbackType _callback;
+	CallbackType	_callback;
+	bool			_cancled;
 };
 

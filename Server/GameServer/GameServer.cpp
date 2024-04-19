@@ -9,7 +9,9 @@
 #include <tchar.h>
 #include "Job.h"
 #include "Protocol.pb.h"
-#include "Room.h"
+#include "RoomManager.h"
+#include "StartRoom.h"
+#include "DataManager.h"
 
 enum
 {
@@ -56,7 +58,20 @@ int main()
 	// Main Thread
 	//DoWorkerJob(service);
 
-	//GRoom->DoAsync(&Room::UpdateTick);
+	// 0) data initialize
+	{
+		GDataManager->Init();
+	}
+
+	// 1) initialize all room
+	{
+		GRoomManager->InitializeAllRoom();
+	}
+
+	// 2) start update tick
+	{
+		GRoomManager->AllUpdateTick();
+	}
 
 	while (true)
 	{
@@ -65,9 +80,9 @@ int main()
 		//auto sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
 		//
 		//GSessionManager.Broadcast(sendBuffer);
-		this_thread::sleep_for(1s);
+		//this_thread::sleep_for(1s);
 
-		//this_thread::sleep_for(0.1s);
+		this_thread::sleep_for(0.1s);
 	}
 
 	GThreadManager->Join();

@@ -1,0 +1,48 @@
+{
+  "players": [
+    {
+      "DataId": 1,
+      "CreatureType": "Player",
+      "DescriptionTextId": "Aurora",
+      "ColliderRadius": 42.0,
+      "ColliderHalfHeight": 96.0,
+      "MaxHp": 1000.0,
+      "Atk": 25.0,
+      "AtkRange": 10.0,
+      "Def": 0.0,
+      "MaxWalkSpeed": 600.0,
+      "HpRate": 1.0,
+      "AtkRate": 1.0,
+      "DefRate": 1.0,
+      "MoveSpeedRate": 1.0,
+	    "SkillAttackId": 1000,
+	    "SkillQId": 1001,
+	    "SkillWId": 1002,
+	    "SkillEId": 1003,
+	    "SkillRId": 1004,
+	    "SkillDashId": 1005
+    }
+  ],
+  "skills": [
+	  {
+	    "DataId": 1000,
+	    "Name": "Normal Attack 1 (Aurora)",
+	    "Description": "Normal Attack 1 (Aurora)",
+	    "ProjectileIdList": [],
+      "CoolTime": 0.0,
+      "SkillDuration": 500,
+      "AnimImpactTimeList": [ 300 ],
+      "EffectIdList": [ 10000 ]
+	  }
+  ],
+  "effects": [
+    {
+      "DataId": 10000,
+      "EffectType": "Rectangle",
+      "LeftUpPosY": -100.0,
+      "LeftUpPosX": 120.0,
+      "RightDownPosY": 100.0,
+      "RightDownPosX": 0.0
+    }
+  ]
+}

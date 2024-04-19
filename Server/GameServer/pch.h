@@ -18,13 +18,34 @@
 #include "ServerPacketHandler.h"
 #include "Utils.h"
 #include "GameSession.h"
+#include "Global.h"
+#include "Define.h"
 
+/** network **/
 USING_SHARED_PTR(GameSession);
+
+/** object **/
 USING_SHARED_PTR(Player);
 USING_SHARED_PTR(Monster);
 USING_SHARED_PTR(Creature);
 USING_SHARED_PTR(Object);
-USING_SHARED_PTR(Room);
+
+/** room **/
+USING_SHARED_PTR(RoomBase);
+USING_SHARED_PTR(StartRoom);
+
+/** data **/
+USING_SHARED_PTR(CreatureData);
+USING_SHARED_PTR(PlayerData);
+USING_SHARED_PTR(MonsterData);
+USING_SHARED_PTR(BossData);
+USING_SHARED_PTR(SkillData);
+USING_SHARED_PTR(EffectData);
+USING_SHARED_PTR(RectangleEffectData);
+
+/** skill **/
+USING_SHARED_PTR(SkillBase);
+USING_SHARED_PTR(SkillComponent);
 
 #define SEND_PACKET(pkt)													\
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);	\

@@ -10,13 +10,30 @@ public:
 	bool IsPlayer() { return _isPlayer; }
 
 public:
-	Protocol::ObjectInfo* objectInfo;
-	Protocol::PosInfo* posInfo;
+	/** initialize **/
+	virtual void SetInfo(int32 templateId);
 
 public:
-	atomic<weak_ptr<Room>> room;
+	/** setter & getter **/
+	void SetState(Protocol::MoveState moveState);
+	Protocol::MoveState GetState();
+
+public:
+	/** information **/
+	shared_ptr<Protocol::ObjectType> objectType;
+	shared_ptr<Protocol::ObjectInfo> objectInfo;
+	shared_ptr<Protocol::PosInfo> posInfo;
+
+	uint64 _objectId;
+	int32 _templateId;
+
+public:
+	atomic<weak_ptr<RoomBase>> room;
 
 protected:
 	bool _isPlayer = false;
+
+public:
+	weak_ptr<GameSession> session;
 };
 
