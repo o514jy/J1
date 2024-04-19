@@ -3,6 +3,7 @@
 #include "Creature.h"
 #include "Data.h"
 #include "DataManager.h"
+#include "StartRoom.h"
 
 SkillBase::SkillBase()
 {
@@ -43,6 +44,10 @@ void SkillBase::OnAnimCompleteHandler()
 
 	// start cooltime
 	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+}
+
+void SkillBase::OnAttackEvent(int32 timeCount)
+{
 }
 
 void SkillBase::DoSkill()

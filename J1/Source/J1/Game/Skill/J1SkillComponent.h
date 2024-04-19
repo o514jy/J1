@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "J1/Data/J1Data.h"
 #include "J1Core.h"
+#include "GameplayTagContainer.h"
 #include "Components/ActorComponent.h"
 #include "J1SkillComponent.generated.h"
 
@@ -34,6 +35,10 @@ public:
 	void RegisterNormalAttack();
 
 public:
+	/** handle event **/
+	void HandleGameplayEvent(FGameplayTag InEventTag);
+
+public:
 	/** process **/
 	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot);
 
@@ -44,7 +49,12 @@ public:
 	UPROPERTY()
 	TObjectPtr<AJ1Creature> Owner;
 
+	FGameplayTag SkillComponentTag;
+
 	/** player **/
+	UPROPERTY()
+	TArray<TObjectPtr<UJ1SkillBase>> SkillList;
+
 	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> NormalAttackSkill;
 	UPROPERTY()

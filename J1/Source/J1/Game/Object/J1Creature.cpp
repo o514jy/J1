@@ -1,4 +1,5 @@
 #include "J1Creature.h"
+#include "J1/J1GameplayTags.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
@@ -68,6 +69,13 @@ void AJ1Creature::SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo)
 
 void AJ1Creature::HandleGameplayEvent(FGameplayTag EventTag)
 {
+	if (EventTag.MatchesTag(TemplateTag) == true)
+	{
+		if (EventTag.MatchesTag(SkillComponent->SkillComponentTag) == true)
+		{
+			SkillComponent->HandleGameplayEvent(EventTag);
+		}
+	}
 }
 
 void AJ1Creature::ProcessMove(const Protocol::PosInfo& Info)
@@ -99,6 +107,7 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
 			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
+			TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{

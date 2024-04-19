@@ -1,10 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "J1Data.h"
 #include "J1Core.h"
+#include "GameplayTagContainer.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "J1DataManager.generated.h"
 
@@ -20,6 +19,11 @@ public:
 	
 public:
 	void ParseAllJsonData();
+
+public:
+	FGameplayTag SetTemplateTagByDataId(int32 InTemplateId);
+	FGameplayTag SetSkillComponentTagByDataId(int32 InTemplateId);
+	FGameplayTag SetSkillTagByDataId(int32 InTemplateId);
 
 public:
 	UPROPERTY(BlueprintType)

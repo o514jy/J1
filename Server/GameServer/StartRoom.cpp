@@ -22,6 +22,7 @@ void StartRoom::UpdateTick()
 	//__super::UpdateTick();
 
 	//cout << "Update StartRoom" << "\n";
+	DoTimer(1000, &StartRoom::UpdateTick);
 }
 
 bool StartRoom::EnterRoom(ObjectRef object, bool randPos)

@@ -1,6 +1,6 @@
 #pragma once
 
-class RoomManager : public JobQueue
+class RoomManager
 {
 public:
 	RoomManager();
@@ -10,7 +10,7 @@ public:
 	void InitializeAllRoom();
 
 public:
-	void AllUpdateTick();
+	void AllUpdateTickStart();
 
 public:
 	RoomBaseRef GetRoom(uint64 roomId);
@@ -18,6 +18,8 @@ public:
 	StartRoomRef GetStartRoom();
 
 private:
+	USE_LOCK;
+
 	unordered_map<uint64, RoomBaseRef> _rooms;
 };
 

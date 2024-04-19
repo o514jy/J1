@@ -2,7 +2,7 @@
 
 #include "Data.h"
 
-class DataManager : public JobQueue
+class DataManager //: public JobQueue
 {
 public:
 	DataManager();
@@ -21,6 +21,8 @@ public:
 	SkillDataRef GetSkillDataById(int32 id);
 
 private:
+	USE_LOCK;
+
 	unordered_map<int32, PlayerDataRef> _playerData;
 	
 	unordered_map<int32, BossDataRef> _bossData;

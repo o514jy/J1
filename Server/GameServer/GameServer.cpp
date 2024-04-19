@@ -70,7 +70,7 @@ int main()
 
 	// 2) start update tick
 	{
-		GRoomManager->AllUpdateTick();
+		GRoomManager->AllUpdateTickStart();
 	}
 
 	while (true)

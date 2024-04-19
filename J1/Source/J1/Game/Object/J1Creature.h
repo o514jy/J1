@@ -73,5 +73,7 @@ protected:
 	uint64 ObjectId; // instance id
 	int32 TemplateId; // data id
 
+	FGameplayTag TemplateTag; // key tag for data id
+
 	TObjectPtr<UCreatureData> CreatureData;
 };

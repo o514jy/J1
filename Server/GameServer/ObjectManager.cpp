@@ -18,11 +18,15 @@ ObjectManager::~ObjectManager()
 
 ObjectRef ObjectManager::CreateObject(GameSessionRef session, Protocol::ObjectType objectType, uint64 templateId)
 {
+	WRITE_LOCK;
+
 	return ObjectRef();
 }
 
 PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 {
+	//WRITE_LOCK;
+
 	// ID »ý¼º±â
 	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_CREATURE);
 
@@ -46,6 +50,8 @@ PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 
 ObjectRef ObjectManager::GetObjectById(uint64 objectId)
 {
+	WRITE_LOCK;
+
 	if (_objects.find(objectId) == _objects.end())
 		return nullptr;
 
@@ -54,12 +60,16 @@ ObjectRef ObjectManager::GetObjectById(uint64 objectId)
 
 Protocol::ObjectType ObjectManager::GetObjectTypeById(uint64 id)
 {
+	WRITE_LOCK;
+
 	uint64 type = (id >> 32) & 0x7FFFFFFF;
 	return (Protocol::ObjectType)type;
 }
 
 bool ObjectManager::AddObject(ObjectRef object)
 {
+	WRITE_LOCK;
+
 	if (_objects.find(object->objectInfo->object_id()) != _objects.end())
 		return false;
 
@@ -70,6 +80,8 @@ bool ObjectManager::AddObject(ObjectRef object)
 
 bool ObjectManager::RemoveObject(uint64 objectId)
 {
+	WRITE_LOCK;
+
 	if (_objects.find(objectId) == _objects.end())
 		return false;
 
@@ -86,5 +98,6 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 uint64 ObjectManager::GenerateIdLocked(Protocol::ObjectType objectType)
 {
 	WRITE_LOCK;
+
 	return ((uint64)objectType << 32) | (s_objectIdGenerator++);
 }

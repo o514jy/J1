@@ -1,6 +1,6 @@
 #pragma once
 
-class ObjectManager : public JobQueue
+class ObjectManager //: public JobQueue
 {
 public:
 	ObjectManager();

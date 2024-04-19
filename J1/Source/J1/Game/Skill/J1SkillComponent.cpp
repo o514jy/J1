@@ -1,9 +1,10 @@
 #include "J1SkillComponent.h"
+#include "J1/J1GameplayTags.h"
 #include "J1/Game/Object/J1Creature.h"
-#include "J1/Network/J1NetworkManager.h"
-#include "J1/Data/J1DataManager.h"
 #include "J1/Game/Skill/J1SkillManager.h"
 #include "J1/Game/Skill/J1SkillBase.h"
+#include "J1/Network/J1NetworkManager.h"
+#include "J1/Data/J1DataManager.h"
 
 UJ1SkillComponent::UJ1SkillComponent()
 {
@@ -49,6 +50,7 @@ void UJ1SkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 void UJ1SkillComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCreatureData> InCreatureData)
 {
 	Owner = InOwner;
+	SkillComponentTag = Owner->GetManager(Data)->SetSkillComponentTagByDataId(Owner->GetTemplateId());
 
 	if (InCreatureData->CreatureType == TEXT("Player"))
 	{
@@ -102,6 +104,8 @@ void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkill
 	}
 
 	skill->SetInfo(Owner, InTemplateId);
+	skill->Slot = InSkillSlot;
+	SkillList.Add(skill);
 }
 
 void UJ1SkillComponent::RegisterNormalAttack()
@@ -113,32 +117,51 @@ void UJ1SkillComponent::RegisterNormalAttack()
 	Owner->GetManager(Network)->SendPacket(skillPkt);
 }
 
+void UJ1SkillComponent::HandleGameplayEvent(FGameplayTag InEventTag)
+{
+	for (TObjectPtr<UJ1SkillBase> skill : SkillList)
+	{
+		if (InEventTag.MatchesTag(skill->SkillTag) == true)
+		{
+			skill->HandleGameplayEvent(InEventTag);
+		}
+	}
+}
+
 bool UJ1SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)
 {
-	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
+	for (TObjectPtr<UJ1SkillBase> skill : SkillList)
 	{
-		return NormalAttackSkill->GetCanUseSkill();
+		if (skill->Slot == skillSlot)
+		{
+			return skill->GetCanUseSkill();
+		}
 	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
-	{
-		return QSkill->GetCanUseSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
-	{
-		return WSkill->GetCanUseSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
-	{
-		return ESkill->GetCanUseSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
-	{
-		return RSkill->GetCanUseSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
-	{
-		return DashSkill->GetCanUseSkill();
-	}
+
+	//if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
+	//{
+	//	return NormalAttackSkill->GetCanUseSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
+	//{
+	//	return QSkill->GetCanUseSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
+	//{
+	//	return WSkill->GetCanUseSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
+	//{
+	//	return ESkill->GetCanUseSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
+	//{
+	//	return RSkill->GetCanUseSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
+	//{
+	//	return DashSkill->GetCanUseSkill();
+	//}
 
 	return false;
 }
@@ -148,29 +171,38 @@ void UJ1SkillComponent::DoSkill(const Protocol::SkillSlot& skillSlot)
 	if (GetCanUseSkillBySkillSlot(skillSlot) == false)
 		return;
 
-	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
+	for (TObjectPtr<UJ1SkillBase> skill : SkillList)
 	{
-		return NormalAttackSkill->DoSkill();
+		if (skill->Slot == skillSlot)
+		{
+			skill->DoSkill();
+			return;
+		}
 	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
-	{
-		return QSkill->DoSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
-	{
-		return WSkill->DoSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
-	{
-		return ESkill->DoSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
-	{
-		return RSkill->DoSkill();
-	}
-	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
-	{
-		return DashSkill->DoSkill();
-	}
+
+	//if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
+	//{
+	//	return NormalAttackSkill->DoSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
+	//{
+	//	return QSkill->DoSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
+	//{
+	//	return WSkill->DoSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
+	//{
+	//	return ESkill->DoSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
+	//{
+	//	return RSkill->DoSkill();
+	//}
+	//else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
+	//{
+	//	return DashSkill->DoSkill();
+	//}
 }
 

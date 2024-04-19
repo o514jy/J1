@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "J1Core.h"
+#include "GameplayTagContainer.h"
 #include "UObject/NoExportTypes.h"
 #include "J1SkillBase.generated.h"
 
@@ -30,15 +32,27 @@ public:
 	virtual void DoSkill();
 
 public:
+	/** handle event **/
+	void HandleGameplayEvent(FGameplayTag InEventTag);
+
+	virtual void OnAttackEvent(int32 InTimeCount);
+
+public:
 	/** information **/
 	UPROPERTY()
 	TObjectPtr<AJ1Creature> Owner;
+
+	FGameplayTag SkillTag;
 
 	UPROPERTY()
 	TObjectPtr<USkillData> SkillData;
 
 	UPROPERTY()
 	TObjectPtr<UAnimMontage> Montage;
+
+	Protocol::SkillSlot Slot;
+
+	int32 TimeCount; // index of AnimImpactTime
 
 	bool bCanUseSkill;
 };

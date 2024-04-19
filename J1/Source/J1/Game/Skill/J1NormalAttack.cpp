@@ -20,3 +20,8 @@ void UJ1NormalAttack::DoSkill()
 {
 	Super::DoSkill();
 }
+
+void UJ1NormalAttack::OnAttackEvent(int32 InTimeCount)
+{
+
+}

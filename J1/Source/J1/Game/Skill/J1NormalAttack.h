@@ -25,4 +25,8 @@ public:
 	/** Process Skill **/
 	virtual void DoSkill() override;
 
+public:
+	/** handle event **/
+	virtual void OnAttackEvent(int32 InTimeCount) override;
+
 };

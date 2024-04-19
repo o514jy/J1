@@ -17,10 +17,10 @@ void RoomManager::InitializeAllRoom()
 	_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_START_ROOM, startRoom));
 }
 
-void RoomManager::AllUpdateTick()
+void RoomManager::AllUpdateTickStart()
 {
 	//cout << "Update RoomManager" << "\n";
-	DoTimer(1000, &RoomManager::AllUpdateTick);
+	//DoTimer(1000, &RoomManager::AllUpdateTick);
 
 	for (auto roomData : _rooms)
 	{

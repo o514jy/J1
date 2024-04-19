@@ -29,6 +29,8 @@ void DataManager::Init()
 
 void DataManager::ParseJsonData(const WCHAR* path)
 {
+    WRITE_LOCK;
+
     try {
         // JSON 파일을 읽기 모드로 열기
         ifstream ifs(path);
@@ -138,7 +140,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
 PlayerDataRef DataManager::GetPlayerDataById(int32 id)
 {
-	if (_playerData.find(id) == _playerData.end())
+    if (_playerData.find(id) == _playerData.end())
 		return nullptr;
 
 	return _playerData[id];

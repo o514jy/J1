@@ -1,5 +1,6 @@
 #include "J1SkillBase.h"
 #include "Animation/AnimMontage.h"
+#include "J1/J1GameplayTags.h"
 #include "System/J1AssetManager.h"
 #include "J1/Game/Object/J1Creature.h"
 #include "J1/Data/J1DataManager.h"
@@ -10,6 +11,7 @@ UJ1SkillBase::UJ1SkillBase()
 	Owner = nullptr;
 	SkillData = nullptr;
 	bCanUseSkill = true;
+	TimeCount = 0;
 }
 
 UJ1SkillBase::~UJ1SkillBase()
@@ -23,6 +25,7 @@ void UJ1SkillBase::SetInfo(TObjectPtr<AJ1Creature> InOwner, int32 InTemplateId)
 {
 	Owner = InOwner;
 	SkillData = Owner->GetManager(Data)->GameData->SkillData[InTemplateId];
+	SkillTag = Owner->GetManager(Data)->SetSkillTagByDataId(InTemplateId);
 
 	int32 OwnerDataId = Owner->GetTemplateId();
 	UJ1AnimData* InputData = UJ1AssetManager::GetAssetByName<UJ1AnimData>("AnimData");
@@ -54,4 +57,13 @@ void UJ1SkillBase::DoSkill()
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
 
 	Owner->PlayAnimMontage(Montage);
+}
+
+void UJ1SkillBase::HandleGameplayEvent(FGameplayTag InEventTag)
+{
+	OnAttackEvent(TimeCount++);
+}
+
+void UJ1SkillBase::OnAttackEvent(int32 InTimeCount)
+{
 }

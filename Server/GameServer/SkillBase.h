@@ -20,7 +20,7 @@ protected:
 	void OnAnimImpactTimeHandler();
 	void OnAnimCompleteHandler();
 
-	virtual void OnAttackEvent(int32 timeCount) abstract;
+	virtual void OnAttackEvent(int32 timeCount);
 
 public:
 	/** Process Skill **/
