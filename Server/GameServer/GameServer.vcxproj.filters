@@ -31,6 +31,9 @@
     <Filter Include="Game\Skill">
       <UniqueIdentifier>{c2a0ba9e-8b75-4c7b-a0e5-e44e48ae6709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Stat">
+      <UniqueIdentifier>{3d691fa5-f73e-4aa2-a0a7-f0709a943901}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -108,6 +111,9 @@
     <ClCompile Include="SkillManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="StatComponent.cpp">
+      <Filter>Game\Stat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -184,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="SkillManager.h">
       <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="StatComponent.h">
+      <Filter>Game\Stat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

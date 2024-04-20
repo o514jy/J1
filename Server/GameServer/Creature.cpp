@@ -2,6 +2,7 @@
 #include "Creature.h"
 #include "DataManager.h"
 #include "SkillComponent.h"
+#include "StatComponent.h"
 
 Creature::Creature()
 {
@@ -31,6 +32,9 @@ void Creature::SetInfo(int32 templateId)
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
 			_creatureData = GDataManager->GetPlayerDataById(_templateId);
+			
+			_statComponent = make_shared<StatComponent>();
+			_statComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData, creatureType);
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{

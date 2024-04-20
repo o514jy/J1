@@ -2,7 +2,9 @@
 #include "J1/J1GameplayTags.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1DataManager.h"
+#include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
+#include "J1/Game/Skill/J1SkillBase.h"
 
 // Sets default values
 AJ1Creature::AJ1Creature()
@@ -67,6 +69,18 @@ void AJ1Creature::SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo)
 	ObjectInfo->CopyFrom(InObjectInfo);
 }
 
+void AJ1Creature::OnDamaged(TObjectPtr<AActor> InAttacker, TObjectPtr<UJ1SkillBase> InSkill)
+{
+	if (InAttacker == nullptr)
+		return;
+
+	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(InAttacker);
+	if (creature == nullptr)
+		return;
+
+
+}
+
 void AJ1Creature::HandleGameplayEvent(FGameplayTag EventTag)
 {
 	if (EventTag.MatchesTag(TemplateTag) == true)
@@ -108,6 +122,9 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		{
 			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
 			TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
+
+			StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
+			StatComponent->SetInfo(this, CreatureData, creatureType);
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{

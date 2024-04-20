@@ -13,6 +13,11 @@ public:
 
 public:
 	/** component **/
+	
+	/* stat */
+	StatComponentRef _statComponent;
+
+	/* skill */
 	SkillComponentRef _skillComponent;
 
 protected:

@@ -185,6 +185,7 @@
     <ClCompile Include="SkillComponent.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="StartRoom.cpp" />
+    <ClCompile Include="StatComponent.cpp" />
     <ClCompile Include="Struct.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -215,6 +216,7 @@
     <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="StartRoom.h" />
+    <ClInclude Include="StatComponent.h" />
     <ClInclude Include="Struct.pb.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

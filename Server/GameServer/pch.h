@@ -47,6 +47,9 @@ USING_SHARED_PTR(RectangleEffectData);
 USING_SHARED_PTR(SkillBase);
 USING_SHARED_PTR(SkillComponent);
 
+/** stat **/
+USING_SHARED_PTR(StatComponent);
+
 #define SEND_PACKET(pkt)													\
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);	\
 	session->Send(sendBuffer);
