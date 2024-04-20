@@ -30,12 +30,6 @@ void UJ1StatComponent::BeginPlay()
 void UJ1StatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// temp
-	if (bShouldRefresh == true)
-	{
-		RefreshAll();
-	}
 }
 
 void UJ1StatComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCreatureData> InCreatureData, Protocol::CreatureType InCreatureType)

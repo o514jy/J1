@@ -18,6 +18,10 @@ public:
 	void SetState(Protocol::MoveState moveState);
 	Protocol::MoveState GetState();
 
+
+
+	StatComponentRef GetStatComponent() { return _statComponent; }
+
 public:
 	/** information **/
 	shared_ptr<Protocol::ObjectType> objectType;
@@ -26,6 +30,14 @@ public:
 
 	uint64 _objectId;
 	int32 _templateId;
+
+public:
+	/** battle **/
+	virtual void OnDamaged(ObjectRef attacker, SkillBaseRef skill);
+
+public:
+	/* stat */
+	StatComponentRef _statComponent;
 
 public:
 	atomic<weak_ptr<RoomBase>> room;

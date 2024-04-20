@@ -127,6 +127,16 @@ bool Handle_S_SKILL(PacketSessionRef& session, Protocol::S_SKILL& pkt)
 	return true;
 }
 
+bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		//GameNetwork->HandleStat(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)
 {
 	auto Msg = pkt.msg();

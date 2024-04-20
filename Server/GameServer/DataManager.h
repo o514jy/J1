@@ -20,6 +20,8 @@ public:
 
 	SkillDataRef GetSkillDataById(int32 id);
 
+	EffectDataRef GetEffectDataById(int32 id);
+
 private:
 	USE_LOCK;
 

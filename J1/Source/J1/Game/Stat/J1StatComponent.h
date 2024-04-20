@@ -6,6 +6,7 @@
 #include "J1StatComponent.generated.h"
 
 class AJ1Creature;
+class UCreatureData;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class J1_API UJ1StatComponent : public UActorComponent
@@ -71,5 +72,4 @@ private:
 	/** dirty flag to refresh stat **/
 	UPROPERTY()
 	bool bShouldRefresh;
-		
 };

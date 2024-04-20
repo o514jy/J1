@@ -235,6 +235,11 @@ bool RoomBase::RemoveObject(uint64 objectId)
 
 void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 {
+	Broadcast_internal(sendBuffer, exceptId);
+}
+
+void RoomBase::Broadcast_internal(SendBufferRef sendBuffer, uint64 exceptId)
+{
 	for (auto& item : _objects)
 	{
 		PlayerRef player = dynamic_pointer_cast<Player>(item.second);

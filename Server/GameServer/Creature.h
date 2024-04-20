@@ -12,13 +12,21 @@ public:
 	virtual void SetInfo(int32 templateId) override;
 
 public:
+	/** setter & getter **/
+	StatComponentRef GetStatComponent() { return _statComponent; }
+	SkillComponentRef GetSkillComponent() { return _skillComponent; }
+
+	CreatureDataRef GetCreatureData() { return _creatureData; }
+
+public:
 	/** component **/
-	
-	/* stat */
-	StatComponentRef _statComponent;
 
 	/* skill */
 	SkillComponentRef _skillComponent;
+
+public:
+	/** battle **/
+	virtual void OnDamaged(ObjectRef attacker, SkillBaseRef skill) override;
 
 protected:
 	/** information **/

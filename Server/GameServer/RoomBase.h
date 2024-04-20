@@ -14,6 +14,9 @@ public:
 	// room으로부터 퇴장시킨다.
 	virtual bool LeaveRoom(ObjectRef object);
 
+public:
+	/** setter & getter **/
+
 public: 
 	/** network **/
 	//EnterRoom() 호출
@@ -36,10 +39,14 @@ private:
 	bool AddObject(ObjectRef object);
 	bool RemoveObject(uint64 objectId);
 
-protected:
-	// exceptId를 제외한 모든 object에게 sendBuffer를 보낸다.
+public:
+	/** use outside **/
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 
-private:
+protected:
+	// exceptId를 제외한 모든 object에게 sendBuffer를 보낸다.
+	void Broadcast_internal(SendBufferRef sendBuffer, uint64 exceptId = 0);
+
+public:
 	unordered_map<uint64, ObjectRef> _objects;
 };

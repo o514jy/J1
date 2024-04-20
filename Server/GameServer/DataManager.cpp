@@ -153,3 +153,11 @@ SkillDataRef DataManager::GetSkillDataById(int32 id)
 
     return _skillData[id];
 }
+
+EffectDataRef DataManager::GetEffectDataById(int32 id)
+{
+    if (_effectData.find(id) == _effectData.end())
+        return nullptr;
+
+    return _effectData[id];
+}

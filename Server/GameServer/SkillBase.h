@@ -27,6 +27,13 @@ public:
 	virtual void DoSkill();
 
 public:
+	/** gather creature in effects **/
+	vector<ObjectRef> GatherObjectInEffectArea(int32 effectId);
+
+	/* is in area */
+	bool IsInRectangleArea(ObjectRef object, float luY, float luX, float rdY, float rdX);
+
+public:
 	/** exception check **/
 	vector<JobRef> _jobs;
 

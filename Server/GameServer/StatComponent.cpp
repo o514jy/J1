@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "StatComponent.h"
 #include "Data.h"
+#include "Creature.h"
+#include "RoomBase.h"
 
 StatComponent::StatComponent()
 {
 	_owner = nullptr;
+	_statInfo = nullptr;
 	_shouldRefresh = false;
 
 	_hp = 0;
@@ -22,6 +25,7 @@ StatComponent::StatComponent()
 StatComponent::~StatComponent()
 {
 	_owner = nullptr;
+	_statInfo = nullptr;
 }
 
 void StatComponent::UpdateTick()
@@ -35,6 +39,8 @@ void StatComponent::UpdateTick()
 void StatComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData, Protocol::CreatureType creatureType)
 {
 	_owner = owner;
+
+	_owner->objectInfo->set_allocated_stat_info(_statInfo.get());
 
 	/* creature */
 	_baseMaxHp = creatureData->MaxHp;
@@ -53,6 +59,7 @@ void StatComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData, Pro
 void StatComponent::SetHp(float hp)
 {
 	_hp = hp;
+	_statInfo->set_hp(_hp);
 	_shouldRefresh = true;
 }
 
@@ -64,6 +71,7 @@ float StatComponent::GetHp()
 void StatComponent::SetMaxHp(float maxHp)
 {
 	_maxHp = maxHp;
+	_statInfo->set_max_hp(_maxHp);
 	_shouldRefresh = true;
 }
 
@@ -75,6 +83,7 @@ float StatComponent::GetMaxHp()
 void StatComponent::SetAtk(float atk)
 {
 	_atk = atk;
+	_statInfo->set_atk(_atk);
 	_shouldRefresh = true;
 }
 
@@ -86,6 +95,7 @@ float StatComponent::GetAtk()
 void StatComponent::SetDef(float def)
 {
 	_def = def;
+	_statInfo->set_def(_def);
 	_shouldRefresh = true;
 }
 
@@ -97,6 +107,22 @@ float StatComponent::GetDef()
 void StatComponent::RefreshAll()
 {
 	// todo : refresh all
+
+	// send stat packet to client
+	{
+		Protocol::S_STAT statPkt;
+		statPkt.set_object_id(_owner->_objectId);
+		
+		Protocol::StatInfo* statInfo = new Protocol::StatInfo();
+		statInfo->CopyFrom(*_statInfo);
+		statPkt.set_allocated_stat_info(statInfo);
+
+		RoomBaseRef room = _owner->room.load().lock();
+
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(statPkt);
+		room->Broadcast(sendBuffer);
+	}
+
 
 	_shouldRefresh = false;
 }

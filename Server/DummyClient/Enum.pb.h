@@ -160,12 +160,14 @@ enum MoveState : int {
   MOVE_STATE_RUN = 2,
   MOVE_STATE_DASH = 3,
   MOVE_STATE_SKILL = 4,
+  MOVE_STATE_CC = 5,
+  MOVE_STATE_DEAD = 6,
   MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool MoveState_IsValid(int value);
 constexpr MoveState MoveState_MIN = MOVE_STATE_NONE;
-constexpr MoveState MoveState_MAX = MOVE_STATE_SKILL;
+constexpr MoveState MoveState_MAX = MOVE_STATE_DEAD;
 constexpr int MoveState_ARRAYSIZE = MoveState_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor();
@@ -207,6 +209,33 @@ inline bool SkillType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SkillType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<SkillType>(
     SkillType_descriptor(), name, value);
+}
+enum EffectType : int {
+  EFFECT_TYPE_NONE = 0,
+  EFFECT_TYPE_RECTANGLE = 1,
+  EFFECT_TYPE_CIRCLE = 2,
+  EFFECT_TYPE_PIZZA = 3,
+  EffectType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  EffectType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool EffectType_IsValid(int value);
+constexpr EffectType EffectType_MIN = EFFECT_TYPE_NONE;
+constexpr EffectType EffectType_MAX = EFFECT_TYPE_PIZZA;
+constexpr int EffectType_ARRAYSIZE = EffectType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EffectType_descriptor();
+template<typename T>
+inline const std::string& EffectType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EffectType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EffectType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EffectType_descriptor(), enum_t_value);
+}
+inline bool EffectType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EffectType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EffectType>(
+    EffectType_descriptor(), name, value);
 }
 enum SkillSlot : int {
   SKILL_SLOT_NONE = 0,
@@ -314,6 +343,11 @@ template <> struct is_proto_enum< ::Protocol::SkillType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::SkillType>() {
   return ::Protocol::SkillType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EffectType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EffectType>() {
+  return ::Protocol::EffectType_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::SkillSlot> : ::std::true_type {};
 template <>
