@@ -9,6 +9,7 @@ UJ1StatComponent::UJ1StatComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	bShouldRefresh = false;
+	StatInfo = nullptr;
 }
 
 UJ1StatComponent::~UJ1StatComponent()
@@ -22,7 +23,7 @@ void UJ1StatComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	StatInfo = MakeShared<Protocol::StatInfo>();
 }
 
 
@@ -35,6 +36,8 @@ void UJ1StatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 void UJ1StatComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCreatureData> InCreatureData, Protocol::CreatureType InCreatureType)
 {
 	Owner = InOwner;
+
+	Owner->GetObjectInfo()->set_allocated_stat_info(StatInfo.Get());
 
 	/* creature */
 	BaseMaxHp = InCreatureData->MaxHp;
@@ -53,6 +56,7 @@ void UJ1StatComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCrea
 
 void UJ1StatComponent::SetHp(float InHp)
 {
+	StatInfo->set_hp(InHp);
 	Hp = InHp;
 }
 
@@ -63,6 +67,7 @@ float UJ1StatComponent::GetHp()
 
 void UJ1StatComponent::SetMaxHp(float InMaxHp)
 {
+	StatInfo->set_max_hp(InMaxHp);
 	MaxHp = InMaxHp;
 }
 
@@ -73,6 +78,7 @@ float UJ1StatComponent::GetMaxHp()
 
 void UJ1StatComponent::SetAtk(float InAtk)
 {
+	StatInfo->set_atk(InAtk);
 	Atk = InAtk;
 }
 
@@ -83,6 +89,7 @@ float UJ1StatComponent::GetAtk()
 
 void UJ1StatComponent::SetDef(float InDef)
 {
+	StatInfo->set_def(InDef);
 	Def = InDef;
 }
 
@@ -91,7 +98,18 @@ float UJ1StatComponent::GetDef()
 	return Def;
 }
 
+void UJ1StatComponent::ProcessStat(const Protocol::StatInfo& InStatInfo)
+{
+	SetHp(InStatInfo.hp());
+	SetMaxHp(InStatInfo.max_hp());
+	SetAtk(InStatInfo.atk());
+	SetDef(InStatInfo.def());
+
+	RefreshAll();
+}
+
 void UJ1StatComponent::RefreshAll()
 {
+	// 계산 및 ui 초기화
 }
 

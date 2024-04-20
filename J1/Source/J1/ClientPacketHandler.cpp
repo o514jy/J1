@@ -131,7 +131,7 @@ bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt)
 {
 	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
 	{
-		//GameNetwork->HandleStat(pkt);
+		GameNetwork->HandleStat(pkt);
 	}
 
 	return true;

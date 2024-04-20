@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Object/J1MyPlayer.h"
 #include "Object/J1ObjectManager.h"
+#include "J1/Game/Stat/J1StatComponent.h"
 
 void UJ1NetworkManager::Tick(float DeltaTime)
 {
@@ -194,4 +195,22 @@ void UJ1NetworkManager::HandleSkill(const Protocol::S_SKILL& SkillPkt)
 
 	const Protocol::SkillSlot& slot = SkillPkt.slot();
 	FindActor->ProcessSkill(slot);
+}
+
+void UJ1NetworkManager::HandleStat(const Protocol::S_STAT& StatPkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const uint64 ObjectId = StatPkt.object_id();
+	TObjectPtr<AJ1Creature> creature = GetManager(Object)->Creatures[ObjectId];
+	if (creature == nullptr)
+		return;
+
+	TObjectPtr<UJ1StatComponent> stats = creature->StatComponent;
+	stats->ProcessStat(StatPkt.stat_info());
 }

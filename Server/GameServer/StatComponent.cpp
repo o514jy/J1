@@ -7,7 +7,7 @@
 StatComponent::StatComponent()
 {
 	_owner = nullptr;
-	_statInfo = nullptr;
+	_statInfo = make_shared<Protocol::StatInfo>();
 	_shouldRefresh = false;
 
 	_hp = 0;

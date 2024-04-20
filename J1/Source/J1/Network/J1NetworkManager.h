@@ -57,6 +57,8 @@ public:
 
 	void HandleSkill(const Protocol::S_SKILL& SkillPkt);
 
+	void HandleStat(const Protocol::S_STAT& StatPkt);
+
 public:
 	// GameServer
 	class FSocket* Socket;
