@@ -116,4 +116,22 @@ void UJ1GameData::ParseJsonData(const FString& path)
             }
         }
     }
+
+    const TArray<TSharedPtr<FJsonValue>> buffs = JsonObject->GetArrayField(TEXT("buffs"));
+    {
+        for (int32 i = 0; i < buffs.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> buff = buffs[i]->AsObject();
+
+            UBuffData* data = NewObject<UBuffData>();
+
+            data->DataId = buff->GetIntegerField(TEXT("DataId"));
+            data->BuffType = buff->GetStringField(TEXT("BuffType"));
+            data->BuffDurationType = buff->GetStringField(TEXT("BuffDurationType"));
+            data->BuffDurationPeriod = buff->GetNumberField(TEXT("BuffDurationPeriod"));
+            data->BuffDurationMagnitude = buff->GetNumberField(TEXT("BuffDurationMagnitude"));
+
+            BuffData.Add(data->DataId, data);
+        }
+    }
 }

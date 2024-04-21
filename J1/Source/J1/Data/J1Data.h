@@ -150,6 +150,29 @@ public:
 };
 
 UCLASS(BlueprintType)
+class UBuffData : public UDataAsset
+{
+public:
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 DataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString BuffType;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString BuffDurationType;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float BuffDurationPeriod;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float BuffDurationMagnitude;
+};
+
+UCLASS(BlueprintType)
 class J1_API UJ1GameData : public UDataAsset
 {
 public:
@@ -170,4 +193,7 @@ public:
 
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UEffectData>> EffectData;
+
+	UPROPERTY(BlueprintType)
+	TMap<int32, TObjectPtr<UBuffData>> BuffData;
 };
