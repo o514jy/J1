@@ -62,6 +62,7 @@ void UJ1GameData::ParseJsonData(const FString& path)
             USkillData* data = NewObject<USkillData>();
             /** skill **/
             data->DataId = skill->GetIntegerField(TEXT("DataId"));
+            data->OwnerSkillDataId = skill->GetIntegerField(TEXT("OwnerSkillDataId"));
             data->Name = skill->GetStringField(TEXT("Name"));
             data->Description = skill->GetStringField(TEXT("Description"));
             TArray<TSharedPtr<FJsonValue>> projIdList = skill->GetArrayField(TEXT("ProjectileIdList"));

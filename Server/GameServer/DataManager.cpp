@@ -121,6 +121,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             {
                 RectangleEffectDataRef dataRef = make_shared<RectangleEffectData>();
                 dataRef->DataId = effect["DataId"].GetInt();
+                dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
                 dataRef->EffectType = effectType;
                 dataRef->LeftUpPosY = effect["LeftUpPosY"].GetFloat();
                 dataRef->LeftUpPosX = effect["LeftUpPosX"].GetFloat();
@@ -129,6 +130,22 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
                 _effectData.insert(make_pair(dataRef->DataId, dataRef));
             }
+        }
+
+        /** buffs **/
+        Value& buffs = doc["buffs"];
+        for (int i = 0; i < buffs.Size(); i++)
+        {
+            Value& buff = buffs[i];
+
+            BuffDataRef dataRef = make_shared<BuffData>();
+            dataRef->DataId = buff["DataId"].GetInt();
+            dataRef->BuffType = Utils::StrToWstr(buff["BuffType"].GetString());
+            dataRef->BuffDurationType = Utils::StrToWstr(buff["BuffDurationType"].GetString());
+            dataRef->BuffDurationPeriod = buff["BuffDurationPeriod"].GetFloat();
+            dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetFloat();
+
+            _buffData.insert(make_pair(dataRef->DataId, dataRef));
         }
     }
     catch (std::exception& e) {
@@ -160,4 +177,12 @@ EffectDataRef DataManager::GetEffectDataById(int32 id)
         return nullptr;
 
     return _effectData[id];
+}
+
+BuffDataRef DataManager::GetBuffDataById(int32 id)
+{
+    if (_buffData.find(id) == _buffData.end())
+        return nullptr;
+
+    return _buffData[id];
 }

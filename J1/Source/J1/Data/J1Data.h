@@ -91,6 +91,9 @@ public:
 	int32 DataId;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 OwnerSkillDataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	FString Name;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)

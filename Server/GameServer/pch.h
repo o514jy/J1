@@ -42,6 +42,7 @@ USING_SHARED_PTR(BossData);
 USING_SHARED_PTR(SkillData);
 USING_SHARED_PTR(EffectData);
 USING_SHARED_PTR(RectangleEffectData);
+USING_SHARED_PTR(BuffData);
 
 /** skill **/
 USING_SHARED_PTR(SkillBase);

@@ -68,6 +68,8 @@ public:
 
 	virtual void ProcessSkill(const Protocol::SkillSlot& Slot);
 
+	
+
 public:
 	/** initialize info **/
 	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo);

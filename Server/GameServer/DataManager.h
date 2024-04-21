@@ -22,6 +22,8 @@ public:
 
 	EffectDataRef GetEffectDataById(int32 id);
 
+	BuffDataRef GetBuffDataById(int32 id);
+
 private:
 	USE_LOCK;
 
@@ -32,5 +34,7 @@ private:
 	unordered_map<int32, SkillDataRef> _skillData;
 
 	unordered_map<int32, EffectDataRef> _effectData;
+
+	unordered_map<int32, BuffDataRef> _buffData;
 };
 

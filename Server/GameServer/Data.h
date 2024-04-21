@@ -59,6 +59,7 @@ class EffectData
 {
 public:
 	int32 DataId;
+	int32 OwnerSkillDataId;
 	wstring EffectType;
 };
 
@@ -69,4 +70,14 @@ public:
 	float LeftUpPosX;
 	float RightDownPosY;
 	float RightDownPosX;
+};
+
+class BuffData
+{
+public:
+	int32 DataId;
+	wstring BuffType;
+	wstring BuffDurationType;
+	float BuffDurationPeriod;
+	float BuffDurationMagnitude;
 };

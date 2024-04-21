@@ -102,6 +102,11 @@ bool SkillBase::IsInRectangleArea(ObjectRef object, float luY, float luX, float 
 	float centerX = object->posInfo->x();
 	float centerY = object->posInfo->y();
 
+	luY += object->posInfo->y();
+	luX += object->posInfo->x();
+	rdY += object->posInfo->y();
+	rdX += object->posInfo->x();
+
 	// temp
 	CreatureRef creature = static_pointer_cast<Creature>(object);
 	CreatureDataRef data = creature->GetCreatureData();
