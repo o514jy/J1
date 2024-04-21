@@ -112,6 +112,9 @@ public:
 	TArray<float> AnimImpactTimeList;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> BuffIdList;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<int32> EffectIdList;
 };
 

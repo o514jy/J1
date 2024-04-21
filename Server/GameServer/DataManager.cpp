@@ -101,6 +101,11 @@ void DataManager::ParseJsonData(const WCHAR* path)
             {
                 dataRef->AnimImpactTimeList.push_back(impactTimes[j].GetFloat());
             }
+            Value& buffIds = skill["BuffIdList"];
+            for (int j = 0; j < buffIds.Size(); j++)
+            {
+                dataRef->BuffIdList.push_back(buffIds[j].GetInt());
+            }
             Value& effectIds = skill["EffectIdList"];
             for (int j = 0; j < effectIds.Size(); j++)
             {

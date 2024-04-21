@@ -52,6 +52,7 @@ public:
 	float CoolTime;
 	float SkillDuration;
 	vector<float> AnimImpactTimeList;
+	vector<int32> BuffIdList;
 	vector<int32> EffectIdList;
 };
 

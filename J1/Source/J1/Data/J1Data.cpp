@@ -81,6 +81,13 @@ void UJ1GameData::ParseJsonData(const FString& path)
                 if (time->TryGetNumber(id))
                     data->AnimImpactTimeList.Add(id);
             }
+            TArray<TSharedPtr<FJsonValue>> BuffIds = skill->GetArrayField(TEXT("BuffIdList"));
+            for (auto& buffId : BuffIds)
+            {
+                int32 id;
+                if (buffId->TryGetNumber(id))
+                    data->BuffIdList.Add(id);
+            }
             TArray<TSharedPtr<FJsonValue>> EffectIds = skill->GetArrayField(TEXT("EffectIdList"));
             for (auto& effectId : EffectIds)
             {
