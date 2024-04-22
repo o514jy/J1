@@ -34,6 +34,12 @@
     <Filter Include="Game\Stat">
       <UniqueIdentifier>{3d691fa5-f73e-4aa2-a0a7-f0709a943901}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Buff">
+      <UniqueIdentifier>{6fdd273c-a144-4127-8141-c667376bc62b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Buff\Instant">
+      <UniqueIdentifier>{15a2ddec-4ab0-4d79-8b92-3b50f1870081}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -114,6 +120,15 @@
     <ClCompile Include="StatComponent.cpp">
       <Filter>Game\Stat</Filter>
     </ClCompile>
+    <ClCompile Include="BuffComponent.cpp">
+      <Filter>Game\Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffBase.cpp">
+      <Filter>Game\Buff</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffInstant.cpp">
+      <Filter>Game\Buff\Instant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -193,6 +208,15 @@
     </ClInclude>
     <ClInclude Include="StatComponent.h">
       <Filter>Game\Stat</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffComponent.h">
+      <Filter>Game\Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffBase.h">
+      <Filter>Game\Buff</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffInstant.h">
+      <Filter>Game\Buff\Instant</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

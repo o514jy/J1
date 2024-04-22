@@ -26,7 +26,7 @@ public:
 
 public:
 	/** battle **/
-	virtual void OnDamaged(ObjectRef attacker, SkillBaseRef skill) override;
+	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff) override;
 
 protected:
 	/** information **/

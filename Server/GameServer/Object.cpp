@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "Data.h"
 #include "SkillBase.h"
+#include "StatComponent.h"
 
 Object::Object()
 {
@@ -42,8 +43,16 @@ Protocol::MoveState Object::GetState()
 	return posInfo->state();
 }
 
-void Object::OnDamaged(ObjectRef attacker, SkillBaseRef skill)
+void Object::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
 	if (attacker == nullptr)
 		return;
+
+	StatComponentRef stats = attacker->GetStatComponent();
+	// todo : calculate final damage
+	float finalDamage = max(0, stats->GetAtk() - stats->GetDef());
+	// calculate final hp
+	float finalHp = max(0, stats->GetHp() - finalDamage);
+
+	stats->SetHp(finalHp); // 0일때 사망처리는 sethp 쪽에서 해준다.
 }

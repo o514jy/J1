@@ -47,24 +47,10 @@ void Creature::SetInfo(int32 templateId)
 	_skillComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData);
 }
 
-void Creature::OnDamaged(ObjectRef attacker, SkillBaseRef skill)
+void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
-	__super::OnDamaged(attacker, skill);
+	__super::OnDamaged(attacker, buff);
 
-	CreatureRef creature = static_pointer_cast<Creature>(attacker);
-	if (creature == nullptr)
-		return;
-
-	StatComponentRef stats = creature->GetStatComponent();
-	// todo : calculate final damage
-	float finalDamage = max(0, stats->GetAtk() - stats->GetDef());
-	// calculate final hp
-	float finalHp = max(0, stats->GetHp() - finalDamage);
-
-	if (finalHp <= 0)
-	{
-		stats->SetHp(finalHp);
-		// OnDead(attacker, skill);
-	}
+	
 }
 

@@ -154,6 +154,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BuffBase.cpp" />
+    <ClCompile Include="BuffComponent.cpp" />
+    <ClCompile Include="BuffInstant.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataManager.cpp" />
@@ -194,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BuffBase.h" />
+    <ClInclude Include="BuffComponent.h" />
+    <ClInclude Include="BuffInstant.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />

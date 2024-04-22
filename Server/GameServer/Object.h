@@ -18,8 +18,6 @@ public:
 	void SetState(Protocol::MoveState moveState);
 	Protocol::MoveState GetState();
 
-
-
 	StatComponentRef GetStatComponent() { return _statComponent; }
 
 public:
@@ -33,7 +31,7 @@ public:
 
 public:
 	/** battle **/
-	virtual void OnDamaged(ObjectRef attacker, SkillBaseRef skill);
+	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff);
 
 public:
 	/* stat */

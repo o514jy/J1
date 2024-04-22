@@ -48,6 +48,9 @@ USING_SHARED_PTR(BuffData);
 USING_SHARED_PTR(SkillBase);
 USING_SHARED_PTR(SkillComponent);
 
+/** buff **/
+USING_SHARED_PTR(BuffBase);
+
 /** stat **/
 USING_SHARED_PTR(StatComponent);
 
