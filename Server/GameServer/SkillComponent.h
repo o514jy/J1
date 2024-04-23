@@ -17,13 +17,13 @@ public:
 
 public:
 	/** network **/
-	shared_ptr<Protocol::SkillInfo> skillInfo;
+	Protocol::SkillInfo* skillInfo;
 
 public:
 	/** process **/
 	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot);
 
-	void DoSkill(const Protocol::SkillSlot& skillSlot);
+	void DoSkill(const Protocol::C_SKILL& skillPkt);
 
 public:
 	/** information **/

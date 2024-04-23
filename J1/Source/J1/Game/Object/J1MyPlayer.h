@@ -34,7 +34,7 @@ public:
 	/** network **/
 	void CheckAndRegisterMove(float DeltaTime);
 	virtual void ProcessMove(const Protocol::PosInfo& Info) override;
-	virtual void ProcessSkill(const Protocol::SkillSlot& Slot) override;
+	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt) override;
 
 	bool CompareNowPosAndDestPos();
 

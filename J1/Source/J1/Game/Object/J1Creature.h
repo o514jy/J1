@@ -33,10 +33,10 @@ public:
 	Protocol::MoveState GetMoveState() { return PosInfo->state(); }
 
 	void SetPosInfo(const Protocol::PosInfo& Info, bool Forced = false);
-	TSharedPtr<Protocol::PosInfo> GetPosInfo() { return PosInfo; }
+	Protocol::PosInfo* GetPosInfo() { return PosInfo; }
 
 	void SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo);
-	TSharedPtr<Protocol::ObjectInfo> GetObjectInfo() { return ObjectInfo; }
+	Protocol::ObjectInfo* GetObjectInfo() { return ObjectInfo; }
 
 	TObjectPtr<UCreatureData> GetCreatureData() { return CreatureData; }
 
@@ -66,7 +66,7 @@ public:
 
 	virtual void ProcessMove(const Protocol::PosInfo& Info);
 
-	virtual void ProcessSkill(const Protocol::SkillSlot& Slot);
+	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt);
 
 	
 
@@ -76,9 +76,9 @@ public:
 
 protected:
 	/** information **/
-	TSharedPtr<Protocol::ObjectInfo> ObjectInfo; // 정보
+	Protocol::ObjectInfo* ObjectInfo; // 정보
 
-	TSharedPtr<Protocol::PosInfo> PosInfo; // 위치 정보
+	Protocol::PosInfo* PosInfo; // 위치 정보
 
 	uint64 ObjectId; // instance id
 	int32 TemplateId; // data id

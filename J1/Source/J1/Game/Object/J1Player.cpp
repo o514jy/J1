@@ -34,15 +34,11 @@ AJ1Player::AJ1Player()
 	GetCharacterMovement()->bRunPhysicsWithNoController = true;
 
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
-
-	ObjectInfo = MakeShared<Protocol::ObjectInfo>(Protocol::ObjectInfo());
-	PosInfo = MakeShared<Protocol::PosInfo>(Protocol::PosInfo());
 }
 
 AJ1Player::~AJ1Player()
 {
-	ObjectInfo = nullptr;
-	PosInfo = nullptr;
+	
 }
 
 void AJ1Player::BeginPlay()
@@ -90,7 +86,7 @@ void AJ1Player::ProcessMove(const Protocol::PosInfo& Info)
 	Cast<AJ1AIController>(Controller)->ProcessMove(Info);
 }
 
-void AJ1Player::ProcessSkill(const Protocol::SkillSlot& Slot)
+void AJ1Player::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
-	Super::ProcessSkill(Slot);
+	Super::ProcessSkill(InSkillPkt);
 }

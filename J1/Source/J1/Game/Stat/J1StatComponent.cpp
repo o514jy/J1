@@ -9,11 +9,12 @@ UJ1StatComponent::UJ1StatComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	bShouldRefresh = false;
-	StatInfo = nullptr;
+	StatInfo = new Protocol::StatInfo();
 }
 
 UJ1StatComponent::~UJ1StatComponent()
 {
+	
 }
 
 
@@ -23,7 +24,7 @@ void UJ1StatComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	StatInfo = MakeShared<Protocol::StatInfo>();
+	
 }
 
 
@@ -37,7 +38,7 @@ void UJ1StatComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCrea
 {
 	Owner = InOwner;
 
-	Owner->GetObjectInfo()->set_allocated_stat_info(StatInfo.Get());
+	Owner->GetObjectInfo()->set_allocated_stat_info(StatInfo);
 
 	/* creature */
 	BaseMaxHp = InCreatureData->MaxHp;
@@ -58,6 +59,8 @@ void UJ1StatComponent::SetHp(float InHp)
 {
 	StatInfo->set_hp(InHp);
 	Hp = InHp;
+	
+	ScreenDebugMessageNotString(Hp);
 }
 
 float UJ1StatComponent::GetHp()
@@ -100,6 +103,8 @@ float UJ1StatComponent::GetDef()
 
 void UJ1StatComponent::ProcessStat(const Protocol::StatInfo& InStatInfo)
 {
+	StatInfo->CopyFrom(InStatInfo);
+
 	SetHp(InStatInfo.hp());
 	SetMaxHp(InStatInfo.max_hp());
 	SetAtk(InStatInfo.atk());

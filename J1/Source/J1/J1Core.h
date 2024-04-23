@@ -8,4 +8,5 @@
 #define GetManager(name)	GetGameInstance()->GetSubsystem<UJ1##name##Manager>()
 
 /** Screen Debug Message **/
-#define ScreenDebugMessage(x) if(GEngine) { GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Cyan, x); }
+#define ScreenDebugMessageString(x) if(GEngine) { GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Cyan, x); }
+#define ScreenDebugMessageNotString(x) ScreenDebugMessageString(FString::Printf(TEXT("%f"), x));

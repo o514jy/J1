@@ -22,9 +22,9 @@ public:
 
 public:
 	/** information **/
-	shared_ptr<Protocol::ObjectType> objectType;
-	shared_ptr<Protocol::ObjectInfo> objectInfo;
-	shared_ptr<Protocol::PosInfo> posInfo;
+	Protocol::ObjectType* objectType;
+	Protocol::ObjectInfo* objectInfo;
+	Protocol::PosInfo* posInfo;
 
 	uint64 _objectId;
 	int32 _templateId;

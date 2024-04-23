@@ -35,8 +35,9 @@ PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 	player->objectInfo->set_object_id(newId);
 	player->objectInfo->set_template_id(templateId);
 	player->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_CREATURE);
-	player->posInfo->set_object_id(newId);
 	player->objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_PLAYER);
+
+	player->posInfo->set_object_id(newId);
 
 	player->session = session;
 	session->player.store(player);

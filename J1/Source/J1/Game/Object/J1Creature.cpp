@@ -12,12 +12,14 @@ AJ1Creature::AJ1Creature()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ObjectInfo = new Protocol::ObjectInfo();
+	PosInfo = new Protocol::PosInfo();
 }
 
 AJ1Creature::~AJ1Creature()
 {
-	ObjectInfo = nullptr;
-	PosInfo = nullptr;
+	delete ObjectInfo;
+
 	CreatureData = nullptr;
 }
 
@@ -96,9 +98,9 @@ void AJ1Creature::ProcessMove(const Protocol::PosInfo& Info)
 {
 }
 
-void AJ1Creature::ProcessSkill(const Protocol::SkillSlot& Slot)
+void AJ1Creature::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
-	SkillComponent->DoSkill(Slot);
+	SkillComponent->DoSkill(InSkillPkt);
 }
 
 void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)

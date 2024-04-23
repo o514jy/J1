@@ -31,7 +31,7 @@ public:
 
 public:
 	/** network **/
-	shared_ptr<Protocol::StatInfo> _statInfo;
+	Protocol::StatInfo* _statInfo;
 
 public:
 	/** refresh **/

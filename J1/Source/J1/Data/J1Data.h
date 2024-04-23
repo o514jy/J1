@@ -109,7 +109,7 @@ public:
 	float SkillDuration;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	TArray<float> AnimImpactTimeList;
+	TArray<int32> AnimImpactTimeList;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<int32> BuffIdList;
@@ -140,16 +140,30 @@ public:
 
 public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float LeftUpPosY;
+	float ForwardLength;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float LeftUpPosX;
+	float BackwardLength;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float RightDownPosY;
+	float LeftLength;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float RightDownPosX;
+	float RightLength;
+};
+
+UCLASS(BlueprintType)
+class UPizzaEffectData : public UEffectData
+{
+public:
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float Radius;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float Theta;
 };
 
 UCLASS(BlueprintType)
@@ -167,6 +181,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	FString BuffDurationType;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float BuffAmountRate;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float BuffDurationPeriod;

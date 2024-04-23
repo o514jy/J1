@@ -31,13 +31,13 @@ bool StartRoom::EnterRoom(ObjectRef object, bool randPos)
 
 	// 보스 몬스터 소환
 	{
-		Protocol::S_SPAWN spawnPkt;
-
-		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-		objectInfo->CopyFrom(*object->objectInfo);
-
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
-		Broadcast(sendBuffer, object->objectInfo->object_id());
+		//Protocol::S_SPAWN spawnPkt;
+		//
+		//Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		//objectInfo->CopyFrom(*object->objectInfo);
+		//
+		//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+		//Broadcast(sendBuffer, object->objectInfo->object_id());
 	}
 	
 	return success;

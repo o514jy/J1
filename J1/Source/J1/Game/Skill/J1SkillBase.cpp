@@ -1,4 +1,5 @@
 #include "J1SkillBase.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Animation/AnimMontage.h"
 #include "J1/J1GameplayTags.h"
 #include "System/J1AssetManager.h"
@@ -6,12 +7,15 @@
 #include "J1/Data/J1DataManager.h"
 #include "J1/Data/J1AnimData.h"
 
+
 UJ1SkillBase::UJ1SkillBase()
 {
 	Owner = nullptr;
 	SkillData = nullptr;
 	bCanUseSkill = true;
 	TimeCount = 0;
+
+	ImpactPos = new Protocol::SimplePosInfo();
 }
 
 UJ1SkillBase::~UJ1SkillBase()
@@ -19,6 +23,8 @@ UJ1SkillBase::~UJ1SkillBase()
 	Owner = nullptr;
 	SkillData = nullptr;
 	bCanUseSkill = true;
+
+	delete ImpactPos;
 }
 
 void UJ1SkillBase::SetInfo(TObjectPtr<AJ1Creature> InOwner, int32 InTemplateId)
@@ -52,10 +58,17 @@ bool UJ1SkillBase::GetCanUseSkill()
 	return bCanUseSkill;
 }
 
-void UJ1SkillBase::DoSkill()
+void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
+	ImpactPos->CopyFrom(InSkillPkt.simple_pos_info());
 
+	// 방향 전환
+	FRotator lookRot = UKismetMathLibrary::FindLookAtRotation(Owner->GetActorLocation(),
+		FVector(ImpactPos->x(), ImpactPos->y(), Owner->GetActorLocation().Z));
+	Owner->SetActorRotation(lookRot);
+
+	// 애니메이션 실행
 	Owner->PlayAnimMontage(Montage);
 }
 
@@ -66,4 +79,17 @@ void UJ1SkillBase::HandleGameplayEvent(FGameplayTag InEventTag)
 
 void UJ1SkillBase::OnAttackEvent(int32 InTimeCount)
 {
+	// 끝났을 때
+	if (InTimeCount == SkillData->AnimImpactTimeList.Num())
+	{
+
+	}
+}
+
+void UJ1SkillBase::EndSkillEvent()
+{
+	if (Owner->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+	{
+		Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_IDLE);
+	}
 }

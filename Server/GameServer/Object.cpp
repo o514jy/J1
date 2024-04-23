@@ -3,14 +3,15 @@
 #include "DataManager.h"
 #include "Data.h"
 #include "SkillBase.h"
+#include "BuffBase.h"
 #include "StatComponent.h"
 
 Object::Object()
 {
-	objectType = make_shared<Protocol::ObjectType>();
-	objectInfo = make_shared<Protocol::ObjectInfo>();
-	posInfo = make_shared<Protocol::PosInfo>();
-	objectInfo->set_allocated_pos_info(posInfo.get());
+	objectInfo = new Protocol::ObjectInfo();
+	objectType = new Protocol::ObjectType();
+	posInfo = new Protocol::PosInfo();
+	objectInfo->set_allocated_pos_info(posInfo);
 	
 
 	_statComponent = nullptr;
@@ -21,9 +22,7 @@ Object::Object()
 
 Object::~Object()
 {
-	objectType = nullptr;
-	objectInfo = nullptr;
-	posInfo = nullptr;
+	delete objectInfo;
 
 	_statComponent = nullptr;
 }
@@ -48,11 +47,5 @@ void Object::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 	if (attacker == nullptr)
 		return;
 
-	StatComponentRef stats = attacker->GetStatComponent();
-	// todo : calculate final damage
-	float finalDamage = max(0, stats->GetAtk() - stats->GetDef());
-	// calculate final hp
-	float finalHp = max(0, stats->GetHp() - finalDamage);
-
-	stats->SetHp(finalHp); // 0일때 사망처리는 sethp 쪽에서 해준다.
+	
 }

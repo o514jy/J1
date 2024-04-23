@@ -72,9 +72,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Binaries\$(Configuration)\</OutDir>
+    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Binaries\$(Configuration)\</OutDir>
+    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

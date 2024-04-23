@@ -178,18 +178,24 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 	if (creature->_skillComponent->GetCanUseSkillBySkillSlot(skillSlot) == false)
 		return;
 
+	// 이미 스킬을 쓰고 있는 상태면 종료
+	if (creature->GetState() == Protocol::MoveState::MOVE_STATE_SKILL)
+		return;
+
 	// 스킬 써도 된단다.
 	{
 		Protocol::S_SKILL skillPkt;
 		skillPkt.set_slot(skillSlot);
 		skillPkt.set_object_id(objectId);
+		Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
+		simplePosInfo->CopyFrom(pkt.simple_pos_info());
 
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(skillPkt);
 		Broadcast(sendBuffer);
 	}
 
 	// 클라는 알아서 실행하게 두고 서버도 같이 실행
-	creature->_skillComponent->DoSkill(skillSlot);
+	creature->_skillComponent->DoSkill(pkt);
 }
 
 void RoomBase::UpdateTick()

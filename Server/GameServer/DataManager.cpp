@@ -99,7 +99,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             Value& impactTimes = skill["AnimImpactTimeList"];
             for (int j = 0; j < impactTimes.Size(); j++)
             {
-                dataRef->AnimImpactTimeList.push_back(impactTimes[j].GetFloat());
+                dataRef->AnimImpactTimeList.push_back(impactTimes[j].GetInt());
             }
             Value& buffIds = skill["BuffIdList"];
             for (int j = 0; j < buffIds.Size(); j++)
@@ -128,10 +128,21 @@ void DataManager::ParseJsonData(const WCHAR* path)
                 dataRef->DataId = effect["DataId"].GetInt();
                 dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
                 dataRef->EffectType = effectType;
-                dataRef->LeftUpPosY = effect["LeftUpPosY"].GetFloat();
-                dataRef->LeftUpPosX = effect["LeftUpPosX"].GetFloat();
-                dataRef->RightDownPosY = effect["RightDownPosY"].GetFloat();
-                dataRef->RightDownPosX = effect["RightDownPosX"].GetFloat();
+                dataRef->ForwardLength = effect["ForwardLength"].GetFloat();
+                dataRef->BackwardLength = effect["BackwardLength"].GetFloat();
+                dataRef->LeftLength = effect["LeftLength"].GetFloat();
+                dataRef->RightLength = effect["RightLength"].GetFloat();
+
+                _effectData.insert(make_pair(dataRef->DataId, dataRef));
+            }
+            else if (effectType == L"Pizza")
+            {
+                PizzaEffectDataRef dataRef = make_shared<PizzaEffectData>();
+                dataRef->DataId = effect["DataId"].GetInt();
+                dataRef->OwnerSkillDataId = dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
+                dataRef->EffectType = effectType;
+                dataRef->Radius = effect["Radius"].GetFloat();
+                dataRef->Theta = effect["Theta"].GetFloat();
 
                 _effectData.insert(make_pair(dataRef->DataId, dataRef));
             }
@@ -147,6 +158,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->DataId = buff["DataId"].GetInt();
             dataRef->BuffType = Utils::StrToWstr(buff["BuffType"].GetString());
             dataRef->BuffDurationType = Utils::StrToWstr(buff["BuffDurationType"].GetString());
+            dataRef->BuffAmountRate = buff["BuffAmountRate"].GetFloat();
             dataRef->BuffDurationPeriod = buff["BuffDurationPeriod"].GetFloat();
             dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetFloat();
 

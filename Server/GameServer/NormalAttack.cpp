@@ -2,7 +2,7 @@
 #include "NormalAttack.h"
 #include "Data.h"
 #include "Creature.h"
-#include "BuffBase.h"
+#include "BuffInstant.h"
 
 NormalAttack::NormalAttack()
 {
@@ -21,9 +21,13 @@ void NormalAttack::SetInfo(CreatureRef owner, int32 templateId)
 
 void NormalAttack::OnAttackEvent(int32 timeCount)
 {
+	__super::OnAttackEvent(timeCount);
+
 	// max count 1
 	if (timeCount >= _skillData->EffectIdList.size())
 		return;
+
+	cout << _owner->_objectId << "'s NormalAttack Skill OnAttackEvent " << timeCount << "\n";
 
 	// 스킬의 이펙트 범위 안에 들어왔는지 확인
 	int32 effectId = _skillData->EffectIdList[timeCount];
@@ -33,7 +37,7 @@ void NormalAttack::OnAttackEvent(int32 timeCount)
 	for (auto& object : objects)
 	{
 		// 1) attack 시점에 사용할 buff 생성 
-		BuffBaseRef buff = make_shared<BuffBase>();
+		BuffBaseRef buff = make_shared<BuffInstant>();
 		buff->SetInfo(_skillData->BuffIdList[timeCount], object, static_pointer_cast<SkillBase>(shared_from_this()));
 
 		// 2) 들어온 object에게 buff 부여
@@ -41,9 +45,9 @@ void NormalAttack::OnAttackEvent(int32 timeCount)
 	}
 }
 
-void NormalAttack::DoSkill()
+void NormalAttack::DoSkill(const Protocol::C_SKILL& skillPkt)
 {
-	__super::DoSkill();
+	__super::DoSkill(skillPkt);
 
 	// 애니메이션 재생 (클라에서)
 

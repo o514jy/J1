@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "SkillComponent.h"
 #include "StatComponent.h"
+#include "BuffBase.h"
 
 Creature::Creature()
 {
@@ -51,6 +52,14 @@ void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
 	__super::OnDamaged(attacker, buff);
 
-	
+	// todo : calculate final damage
+	float finalDamage = max(0, buff->GetFinalAmount() - GetCreatureData()->Def);
+	// calculate final hp
+	float finalHp = max(0, GetStatComponent()->GetHp() - finalDamage);
+
+	// process buff type
+
+
+	GetStatComponent()->SetHp(finalHp); // 0일때 사망처리는 sethp 쪽에서 해준다.
 }
 

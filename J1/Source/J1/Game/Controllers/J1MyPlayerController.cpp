@@ -125,6 +125,12 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 	{
 		if (FollowTime > sendMovePacketThreshold)
 		{
+			TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+			if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+			{
+				return;
+			}
+
 			RegisterMove(CachedDestination);
 		}
 		//FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
@@ -137,6 +143,12 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 	// If it was a short press
 	if (FollowTime <= ShortPressThreshold)
 	{
+		TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+		if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+		{
+			return;
+		}
+
 		RegisterMove(CachedDestination);
 		UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, InputData->GetFXCursor(), CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
@@ -147,11 +159,17 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 
 void AJ1MyPlayerController::OnBaseAttackTriggered()
 {
+	// We look for the location in the world where the player has pressed the input
+	FHitResult Hit;
+	bool bHitSuccessful = false;
+	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, OUT Hit);
+	FVector location = Hit.Location;
+
 	// 싸우는 상황이면 평타
 	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
 	if (creature != nullptr)
 	{
-		creature->SkillComponent->RegisterNormalAttack();
+		creature->SkillComponent->RegisterNormalAttack(location);
 	}
 	
 }
@@ -179,6 +197,9 @@ void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 	// send Notify Pos Packet
 	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
 	myPlayer->SetMoveState(Protocol::MOVE_STATE_RUN);
+
+	// 목적지 기입
+	myPlayer->SetPosInfo(posInfo);
 
 	Protocol::C_NOTIFY_POS NotifyPosPkt;
 	

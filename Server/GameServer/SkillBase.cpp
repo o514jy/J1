@@ -11,6 +11,8 @@ SkillBase::SkillBase()
 	_skillData = nullptr;
 	_timeCount = 0;
 	_canUseSkill = true;
+
+	_impactPos = new Protocol::SimplePosInfo();
 }
 
 SkillBase::~SkillBase()
@@ -18,23 +20,34 @@ SkillBase::~SkillBase()
 	_owner = nullptr;
 	_skillData = nullptr;
 
+	delete _impactPos;
+
 	// TODO : Disable AnimEvent
+
 }
 
 void SkillBase::SetInfo(CreatureRef owner, int32 templateId)
 {
 	_owner = owner;
 	_skillData = GDataManager->GetSkillDataById(templateId);
+
+	_animImpactJobs.assign(_skillData->AnimImpactTimeList.size(), nullptr);
 }
 
 void SkillBase::OnAnimImpactTimeHandler()
 {
+	// 정상적으로 캔슬되지 않았다면 가지고 있던 job을 놓아주기
 	OnAttackEvent(_timeCount++);
 }
 
 void SkillBase::OnAnimCompleteHandler()
 {
+	// clear timeCount
 	_timeCount = 0;
+
+	// clear job
+	for (int32 i = 0; i < _animImpactJobs.size(); i++)
+		_animImpactJobs[i] = nullptr;
 
 	if (_owner == nullptr)
 		return;
@@ -42,28 +55,48 @@ void SkillBase::OnAnimCompleteHandler()
 	if (_owner->GetState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 
-	// start cooltime
-	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+	// TODO : cc상태로 인한 캔슬이면 여기서 skill상태가 아닐 것이다. 그것에 대한 처리 필요
 }
 
 void SkillBase::OnAttackEvent(int32 timeCount)
 {
+	// 정상적으로 예약된 일감을 실행하면 밀어주기
+	_animImpactJobs[timeCount] = nullptr;
 }
 
-void SkillBase::DoSkill()
+void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt)
 {
 	// start skill
 	_owner->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
 
-	for (float time : _skillData->AnimImpactTimeList)
+	_impactPos->CopyFrom(skillPkt.simple_pos_info());
+
+	vector<int32> impactList = _skillData->AnimImpactTimeList;
+	for (int32 i = 0; i < impactList.size(); i++)
 	{
-		DoTimer(time, &SkillBase::OnAnimImpactTimeHandler);
+		_animImpactJobs[i] = DoTimer(impactList[i], &SkillBase::OnAnimImpactTimeHandler);
 	}
 
 	DoTimer(_skillData->SkillDuration, &SkillBase::OnAnimCompleteHandler);
 
 	// start cooltime
 	SetCanUseSkill(false);
+	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+}
+
+void SkillBase::CancledSkill()
+{
+	// destroy reserved event
+	for (auto& job : _animImpactJobs)
+	{
+		if (job != nullptr)
+		{
+			job->SetCancled(true);
+		}
+	}
+
+	// force process OnAnimCompleteHandler
+	OnAnimCompleteHandler();
 }
 
 vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
@@ -75,60 +108,73 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 	{
 		ObjectRef object = item.second;
 
-		// todo : 스킬의 대상이 맞는지 아닌지(적군인지) 체크
+		// 스킬 시전자 제외
+		if (object->_objectId == _owner->_objectId)
+			continue;
+
+		// 아군 제외
 
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);
 		wstring effectType = effectData->EffectType;
 		if (effectType == L"Rectangle")
 		{
-			RectangleEffectDataRef rectData = static_pointer_cast<RectangleEffectData>(effectData);
-			if (true == IsInRectangleArea(object, rectData->LeftUpPosY, rectData->LeftUpPosX, rectData->RightDownPosY, rectData->RightDownPosX))
+			//RectangleEffectDataRef rectData = static_pointer_cast<RectangleEffectData>(effectData);
+			//
+			//// 스킬 사용 방향의 방향벡터 구하기
+			//pair<float, float> dirV = findNormalizedDirectionVector(
+			//	make_pair(_owner->posInfo->x(), _owner->posInfo->y()), 
+			//	make_pair(_impactPos->x(), _impactPos->y()));
+			//
+			//if (true == IsInRectangleArea(object, dirV, rectData->ForwardLength, rectData->BackwardLength, rectData->LeftLength, rectData->RightLength))
+			//{
+			//	objects.push_back(object);
+			//}
+		}
+		else if (effectType == L"Pizza")
+		{
+			PizzaEffectDataRef pizzaData = static_pointer_cast<PizzaEffectData>(effectData);
+			
+			if (true == IsInPizzaArea(object, pizzaData->Radius, pizzaData->Theta))
 			{
 				objects.push_back(object);
 			}
-		}
-		else if (effectType == L"Circle")
-		{
-
 		}
 	}
 
 	return objects;
 }
 
-bool SkillBase::IsInRectangleArea(ObjectRef object, float luY, float luX, float rdY, float rdX)
+bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 {
-	// 원의 중심과 사각형의 가장 가까운 점 찾기
-	float centerX = object->posInfo->x();
-	float centerY = object->posInfo->y();
-
-	luY += object->posInfo->y();
-	luX += object->posInfo->x();
-	rdY += object->posInfo->y();
-	rdX += object->posInfo->x();
-
-	// temp
-	CreatureRef creature = static_pointer_cast<Creature>(object);
-	CreatureDataRef data = creature->GetCreatureData();
-	float radius = data->ColliderRadius;
+	bool ret = false;
 	
-	float closestX = max(luX, min(centerX, rdX));
-	float closestY = max(rdY, min(centerY, luY));
+	pair<float, float> interVNormalized = Utils::DirectionVectorNormalized(make_pair(object->posInfo->x(), object->posInfo->y()), make_pair(_owner->posInfo->x(), _owner->posInfo->y()));
+	pair<float, float> interV = Utils::DirectionVector(make_pair(object->posInfo->x(), object->posInfo->y()), make_pair(_owner->posInfo->x(), _owner->posInfo->y()));
 
-	// 원과 가장 가까운 점 간의 거리 계산
-	float distanceX = centerX - closestX;
-	float distanceY = centerY - closestY;
-	float distance = sqrt((distanceX * distanceX) + (distanceY * distanceY));
+	float interVLen = sqrt(interV.first * interV.first + interV.second * interV.second);
 
-	// 거리가 반지름보다 작거나 같으면 충돌
-	if (distance <= radius) 
+	pair<float, float> dirV = Utils::DirectionVectorNormalized(make_pair(_owner->posInfo->x(), _owner->posInfo->y()), make_pair(_impactPos->x(), _impactPos->y()));
+
+	// object와 시전자 사이의 거리가 radius 보다 작으면
+	if (interVLen <= radius)
 	{
-		return true;
+		// object와 시전자를 잇는 벡터와 시전자의 방향벡터를 내적
+		float dot = interVNormalized.first * dirV.first + interVNormalized.second * dirV.second;
+		// theta 구하기
+		float tempTheta = acos(dot);
+		float degree = tempTheta * (180.0 / (float)3.141592653589793238463);
+
+		if (degree <= theta)
+			ret = true;
+		else
+			ret = false;
 	}
-	else 
+	else
 	{
-		return false;
+		ret = false;
 	}
+
+	return ret;
 }
 
 bool SkillBase::GetCanUseSkill()

@@ -137,6 +137,16 @@ bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt)
 	return true;
 }
 
+bool Handle_S_BUFF(PacketSessionRef& session, Protocol::S_BUFF& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		//GameNetwork->HandleStat(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)
 {
 	auto Msg = pkt.msg();

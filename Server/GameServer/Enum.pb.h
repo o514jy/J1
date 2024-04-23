@@ -160,7 +160,6 @@ enum MoveState : int {
   MOVE_STATE_RUN = 2,
   MOVE_STATE_DASH = 3,
   MOVE_STATE_SKILL = 4,
-  MOVE_STATE_CC = 5,
   MOVE_STATE_DEAD = 6,
   MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
@@ -183,6 +182,61 @@ inline bool MoveState_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MoveState* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MoveState>(
     MoveState_descriptor(), name, value);
+}
+enum BuffType : int {
+  BUFF_TYPE_NONE = 0,
+  BUFF_TYPE_HIT = 1,
+  BUFF_TYPE_PARALYSIS = 2,
+  BUFF_TYPE_PUSH = 3,
+  BUFF_TYPE_MEZ = 4,
+  BuffType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  BuffType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool BuffType_IsValid(int value);
+constexpr BuffType BuffType_MIN = BUFF_TYPE_NONE;
+constexpr BuffType BuffType_MAX = BUFF_TYPE_MEZ;
+constexpr int BuffType_ARRAYSIZE = BuffType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor();
+template<typename T>
+inline const std::string& BuffType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, BuffType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function BuffType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    BuffType_descriptor(), enum_t_value);
+}
+inline bool BuffType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BuffType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<BuffType>(
+    BuffType_descriptor(), name, value);
+}
+enum BuffDurationType : int {
+  BUFF_DURATION_TYPE_NONE = 0,
+  BUFF_DURATION_TYPE_INSTANT = 1,
+  BUFF_DURATION_TYPE_FINITE = 2,
+  BUFF_DURATION_TYPE_INFINITE = 3,
+  BuffDurationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  BuffDurationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool BuffDurationType_IsValid(int value);
+constexpr BuffDurationType BuffDurationType_MIN = BUFF_DURATION_TYPE_NONE;
+constexpr BuffDurationType BuffDurationType_MAX = BUFF_DURATION_TYPE_INFINITE;
+constexpr int BuffDurationType_ARRAYSIZE = BuffDurationType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffDurationType_descriptor();
+template<typename T>
+inline const std::string& BuffDurationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, BuffDurationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function BuffDurationType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    BuffDurationType_descriptor(), enum_t_value);
+}
+inline bool BuffDurationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BuffDurationType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<BuffDurationType>(
+    BuffDurationType_descriptor(), name, value);
 }
 enum SkillType : int {
   SKILL_TYPE_NONE = 0,
@@ -338,6 +392,16 @@ template <> struct is_proto_enum< ::Protocol::MoveState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MoveState>() {
   return ::Protocol::MoveState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::BuffType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::BuffType>() {
+  return ::Protocol::BuffType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::BuffDurationType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::BuffDurationType>() {
+  return ::Protocol::BuffDurationType_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::SkillType> : ::std::true_type {};
 template <>

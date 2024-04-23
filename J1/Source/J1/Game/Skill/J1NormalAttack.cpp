@@ -1,7 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "Game/Skill/J1NormalAttack.h"
+#include "J1NormalAttack.h"
+#include "Data/J1Data.h"
 
 UJ1NormalAttack::UJ1NormalAttack()
 {
@@ -16,12 +14,12 @@ void UJ1NormalAttack::SetInfo(TObjectPtr<AJ1Creature> InOwner, int32 InTemplateI
 	Super::SetInfo(InOwner, InTemplateId);
 }
 
-void UJ1NormalAttack::DoSkill()
+void UJ1NormalAttack::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
-	Super::DoSkill();
+	Super::DoSkill(InSkillPkt);
 }
 
 void UJ1NormalAttack::OnAttackEvent(int32 InTimeCount)
 {
-
+	Super::OnAttackEvent(InTimeCount);
 }

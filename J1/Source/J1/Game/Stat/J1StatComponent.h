@@ -43,7 +43,7 @@ public:
 	/** network **/
 	void ProcessStat(const Protocol::StatInfo& InStatInfo);
 
-	TSharedPtr<Protocol::StatInfo> StatInfo;
+	Protocol::StatInfo* StatInfo;
 
 public:
 	/** refresh **/

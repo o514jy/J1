@@ -8,7 +8,7 @@
 
 SkillComponent::SkillComponent()
 {
-	skillInfo = make_shared< Protocol::SkillInfo>();
+	skillInfo = new Protocol::SkillInfo;
 }
 
 SkillComponent::~SkillComponent()
@@ -19,6 +19,7 @@ SkillComponent::~SkillComponent()
 void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 {
 	_owner = owner;
+	_owner->objectInfo->set_allocated_skill_info(skillInfo);
 
 	if (creatureData->CreatureType == L"Player")
 	{
@@ -116,33 +117,36 @@ bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillS
 	}
 }
 
-void SkillComponent::DoSkill(const Protocol::SkillSlot& skillSlot)
+void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 {
+	Protocol::SkillSlot skillSlot = skillPkt.slot();
+	Protocol::SimplePosInfo simplePosInfo = skillPkt.simple_pos_info();
+
 	if (GetCanUseSkillBySkillSlot(skillSlot) == false)
 		return;
 
 	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
 	{
-		return _normalAttackSkill->DoSkill();
+		return _normalAttackSkill->DoSkill(skillPkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
 	{
-		return _qSkill->DoSkill();
+		return _qSkill->DoSkill(skillPkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
 	{
-		return _wSkill->DoSkill();
+		return _wSkill->DoSkill(skillPkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
 	{
-		return _eSkill->DoSkill();
+		return _eSkill->DoSkill(skillPkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
 	{
-		return _rSkill->DoSkill();
+		return _rSkill->DoSkill(skillPkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
 	{
-		return _dashSkill->DoSkill();
+		return _dashSkill->DoSkill(skillPkt);
 	}
 }

@@ -40,11 +40,9 @@
     {
       "DataId": 10000,
       "OwnerSkillDataId": 1000,
-      "EffectType": "Rectangle",
-      "LeftUpPosY": -100.0,
-      "LeftUpPosX": 120.0,
-      "RightDownPosY": 100.0,
-      "RightDownPosX": 0.0
+      "EffectType": "Pizza",
+      "Radius": 120.0,
+      "Theta": 180.0
     }
   ],
   "buffs": [
@@ -52,6 +50,7 @@
       "DataId": 100000,
       "BuffType": "Hit",
       "BuffDurationType": "Instant",
+      "BuffAmountRate": 1.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
     }

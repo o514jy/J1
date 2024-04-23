@@ -194,7 +194,7 @@ void UJ1NetworkManager::HandleSkill(const Protocol::S_SKILL& SkillPkt)
 		return;
 
 	const Protocol::SkillSlot& slot = SkillPkt.slot();
-	FindActor->ProcessSkill(slot);
+	FindActor->ProcessSkill(SkillPkt);
 }
 
 void UJ1NetworkManager::HandleStat(const Protocol::S_STAT& StatPkt)

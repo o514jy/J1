@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -23,7 +21,7 @@ public:
 
 public:
 	/** Process Skill **/
-	virtual void DoSkill() override;
+	virtual void DoSkill(const Protocol::S_SKILL& InSkillPkt) override;
 
 public:
 	/** handle event **/

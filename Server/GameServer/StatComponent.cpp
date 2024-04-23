@@ -7,7 +7,7 @@
 StatComponent::StatComponent()
 {
 	_owner = nullptr;
-	_statInfo = make_shared<Protocol::StatInfo>();
+	_statInfo = new Protocol::StatInfo();
 	_shouldRefresh = false;
 
 	_hp = 0;
@@ -25,7 +25,6 @@ StatComponent::StatComponent()
 StatComponent::~StatComponent()
 {
 	_owner = nullptr;
-	_statInfo = nullptr;
 }
 
 void StatComponent::UpdateTick()
@@ -40,7 +39,7 @@ void StatComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData, Pro
 {
 	_owner = owner;
 
-	_owner->objectInfo->set_allocated_stat_info(_statInfo.get());
+	_owner->objectInfo->set_allocated_stat_info(_statInfo);
 
 	/* creature */
 	_baseMaxHp = creatureData->MaxHp;

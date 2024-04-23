@@ -24,18 +24,21 @@ protected:
 
 public:
 	/** Process Skill **/
-	virtual void DoSkill();
+	virtual void DoSkill(const Protocol::C_SKILL& skillPkt);
+
+	// cancled by other cc
+	virtual void CancledSkill();
 
 public:
 	/** gather creature in effects **/
 	vector<ObjectRef> GatherObjectInEffectArea(int32 effectId);
 
 	/* is in area */
-	bool IsInRectangleArea(ObjectRef object, float luY, float luX, float rdY, float rdX);
+	bool IsInPizzaArea(ObjectRef object, float radius, float theta);
 
 public:
 	/** exception check **/
-	vector<JobRef> _jobs;
+	vector<JobRef> _animImpactJobs;
 
 public:
 	/** setter & geter **/
@@ -50,5 +53,7 @@ public:
 	int32 _timeCount; // index of AnimImpactTime
 
 	bool _canUseSkill;
+
+	Protocol::SimplePosInfo* _impactPos;
 };
 

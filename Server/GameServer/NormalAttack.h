@@ -18,7 +18,6 @@ public:
 
 public:
 	/** Process Skill **/
-	virtual void DoSkill() override;
+	virtual void DoSkill(const Protocol::C_SKILL& skillPkt) override;
 
 };
-

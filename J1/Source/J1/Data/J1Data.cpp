@@ -114,12 +114,21 @@ void UJ1GameData::ParseJsonData(const FString& path)
 
                 data->DataId = effect->GetIntegerField(TEXT("DataId"));
                 data->EffectType = effectType;
-                data->LeftUpPosY = effect->GetNumberField(TEXT("LeftUpPosY"));
-                data->LeftUpPosX = effect->GetNumberField(TEXT("LeftUpPosX"));
-                data->RightDownPosY = effect->GetNumberField(TEXT("RightDownPosY"));
-                data->RightDownPosX = effect->GetNumberField(TEXT("RightDownPosX"));
+                data->ForwardLength = effect->GetNumberField(TEXT("ForwardLength"));
+                data->BackwardLength = effect->GetNumberField(TEXT("BackwardLength"));
+                data->LeftLength = effect->GetNumberField(TEXT("LeftLength"));
+                data->RightLength = effect->GetNumberField(TEXT("RightLength"));
 
                 EffectData.Add(data->DataId, data);
+            }
+            else if (effectType == TEXT("Pizza"))
+            {
+                UPizzaEffectData* data = NewObject<UPizzaEffectData>();
+
+                data->DataId = effect->GetIntegerField(TEXT("DataId"));
+                data->EffectType = effectType;
+                data->Radius = effect->GetNumberField(TEXT("Radius"));
+                data->Theta = effect->GetNumberField(TEXT("Theta"));
             }
         }
     }
@@ -135,6 +144,7 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->DataId = buff->GetIntegerField(TEXT("DataId"));
             data->BuffType = buff->GetStringField(TEXT("BuffType"));
             data->BuffDurationType = buff->GetStringField(TEXT("BuffDurationType"));
+            data->BuffAmountRate = buff->GetNumberField(TEXT("BuffAmountRate"));
             data->BuffDurationPeriod = buff->GetNumberField(TEXT("BuffDurationPeriod"));
             data->BuffDurationMagnitude = buff->GetNumberField(TEXT("BuffDurationMagnitude"));
 

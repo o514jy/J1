@@ -108,11 +108,15 @@ void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkill
 	SkillList.Add(skill);
 }
 
-void UJ1SkillComponent::RegisterNormalAttack()
+void UJ1SkillComponent::RegisterNormalAttack(FVector InLocation)
 {
 	Protocol::C_SKILL skillPkt;
 	skillPkt.set_object_id(Owner->GetPosInfo()->object_id());
 	skillPkt.set_slot(Protocol::SKILL_SLOT_ATTACK);
+	Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
+	simplePosInfo->set_x(InLocation.X);
+	simplePosInfo->set_y(InLocation.Y);
+	simplePosInfo->set_z(InLocation.Z);
 
 	Owner->GetManager(Network)->SendPacket(skillPkt);
 }
@@ -166,8 +170,9 @@ bool UJ1SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& ski
 	return false;
 }
 
-void UJ1SkillComponent::DoSkill(const Protocol::SkillSlot& skillSlot)
+void UJ1SkillComponent::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
+	Protocol::SkillSlot skillSlot = InSkillPkt.slot();
 	if (GetCanUseSkillBySkillSlot(skillSlot) == false)
 		return;
 
@@ -175,7 +180,7 @@ void UJ1SkillComponent::DoSkill(const Protocol::SkillSlot& skillSlot)
 	{
 		if (skill->Slot == skillSlot)
 		{
-			skill->DoSkill();
+			skill->DoSkill(InSkillPkt);
 			return;
 		}
 	}

@@ -90,9 +90,9 @@ void AJ1MyPlayer::ProcessMove(const Protocol::PosInfo& Info)
 	Cast<AJ1MyPlayerController>(Controller)->ProcessMove(Info);
 }
 
-void AJ1MyPlayer::ProcessSkill(const Protocol::SkillSlot& Slot)
+void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
-	Super::ProcessSkill(Slot);
+	Super::ProcessSkill(InSkillPkt);
 }
 
 bool AJ1MyPlayer::CompareNowPosAndDestPos()

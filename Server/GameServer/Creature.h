@@ -13,7 +13,7 @@ public:
 
 public:
 	/** setter & getter **/
-	StatComponentRef GetStatComponent() { return _statComponent; }
+	
 	SkillComponentRef GetSkillComponent() { return _skillComponent; }
 
 	CreatureDataRef GetCreatureData() { return _creatureData; }

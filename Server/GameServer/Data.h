@@ -51,7 +51,7 @@ public:
 	vector<int32> ProjectileIdList;
 	float CoolTime;
 	float SkillDuration;
-	vector<float> AnimImpactTimeList;
+	vector<int32> AnimImpactTimeList;
 	vector<int32> BuffIdList;
 	vector<int32> EffectIdList;
 };
@@ -67,10 +67,17 @@ public:
 class RectangleEffectData : public EffectData
 {
 public:
-	float LeftUpPosY;
-	float LeftUpPosX;
-	float RightDownPosY;
-	float RightDownPosX;
+	float ForwardLength;
+	float BackwardLength;
+	float LeftLength;
+	float RightLength;
+};
+
+class PizzaEffectData : public EffectData
+{
+public:
+	float Radius;
+	float Theta;
 };
 
 class BuffData
@@ -79,6 +86,7 @@ public:
 	int32 DataId;
 	wstring BuffType;
 	wstring BuffDurationType;
+	float BuffAmountRate;
 	float BuffDurationPeriod;
 	float BuffDurationMagnitude;
 };

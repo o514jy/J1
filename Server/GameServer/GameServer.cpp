@@ -73,6 +73,8 @@ int main()
 		GRoomManager->AllUpdateTickStart();
 	}
 
+	cout << "Game Server : Open!!" << "\n";
+
 	while (true)
 	{
 		//Protocol::S_CHAT pkt;

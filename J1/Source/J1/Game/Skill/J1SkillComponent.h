@@ -32,7 +32,7 @@ public:
 
 public:
 	/** network **/
-	void RegisterNormalAttack();
+	void RegisterNormalAttack(FVector InLocation);
 
 public:
 	/** handle event **/
@@ -42,7 +42,7 @@ public:
 	/** process **/
 	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot);
 
-	void DoSkill(const Protocol::SkillSlot& skillSlot);
+	void DoSkill(const Protocol::S_SKILL& InSkillPkt);
 
 public:
 	/** information**/

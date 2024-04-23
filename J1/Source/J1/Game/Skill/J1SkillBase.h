@@ -29,13 +29,15 @@ public:
 
 public:
 	/** Process Skill **/
-	virtual void DoSkill();
+	virtual void DoSkill(const Protocol::S_SKILL& InSkillPkt);
 
 public:
 	/** handle event **/
 	void HandleGameplayEvent(FGameplayTag InEventTag);
 
 	virtual void OnAttackEvent(int32 InTimeCount);
+
+	virtual void EndSkillEvent();
 
 public:
 	/** information **/
@@ -55,4 +57,6 @@ public:
 	int32 TimeCount; // index of AnimImpactTime
 
 	bool bCanUseSkill;
+
+	Protocol::SimplePosInfo* ImpactPos;
 };

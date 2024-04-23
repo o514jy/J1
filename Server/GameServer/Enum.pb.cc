@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[9];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[11];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -40,25 +40,31 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "TYPE_MAGE\020\002\022\026\n\022PLAYER_TYPE_ARCHER\020\003*U\n\013M"
   "onsterType\022\025\n\021MONSTER_TYPE_NONE\020\000\022\030\n\024MON"
   "STER_TYPE_GENERAL\020\001\022\025\n\021MONSTER_TYPE_BOSS"
-  "\020\002*\234\001\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n"
+  "\020\002*\211\001\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n"
   "\017MOVE_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN\020\002\022\023"
   "\n\017MOVE_STATE_DASH\020\003\022\024\n\020MOVE_STATE_SKILL\020"
-  "\004\022\021\n\rMOVE_STATE_CC\020\005\022\023\n\017MOVE_STATE_DEAD\020"
-  "\006*Q\n\tSkillType\022\023\n\017SKILL_TYPE_NONE\020\000\022\024\n\020S"
-  "KILL_TYPE_CLOSE\020\001\022\031\n\025SKILL_TYPE_PROJECTI"
-  "LE\020\002*l\n\nEffectType\022\024\n\020EFFECT_TYPE_NONE\020\000"
-  "\022\031\n\025EFFECT_TYPE_RECTANGLE\020\001\022\026\n\022EFFECT_TY"
-  "PE_CIRCLE\020\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\224\001\n\tS"
-  "killSlot\022\023\n\017SKILL_SLOT_NONE\020\000\022\025\n\021SKILL_S"
-  "LOT_ATTACK\020\001\022\020\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKILL_"
-  "SLOT_W\020\003\022\020\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SLOT"
-  "_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006*9\n\010RoomType\022\023\n"
-  "\017ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_RO"
-  "OM\020\001b\006proto3"
+  "\004\022\023\n\017MOVE_STATE_DEAD\020\006*q\n\010BuffType\022\022\n\016BU"
+  "FF_TYPE_NONE\020\000\022\021\n\rBUFF_TYPE_HIT\020\001\022\027\n\023BUF"
+  "F_TYPE_PARALYSIS\020\002\022\022\n\016BUFF_TYPE_PUSH\020\003\022\021"
+  "\n\rBUFF_TYPE_MEZ\020\004*\217\001\n\020BuffDurationType\022\033"
+  "\n\027BUFF_DURATION_TYPE_NONE\020\000\022\036\n\032BUFF_DURA"
+  "TION_TYPE_INSTANT\020\001\022\035\n\031BUFF_DURATION_TYP"
+  "E_FINITE\020\002\022\037\n\033BUFF_DURATION_TYPE_INFINIT"
+  "E\020\003*Q\n\tSkillType\022\023\n\017SKILL_TYPE_NONE\020\000\022\024\n"
+  "\020SKILL_TYPE_CLOSE\020\001\022\031\n\025SKILL_TYPE_PROJEC"
+  "TILE\020\002*l\n\nEffectType\022\024\n\020EFFECT_TYPE_NONE"
+  "\020\000\022\031\n\025EFFECT_TYPE_RECTANGLE\020\001\022\026\n\022EFFECT_"
+  "TYPE_CIRCLE\020\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\224\001\n"
+  "\tSkillSlot\022\023\n\017SKILL_SLOT_NONE\020\000\022\025\n\021SKILL"
+  "_SLOT_ATTACK\020\001\022\020\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKIL"
+  "L_SLOT_W\020\003\022\020\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SL"
+  "OT_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006*9\n\010RoomType\022"
+  "\023\n\017ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_"
+  "ROOM\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 1012, descriptor_table_protodef_Enum_2eproto,
+    false, false, 1254, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -146,8 +152,40 @@ bool MoveState_IsValid(int value) {
     case 2:
     case 3:
     case 4:
-    case 5:
     case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[5];
+}
+bool BuffType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffDurationType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[6];
+}
+bool BuffDurationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -156,7 +194,7 @@ bool MoveState_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[5];
+  return file_level_enum_descriptors_Enum_2eproto[7];
 }
 bool SkillType_IsValid(int value) {
   switch (value) {
@@ -171,7 +209,7 @@ bool SkillType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EffectType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[6];
+  return file_level_enum_descriptors_Enum_2eproto[8];
 }
 bool EffectType_IsValid(int value) {
   switch (value) {
@@ -187,7 +225,7 @@ bool EffectType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillSlot_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[7];
+  return file_level_enum_descriptors_Enum_2eproto[9];
 }
 bool SkillSlot_IsValid(int value) {
   switch (value) {
@@ -206,7 +244,7 @@ bool SkillSlot_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[8];
+  return file_level_enum_descriptors_Enum_2eproto[10];
 }
 bool RoomType_IsValid(int value) {
   switch (value) {
