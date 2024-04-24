@@ -11,6 +11,10 @@ public:
 	virtual ~Player();
 
 public:
+	/** update tick **/
+	virtual void UpdateTick() override;
+
+public:
 	/** initialize **/
 	virtual void SetInfo(int32 templateId) override;
 

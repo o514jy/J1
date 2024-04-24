@@ -55,6 +55,8 @@ void SkillBase::OnAnimCompleteHandler()
 	if (_owner->GetState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 
+	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+
 	// TODO : cc상태로 인한 캔슬이면 여기서 skill상태가 아닐 것이다. 그것에 대한 처리 필요
 }
 
@@ -81,7 +83,7 @@ void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt)
 
 	// start cooltime
 	SetCanUseSkill(false);
-	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+	
 }
 
 void SkillBase::CancledSkill()

@@ -19,6 +19,11 @@ Creature::~Creature()
 	_creatureData = nullptr;
 }
 
+void Creature::UpdateTick()
+{
+	__super::UpdateTick();
+}
+
 void Creature::SetInfo(int32 templateId)
 {
 	_objectId = objectInfo->object_id();

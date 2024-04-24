@@ -72,7 +72,7 @@ void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 		MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
 
 		// send Notify Pos Packet
-		SetMoveState(Protocol::MOVE_STATE_RUN);
+		//SetMoveState(Protocol::MOVE_STATE_RUN);
 
 		Protocol::C_NOTIFY_POS NotifyPosPkt;
 

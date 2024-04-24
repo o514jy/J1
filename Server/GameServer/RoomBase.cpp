@@ -200,7 +200,7 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 
 void RoomBase::UpdateTick()
 {
-	cout << "Update RoomBase" << endl;
+	//cout << "Update RoomBase" << endl;
 
 	DoTimer(100, &RoomBase::UpdateTick);
 }

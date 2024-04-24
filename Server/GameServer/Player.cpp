@@ -16,6 +16,11 @@ Player::~Player()
 	_playerDataRef = nullptr;
 }
 
+void Player::UpdateTick()
+{
+	__super::UpdateTick();
+}
+
 void Player::SetInfo(int32 templateId)
 {
 	__super::SetInfo(templateId);

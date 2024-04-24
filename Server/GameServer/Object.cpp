@@ -27,6 +27,11 @@ Object::~Object()
 	_statComponent = nullptr;
 }
 
+void Object::UpdateTick()
+{
+	_statComponent->UpdateTick();
+}
+
 void Object::SetInfo(int32 templateId)
 {
 

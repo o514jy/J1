@@ -105,6 +105,12 @@ void AJ1MyPlayerController::OnInputStarted()
 
 void AJ1MyPlayerController::OnSetDestinationTriggered()
 {
+	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+	{
+		return;
+	}
+
 	// We flag that the input is being pressed
 	FollowTime += GetWorld()->GetDeltaSeconds();
 
@@ -125,12 +131,6 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 	{
 		if (FollowTime > sendMovePacketThreshold)
 		{
-			TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
-			if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
-			{
-				return;
-			}
-
 			RegisterMove(CachedDestination);
 		}
 		//FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
@@ -140,15 +140,15 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 
 void AJ1MyPlayerController::OnSetDestinationReleased()
 {
+	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+	{
+		return;
+	}
+
 	// If it was a short press
 	if (FollowTime <= ShortPressThreshold)
 	{
-		TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
-		if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
-		{
-			return;
-		}
-
 		RegisterMove(CachedDestination);
 		UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, InputData->GetFXCursor(), CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
@@ -217,6 +217,7 @@ void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 	location.Z = posInfo.dest_z();
 	//if (FollowTime <= ShortPressThreshold)
 	{
+		
 		UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, location);
 	}
 	//else

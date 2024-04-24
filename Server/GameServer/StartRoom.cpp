@@ -21,8 +21,14 @@ void StartRoom::UpdateTick()
 {
 	//__super::UpdateTick();
 
+	// all object in start room process update tick 
+	for (auto& object : _objects)
+	{
+		object.second->UpdateTick();
+	}
+
 	//cout << "Update StartRoom" << "\n";
-	DoTimer(1000, &StartRoom::UpdateTick);
+	DoTimer(200, &StartRoom::UpdateTick);
 }
 
 bool StartRoom::EnterRoom(ObjectRef object, bool randPos)

@@ -10,6 +10,10 @@ public:
 	bool IsPlayer() { return _isPlayer; }
 
 public:
+	/** update tick **/
+	virtual void UpdateTick();
+
+public:
 	/** initialize **/
 	virtual void SetInfo(int32 templateId);
 

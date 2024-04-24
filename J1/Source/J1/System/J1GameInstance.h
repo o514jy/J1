@@ -5,6 +5,7 @@
 #include "J1GameInstance.generated.h"
 
 class AJ1Player;
+class AJ1MyPlayer;
 
 UCLASS()
 class J1_API UJ1GameInstance : public UGameInstance
@@ -23,4 +24,8 @@ public:
 public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Player> OtherPlayerClass;
+
+public:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1MyPlayer> MyPlayerClass;
 };

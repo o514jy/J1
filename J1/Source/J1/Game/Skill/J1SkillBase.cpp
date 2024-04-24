@@ -60,6 +60,9 @@ bool UJ1SkillBase::GetCanUseSkill()
 
 void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
+	// 우선 움직이고 있었다면 멈추기
+	Owner->GetController()->StopMovement();
+
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
 	ImpactPos->CopyFrom(InSkillPkt.simple_pos_info());
 
@@ -82,12 +85,14 @@ void UJ1SkillBase::OnAttackEvent(int32 InTimeCount)
 	// 끝났을 때
 	if (InTimeCount == SkillData->AnimImpactTimeList.Num())
 	{
-
+		EndSkillEvent();
 	}
 }
 
 void UJ1SkillBase::EndSkillEvent()
 {
+	TimeCount = 0;
+
 	if (Owner->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
 	{
 		Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_IDLE);
