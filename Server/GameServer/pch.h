@@ -52,6 +52,10 @@ USING_SHARED_PTR(SkillComponent);
 /** buff **/
 USING_SHARED_PTR(BuffBase);
 
+/** ai controller **/
+USING_SHARED_PTR(BaseAIController);
+USING_SHARED_PTR(MonsterAIController);
+
 /** stat **/
 USING_SHARED_PTR(StatComponent);
 

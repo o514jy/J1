@@ -29,13 +29,16 @@ public:
 	/** information **/
 	CreatureRef _owner;
 
-	/** player **/
 	SkillBaseRef _normalAttackSkill;
+
+	/** player **/
 	SkillBaseRef _qSkill;
 	SkillBaseRef _wSkill;
 	SkillBaseRef _eSkill;
 	SkillBaseRef _rSkill;
 	SkillBaseRef _dashSkill;
+
+	/** boss **/
 
 	
 };

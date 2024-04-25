@@ -14,5 +14,7 @@ public:
 	
 public:
 	/** network **/
+	virtual void ProcessMove(const Protocol::PosInfo& posInfo) override;
+
 	virtual void ProcessSkill(const Protocol::SkillSlot& slot);
 };

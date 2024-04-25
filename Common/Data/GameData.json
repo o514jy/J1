@@ -7,20 +7,32 @@
       "ColliderRadius": 42.0,
       "ColliderHalfHeight": 96.0,
       "MaxHp": 1000.0,
-      "Atk": 25.0,
-      "AtkRange": 10.0,
+      "Atk": 100.0,
       "Def": 0.0,
-      "MaxWalkSpeed": 600.0,
-      "HpRate": 1.0,
-      "AtkRate": 1.0,
-      "DefRate": 1.0,
+      "MaxWalkSpeed": 400.0,
       "MoveSpeedRate": 1.0,
-	    "SkillAttackId": 1000,
-	    "SkillQId": 1001,
-	    "SkillWId": 1002,
-	    "SkillEId": 1003,
-	    "SkillRId": 1004,
-	    "SkillDashId": 1005
+      "SkillAttackId": 1000,
+      "SkillQId": 1001,
+      "SkillWId": 1002,
+      "SkillEId": 1003,
+      "SkillRId": 1004,
+      "SkillDashId": 1005
+    }
+  ],
+  "bosses": [
+    {
+      "DataId": 100,
+      "CreatureType": "Boss",
+      "DescriptionTextId": "Sevarog",
+      "ColliderRadius": 63.0,
+      "ColliderHalfHeight": 144.0,
+      "MaxHp": 50000.0,
+      "Atk": 200.0,
+      "Def": 10.0,
+      "MaxWalkSpeed": 200.0,
+      "MoveSpeedRate": 1.0,
+      "SearchMaxDistance": 500.0,
+      "ChaseMaxDistance": 700.0
     }
   ],
   "skills": [

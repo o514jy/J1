@@ -1,5 +1,7 @@
 #include "J1Creature.h"
 #include "J1/J1GameplayTags.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/Game/Stat/J1StatComponent.h"
@@ -14,6 +16,11 @@ AJ1Creature::AJ1Creature()
 
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
+
+	// Set size for player capsule
+	GetCapsuleComponent()->InitCapsuleSize(1.f, 96.0f);
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 1080.f, 0.f);
+	GetCharacterMovement()->bRequestedMoveUseAcceleration = false;
 }
 
 AJ1Creature::~AJ1Creature()
@@ -42,7 +49,11 @@ void AJ1Creature::SetMoveState(Protocol::MoveState State)
 
 	PosInfo->set_state(State);
 
-	// TODO
+	// idleÀÏ °æ¿ì ¸ØÃçÁÖ±â
+	if (State == Protocol::MoveState::MOVE_STATE_IDLE)
+	{
+		GetController()->StopMovement();
+	}
 }
 
 void AJ1Creature::SetPosInfo(const Protocol::PosInfo& Info, bool Forced)

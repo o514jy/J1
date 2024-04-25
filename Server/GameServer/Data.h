@@ -10,12 +10,8 @@ public:
 	float ColliderHalfHeight;
 	float MaxHp;
 	float Atk;
-	float AtkRange;
 	float Def;
 	float MaxWalkSpeed;
-	float HpRate;
-	float AtkRate;
-	float DefRate;
 	float MoveSpeedRate;
 };
 
@@ -33,7 +29,8 @@ public:
 class MonsterData : public CreatureData
 {
 public:
-
+	float SearchMaxDistance;
+	float ChaseMaxDistance;
 };
 
 class BossData : public MonsterData

@@ -124,7 +124,7 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 	{
 		CachedDestination = Hit.Location;
 	}
-
+	
 	// Move towards mouse pointer or touch
 	APawn* ControlledPawn = GetPawn();
 	if (ControlledPawn != nullptr)
@@ -196,7 +196,7 @@ void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 {
 	// send Notify Pos Packet
 	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
-	myPlayer->SetMoveState(Protocol::MOVE_STATE_RUN);
+	//myPlayer->SetMoveState(Protocol::MOVE_STATE_RUN);
 
 	// 목적지 기입
 	myPlayer->SetPosInfo(posInfo);

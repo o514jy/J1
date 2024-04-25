@@ -144,6 +144,7 @@ void RoomBase::HandleMove(Protocol::C_MOVE pkt)
 		{
 			Protocol::PosInfo* info = movePkt.mutable_info();
 			info->CopyFrom(pkt.info());
+			info->set_state(Protocol::MoveState::MOVE_STATE_RUN);
 		}
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
 		Broadcast(sendBuffer);
@@ -242,6 +243,31 @@ bool RoomBase::RemoveObject(uint64 objectId)
 void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 {
 	Broadcast_internal(sendBuffer, exceptId);
+}
+
+PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, uint64 exceptId = 0)
+{
+	PlayerRef closestPlayer = nullptr;
+	float closestLen = INT32_MAX;
+
+	for (auto& item : _objects)
+	{
+		PlayerRef player = dynamic_pointer_cast<Player>(item.second);
+		if (player == nullptr)
+			continue;
+		if (player->objectInfo->object_id() == exceptId)
+			continue;
+
+		// check distance
+		float len = Utils::DirectionVectorLen(object->posInfo, player->posInfo);
+		if (len < closestLen)
+		{
+			closestPlayer = player;
+			closestLen = len;
+		}
+	}
+
+	return closestPlayer;
 }
 
 void RoomBase::Broadcast_internal(SendBufferRef sendBuffer, uint64 exceptId)

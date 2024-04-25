@@ -14,7 +14,7 @@
 AJ1Player::AJ1Player()
 {
 	// Set size for player capsule
-	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	//GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
@@ -27,7 +27,7 @@ AJ1Player::AJ1Player()
 
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Rotate character to moving direction
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 640.f, 0.f);
+	
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 
@@ -83,7 +83,7 @@ void AJ1Player::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 
 void AJ1Player::ProcessMove(const Protocol::PosInfo& Info)
 {
-	Cast<AJ1AIController>(Controller)->ProcessMove(Info);
+	Cast<AJ1PlayerController>(Controller)->ProcessMove(Info);
 }
 
 void AJ1Player::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)

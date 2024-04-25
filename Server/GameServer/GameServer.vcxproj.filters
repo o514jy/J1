@@ -40,6 +40,9 @@
     <Filter Include="Game\Buff\Instant">
       <UniqueIdentifier>{15a2ddec-4ab0-4d79-8b92-3b50f1870081}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controller">
+      <UniqueIdentifier>{3f1cce62-158f-448c-b249-2165408ece83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -129,6 +132,12 @@
     <ClCompile Include="BuffInstant.cpp">
       <Filter>Game\Buff\Instant</Filter>
     </ClCompile>
+    <ClCompile Include="BaseAIController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterAIController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -217,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="BuffInstant.h">
       <Filter>Game\Buff\Instant</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAIController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAIController.h">
+      <Filter>Game\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

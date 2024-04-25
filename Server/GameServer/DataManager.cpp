@@ -61,12 +61,8 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->ColliderHalfHeight = player["ColliderHalfHeight"].GetFloat();
             dataRef->MaxHp = player["MaxHp"].GetFloat();
             dataRef->Atk = player["Atk"].GetFloat();
-            dataRef->AtkRange = player["AtkRange"].GetFloat();
             dataRef->Def = player["Def"].GetFloat();
             dataRef->MaxWalkSpeed = player["MaxWalkSpeed"].GetFloat();
-            dataRef->HpRate = player["HpRate"].GetFloat();
-            dataRef->AtkRate = player["AtkRate"].GetFloat();
-            dataRef->DefRate = player["DefRate"].GetFloat();
             dataRef->MoveSpeedRate = player["MoveSpeedRate"].GetFloat();
             dataRef->SkillAttackId = player["SkillAttackId"].GetInt();
             dataRef->SkillQId = player["SkillQId"].GetInt();

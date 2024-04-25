@@ -33,22 +33,10 @@ public:
 	float Atk;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float AtkRange;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float Def;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float MaxWalkSpeed;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float HpRate;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float AtkRate;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float DefRate;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float MoveSpeedRate;

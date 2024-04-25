@@ -72,8 +72,10 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
 ######################################################################
 
 ## Asset Files ##
 Content/ParagonAurora/*
 Content/ParagonSevarog/*
+Content/GoodSky/*

@@ -36,10 +36,8 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->ColliderHalfHeight = player->GetNumberField(TEXT("ColliderHalfHeight"));
             data->MaxHp = player->GetNumberField(TEXT("MaxHp"));
             data->Atk = player->GetNumberField(TEXT("Atk"));
+            data->Def = player->GetNumberField(TEXT("Def"));
             data->MaxWalkSpeed = player->GetNumberField(TEXT("MaxWalkSpeed"));
-            data->HpRate = player->GetNumberField(TEXT("HpRate"));
-            data->AtkRate = player->GetNumberField(TEXT("AtkRate"));
-            data->DefRate = player->GetNumberField(TEXT("DefRate"));
             data->MoveSpeedRate = player->GetNumberField(TEXT("MoveSpeedRate"));
             /** player **/
             data->SkillAttackId = player->GetIntegerField(TEXT("SkillAttackId"));

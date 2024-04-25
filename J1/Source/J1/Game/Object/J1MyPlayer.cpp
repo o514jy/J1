@@ -79,7 +79,7 @@ void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 		{
 			Protocol::PosInfo* Info = NotifyPosPkt.mutable_info();
 			Info->CopyFrom(*PosInfo);
-		}
+		}	
 
 		GetNetworkManager()->SendPacket(NotifyPosPkt);
 	}
@@ -87,6 +87,7 @@ void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 
 void AJ1MyPlayer::ProcessMove(const Protocol::PosInfo& Info)
 {
+	//Super::ProcessMove(Info);
 	Cast<AJ1MyPlayerController>(Controller)->ProcessMove(Info);
 }
 
@@ -97,17 +98,16 @@ void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 
 bool AJ1MyPlayer::CompareNowPosAndDestPos()
 {
-	FVector nowPos, destPos;
+	FVector2D nowPos, destPos;
 
 	nowPos.X = PosInfo->x();
 	nowPos.Y = PosInfo->y();
-	nowPos.Z = PosInfo->z();
 	destPos.X = PosInfo->dest_x();
 	destPos.Y = PosInfo->dest_y();
-	destPos.Z = PosInfo->dest_z();
 
-	float dist = FVector::DistSquared(nowPos, destPos);
-	if (dist <= 0.01f)
+	//float dist = FVector::DistSquared(nowPos, destPos);
+	float dist = FVector2D::DistSquared(nowPos, destPos);
+	if (dist <= 2.f)
 	{
 		return true;
 	}

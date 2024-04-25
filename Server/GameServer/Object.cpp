@@ -29,7 +29,8 @@ Object::~Object()
 
 void Object::UpdateTick()
 {
-	_statComponent->UpdateTick();
+	if (_statComponent != nullptr)
+		_statComponent->UpdateTick();
 }
 
 void Object::SetInfo(int32 templateId)

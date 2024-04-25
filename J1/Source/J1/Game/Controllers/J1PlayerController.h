@@ -17,5 +17,8 @@ public:
 	GENERATED_BODY()
 	
 public:
+	/** network **/
+	virtual void ProcessMove(const Protocol::PosInfo& posInfo) override;
+
 	virtual void ProcessSkill(const Protocol::SkillSlot& slot) override;
 };
