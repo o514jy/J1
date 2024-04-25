@@ -2,6 +2,8 @@
 #include "RoomBase.h"
 #include "Object.h"
 #include "StartRoom.h"
+#include "Boss.h"
+#include "ObjectManager.h"
 
 StartRoom::StartRoom()
 {
@@ -37,13 +39,17 @@ bool StartRoom::EnterRoom(ObjectRef object, bool randPos)
 
 	// 보스 몬스터 소환
 	{
-		//Protocol::S_SPAWN spawnPkt;
-		//
-		//Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-		//objectInfo->CopyFrom(*object->objectInfo);
-		//
-		//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
-		//Broadcast(sendBuffer, object->objectInfo->object_id());
+		Protocol::S_SPAWN spawnPkt;
+		
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		BossRef boss = GObjectManager->CreateBoss(100);
+		objectInfo->CopyFrom(*boss->objectInfo);
+		object->posInfo->set_x(500.0f);
+		
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+		Broadcast(sendBuffer);
+		
+		AddObject(boss);
 	}
 	
 	return success;

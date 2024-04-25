@@ -42,6 +42,7 @@ void MonsterAIController::UpdateRun()
 	MonsterRef _ownerMonster = static_pointer_cast<Monster>(_owner);
 	PlayerRef targetPlayer = static_pointer_cast<Player>(_ownerMonster->_targetObject);
 
+	// 타겟이 사라지면 idle로 돌아가기
 	if (targetPlayer == nullptr || targetPlayer->room.load().lock() == nullptr)
 	{
 		_ownerMonster->SetTargetObject(nullptr);
@@ -50,6 +51,7 @@ void MonsterAIController::UpdateRun()
 		return;
 	}
 
+	// 타겟을 파악했으면 그쪽으로 쫓아가기
 
 }
 

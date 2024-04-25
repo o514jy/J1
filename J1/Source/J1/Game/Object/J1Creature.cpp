@@ -18,8 +18,7 @@ AJ1Creature::AJ1Creature()
 	PosInfo = new Protocol::PosInfo();
 
 	// Set size for player capsule
-	GetCapsuleComponent()->InitCapsuleSize(1.f, 96.0f);
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 1080.f, 0.f);
+	
 	GetCharacterMovement()->bRequestedMoveUseAcceleration = false;
 }
 
@@ -131,13 +130,14 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
 	{
 		Protocol::CreatureType creatureType = ObjectInfo->creature_type();
+		CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
+		TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
+		StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
+		StatComponent->SetInfo(this, CreatureData, creatureType);
+
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
-			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
-			TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
-
-			StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
-			StatComponent->SetInfo(this, CreatureData, creatureType);
+			
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{

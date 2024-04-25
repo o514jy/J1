@@ -1187,6 +1187,7 @@ class ObjectInfo final :
     kTemplateIdFieldNumber = 2,
     kObjectTypeFieldNumber = 3,
     kCreatureTypeFieldNumber = 6,
+    kMonsterTypeFieldNumber = 8,
   };
   // .Protocol.PosInfo pos_info = 4;
   bool has_pos_info() const;
@@ -1278,6 +1279,15 @@ class ObjectInfo final :
   void _internal_set_creature_type(::Protocol::CreatureType value);
   public:
 
+  // .Protocol.MonsterType monster_type = 8;
+  void clear_monster_type();
+  ::Protocol::MonsterType monster_type() const;
+  void set_monster_type(::Protocol::MonsterType value);
+  private:
+  ::Protocol::MonsterType _internal_monster_type() const;
+  void _internal_set_monster_type(::Protocol::MonsterType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.ObjectInfo)
  private:
   class _Internal;
@@ -1293,6 +1303,7 @@ class ObjectInfo final :
     int32_t template_id_;
     int object_type_;
     int creature_type_;
+    int monster_type_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2217,6 +2228,26 @@ inline void ObjectInfo::set_allocated_skill_info(::Protocol::SkillInfo* skill_in
   }
   _impl_.skill_info_ = skill_info;
   // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.skill_info)
+}
+
+// .Protocol.MonsterType monster_type = 8;
+inline void ObjectInfo::clear_monster_type() {
+  _impl_.monster_type_ = 0;
+}
+inline ::Protocol::MonsterType ObjectInfo::_internal_monster_type() const {
+  return static_cast< ::Protocol::MonsterType >(_impl_.monster_type_);
+}
+inline ::Protocol::MonsterType ObjectInfo::monster_type() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.monster_type)
+  return _internal_monster_type();
+}
+inline void ObjectInfo::_internal_set_monster_type(::Protocol::MonsterType value) {
+  
+  _impl_.monster_type_ = value;
+}
+inline void ObjectInfo::set_monster_type(::Protocol::MonsterType value) {
+  _internal_set_monster_type(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.monster_type)
 }
 
 #ifdef __GNUC__

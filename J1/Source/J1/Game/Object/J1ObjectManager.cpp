@@ -47,7 +47,25 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 
 	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 	{
-		TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->OtherPlayerClass, &SpawnLocation));
+		Protocol::CreatureType creatureType = InObjectInfo.creature_type();
+		TObjectPtr<AJ1Creature> creature;
+		if (creatureType == Protocol::CreatureType::CREATURE_TYPE_PLAYER)
+		{
+			creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->OtherPlayerClass, &SpawnLocation));
+		}
+		else if (creatureType == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
+		{
+			Protocol::MonsterType monsterType = InObjectInfo.monster_type();
+			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_GENERAL)
+			{
+
+			}
+			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
+			{
+				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->StartBossClass, &SpawnLocation));
+			}
+		}
+		
 		creature->SetInfo(InObjectInfo);
 		Creatures.Add(objectId, creature);
 		object = creature;

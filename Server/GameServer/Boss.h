@@ -5,6 +5,10 @@
 class Boss : public Monster
 {
 public:
+	Boss();
+	~Boss();
+
+public:
 
 };
 

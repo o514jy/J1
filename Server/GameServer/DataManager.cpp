@@ -196,6 +196,14 @@ PlayerDataRef DataManager::GetPlayerDataById(int32 id)
 	return _playerData[id];
 }
 
+BossDataRef DataManager::GetBossDataById(int32 id)
+{
+    if (_bossData.find(id) == _bossData.end())
+        return nullptr;
+
+    return _bossData[id];
+}
+
 SkillDataRef DataManager::GetSkillDataById(int32 id)
 {
     if (_skillData.find(id) == _skillData.end())

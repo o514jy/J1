@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Boss.h"
 #include "RoomBase.h"
 
 // [UNUSED(1)][TYPE(31)][ID(32)]
@@ -48,6 +49,28 @@ PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 	AddObject(player);
 
 	return player;
+}
+
+BossRef ObjectManager::CreateBoss(int32 templateId)
+{
+	// ID »ý¼º±â
+	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_CREATURE);
+
+	BossRef boss = make_shared<Boss>();
+
+	boss->objectInfo->set_object_id(newId);
+	boss->objectInfo->set_template_id(templateId);
+	boss->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_CREATURE);
+	boss->objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_PLAYER);
+
+	boss->posInfo->set_object_id(newId);
+	boss->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+
+	boss->SetInfo(templateId);
+
+	AddObject(boss);
+
+	return boss;
 }
 
 ObjectRef ObjectManager::GetObjectById(uint64 objectId)

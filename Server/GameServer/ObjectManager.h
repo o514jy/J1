@@ -8,7 +8,9 @@ public:
 
 public:
 	ObjectRef CreateObject(GameSessionRef session, Protocol::ObjectType objectType, uint64 templateId);
+	
 	PlayerRef CreatePlayer(GameSessionRef session, int32 templateId);
+	BossRef CreateBoss(int32 templateId);
 
 public:
 	ObjectRef GetObjectById(uint64 objectId);

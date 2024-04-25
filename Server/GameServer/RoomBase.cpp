@@ -245,10 +245,10 @@ void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 	Broadcast_internal(sendBuffer, exceptId);
 }
 
-PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, uint64 exceptId = 0)
+PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, uint64 exceptId)
 {
 	PlayerRef closestPlayer = nullptr;
-	float closestLen = INT32_MAX;
+	float closestLen = 1000000;
 
 	for (auto& item : _objects)
 	{

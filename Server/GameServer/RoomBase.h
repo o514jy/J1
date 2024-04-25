@@ -35,7 +35,7 @@ public:
 
 	RoomBaseRef GetRoomRef();
 
-private:
+protected:
 	bool AddObject(ObjectRef object);
 	bool RemoveObject(uint64 objectId);
 

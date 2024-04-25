@@ -3,7 +3,6 @@
 #include "CoreMinimal.h"
 #include "J1Core.h"
 #include "J1Creature.h"
-#include "J1/Data/J1Data.h"
 #include "InputActionValue.h"
 #include "Protocol.pb.h"
 #include "J1Player.generated.h"

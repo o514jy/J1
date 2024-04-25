@@ -68,10 +68,10 @@ public:
 
 	static float DirectionVectorLen(Protocol::PosInfo* pos1, Protocol::PosInfo* pos2)
 	{
-		pair<float, float> pos1 = make_pair(pos1->x(), pos1->y());
-		pair<float, float> pos2 = make_pair(pos2->x(), pos2->y());
+		pair<float, float> tempPos1 = make_pair(pos1->x(), pos1->y());
+		pair<float, float> tempPos2 = make_pair(pos2->x(), pos2->y());
 
-		return DirectionVectorLen(pos1, pos2);
+		return DirectionVectorLen(tempPos1, tempPos2);
 	}
 
 	static float DirectionVectorLen(pair<float, float> start, pair<float, float> end)

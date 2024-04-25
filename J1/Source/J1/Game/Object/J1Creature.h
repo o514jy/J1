@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "J1Core.h"
+#include "J1/Data/J1Data.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
 #include "J1Creature.generated.h"

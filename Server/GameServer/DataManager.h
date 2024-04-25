@@ -18,6 +18,8 @@ public:
 	/** setter & getter **/
 	PlayerDataRef GetPlayerDataById(int32 id);
 
+	BossDataRef GetBossDataById(int32 id);
+
 	SkillDataRef GetSkillDataById(int32 id);
 
 	EffectDataRef GetEffectDataById(int32 id);

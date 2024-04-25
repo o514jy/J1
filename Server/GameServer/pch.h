@@ -27,6 +27,7 @@ USING_SHARED_PTR(GameSession);
 /** object **/
 USING_SHARED_PTR(Player);
 USING_SHARED_PTR(Monster);
+USING_SHARED_PTR(Boss);
 USING_SHARED_PTR(Creature);
 USING_SHARED_PTR(Object);
 

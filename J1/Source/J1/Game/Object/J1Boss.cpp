@@ -1,5 +1,2 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "Game/Object/J1Boss.h"
+#include "J1Boss.h"
 
