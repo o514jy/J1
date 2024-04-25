@@ -69,6 +69,26 @@ public:
 };
 
 UCLASS(BlueprintType)
+class UMonsterData : public UCreatureData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float SearchMaxDistance;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float ChaseMaxDistance;
+};
+
+UCLASS(BlueprintType)
+class UBossData : public UMonsterData
+{
+	GENERATED_BODY()
+public:
+
+};
+
+UCLASS(BlueprintType)
 class USkillData : public UDataAsset
 {
 public:
@@ -193,15 +213,22 @@ public:
 	/** setter & getter **/
 
 public:
+	/* creature */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UPlayerData>> PlayerData;
 
 	UPROPERTY(BlueprintType)
+	TMap<int32, TObjectPtr<UBossData>> BossData;
+
+	/* skill */
+	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<USkillData>> SkillData;
 
+	/* effect */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UEffectData>> EffectData;
 
+	/* buff */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UBuffData>> BuffData;
 };

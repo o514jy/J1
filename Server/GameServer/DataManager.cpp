@@ -75,6 +75,26 @@ void DataManager::ParseJsonData(const WCHAR* path)
         }
 
         /** bosses **/
+        Value& bosses = doc["bosses"];
+        for (int i = 0; i < bosses.Size(); i++)
+        {
+            BossDataRef dataRef = make_shared<BossData>();
+            Value& boss = bosses[i];
+            dataRef->DataId = boss["DataId"].GetInt();
+            dataRef->CreatureType = Utils::StrToWstr(boss["CreatureType"].GetString());
+            dataRef->DescriptionTextId = Utils::StrToWstr(boss["DescriptionTextId"].GetString());
+            dataRef->ColliderRadius = boss["ColliderRadius"].GetFloat();
+            dataRef->ColliderHalfHeight = boss["ColliderHalfHeight"].GetFloat();
+            dataRef->MaxHp = boss["MaxHp"].GetFloat();
+            dataRef->Atk = boss["Atk"].GetFloat();
+            dataRef->Def = boss["Def"].GetFloat();
+            dataRef->MaxWalkSpeed = boss["MaxWalkSpeed"].GetFloat();
+            dataRef->MoveSpeedRate = boss["MoveSpeedRate"].GetFloat();
+            dataRef->SearchMaxDistance = boss["SearchMaxDistance"].GetFloat();
+            dataRef->ChaseMaxDistance = boss["ChaseMaxDistance"].GetFloat();
+
+            _bossData.insert(make_pair(dataRef->DataId, dataRef));
+        }
 
         /** skills **/
         Value& skills = doc["skills"];

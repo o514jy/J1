@@ -51,6 +51,33 @@ void UJ1GameData::ParseJsonData(const FString& path)
         }
     }
 
+    const TArray<TSharedPtr<FJsonValue>> bosses = JsonObject->GetArrayField(TEXT("bosses"));
+    {
+        for (int32 i = 0; i < bosses.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> boss = bosses[i]->AsObject();
+
+            UBossData* data = NewObject<UBossData>();
+            /** creature **/
+            data->DataId = boss->GetIntegerField(TEXT("DataId"));
+            data->CreatureType = boss->GetStringField(TEXT("CreatureType"));
+            data->DescriptionTextId = boss->GetStringField(TEXT("DescriptionTextId"));
+            data->ColliderRadius = boss->GetNumberField(TEXT("ColliderRadius"));
+            data->ColliderHalfHeight = boss->GetNumberField(TEXT("ColliderHalfHeight"));
+            data->MaxHp = boss->GetNumberField(TEXT("MaxHp"));
+            data->Atk = boss->GetNumberField(TEXT("Atk"));
+            data->Def = boss->GetNumberField(TEXT("Def"));
+            data->MaxWalkSpeed = boss->GetNumberField(TEXT("MaxWalkSpeed"));
+            data->MoveSpeedRate = boss->GetNumberField(TEXT("MoveSpeedRate"));
+            /** Monster **/
+            data->SearchMaxDistance = boss->GetNumberField(TEXT("SearchMaxDistance"));
+            data->ChaseMaxDistance = boss->GetNumberField(TEXT("ChaseMaxDistance"));
+            /** Boss **/
+
+            BossData.Add(data->DataId, data);
+        }
+    }
+
     const TArray<TSharedPtr<FJsonValue>> skills = JsonObject->GetArrayField(TEXT("skills"));
     {
         for (int32 i = 0; i < skills.Num(); i++)
