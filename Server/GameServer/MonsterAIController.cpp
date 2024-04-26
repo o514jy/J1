@@ -55,23 +55,26 @@ void MonsterAIController::UpdateRun()
 		BroadcastMove();
 		return;
 	}
-	
-	// 타겟이 있었으나 추격거리를 벗어난 경우 idle로 돌아가기
-	float dist = Utils::DirectionVectorLen(_owner->posInfo, targetPlayer->posInfo);
-	if (dist > ownerData->ChaseMaxDistance)
-	{
-		ownerMonster->SetTargetObject(nullptr);
-		ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
-		BroadcastMove();
-		return;
-	}
 
-	// 기본 스킬 사거리 안으로 들어왔으면 skill로 넘어가기
-	if (dist < ownerData->DefaultAtkRange)
-	{
-		ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
-		return;
-	}
+	// 타겟이 있으면 쫓아가서 공격 사거리 안에 들어오면 공격
+	ChaseOrAttackTarget(ownerData->ChaseMaxDistance, ownerData->SearchMaxDistance);
+	
+	//// 타겟이 있었으나 추격거리를 벗어난 경우 idle로 돌아가기
+	//float dist = Utils::DirectionVectorLen(_owner->posInfo, targetPlayer->posInfo);
+	//if (dist > ownerData->ChaseMaxDistance)
+	//{
+	//	ownerMonster->SetTargetObject(nullptr);
+	//	ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
+	//	BroadcastMove();
+	//	return;
+	//}
+	//
+	//// 기본 스킬 사거리 안으로 들어왔으면 skill로 넘어가기
+	//if (dist < ownerData->DefaultAtkRange)
+	//{
+	//	ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
+	//	return;
+	//}
 
 	// 그 외에는 그냥 적을 따라서 이동하는 상태
 	BroadcastMove();

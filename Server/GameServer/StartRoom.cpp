@@ -30,7 +30,7 @@ void StartRoom::UpdateTick()
 	}
 
 	//cout << "Update StartRoom" << "\n";
-	DoTimer(200, &StartRoom::UpdateTick);
+	DoTimer(TICK_COUNT, &StartRoom::UpdateTick);
 }
 
 bool StartRoom::EnterRoom(ObjectRef object, bool randPos)
@@ -44,7 +44,9 @@ bool StartRoom::EnterRoom(ObjectRef object, bool randPos)
 		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
 		BossRef boss = GObjectManager->CreateBoss(100);
 		objectInfo->CopyFrom(*boss->objectInfo);
-		object->posInfo->set_x(500.0f);
+		object->posInfo->set_x(1000.0f);
+		object->posInfo->set_y(0.0f);
+		object->posInfo->set_x(100.0f);
 		
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
 		Broadcast(sendBuffer);

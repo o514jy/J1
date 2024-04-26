@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include "Define.h"
 
 class Utils
 {
@@ -82,5 +83,36 @@ public:
 
 		// Calculate the length of the direction vector
 		return sqrt(directionX * directionX + directionY * directionY);
+	}
+
+	static pair<float, float> FindNextTickPos2dToGo(Protocol::PosInfo* pos1, Protocol::PosInfo* pos2, float speed)
+	{
+		pair<float, float> tempPos1 = make_pair(pos1->x(), pos1->y());
+		pair<float, float> tempPos2 = make_pair(pos2->x(), pos2->y());
+
+		return FindNextTickPos2dToGo(tempPos1, tempPos2, speed);
+	}
+
+	static pair<float, float> FindNextTickPos2dToGo(pair<float, float> start, pair<float, float> end, float speed)
+	{
+		// 우선 거리를 잼
+		float dist = DirectionVectorLen(start, end);
+
+		// 남은 거리보다 내가 한번에 이동할 수 있는 거리가 길다면 목적지로 바로 리턴
+		if (dist <= TICK_COUNT * speed * 0.001)
+		{
+			return end;
+		}
+		
+		// 가야할 크기의 방향벡터 정규화
+		pair<float, float> dirVec2d = DirectionVectorNormalized(start, end);
+
+		// 다음 프레임에 갈 곳 구하기
+
+		pair<float, float> nextPos;
+		nextPos.first = start.first + dirVec2d.first * TICK_COUNT * speed * 0.001;
+		nextPos.second = start.second + dirVec2d.second * TICK_COUNT * speed * 0.001;
+
+		return nextPos;
 	}
 };

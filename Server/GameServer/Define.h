@@ -2,8 +2,9 @@
 
 #define DISTANCESQR_THRESHHOLD 25;
 
-/*
-* Map Id
-*/
 
+/** room id **/
 #define MAP_MAIN_ROOM_ID 1;
+
+/** tick count **/
+#define TICK_COUNT 200

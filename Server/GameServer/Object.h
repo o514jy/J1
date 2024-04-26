@@ -23,6 +23,9 @@ public:
 	void SetState(Protocol::MoveState moveState);
 	Protocol::MoveState GetState();
 
+	void SetPosInfo(const Protocol::PosInfo& InPosInfo);
+	Protocol::PosInfo* GetPosInfo();
+
 	StatComponentRef GetStatComponent() { return _statComponent; }
 
 public:

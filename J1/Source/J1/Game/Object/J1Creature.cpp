@@ -17,6 +17,7 @@ AJ1Creature::AJ1Creature()
 
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
+	ObjectInfo->set_allocated_pos_info(PosInfo);
 
 	// Set size for player capsule
 	
@@ -173,7 +174,6 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
 			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
-			
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{
@@ -183,6 +183,8 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 				CreatureData = GetManager(Data)->GameData->BossData[TemplateId];
 			}
 		}
+
+		GetCharacterMovement()->MaxWalkSpeed = CreatureData->MaxWalkSpeed;
 
 		TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
 		StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));

@@ -158,8 +158,8 @@ void RoomBase::HandleNotifyPos(Protocol::C_NOTIFY_POS pkt)
 		return;
 
 	// check pos ?
-	ObjectRef player = _objects[objectId];
-	player->posInfo->CopyFrom(pkt.info());
+	ObjectRef object = _objects[objectId];
+	object->SetPosInfo(pkt.info());
 	
 	// log
 	//cout << player->posInfo->object_id() << "ÀÇ ÁÂÇ¥ : " << "( " << player->posInfo->x() << " " << player->posInfo->y() << " " << player->posInfo->z() << endl;

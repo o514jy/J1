@@ -12,7 +12,6 @@ Object::Object()
 	objectType = new Protocol::ObjectType();
 	posInfo = new Protocol::PosInfo();
 	objectInfo->set_allocated_pos_info(posInfo);
-	
 
 	_statComponent = nullptr;
 
@@ -46,6 +45,16 @@ void Object::SetState(Protocol::MoveState moveState)
 Protocol::MoveState Object::GetState()
 {
 	return posInfo->state();
+}
+
+void Object::SetPosInfo(const Protocol::PosInfo& InPosInfo)
+{
+	posInfo->CopyFrom(InPosInfo);
+}
+
+Protocol::PosInfo* Object::GetPosInfo()
+{
+	return posInfo;
 }
 
 void Object::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
