@@ -13,6 +13,10 @@ public:
 	virtual void SetInfo(ObjectRef owner) override;
 
 public:
+	/** setter & getter **/
+	
+
+public:
 	/** finite state machine **/
 	virtual void UpdateTick() override;
 
@@ -21,4 +25,7 @@ public:
 	virtual void UpdateSkill() override;
 	virtual void UpdateDead() override;
 
+public:
+	/** information **/
+	
 };

@@ -5,7 +5,8 @@
 Monster::Monster()
 {
 	objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_MONSTER);
-
+	objectInfo->set_monster_type(Protocol::MonsterType::MONSTER_TYPE_GENERAL);
+	
 	_skillComponent = nullptr;
 	_aiController = nullptr;
 	_targetObject = nullptr;

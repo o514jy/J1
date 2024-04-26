@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Data.h"
 
 class Object : public enable_shared_from_this<Object>
 {

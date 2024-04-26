@@ -31,22 +31,35 @@
       "Def": 10.0,
       "MaxWalkSpeed": 200.0,
       "MoveSpeedRate": 1.0,
+      "SkillAttackId": 1100,
+      "DefaultAtkRange": 300.0,
       "SearchMaxDistance": 500.0,
       "ChaseMaxDistance": 700.0
     }
   ],
   "skills": [
-	  {
-	    "DataId": 1000,
-	    "Name": "Normal Attack 1 (Aurora)",
-	    "Description": "Normal Attack 1 (Aurora)",
-	    "ProjectileIdList": [],
+    {
+      "DataId": 1000,
+      "Name": "Normal Attack 1 (Aurora)",
+      "Description": "Normal Attack 1 (Aurora)",
+      "ProjectileIdList": [],
       "CoolTime": 0.0,
       "SkillDuration": 500,
       "AnimImpactTimeList": [ 300 ],
       "BuffIdList": [ 100000 ],
       "EffectIdList": [ 10000 ]
-	  }
+    },
+    {
+      "DataId": 1100,
+      "Name": "Normal Attack 1 (Sevarog)",
+      "Description": "Normal Attack 1 (Sevarog)",
+      "ProjectileIdList": [],
+      "CoolTime": 0.0,
+      "SkillDuration": 1000,
+      "AnimImpactTimeList": [ 300 ],
+      "BuffIdList": [ 100000 ],
+      "EffectIdList": [ 10100 ]
+    }
   ],
   "effects": [
     {
@@ -54,6 +67,13 @@
       "OwnerSkillDataId": 1000,
       "EffectType": "Pizza",
       "Radius": 120.0,
+      "Theta": 180.0
+    },
+    {
+      "DataId": 10100,
+      "OwnerSkillDataId": 1000,
+      "EffectType": "Pizza",
+      "Radius": 300.0,
       "Theta": 180.0
     }
   ],

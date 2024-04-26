@@ -39,8 +39,8 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->Def = player->GetNumberField(TEXT("Def"));
             data->MaxWalkSpeed = player->GetNumberField(TEXT("MaxWalkSpeed"));
             data->MoveSpeedRate = player->GetNumberField(TEXT("MoveSpeedRate"));
-            /** player **/
             data->SkillAttackId = player->GetIntegerField(TEXT("SkillAttackId"));
+            /** player **/
             data->SkillQId = player->GetIntegerField(TEXT("SkillQId"));
             data->SkillWId = player->GetIntegerField(TEXT("SkillWId"));
             data->SkillEId = player->GetIntegerField(TEXT("SkillEId"));
@@ -69,7 +69,9 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->Def = boss->GetNumberField(TEXT("Def"));
             data->MaxWalkSpeed = boss->GetNumberField(TEXT("MaxWalkSpeed"));
             data->MoveSpeedRate = boss->GetNumberField(TEXT("MoveSpeedRate"));
+            data->SkillAttackId = boss->GetIntegerField(TEXT("SkillAttackId"));
             /** Monster **/
+            data->DefaultAtkRange = boss->GetNumberField(TEXT("DefaultAtkRange"));
             data->SearchMaxDistance = boss->GetNumberField(TEXT("SearchMaxDistance"));
             data->ChaseMaxDistance = boss->GetNumberField(TEXT("ChaseMaxDistance"));
             /** Boss **/

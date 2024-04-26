@@ -16,4 +16,10 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack_0);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack_End);
+
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_NormalAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_NormalAttack_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_NormalAttack_End);
 }

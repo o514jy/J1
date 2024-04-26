@@ -245,7 +245,7 @@ void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 	Broadcast_internal(sendBuffer, exceptId);
 }
 
-PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, uint64 exceptId)
+PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId)
 {
 	PlayerRef closestPlayer = nullptr;
 	float closestLen = 1000000;
@@ -260,6 +260,10 @@ PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, uint64 exceptId)
 
 		// check distance
 		float len = Utils::DirectionVectorLen(object->posInfo, player->posInfo);
+
+		if (len > maxDist)
+			continue;
+
 		if (len < closestLen)
 		{
 			closestPlayer = player;

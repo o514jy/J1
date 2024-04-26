@@ -40,6 +40,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float MoveSpeedRate;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 SkillAttackId;
 };
 
 UCLASS(BlueprintType)
@@ -49,9 +52,6 @@ public:
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	int32 SkillAttackId;
-
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	int32 SkillQId;
 
@@ -73,6 +73,9 @@ class UMonsterData : public UCreatureData
 {
 	GENERATED_BODY()
 public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float DefaultAtkRange;
+
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float SearchMaxDistance;
 

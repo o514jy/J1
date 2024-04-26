@@ -13,12 +13,12 @@ public:
 	float Def;
 	float MaxWalkSpeed;
 	float MoveSpeedRate;
+	int32 SkillAttackId;
 };
 
 class PlayerData : public CreatureData
 {
 public:
-	int32 SkillAttackId;
 	int32 SkillQId;
 	int32 SkillWId;
 	int32 SkillEId;
@@ -29,6 +29,7 @@ public:
 class MonsterData : public CreatureData
 {
 public:
+	float DefaultAtkRange;
 	float SearchMaxDistance;
 	float ChaseMaxDistance;
 };

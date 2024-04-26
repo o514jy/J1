@@ -61,7 +61,8 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 	boss->objectInfo->set_object_id(newId);
 	boss->objectInfo->set_template_id(templateId);
 	boss->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_CREATURE);
-	boss->objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_PLAYER);
+	boss->objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_MONSTER);
+	boss->objectInfo->set_monster_type(Protocol::MonsterType::MONSTER_TYPE_BOSS);
 
 	boss->posInfo->set_object_id(newId);
 	boss->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);

@@ -19,6 +19,8 @@ public:
 	/** setter & getter **/
 	void SetTargetObject(ObjectRef object);
 
+	MonsterDataRef GetMonsterData() { return static_pointer_cast<MonsterData>(_creatureData); }
+
 public:
 	/** component **/
 

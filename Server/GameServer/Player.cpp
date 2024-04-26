@@ -7,13 +7,12 @@ Player::Player()
 	//objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_PLAYER);
 	_isPlayer = true;
 
-	_playerDataRef = make_shared<PlayerData>();
 	//objectInfo->set_allocated_player_data(playerData.get());
 }
 
 Player::~Player()
 {
-	_playerDataRef = nullptr;
+	 
 }
 
 void Player::UpdateTick()

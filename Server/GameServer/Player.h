@@ -19,6 +19,9 @@ public:
 	virtual void SetInfo(int32 templateId) override;
 
 public:
-	shared_ptr<PlayerData> _playerDataRef;
+	/** setter & getter **/
+	PlayerDataRef GetPlayerData() { return static_pointer_cast<PlayerData>(_creatureData); }
+
+public:
 };
 

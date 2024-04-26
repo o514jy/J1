@@ -43,7 +43,7 @@ public:
 	/** use outside **/
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 
-	PlayerRef FindClosestPlayer(ObjectRef object, uint64 exceptId = 0);
+	PlayerRef FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId = 0);
 
 protected:
 	// exceptId를 제외한 모든 object에게 sendBuffer를 보낸다.

@@ -21,11 +21,14 @@ void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 	_owner = owner;
 	_owner->objectInfo->set_allocated_skill_info(skillInfo);
 
+	skillInfo->set_object_id(_owner->_objectId);
+	AddSkill(creatureData->SkillAttackId, Protocol::SkillSlot::SKILL_SLOT_ATTACK);
+
 	if (creatureData->CreatureType == L"Player")
 	{
 		PlayerDataRef data = static_pointer_cast<PlayerData>(creatureData);
 
-		skillInfo->set_object_id(_owner->_objectId);
+		
 		skillInfo->set_skill_attack_id(data->SkillAttackId);
 		skillInfo->set_skill_q_id(data->SkillQId);
 		skillInfo->set_skill_w_id(data->SkillWId);
@@ -33,7 +36,7 @@ void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 		skillInfo->set_skill_r_id(data->SkillRId);
 		skillInfo->set_skill_dash_id(data->SkillDashId);
 
-		AddSkill(data->SkillAttackId, Protocol::SkillSlot::SKILL_SLOT_ATTACK);
+		
 		AddSkill(data->SkillQId, Protocol::SkillSlot::SKILL_SLOT_Q);
 		AddSkill(data->SkillWId, Protocol::SkillSlot::SKILL_SLOT_W);
 		AddSkill(data->SkillEId, Protocol::SkillSlot::SKILL_SLOT_E);

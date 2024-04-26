@@ -90,6 +90,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->Def = boss["Def"].GetFloat();
             dataRef->MaxWalkSpeed = boss["MaxWalkSpeed"].GetFloat();
             dataRef->MoveSpeedRate = boss["MoveSpeedRate"].GetFloat();
+            dataRef->DefaultAtkRange = boss["DefaultAtkRange"].GetFloat();
             dataRef->SearchMaxDistance = boss["SearchMaxDistance"].GetFloat();
             dataRef->ChaseMaxDistance = boss["ChaseMaxDistance"].GetFloat();
 

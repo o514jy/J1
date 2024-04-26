@@ -19,6 +19,8 @@ FGameplayTag UJ1DataManager::SetTemplateTagByDataId(int32 InTemplateId)
 	{
 	case 1:
 		return J1GameplayTags::Aurora;
+	case 100:
+		return J1GameplayTags::Sevarog;
 	}
 
 	return FGameplayTag();

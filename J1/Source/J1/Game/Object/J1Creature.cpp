@@ -130,19 +130,24 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
 	{
 		Protocol::CreatureType creatureType = ObjectInfo->creature_type();
-		CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
-		TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
-		StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
-		StatComponent->SetInfo(this, CreatureData, creatureType);
-
+		
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
+			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
 			
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{
-			
+			Protocol::MonsterType monsterType = ObjectInfo->monster_type();
+			if (monsterType == Protocol::MONSTER_TYPE_BOSS)
+			{
+				CreatureData = GetManager(Data)->GameData->BossData[TemplateId];
+			}
 		}
+
+		TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
+		StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
+		StatComponent->SetInfo(this, CreatureData, creatureType);
 	}
 
 	// add skill component
