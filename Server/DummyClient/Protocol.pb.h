@@ -1876,9 +1876,10 @@ class S_NOTIFY_POS final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 1,
+    kInfoFieldNumber = 2,
+    kObjectIdFieldNumber = 1,
   };
-  // .Protocol.PosInfo info = 1;
+  // .Protocol.PosInfo info = 2;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
@@ -1896,6 +1897,15 @@ class S_NOTIFY_POS final :
       ::Protocol::PosInfo* info);
   ::Protocol::PosInfo* unsafe_arena_release_info();
 
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_NOTIFY_POS)
  private:
   class _Internal;
@@ -1905,6 +1915,7 @@ class S_NOTIFY_POS final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::Protocol::PosInfo* info_;
+    uint64_t object_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3497,7 +3508,27 @@ inline void C_NOTIFY_POS::set_allocated_info(::Protocol::PosInfo* info) {
 
 // S_NOTIFY_POS
 
-// .Protocol.PosInfo info = 1;
+// uint64 object_id = 1;
+inline void S_NOTIFY_POS::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t S_NOTIFY_POS::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t S_NOTIFY_POS::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_NOTIFY_POS.object_id)
+  return _internal_object_id();
+}
+inline void S_NOTIFY_POS::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void S_NOTIFY_POS::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_NOTIFY_POS.object_id)
+}
+
+// .Protocol.PosInfo info = 2;
 inline bool S_NOTIFY_POS::_internal_has_info() const {
   return this != internal_default_instance() && _impl_.info_ != nullptr;
 }

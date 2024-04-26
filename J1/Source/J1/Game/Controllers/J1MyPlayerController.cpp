@@ -201,15 +201,6 @@ void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 	// 목적지 기입
 	myPlayer->SetPosInfo(posInfo);
 
-	Protocol::C_NOTIFY_POS NotifyPosPkt;
-	
-	{
-		Protocol::PosInfo* Info = NotifyPosPkt.mutable_info();
-		Info->CopyFrom(*myPlayer->GetPosInfo());
-	}
-
-	GetNetworkManager()->SendPacket(NotifyPosPkt);
-
 	// start move
 	FVector location;
 	location.X = posInfo.dest_x();

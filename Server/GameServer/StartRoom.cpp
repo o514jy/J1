@@ -21,7 +21,7 @@ StartRoomRef StartRoom::GetRoomRef()
 
 void StartRoom::UpdateTick()
 {
-	//__super::UpdateTick();
+	__super::UpdateTick();
 
 	// all object in start room process update tick 
 	for (auto& object : _objects)

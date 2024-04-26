@@ -45,7 +45,7 @@ void Creature::SetInfo(int32 templateId)
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{
 			Protocol::MonsterType monsterType = objectInfo->monster_type();
-			if (monsterType == Protocol::MONSTER_TYPE_BOSS)
+			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
 				_creatureData = GDataManager->GetBossDataById(_templateId);
 			}

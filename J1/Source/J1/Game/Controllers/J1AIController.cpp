@@ -16,3 +16,12 @@ void AJ1AIController::ProcessMove(const Protocol::PosInfo& posInfo)
    
 	
 }
+
+void AJ1AIController::RegisterNotifyPos()
+{
+}
+
+void AJ1AIController::ProcessNotifyPos(const Protocol::PosInfo& posInfo)
+{
+	
+}

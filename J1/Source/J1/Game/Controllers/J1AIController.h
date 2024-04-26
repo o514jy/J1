@@ -16,5 +16,6 @@ public:
 public:
 	virtual void ProcessMove(const Protocol::PosInfo& posInfo);
 
-	
+	virtual void RegisterNotifyPos();
+	virtual void ProcessNotifyPos(const Protocol::PosInfo& posInfo);
 };

@@ -158,7 +158,7 @@ void RoomBase::HandleNotifyPos(Protocol::C_NOTIFY_POS pkt)
 		return;
 
 	// check pos ?
-	PlayerRef player = dynamic_pointer_cast<Player>(_objects[objectId]);
+	ObjectRef player = _objects[objectId];
 	player->posInfo->CopyFrom(pkt.info());
 	
 	// log
@@ -202,8 +202,15 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 void RoomBase::UpdateTick()
 {
 	//cout << "Update RoomBase" << endl;
+	
+	//DoTimer(100, &RoomBase::UpdateTick);
 
-	DoTimer(100, &RoomBase::UpdateTick);
+	// 존재하는 object들에게 서있는 곳 알려달라고 보내기
+	{
+		Protocol::S_NOTIFY_POS notifyPkt;
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
+		Broadcast(sendBuffer);
+	}
 }
 
 RoomBaseRef RoomBase::GetRoomRef()
@@ -270,7 +277,7 @@ PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 ex
 			closestLen = len;
 		}
 	}
-
+	
 	return closestPlayer;
 }
 

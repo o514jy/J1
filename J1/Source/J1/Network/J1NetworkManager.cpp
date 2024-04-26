@@ -177,6 +177,20 @@ void UJ1NetworkManager::HandleMove(const Protocol::S_MOVE& MovePkt)
 
 void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt)
 {
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const uint64 ObjectId = NotifyPosPkt.info().object_id();
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
+	if (FindActor == nullptr)
+		return;
+
+	const Protocol::PosInfo& Info = NotifyPosPkt.info();
+	FindActor->ProcessNotifyPos(Info);
 }
 
 void UJ1NetworkManager::HandleSkill(const Protocol::S_SKILL& SkillPkt)

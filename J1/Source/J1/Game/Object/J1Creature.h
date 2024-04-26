@@ -39,6 +39,9 @@ public:
 	void SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo);
 	Protocol::ObjectInfo* GetObjectInfo() { return ObjectInfo; }
 
+	void SetNowPosInfo(FVector InLocation = FVector());
+	void SetDestPosInfo(FVector InLocation);
+
 	TObjectPtr<UCreatureData> GetCreatureData() { return CreatureData; }
 
 	uint64 GetObjectId() { return ObjectId; }
@@ -69,7 +72,7 @@ public:
 
 	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt);
 
-	
+	virtual void ProcessNotifyPos(const Protocol::PosInfo& Info);
 
 public:
 	/** initialize info **/

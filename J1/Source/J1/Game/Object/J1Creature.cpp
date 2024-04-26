@@ -4,6 +4,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1DataManager.h"
+#include "J1/Game/Controllers/J1CreatureController.h"
 #include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
 #include "J1/Game/Skill/J1SkillBase.h"
@@ -33,12 +34,16 @@ void AJ1Creature::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SetNowPosInfo();
+
+	SetMoveState(Protocol::MOVE_STATE_IDLE);
 }
 
 void AJ1Creature::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	SetNowPosInfo();
 }
 
 void AJ1Creature::SetMoveState(Protocol::MoveState State)
@@ -81,6 +86,34 @@ void AJ1Creature::SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo)
 	ObjectInfo->CopyFrom(InObjectInfo);
 }
 
+void AJ1Creature::SetNowPosInfo(FVector InLocation)
+{
+	// 본인의 위치를 업데이트해야 하는 경우
+	if (InLocation == FVector())
+	{
+		FVector Location = GetActorLocation();
+		PosInfo->set_x(Location.X);
+		PosInfo->set_y(Location.Y);
+		PosInfo->set_z(Location.Z);
+		PosInfo->set_yaw(GetControlRotation().Yaw);
+	}
+	else
+	{
+		FVector Location = GetActorLocation();
+		PosInfo->set_x(Location.X);
+		PosInfo->set_y(Location.Y);
+		PosInfo->set_z(Location.Z);
+		PosInfo->set_yaw(GetControlRotation().Yaw);
+	}
+}
+
+void AJ1Creature::SetDestPosInfo(FVector InLocation)
+{
+	PosInfo->set_dest_x(InLocation.X);
+	PosInfo->set_dest_y(InLocation.Y);
+	PosInfo->set_dest_z(InLocation.Z);
+}
+
 void AJ1Creature::OnDamaged(TObjectPtr<AActor> InAttacker, TObjectPtr<UJ1SkillBase> InSkill)
 {
 	if (InAttacker == nullptr)
@@ -106,11 +139,17 @@ void AJ1Creature::HandleGameplayEvent(FGameplayTag EventTag)
 
 void AJ1Creature::ProcessMove(const Protocol::PosInfo& Info)
 {
+	Cast<AJ1CreatureController>(Controller)->ProcessMove(Info);
 }
 
 void AJ1Creature::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	SkillComponent->DoSkill(InSkillPkt);
+}
+
+void AJ1Creature::ProcessNotifyPos(const Protocol::PosInfo& Info)
+{
+	Cast<AJ1CreatureController>(Controller)->ProcessNotifyPos(Info);
 }
 
 void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)

@@ -17,7 +17,7 @@ AJ1MyPlayer::AJ1MyPlayer()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
-	CameraBoom->TargetArmLength = 800.f;
+	CameraBoom->TargetArmLength = 1100.f;
 	CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
 	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
 
@@ -62,11 +62,11 @@ void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 		}
 	}
 
-	MovePacketSendTimer -= DeltaTime;
+	//MovePacketSendTimer -= DeltaTime;
 
-	if (MovePacketSendTimer <= 0 || ForceSendPacket)
+	if (/*MovePacketSendTimer <= 0 || */ForceSendPacket == true)
 	{
-		MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
+		//MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
 
 		// send Notify Pos Packet
 		//SetMoveState(Protocol::MOVE_STATE_RUN);

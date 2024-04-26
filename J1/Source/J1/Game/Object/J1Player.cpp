@@ -47,29 +47,11 @@ AJ1Player::~AJ1Player()
 void AJ1Player::BeginPlay()
 {
 	Super::BeginPlay();
-
-	{
-		FVector Location = GetActorLocation();
-		PosInfo->set_x(Location.X);
-		PosInfo->set_y(Location.Y);
-		PosInfo->set_z(Location.Z);
-		PosInfo->set_yaw(GetControlRotation().Yaw);
-
-		SetMoveState(Protocol::MOVE_STATE_IDLE);
-	}
 }
 
 void AJ1Player::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	{
-		FVector Location = GetActorLocation();
-		PosInfo->set_x(Location.X);
-		PosInfo->set_y(Location.Y);
-		PosInfo->set_z(Location.Z);
-		PosInfo->set_yaw(GetControlRotation().Yaw);
-	}
 }
 
 bool AJ1Player::IsMyPlayer()
