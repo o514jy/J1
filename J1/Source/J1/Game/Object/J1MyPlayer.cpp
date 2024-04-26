@@ -93,6 +93,11 @@ void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 	Super::ProcessSkill(InSkillPkt);
 }
 
+void AJ1MyPlayer::ProcessNotifyPos(const Protocol::PosInfo& Info)
+{
+	Cast<AJ1MyPlayerController>(Controller)->ProcessNotifyPos(Info);
+}
+
 bool AJ1MyPlayer::CompareNowPosAndDestPos()
 {
 	FVector2D nowPos, destPos;

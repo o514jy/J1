@@ -53,6 +53,9 @@ bool StartRoom::EnterRoom(ObjectRef object, bool randPos)
 		
 		AddObject(boss);
 	}
+
+	// temp
+	_entered.store(true);
 	
 	return success;
 }

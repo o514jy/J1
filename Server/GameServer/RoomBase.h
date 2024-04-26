@@ -9,6 +9,10 @@ public:
 	virtual ~RoomBase();
 
 public:
+	/** update tick**/
+	virtual void UpdateTick();
+
+public:
 	// room에 스폰해주고 다른 player에게 알린 뒤 기존 player의 목록을 보내준다.
 	virtual bool EnterRoom(ObjectRef object, bool randPos = true);
 	// room으로부터 퇴장시킨다.
@@ -31,7 +35,6 @@ public:
 	void HandleSkill(Protocol::C_SKILL pkt);
 
 public:
-	virtual void UpdateTick();
 
 	RoomBaseRef GetRoomRef();
 
@@ -51,4 +54,7 @@ protected:
 
 public:
 	unordered_map<uint64, ObjectRef> _objects;
+
+protected:
+	atomic<bool> _entered;
 };

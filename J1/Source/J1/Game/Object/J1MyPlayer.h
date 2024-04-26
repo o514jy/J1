@@ -34,6 +34,8 @@ public:
 	virtual void ProcessMove(const Protocol::PosInfo& Info) override;
 	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt) override;
 
+	virtual void ProcessNotifyPos(const Protocol::PosInfo& Info) override;
+
 	bool CompareNowPosAndDestPos();
 
 protected:

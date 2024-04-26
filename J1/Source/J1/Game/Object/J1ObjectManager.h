@@ -21,7 +21,11 @@ private:
 	uint64 ManagerCount;
 
 public:
+	/** initialize **/
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+
+public:
+	/** setter & getter **/
 
 public:
 	TObjectPtr<AActor> SpawnObject(Protocol::ObjectInfo InObjectInfo);

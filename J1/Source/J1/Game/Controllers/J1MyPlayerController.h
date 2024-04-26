@@ -45,6 +45,9 @@ public:
 	void RegisterMove(FVector location);
 	void ProcessMove(const Protocol::PosInfo& posInfo);
 
+	void RegisterNotifyPos();
+	void ProcessNotifyPos(const Protocol::PosInfo& Info);
+
 protected:
 	UJ1NetworkManager* GetNetworkManager() const;
 

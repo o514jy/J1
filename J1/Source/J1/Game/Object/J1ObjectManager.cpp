@@ -3,6 +3,7 @@
 #include "J1Creature.h"
 #include "J1Player.h"
 #include "J1MyPlayer.h"
+#include "J1Boss.h"
 #include "J1LogChannels.h"
 #include "System/J1GameInstance.h"
 

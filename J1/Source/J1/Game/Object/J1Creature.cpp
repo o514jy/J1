@@ -17,11 +17,14 @@ AJ1Creature::AJ1Creature()
 
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
-	ObjectInfo->set_allocated_pos_info(PosInfo);
+	//ObjectInfo->set_allocated_pos_info(PosInfo);
 
 	// Set size for player capsule
 	
 	GetCharacterMovement()->bRequestedMoveUseAcceleration = false;
+
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	AIControllerClass = AJ1CreatureController::StaticClass();
 }
 
 AJ1Creature::~AJ1Creature()

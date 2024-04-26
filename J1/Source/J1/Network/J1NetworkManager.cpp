@@ -185,10 +185,8 @@ void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosP
 		return;
 
 	const uint64 ObjectId = NotifyPosPkt.info().object_id();
-	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
-	if (FindActor == nullptr)
-		return;
-
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->MyPlayer;
+	
 	const Protocol::PosInfo& Info = NotifyPosPkt.info();
 	FindActor->ProcessNotifyPos(Info);
 }

@@ -218,6 +218,27 @@ void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 	//}
 }
 
+void AJ1MyPlayerController::RegisterNotifyPos()
+{
+	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
+
+	Protocol::C_NOTIFY_POS notifyPkt;
+	{
+		Protocol::PosInfo* posInfo = new Protocol::PosInfo();
+		posInfo->CopyFrom(*myPlayer->GetPosInfo());
+		notifyPkt.set_allocated_info(posInfo);
+	}
+	GetManager(Network)->SendPacket(notifyPkt);
+}
+
+void AJ1MyPlayerController::ProcessNotifyPos(const Protocol::PosInfo& Info)
+{
+	// todo : 위치 교정해야하면 여기서 해주고
+
+	// 답장 보내기
+	RegisterNotifyPos();
+}
+
 /*
  * GameInstance의 Subsystem인 NetWorkManager를 가져옵니다.
  */

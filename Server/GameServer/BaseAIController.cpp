@@ -47,6 +47,8 @@ void BaseAIController::BroadcastMove()
 
 		Protocol::PosInfo* posInfo = new Protocol::PosInfo();
 
+		posInfo->set_object_id(ownerMonster->_objectId);
+
 		// 몬스터의 현재 위치
 		posInfo->set_x(ownerMonster->posInfo->x());
 		posInfo->set_y(ownerMonster->posInfo->y());

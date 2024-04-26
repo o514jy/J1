@@ -8,9 +8,3 @@ void AJ1PlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
 
     
 }
-
-void AJ1PlayerController::ProcessSkill(const Protocol::SkillSlot& slot)
-{
-	Super::ProcessSkill(slot);
-
-}

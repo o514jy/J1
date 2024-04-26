@@ -12,12 +12,27 @@ RoomBaseRef GRoomBase = make_shared<RoomBase>();
 
 RoomBase::RoomBase()
 {
-
+	_entered = false;
 }
 
 RoomBase::~RoomBase()
 {
 
+}
+
+void RoomBase::UpdateTick()
+{
+	//cout << "Update RoomBase" << endl;
+
+	//DoTimer(100, &RoomBase::UpdateTick);
+
+	// 존재하는 object들에게 서있는 곳 알려달라고 보내기
+	if (_entered.load() == true)
+	{
+		Protocol::S_NOTIFY_POS notifyPkt;
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
+		Broadcast(sendBuffer);
+	}
 }
 
 bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
@@ -197,20 +212,6 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 
 	// 클라는 알아서 실행하게 두고 서버도 같이 실행
 	creature->_skillComponent->DoSkill(pkt);
-}
-
-void RoomBase::UpdateTick()
-{
-	//cout << "Update RoomBase" << endl;
-	
-	//DoTimer(100, &RoomBase::UpdateTick);
-
-	// 존재하는 object들에게 서있는 곳 알려달라고 보내기
-	{
-		Protocol::S_NOTIFY_POS notifyPkt;
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
-		Broadcast(sendBuffer);
-	}
 }
 
 RoomBaseRef RoomBase::GetRoomRef()
