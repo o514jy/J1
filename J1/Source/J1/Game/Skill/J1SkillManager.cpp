@@ -1,6 +1,7 @@
 #include "J1SkillManager.h"
 #include "J1SkillBase.h"
 #include "J1NormalAttack.h"
+#include "J1AuroraQ.h"
 
 TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 {
@@ -10,8 +11,12 @@ TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 	case 1000:
 		skill = NewObject<UJ1NormalAttack>();
 		break;
+	case 1001:
+		skill = NewObject<UJ1AuroraQ>();
+		break;
 	case 1100:
 		skill = NewObject<UJ1NormalAttack>();
+		break;
 	default:
 		break;
 	}

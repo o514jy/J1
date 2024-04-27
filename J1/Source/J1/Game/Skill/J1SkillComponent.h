@@ -33,6 +33,7 @@ public:
 public:
 	/** network **/
 	void RegisterNormalAttack(FVector InLocation);
+	void RegisterAuroraQ(FVector InLocation);
 
 public:
 	/** handle event **/

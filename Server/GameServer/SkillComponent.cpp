@@ -29,7 +29,6 @@ void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 	{
 		PlayerDataRef data = static_pointer_cast<PlayerData>(creatureData);
 
-		
 		skillInfo->set_skill_attack_id(data->SkillAttackId);
 		skillInfo->set_skill_q_id(data->SkillQId);
 		skillInfo->set_skill_w_id(data->SkillWId);
@@ -107,8 +106,6 @@ void SkillComponent::BroadcastSkill(const Protocol::C_SKILL& skillPkt)
 		RoomBaseRef room = _owner->room.load().lock();
 		room->Broadcast(sendBuffer);
 	}
-
-
 }
 
 bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)

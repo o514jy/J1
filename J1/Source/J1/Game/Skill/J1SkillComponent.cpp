@@ -122,6 +122,19 @@ void UJ1SkillComponent::RegisterNormalAttack(FVector InLocation)
 	Owner->GetManager(Network)->SendPacket(skillPkt);
 }
 
+void UJ1SkillComponent::RegisterAuroraQ(FVector InLocation)
+{
+	Protocol::C_SKILL skillPkt;
+	skillPkt.set_object_id(Owner->GetPosInfo()->object_id());
+	skillPkt.set_slot(Protocol::SKILL_SLOT_Q);
+	Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
+	simplePosInfo->set_x(InLocation.X);
+	simplePosInfo->set_y(InLocation.Y);
+	simplePosInfo->set_z(InLocation.Z);
+
+	Owner->GetManager(Network)->SendPacket(skillPkt);
+}
+
 void UJ1SkillComponent::HandleGameplayEvent(FGameplayTag InEventTag)
 {
 	for (TObjectPtr<UJ1SkillBase> skill : SkillList)

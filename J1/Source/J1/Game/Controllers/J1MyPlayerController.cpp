@@ -47,7 +47,8 @@ void AJ1MyPlayerController::SetupInputComponent()
 		
 		auto SetDestinationClickAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_SetDestinationClick);
 		auto BaseAttackAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_BaseAttack);
-		
+		auto QAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_Q);
+
 		// Mouse Right Button
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Started, this, &AJ1MyPlayerController::OnInputStarted);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Triggered, this, &AJ1MyPlayerController::OnSetDestinationTriggered);
@@ -56,6 +57,9 @@ void AJ1MyPlayerController::SetupInputComponent()
 		
 		// Mouse Left Button
 		EnhancedInputComponent->BindAction(BaseAttackAction, ETriggerEvent::Triggered, this, &AJ1MyPlayerController::OnBaseAttackTriggered);
+
+		// Q
+		EnhancedInputComponent->BindAction(QAction, ETriggerEvent::Triggered, this, &AJ1MyPlayerController::OnQTriggered);
 	}
 	else
 	{
@@ -159,6 +163,13 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 
 void AJ1MyPlayerController::OnBaseAttackTriggered()
 {
+	// 전투상황이 아닐 경우 여기부터 처리
+
+	// 전투 목적일 때 이미 다른 스킬을 쓰고있는 상태면 불가능
+	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+		return;
+
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
@@ -166,12 +177,31 @@ void AJ1MyPlayerController::OnBaseAttackTriggered()
 	FVector location = Hit.Location;
 
 	// 싸우는 상황이면 평타
-	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
 	if (creature != nullptr)
 	{
 		creature->SkillComponent->RegisterNormalAttack(location);
 	}
 	
+}
+
+void AJ1MyPlayerController::OnQTriggered()
+{
+	// 이미 다른 스킬을 쓰고있는 상태면 불가능
+	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
+		return;
+
+	// We look for the location in the world where the player has pressed the input
+	FHitResult Hit;
+	bool bHitSuccessful = false;
+	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, OUT Hit);
+	FVector location = Hit.Location;
+
+	// Q스킬 날리겠다는 요청 보내기
+	if (creature != nullptr)
+	{
+		creature->SkillComponent->RegisterAuroraQ(location);
+	}
 }
 
 void AJ1MyPlayerController::RegisterMove(FVector location)

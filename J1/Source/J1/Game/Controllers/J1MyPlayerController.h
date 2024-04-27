@@ -66,6 +66,10 @@ protected:
 
 	/** Input handlers for BaseAttack action. */
 	void OnBaseAttackTriggered();
+
+	/** Input handlers for Q action. */
+	void OnQTriggered();
+
 private:
 	FVector CachedDestination;
 

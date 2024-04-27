@@ -4,19 +4,30 @@
 
 namespace J1GameplayTags
 {
+	/** Input **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_SetDestinationClick);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_BaseAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_Q);
 
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_Begin);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_End);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_Attack);
 
+	/** Aurora **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill);
+
+	/* Aurora : normal attack */
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack_0);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_NormalAttack_End);
 
+	/* Aurora : q skill */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_QSkill);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_QSkill_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_QSkill_End);
+
+	/** Sevarog **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_NormalAttack);

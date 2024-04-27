@@ -60,7 +60,7 @@ void UJ1StatComponent::SetHp(float InHp)
 	StatInfo->set_hp(InHp);
 	Hp = InHp;
 	
-	ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
+	//ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
 }
 
 float UJ1StatComponent::GetHp()

@@ -50,6 +50,17 @@
       "EffectIdList": [ 10000 ]
     },
     {
+      "DataId": 1001,
+      "Name": "Q Skill (Aurora)",
+      "Description": "Q Skill (Aurora)",
+      "ProjectileIdList": [],
+      "CoolTime": 3000.0,
+      "SkillDuration": 1000,
+      "AnimImpactTimeList": [ 700 ],
+      "BuffIdList": [ 100001 ],
+      "EffectIdList": [ 10001 ]
+    },
+    {
       "DataId": 1100,
       "Name": "Normal Attack 1 (Sevarog)",
       "Description": "Normal Attack 1 (Sevarog)",
@@ -70,6 +81,13 @@
       "Theta": 180.0
     },
     {
+      "DataId": 10001,
+      "OwnerSkillDataId": 1001,
+      "EffectType": "Pizza",
+      "Radius": 600.0,
+      "Theta": 30.0
+    },
+    {
       "DataId": 10100,
       "OwnerSkillDataId": 1000,
       "EffectType": "Pizza",
@@ -83,6 +101,14 @@
       "BuffType": "Hit",
       "BuffDurationType": "Instant",
       "BuffAmountRate": 1.0,
+      "BuffDurationPeriod": 0.0,
+      "BuffDurationMagnitude": 0.0
+    },
+    {
+      "DataId": 100001,
+      "BuffType": "Hit",
+      "BuffDurationType": "Instant",
+      "BuffAmountRate": 3.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
     }

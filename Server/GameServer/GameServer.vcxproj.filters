@@ -138,6 +138,9 @@
     <ClCompile Include="MonsterAIController.cpp">
       <Filter>Game\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="AuroraQ.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="MonsterAIController.h">
       <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="AuroraQ.h">
+      <Filter>Game\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

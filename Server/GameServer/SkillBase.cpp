@@ -4,6 +4,7 @@
 #include "Data.h"
 #include "DataManager.h"
 #include "StartRoom.h"
+#include "BuffInstant.h"
 
 SkillBase::SkillBase()
 {
@@ -62,8 +63,36 @@ void SkillBase::OnAnimCompleteHandler()
 
 void SkillBase::OnAttackEvent(int32 timeCount)
 {
+	// 예외적으로 이상한 상황이면 종료
+	if (timeCount >= _skillData->EffectIdList.size())
+		return;
+
 	// 정상적으로 예약된 일감을 실행하면 밀어주기
 	_animImpactJobs[timeCount] = nullptr;
+
+	// 스킬의 이펙트 범위 안에 들어왔는지 확인
+	int32 effectId = _skillData->EffectIdList[timeCount];
+	vector<ObjectRef> objects = GatherObjectInEffectArea(effectId);
+
+	// buff 처리
+	for (auto& object : objects)
+	{
+		// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
+		wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;
+		
+		// 2) 버프 지속시간 타입에 맞는 버프 생성
+		BuffBaseRef buff = nullptr;
+		if (buffDurationType == L"Instant")
+		{
+			buff = make_shared<BuffInstant>();
+		}
+		
+		// 3) 버프 초기화 및 설정
+		buff->SetInfo(_skillData->BuffIdList[timeCount], object, static_pointer_cast<SkillBase>(shared_from_this()));
+
+		// 4) 들어온 object에게 buff 부여
+		buff->ApplyBuff();
+	}
 }
 
 void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt)
@@ -150,7 +179,7 @@ bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 {
 	bool ret = false;
 	
-	pair<float, float> interVNormalized = Utils::DirectionVectorNormalized(make_pair(object->posInfo->x(), object->posInfo->y()), make_pair(_owner->posInfo->x(), _owner->posInfo->y()));
+	pair<float, float> interVNormalized = Utils::DirectionVectorNormalized(make_pair(_owner->posInfo->x(), _owner->posInfo->y()), make_pair(object->posInfo->x(), object->posInfo->y()));
 	pair<float, float> interV = Utils::DirectionVector(make_pair(object->posInfo->x(), object->posInfo->y()), make_pair(_owner->posInfo->x(), _owner->posInfo->y()));
 
 	float interVLen = sqrt(interV.first * interV.first + interV.second * interV.second);
@@ -160,7 +189,7 @@ bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 	// object와 시전자 사이의 거리가 radius 보다 작으면
 	if (interVLen <= radius)
 	{
-		// object와 시전자를 잇는 벡터와 시전자의 방향벡터를 내적
+		// 시전자와 object를 잇는 벡터와 시전자의 방향벡터를 내적
 		float dot = interVNormalized.first * dirV.first + interVNormalized.second * dirV.second;
 		// theta 구하기
 		float tempTheta = acos(dot);
