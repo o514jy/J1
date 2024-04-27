@@ -51,12 +51,14 @@ public:
 
 	FGameplayTag SkillComponentTag;
 
-	/** player **/
+	/** creature **/
 	UPROPERTY()
 	TArray<TObjectPtr<UJ1SkillBase>> SkillList;
 
 	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> NormalAttackSkill;
+
+	/** player **/
 	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> QSkill;
 	UPROPERTY()

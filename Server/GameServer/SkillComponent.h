@@ -19,6 +19,8 @@ public:
 	/** network **/
 	Protocol::SkillInfo* skillInfo;
 
+	void BroadcastSkill(const Protocol::C_SKILL& skillPkt);
+
 public:
 	/** process **/
 	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot);

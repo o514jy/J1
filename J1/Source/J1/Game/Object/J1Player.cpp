@@ -28,14 +28,6 @@ AJ1Player::AJ1Player()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Rotate character to moving direction
-	
-	GetCharacterMovement()->bConstrainToPlane = true;
-	GetCharacterMovement()->bSnapToPlaneAtStart = true;
-
-	GetCharacterMovement()->bRunPhysicsWithNoController = true;
-
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
 }
 

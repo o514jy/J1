@@ -5,6 +5,7 @@
 #include "SkillManager.h"
 #include "SkillBase.h"
 #include "Creature.h"
+#include "RoomBase.h"
 
 SkillComponent::SkillComponent()
 {
@@ -92,6 +93,24 @@ void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
 	skill->SetInfo(_owner, templateId);
 }
 
+void SkillComponent::BroadcastSkill(const Protocol::C_SKILL& skillPkt)
+{
+	// broadcast skill
+	{
+		Protocol::S_SKILL pkt;
+		pkt.set_slot(skillPkt.slot());
+		pkt.set_object_id(skillPkt.object_id());
+		Protocol::SimplePosInfo* simplePosInfo = pkt.mutable_simple_pos_info();
+		simplePosInfo->CopyFrom(skillPkt.simple_pos_info());
+
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
+		RoomBaseRef room = _owner->room.load().lock();
+		room->Broadcast(sendBuffer);
+	}
+
+
+}
+
 bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)
 {
 	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
@@ -127,6 +146,9 @@ void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 
 	if (GetCanUseSkillBySkillSlot(skillSlot) == false)
 		return;
+	
+	// notify all client to use skill
+	BroadcastSkill(skillPkt);
 
 	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
 	{

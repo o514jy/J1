@@ -18,13 +18,22 @@ AJ1Creature::AJ1Creature()
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
 	//ObjectInfo->set_allocated_pos_info(PosInfo);
-
-	// Set size for player capsule
 	
-	GetCharacterMovement()->bRequestedMoveUseAcceleration = false;
-
-	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
-	AIControllerClass = AJ1CreatureController::StaticClass();
+	/** Configure character movement **/
+	{
+		GetCharacterMovement()->bRequestedMoveUseAcceleration = false;
+		GetCharacterMovement()->RotationRate = FRotator(0.f, 360.f, 0.f);
+		GetCharacterMovement()->bOrientRotationToMovement = true; // Rotate character to moving direction
+		GetCharacterMovement()->bConstrainToPlane = true;
+		GetCharacterMovement()->bSnapToPlaneAtStart = true;
+		GetCharacterMovement()->bRunPhysicsWithNoController = true;
+	}
+	
+	/** Ai Controller **/
+	{
+		AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+		AIControllerClass = AJ1CreatureController::StaticClass();
+	}
 }
 
 AJ1Creature::~AJ1Creature()
@@ -170,10 +179,9 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	SetPosInfo(InObjectInfo.pos_info(), true);
 
 	Protocol::ObjectType objectType = ObjectInfo->object_type();
+	Protocol::CreatureType creatureType = ObjectInfo->creature_type();
 	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
 	{
-		Protocol::CreatureType creatureType = ObjectInfo->creature_type();
-		
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
 			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
@@ -186,15 +194,16 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 				CreatureData = GetManager(Data)->GameData->BossData[TemplateId];
 			}
 		}
-
 		GetCharacterMovement()->MaxWalkSpeed = CreatureData->MaxWalkSpeed;
 
 		TemplateTag = GetManager(Data)->SetTemplateTagByDataId(TemplateId);
-		StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
-		StatComponent->SetInfo(this, CreatureData, creatureType);
 	}
 
-	// add skill component
+	/** add components **/
+	/* stat component */
+	StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
+	StatComponent->SetInfo(this, CreatureData, creatureType);
+	/* skill component */
 	SkillComponent = NewObject<UJ1SkillComponent>(this, UJ1SkillComponent::StaticClass(), TEXT("SkillComponent"));
 	SkillComponent->SetInfo(this, CreatureData);
 }

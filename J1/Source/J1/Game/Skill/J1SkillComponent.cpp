@@ -51,11 +51,12 @@ void UJ1SkillComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCre
 {
 	Owner = InOwner;
 	SkillComponentTag = Owner->GetManager(Data)->SetSkillComponentTagByDataId(Owner->GetTemplateId());
-
+	
+	AddSkill(InCreatureData->SkillAttackId, Protocol::SkillSlot::SKILL_SLOT_ATTACK);
 	if (InCreatureData->CreatureType == TEXT("Player"))
 	{
 		TObjectPtr<UPlayerData> data = Cast<UPlayerData>(InCreatureData);
-		AddSkill(data->SkillAttackId, Protocol::SkillSlot::SKILL_SLOT_ATTACK);
+		
 		AddSkill(data->SkillQId, Protocol::SkillSlot::SKILL_SLOT_Q);
 		AddSkill(data->SkillWId, Protocol::SkillSlot::SKILL_SLOT_W);
 		AddSkill(data->SkillEId, Protocol::SkillSlot::SKILL_SLOT_E);

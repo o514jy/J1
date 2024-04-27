@@ -33,8 +33,8 @@
       "MoveSpeedRate": 1.0,
       "SkillAttackId": 1100,
       "DefaultAtkRange": 300.0,
-      "SearchMaxDistance": 500.0,
-      "ChaseMaxDistance": 700.0
+      "SearchMaxDistance": 800.0,
+      "ChaseMaxDistance": 1000.0
     }
   ],
   "skills": [

@@ -32,7 +32,6 @@ void StatComponent::UpdateTick()
 	if (_shouldRefresh == true)
 		RefreshAll();
 
-	DoTimer(500, &StatComponent::UpdateTick);
 }
 
 void StatComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData, Protocol::CreatureType creatureType)

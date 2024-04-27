@@ -8,6 +8,7 @@
 BaseAIController::BaseAIController()
 {
 	_owner = nullptr;
+	_distToTarget = 0.f;
 }
 
 BaseAIController::~BaseAIController()
@@ -46,7 +47,7 @@ void BaseAIController::BroadcastMove()
 		ObjectRef target = ownerMonster->_targetObject;
 
 		Protocol::PosInfo* posInfo = new Protocol::PosInfo();
-
+		
 		posInfo->set_object_id(ownerMonster->_objectId);
 
 		// 몬스터의 현재 위치
@@ -72,6 +73,11 @@ void BaseAIController::BroadcastMove()
 			posInfo->set_dest_z(ownerMonster->posInfo->z());
 		}
 		movePkt.set_allocated_info(posInfo);
+
+		// 서버에서는 바뀔 위치 미리 반영
+		ownerMonster->GetPosInfo()->set_x(posInfo->dest_x());
+		ownerMonster->GetPosInfo()->set_y(posInfo->dest_y());
+		ownerMonster->GetPosInfo()->set_z(posInfo->dest_z());
 	}
 
 	RoomBaseRef room = _owner->room.load().lock();
@@ -129,7 +135,10 @@ void BaseAIController::ChaseOrAttackTarget(float chaseRange, float attackRange)
 	else
 	{
 		// 공격 범위 밖이라면 추적
-		if (distToTarget > _ownerMon->GetMonsterData()->SearchMaxDistance)
+		BroadcastMove();
+
+		// 추적 범위 밖이면 idle로
+		if (distToTarget > chaseRange)
 		{
 			_ownerMon->SetTargetObject(nullptr);
 			_ownerMon->SetState(Protocol::MoveState::MOVE_STATE_IDLE);

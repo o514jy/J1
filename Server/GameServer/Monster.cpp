@@ -21,6 +21,8 @@ Monster::~Monster()
 
 void Monster::UpdateTick()
 {
+	__super::UpdateTick();
+
 	if (_aiController != nullptr)
 		_aiController->UpdateTick();
 }

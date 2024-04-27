@@ -13,11 +13,13 @@ RoomBaseRef GRoomBase = make_shared<RoomBase>();
 RoomBase::RoomBase()
 {
 	_entered = false;
+
+	_roomState = Protocol::RoomState::ROOM_STATE_PREPARE;
 }
 
 RoomBase::~RoomBase()
 {
-
+	
 }
 
 void RoomBase::UpdateTick()
@@ -39,10 +41,17 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 {
 	bool success = AddObject(object);
 
+	// temp
+	// 처음으로 들어온애가 보스 소환 시키기, 나중엔 버튼이나 준비완료 이런거 만들 것
+	if (_objects.size() == 1)
+	{
+		DoTimer(3000, &RoomBase::SetRoomState, Protocol::RoomState::ROOM_STATE_BATTLE);
+	}
+
 	// 랜덤 위치
 	if (randPos)
 	{
-		object->posInfo->set_x(Utils::GetRandom(0.f, 500.f));
+		object->posInfo->set_x(Utils::GetRandom(0.f, 100.f));
 		object->posInfo->set_y(Utils::GetRandom(0.f, 500.f));
 		object->posInfo->set_z(100.f);
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
@@ -133,6 +142,12 @@ bool RoomBase::LeaveRoom(ObjectRef object)
 	return success;
 }
 
+void RoomBase::SetRoomState(Protocol::RoomState state)
+{
+	_roomState = state;
+
+}
+
 bool RoomBase::HandleEnterPlayer(PlayerRef player)
 {
 	return EnterRoom(player, true);
@@ -198,17 +213,17 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 	if (creature->GetState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		return;
 
-	// 스킬 써도 된단다.
-	{
-		Protocol::S_SKILL skillPkt;
-		skillPkt.set_slot(skillSlot);
-		skillPkt.set_object_id(objectId);
-		Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
-		simplePosInfo->CopyFrom(pkt.simple_pos_info());
-
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(skillPkt);
-		Broadcast(sendBuffer);
-	}
+	// 스킬 써도 된단다. <--- 이거 그냥 skill component가 하는걸로 바꿈
+	//{
+	//	Protocol::S_SKILL skillPkt;
+	//	skillPkt.set_slot(skillSlot);
+	//	skillPkt.set_object_id(objectId);
+	//	Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
+	//	simplePosInfo->CopyFrom(pkt.simple_pos_info());
+	//
+	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(skillPkt);
+	//	Broadcast(sendBuffer);
+	//}
 
 	// 클라는 알아서 실행하게 두고 서버도 같이 실행
 	creature->_skillComponent->DoSkill(pkt);

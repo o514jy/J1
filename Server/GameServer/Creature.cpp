@@ -32,15 +32,12 @@ void Creature::SetInfo(int32 templateId)
 	//posInfo->CopyFrom(InObjectInfo.pos_info());
 
 	Protocol::ObjectType objectType = objectInfo->object_type();
+	Protocol::CreatureType creatureType = objectInfo->creature_type();
 	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
 	{
-		Protocol::CreatureType creatureType = objectInfo->creature_type();
 		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
 		{
 			_creatureData = GDataManager->GetPlayerDataById(_templateId);
-			
-			_statComponent = make_shared<StatComponent>();
-			_statComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData, creatureType);
 		}
 		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
 		{
@@ -51,8 +48,11 @@ void Creature::SetInfo(int32 templateId)
 			}
 		}
 	}
-
-	// skill component
+	/** component **/
+	/* stat component */
+	_statComponent = make_shared<StatComponent>();
+	_statComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData, creatureType);
+	/* skill component */
 	_skillComponent = make_shared<SkillComponent>();
 	_skillComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData);
 }

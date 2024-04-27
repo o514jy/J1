@@ -167,7 +167,7 @@ void UJ1NetworkManager::HandleMove(const Protocol::S_MOVE& MovePkt)
 		return;
 
 	const uint64 ObjectId = MovePkt.info().object_id();
-	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->GetCreatureById(ObjectId);
 	if (FindActor == nullptr)
 		return;
 

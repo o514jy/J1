@@ -59,12 +59,24 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			Protocol::MonsterType monsterType = InObjectInfo.monster_type();
 			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_GENERAL)
 			{
-
+				int a = 3;
 			}
 			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
 				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->StartBossClass, &SpawnLocation));
+				if (creature == nullptr)
+				{
+					int a = 3;
+				}
 			}
+			else
+			{
+				int a = 3;
+			}
+		}
+		else
+		{
+			int a = 3;
 		}
 		
 		creature->SetInfo(InObjectInfo);

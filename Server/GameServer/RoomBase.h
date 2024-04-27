@@ -20,6 +20,7 @@ public:
 
 public:
 	/** setter & getter **/
+	virtual void SetRoomState(Protocol::RoomState state);
 
 public: 
 	/** network **/
@@ -57,4 +58,6 @@ public:
 
 protected:
 	atomic<bool> _entered;
+
+	Protocol::RoomState _roomState;
 };

@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[11];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[12];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -60,11 +60,13 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "L_SLOT_W\020\003\022\020\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SL"
   "OT_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006*9\n\010RoomType\022"
   "\023\n\017ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_"
-  "ROOM\020\001b\006proto3"
+  "ROOM\020\001*O\n\tRoomState\022\023\n\017ROOM_STATE_NONE\020\000"
+  "\022\026\n\022ROOM_STATE_PREPARE\020\001\022\025\n\021ROOM_STATE_B"
+  "ATTLE\020\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 1254, descriptor_table_protodef_Enum_2eproto,
+    false, false, 1335, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -250,6 +252,21 @@ bool RoomType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomState_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[11];
+}
+bool RoomState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;

@@ -10,6 +10,8 @@ TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 	case 1000:
 		skill = NewObject<UJ1NormalAttack>();
 		break;
+	case 1100:
+		skill = NewObject<UJ1NormalAttack>();
 	default:
 		break;
 	}

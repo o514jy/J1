@@ -35,6 +35,7 @@ void MonsterAIController::UpdateIdle()
 
 	if (player != nullptr)
 	{
+		_ownerMonster->_targetObject = player;
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_RUN);
 	}
 }
@@ -57,7 +58,7 @@ void MonsterAIController::UpdateRun()
 	}
 
 	// 타겟이 있으면 쫓아가서 공격 사거리 안에 들어오면 공격
-	ChaseOrAttackTarget(ownerData->ChaseMaxDistance, ownerData->SearchMaxDistance);
+	ChaseOrAttackTarget(ownerData->ChaseMaxDistance, ownerData->DefaultAtkRange);
 	
 	//// 타겟이 있었으나 추격거리를 벗어난 경우 idle로 돌아가기
 	//float dist = Utils::DirectionVectorLen(_owner->posInfo, targetPlayer->posInfo);
@@ -77,7 +78,7 @@ void MonsterAIController::UpdateRun()
 	//}
 
 	// 그 외에는 그냥 적을 따라서 이동하는 상태
-	BroadcastMove();
+	//BroadcastMove();
 }
 
 void MonsterAIController::UpdateSkill()
@@ -96,6 +97,10 @@ void MonsterAIController::UpdateSkill()
 		BroadcastMove();
 		return;
 	}
+
+	// 타겟이 공격범위를 벗어나면 추적하기
+	float dist = Utils::DirectionVectorLen(_owner->GetPosInfo(), targetPlayer->GetPosInfo());
+	//if (dist > )
 
 	// 아직 스킬 사용을 못하면 idle로 돌아가기
 	bool canUseDefaultAttack = ownerMonster->GetSkillComponent()->GetCanUseSkillBySkillSlot(Protocol::SKILL_SLOT_ATTACK);
