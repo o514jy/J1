@@ -54,7 +54,7 @@
       "Name": "Q Skill (Aurora)",
       "Description": "Q Skill (Aurora)",
       "ProjectileIdList": [],
-      "CoolTime": 3000.0,
+      "CoolTime": 3000,
       "SkillDuration": 1000,
       "AnimImpactTimeList": [ 700 ],
       "BuffIdList": [ 100001 ],
@@ -70,6 +70,17 @@
       "AnimImpactTimeList": [ 300 ],
       "BuffIdList": [ 100000 ],
       "EffectIdList": [ 10100 ]
+    },
+    {
+      "DataId": 1101,
+      "Name": "Poison Rain (Sevarog)",
+      "Description": "Poison Rain (Sevarog)",
+      "ProjectileIdList": [ 1000001 ],
+      "CoolTime": 5000,
+      "SkillDuration": 8000,
+      "AnimImpactTimeList": [ 1700, 2200, 2700, 3200, 3700, 4200, 4700, 5200 ],
+      "BuffIdList": [],
+      "EffectIdList": []
     }
   ],
   "effects": [
@@ -93,6 +104,136 @@
       "EffectType": "Pizza",
       "Radius": 300.0,
       "Theta": 180.0
+    },
+    {
+      "DataId": 10101,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 100.0
+    },
+    {
+      "DataId": 10102,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 125.0
+    },
+    {
+      "DataId": 10103,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 150.0
+    },
+    {
+      "DataId": 10104,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 175.0
+    },
+    {
+      "DataId": 10105,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 200.0
+    },
+    {
+      "DataId": 10106,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 225.0
+    },
+    {
+      "DataId": 10107,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 250.0
+    },
+    {
+      "DataId": 10108,
+      "OwnerSkillDataId": 1101,
+      "EffectType": "Circle",
+      "Radius": 275.0
+    }
+  ],
+  "projectiles": [
+    {
+      "DataId": 1000001,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (1/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10101 ]
+    },
+    {
+      "DataId": 1000002,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (2/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10102 ]
+    },
+    {
+      "DataId": 1000003,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (3/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10103 ]
+    },
+    {
+      "DataId": 1000004,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (4/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10104 ]
+    },
+    {
+      "DataId": 1000005,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (5/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10105 ]
+    },
+    {
+      "DataId": 1000006,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (6/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10106 ]
+    },
+    {
+      "DataId": 1000007,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (7/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10107 ]
+    },
+    {
+      "DataId": 1000008,
+      "OwnerSkillDatId": 1101,
+      "Name": "Poison Rain Drop (8/8)",
+      "Duration": 1000,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100101 ],
+      "EffectIdList": [ 10108 ]
     }
   ],
   "buffs": [
@@ -109,6 +250,14 @@
       "BuffType": "Hit",
       "BuffDurationType": "Instant",
       "BuffAmountRate": 3.0,
+      "BuffDurationPeriod": 0.0,
+      "BuffDurationMagnitude": 0.0
+    },
+    {
+      "DataId": 100101,
+      "BuffType": "Hit",
+      "BuffDurationType": "Instant",
+      "BuffAmountRate": 4.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
     }

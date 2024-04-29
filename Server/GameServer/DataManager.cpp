@@ -157,13 +157,53 @@ void DataManager::ParseJsonData(const WCHAR* path)
             {
                 PizzaEffectDataRef dataRef = make_shared<PizzaEffectData>();
                 dataRef->DataId = effect["DataId"].GetInt();
-                dataRef->OwnerSkillDataId = dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
+                dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
                 dataRef->EffectType = effectType;
                 dataRef->Radius = effect["Radius"].GetFloat();
                 dataRef->Theta = effect["Theta"].GetFloat();
 
                 _effectData.insert(make_pair(dataRef->DataId, dataRef));
             }
+            else if (effectType == L"Circle")
+            {
+                CircleEffectDataRef dataRef = make_shared<CircleEffectData>();
+                dataRef->DataId = effect["DataId"].GetInt();
+                dataRef->OwnerSkillDataId = effect["OwnerSkillDataId"].GetInt();
+                dataRef->EffectType = effectType;
+                dataRef->Radius = effect["Radius"].GetFloat();
+
+                _effectData.insert(make_pair(dataRef->DataId, dataRef));
+            }
+        }
+
+        /** projectiles **/
+        Value& projectiles = doc["projectiles"];
+        for (int i = 0; i < projectiles.Size(); i++)
+        {
+            ProjectileDataRef dataRef = make_shared<ProjectileData>();
+            Value& projectile = projectiles[i];
+            dataRef->DataId = projectile["DatId"].GetInt();
+            dataRef->OwnerSkillDataId = projectile["OwnerSkillDataId"].GetInt();
+            dataRef->Name = Utils::StrToWstr(projectile["Name"].GetString());
+            dataRef->Duration = projectile["Duration"].GetFloat();
+            dataRef->MoveSpeed = projectile["MoveSpeed"].GetFloat();
+            Value& impactTimes = projectile["ImpactTimeList"];
+            for (int j = 0; j < impactTimes.Size(); j++)
+            {
+                dataRef->ImpactTimeList.push_back(impactTimes[j].GetInt());
+            }
+            Value& buffIds = projectile["BuffIdList"];
+            for (int j = 0; j < buffIds.Size(); j++)
+            {
+                dataRef->BuffIdList.push_back(buffIds[j].GetInt());
+            }
+            Value& effectIds = projectile["EffectIdList"];
+            for (int j = 0; j < effectIds.Size(); j++)
+            {
+                dataRef->EffectIdList.push_back(effectIds[j].GetInt());
+            }
+
+            _projectileData.insert(make_pair(dataRef->DataId, dataRef));
         }
 
         /** buffs **/

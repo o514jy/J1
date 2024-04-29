@@ -156,7 +156,58 @@ void UJ1GameData::ParseJsonData(const FString& path)
                 data->EffectType = effectType;
                 data->Radius = effect->GetNumberField(TEXT("Radius"));
                 data->Theta = effect->GetNumberField(TEXT("Theta"));
+
+                EffectData.Add(data->DataId, data);
             }
+            else if (effectType == TEXT("Circle"))
+            {
+                UCircleEffectData* data = NewObject<UCircleEffectData>();
+
+                data->DataId = effect->GetIntegerField(TEXT("DataId"));
+                data->EffectType = effectType;
+                data->Radius = effect->GetNumberField(TEXT("Radius"));
+
+                EffectData.Add(data->DataId, data);
+            }
+        }
+    }
+
+    const TArray<TSharedPtr<FJsonValue>> projectiles = JsonObject->GetArrayField(TEXT("projectiles"));
+    {
+        for (int32 i = 0; i < projectiles.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> projectile = projectiles[i]->AsObject();
+
+            UProjectileData* data = NewObject<UProjectileData>();
+
+            data->DataId = projectile->GetIntegerField(TEXT("DataId"));
+            data->OwnerSkillDataId = projectile->GetIntegerField(TEXT("OwnerSkillDataId"));
+            data->Name = projectile->GetStringField(TEXT("Name"));
+            data->Duration = projectile->GetNumberField(TEXT("Duration"));
+            data->MoveSpeed = projectile->GetNumberField(TEXT("MoveSpeed"));
+            TArray<TSharedPtr<FJsonValue>> ImpactTimes = projectile->GetArrayField(TEXT("ImpactTimeList"));
+            for (auto& buffId : ImpactTimes)
+            {
+                int32 id;
+                if (buffId->TryGetNumber(id))
+                    data->ImpactTimeList.Add(id);
+            }
+            TArray<TSharedPtr<FJsonValue>> BuffIds = projectile->GetArrayField(TEXT("BuffIdList"));
+            for (auto& buffId : BuffIds)
+            {
+                int32 id;
+                if (buffId->TryGetNumber(id))
+                    data->BuffIdList.Add(id);
+            }
+            TArray<TSharedPtr<FJsonValue>> EffectIds = projectile->GetArrayField(TEXT("EffectIdList"));
+            for (auto& effectId : EffectIds)
+            {
+                int32 id;
+                if (effectId->TryGetNumber(id))
+                    data->EffectIdList.Add(id);
+            }
+
+            ProjectileData.Add(data->DataId, data);
         }
     }
 

@@ -141,6 +141,12 @@
     <ClCompile Include="AuroraQ.cpp">
       <Filter>Game\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="BossAIController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Game\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -238,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="AuroraQ.h">
       <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAIController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Game\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

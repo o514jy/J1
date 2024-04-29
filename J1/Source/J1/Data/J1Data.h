@@ -178,6 +178,17 @@ public:
 };
 
 UCLASS(BlueprintType)
+class UCircleEffectData : public UEffectData
+{
+public:
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float Radius;
+};
+
+UCLASS(BlueprintType)
 class UBuffData : public UDataAsset
 {
 public:
@@ -201,6 +212,38 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float BuffDurationMagnitude;
+};
+
+UCLASS(BlueprintType)
+class UProjectileData : public UDataAsset
+{
+public:
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 DataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 OwnerSkillDataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString Name;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float Duration;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float MoveSpeed;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> ImpactTimeList;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> BuffIdList;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> EffectIdList;
 };
 
 UCLASS(BlueprintType)
@@ -230,6 +273,10 @@ public:
 	/* effect */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UEffectData>> EffectData;
+
+	/* projectile */
+	UPROPERTY(BlueprintType)
+	TMap<int32, TObjectPtr<UProjectileData>> ProjectileData;
 
 	/* buff */
 	UPROPERTY(BlueprintType)

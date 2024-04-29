@@ -37,6 +37,8 @@ private:
 
 	unordered_map<int32, EffectDataRef> _effectData;
 
+	unordered_map<int32, ProjectileDataRef> _projectileData;
+
 	unordered_map<int32, BuffDataRef> _buffData;
 };
 

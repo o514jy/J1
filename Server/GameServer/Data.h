@@ -78,6 +78,25 @@ public:
 	float Theta;
 };
 
+class CircleEffectData : public EffectData
+{
+public:
+	float Radius;
+};
+
+class ProjectileData
+{
+public:
+	int32 DataId;
+	int32 OwnerSkillDataId;
+	wstring Name;
+	float Duration;
+	float MoveSpeed;
+	vector<int32> ImpactTimeList;
+	vector<int32> BuffIdList;
+	vector<int32> EffectIdList;
+};
+
 class BuffData
 {
 public:

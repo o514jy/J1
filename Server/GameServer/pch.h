@@ -44,7 +44,9 @@ USING_SHARED_PTR(SkillData);
 USING_SHARED_PTR(EffectData);
 USING_SHARED_PTR(RectangleEffectData);
 USING_SHARED_PTR(PizzaEffectData);
+USING_SHARED_PTR(CircleEffectData);
 USING_SHARED_PTR(BuffData);
+USING_SHARED_PTR(ProjectileData);
 
 /** skill **/
 USING_SHARED_PTR(SkillBase);

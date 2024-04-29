@@ -4,10 +4,12 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1DataManager.h"
+#include "J1/System/J1AssetManager.h"
 #include "J1/Game/Controllers/J1CreatureController.h"
 #include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
 #include "J1/Game/Skill/J1SkillBase.h"
+
 
 // Sets default values
 AJ1Creature::AJ1Creature()
@@ -33,6 +35,11 @@ AJ1Creature::AJ1Creature()
 	{
 		AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 		AIControllerClass = AJ1CreatureController::StaticClass();
+	}
+
+	/** Add Indicator **/
+	{
+		//auto a = UJ1AssetManager::GetAssetByName<>("IndicatorComponent");
 	}
 }
 
