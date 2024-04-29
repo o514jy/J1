@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "SkillBase.h"
 #include "Creature.h"
+#include "Projectile.h"
 #include "Data.h"
 #include "DataManager.h"
+#include "ObjectManager.h"
 #include "StartRoom.h"
 #include "BuffInstant.h"
 
@@ -106,6 +108,20 @@ void SkillBase::CancledSkill()
 	OnAnimCompleteHandler();
 }
 
+ProjectileRef SkillBase::GenerateProjectile(int32 templateId, float spawnPosX, float spawnPosY, float spawnPosZ)
+{
+	ProjectileRef projectile = GObjectManager->CreateProjectile(
+		templateId, 
+		_owner, 
+		static_pointer_cast<SkillBase>(shared_from_this()));
+
+	projectile->posInfo->set_x(spawnPosX);
+	projectile->posInfo->set_y(spawnPosY);
+	projectile->posInfo->set_z(spawnPosZ);
+
+	return projectile;
+}
+
 vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 {
 	vector<ObjectRef> objects;
@@ -146,6 +162,15 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 				objects.push_back(object);
 			}
 		}
+		else if (effectType == L"Circle")
+		{
+			CircleEffectDataRef circleData = static_pointer_cast<CircleEffectData>(effectData);
+
+			if (true == IsInCircleArea(object, circleData->Radius));
+			{
+				objects.push_back(object);
+			}
+		}
 	}
 
 	return objects;
@@ -180,6 +205,13 @@ bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 	{
 		ret = false;
 	}
+
+	return ret;
+}
+
+bool SkillBase::IsInCircleArea(ObjectRef object, float radius)
+{
+	bool ret = false;
 
 	return ret;
 }

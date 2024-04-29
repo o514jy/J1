@@ -40,8 +40,8 @@ public:
 	SkillBaseRef _rSkill;
 	SkillBaseRef _dashSkill;
 
-	/** boss **/
-
+	/** monster **/
+	SkillBaseRef _advancedSkill;
 	
 };
 

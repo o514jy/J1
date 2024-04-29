@@ -147,6 +147,9 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
+    <ClCompile Include="PoisonRain.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PoisonRain.h">
+      <Filter>Game\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

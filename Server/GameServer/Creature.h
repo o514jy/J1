@@ -20,6 +20,7 @@ public:
 	
 	SkillComponentRef GetSkillComponent() { return _skillComponent; }
 
+	void SetCreatureData(CreatureDataRef creatureData);
 	CreatureDataRef GetCreatureData() { return _creatureData; }
 
 public:

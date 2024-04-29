@@ -71,6 +71,7 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->MoveSpeedRate = boss->GetNumberField(TEXT("MoveSpeedRate"));
             data->SkillAttackId = boss->GetIntegerField(TEXT("SkillAttackId"));
             /** Monster **/
+            data->AdvancedSkillId = boss->GetIntegerField(TEXT("AdvancedSkillId"));
             data->DefaultAtkRange = boss->GetNumberField(TEXT("DefaultAtkRange"));
             data->SearchMaxDistance = boss->GetNumberField(TEXT("SearchMaxDistance"));
             data->ChaseMaxDistance = boss->GetNumberField(TEXT("ChaseMaxDistance"));

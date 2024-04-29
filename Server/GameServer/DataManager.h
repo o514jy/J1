@@ -24,6 +24,8 @@ public:
 
 	EffectDataRef GetEffectDataById(int32 id);
 
+	ProjectileDataRef GetProjectileDataById(int32 id);
+
 	BuffDataRef GetBuffDataById(int32 id);
 
 private:

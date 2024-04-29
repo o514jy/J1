@@ -299,12 +299,13 @@ enum SkillSlot : int {
   SKILL_SLOT_E = 4,
   SKILL_SLOT_R = 5,
   SKILL_SLOT_DASH = 6,
+  SKILL_SLOD_ADVANCED = 7,
   SkillSlot_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SkillSlot_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SkillSlot_IsValid(int value);
 constexpr SkillSlot SkillSlot_MIN = SKILL_SLOT_NONE;
-constexpr SkillSlot SkillSlot_MAX = SKILL_SLOT_DASH;
+constexpr SkillSlot SkillSlot_MAX = SKILL_SLOD_ADVANCED;
 constexpr int SkillSlot_ARRAYSIZE = SkillSlot_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillSlot_descriptor();

@@ -91,6 +91,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->MaxWalkSpeed = boss["MaxWalkSpeed"].GetFloat();
             dataRef->MoveSpeedRate = boss["MoveSpeedRate"].GetFloat();
             dataRef->SkillAttackId = boss["SkillAttackId"].GetInt();
+            dataRef->AdvancedSkillId = boss["AdvancedSkillId"].GetInt();
             dataRef->DefaultAtkRange = boss["DefaultAtkRange"].GetFloat();
             dataRef->SearchMaxDistance = boss["SearchMaxDistance"].GetFloat();
             dataRef->ChaseMaxDistance = boss["ChaseMaxDistance"].GetFloat();
@@ -182,7 +183,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
         {
             ProjectileDataRef dataRef = make_shared<ProjectileData>();
             Value& projectile = projectiles[i];
-            dataRef->DataId = projectile["DatId"].GetInt();
+            dataRef->DataId = projectile["DataId"].GetInt();
             dataRef->OwnerSkillDataId = projectile["OwnerSkillDataId"].GetInt();
             dataRef->Name = Utils::StrToWstr(projectile["Name"].GetString());
             dataRef->Duration = projectile["Duration"].GetFloat();
@@ -260,6 +261,14 @@ EffectDataRef DataManager::GetEffectDataById(int32 id)
         return nullptr;
 
     return _effectData[id];
+}
+
+ProjectileDataRef DataManager::GetProjectileDataById(int32 id)
+{
+    if (_projectileData.find(id) == _projectileData.end())
+        return nullptr;
+
+    return _projectileData[id];
 }
 
 BuffDataRef DataManager::GetBuffDataById(int32 id)

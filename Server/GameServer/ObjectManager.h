@@ -11,6 +11,7 @@ public:
 	
 	PlayerRef CreatePlayer(GameSessionRef session, int32 templateId);
 	BossRef CreateBoss(int32 templateId);
+	ProjectileRef CreateProjectile(int32 templateId, CreatureRef owner = nullptr, SkillBaseRef ownerSkill = nullptr);
 
 public:
 	ObjectRef GetObjectById(uint64 objectId);

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Boss.h"
+#include "Projectile.h"
 #include "RoomBase.h"
 
 // [UNUSED(1)][TYPE(31)][ID(32)]
@@ -74,6 +75,32 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 	return boss;
 }
 
+ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill)
+{
+	// ID 생성기
+	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_PROJECTILE);
+
+	ProjectileRef projectile = make_shared<Projectile>();
+
+	projectile->objectInfo->set_object_id(newId);
+	projectile->objectInfo->set_template_id(templateId);
+	projectile->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_PROJECTILE);
+
+	projectile->posInfo->set_object_id(newId);
+	projectile->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+
+	// enter room
+	RoomBaseRef ownerRoom = owner->room.load().lock();
+	ownerRoom->AddObject(projectile);
+
+	// enter game
+	AddObject(projectile);
+
+	projectile->SetInfo(owner, ownerSkill, templateId);
+
+	return projectile;
+}
+
 ObjectRef ObjectManager::GetObjectById(uint64 objectId)
 {
 	WRITE_LOCK;
@@ -112,9 +139,31 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 		return false;
 
 	ObjectRef object = _objects[objectId];
-	PlayerRef player = dynamic_pointer_cast<Player>(object);
-	if (player)
-		player->room.store(weak_ptr<RoomBase>()); // null로 밀어주기
+	object->room.store(weak_ptr<RoomBase>()); // null로 밀어주기
+	object->session = weak_ptr<GameSession>();
+	object->_statComponent = nullptr;
+
+	Protocol::ObjectType objectType = object->objectInfo->object_type();
+	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
+	{
+		CreatureRef creature = static_pointer_cast<Creature>(object);
+		creature->_skillComponent = nullptr;
+		creature->SetCreatureData(nullptr);
+
+		if (creature->objectInfo->creature_type() == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
+		{
+			MonsterRef monster = static_pointer_cast<Monster>(creature);
+			monster->_aiController = nullptr;
+			monster->_targetObject = nullptr;
+		}
+	}
+	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
+	{
+		ProjectileRef projectile = static_pointer_cast<Projectile>(object);
+		projectile->_projectileData = nullptr;
+		projectile->_owner = nullptr;
+		projectile->_ownerSkill = nullptr;
+	}
 
 	_objects.erase(objectId);
 

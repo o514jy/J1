@@ -112,7 +112,7 @@ void StartRoom::SpawnBoss()
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
 	Broadcast(sendBuffer);
 
-	bool flag = AddObject(boss);
+	bool flag = AddObject_internal(boss);
 	
 	if (flag == true)
 		cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";

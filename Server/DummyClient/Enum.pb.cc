@@ -54,19 +54,19 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\020SKILL_TYPE_CLOSE\020\001\022\031\n\025SKILL_TYPE_PROJEC"
   "TILE\020\002*l\n\nEffectType\022\024\n\020EFFECT_TYPE_NONE"
   "\020\000\022\031\n\025EFFECT_TYPE_RECTANGLE\020\001\022\026\n\022EFFECT_"
-  "TYPE_CIRCLE\020\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\224\001\n"
+  "TYPE_CIRCLE\020\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\255\001\n"
   "\tSkillSlot\022\023\n\017SKILL_SLOT_NONE\020\000\022\025\n\021SKILL"
   "_SLOT_ATTACK\020\001\022\020\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKIL"
   "L_SLOT_W\020\003\022\020\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SL"
-  "OT_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006*9\n\010RoomType\022"
-  "\023\n\017ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_"
-  "ROOM\020\001*O\n\tRoomState\022\023\n\017ROOM_STATE_NONE\020\000"
-  "\022\026\n\022ROOM_STATE_PREPARE\020\001\022\025\n\021ROOM_STATE_B"
-  "ATTLE\020\002b\006proto3"
+  "OT_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006\022\027\n\023SKILL_SLO"
+  "D_ADVANCED\020\007*9\n\010RoomType\022\023\n\017ROOOM_TYPE_N"
+  "ONE\020\000\022\030\n\024ROOM_TYPE_START_ROOM\020\001*O\n\tRoomS"
+  "tate\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022ROOM_STATE_"
+  "PREPARE\020\001\022\025\n\021ROOM_STATE_BATTLE\020\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 1335, descriptor_table_protodef_Enum_2eproto,
+    false, false, 1360, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -238,6 +238,7 @@ bool SkillSlot_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;

@@ -39,7 +39,7 @@ void RoomBase::UpdateTick()
 
 bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 {
-	bool success = AddObject(object);
+	bool success = AddObject_internal(object);
 
 	// temp
 	// 처음으로 들어온애가 보스 소환 시키기, 나중엔 버튼이나 준비완료 이런거 만들 것
@@ -234,7 +234,7 @@ RoomBaseRef RoomBase::GetRoomRef()
 	return static_pointer_cast<RoomBase>(shared_from_this());
 }
 
-bool RoomBase::AddObject(ObjectRef object)
+bool RoomBase::AddObject_internal(ObjectRef object)
 {
 	// 있다면 문제가 있다.
 	if (_objects.find(object->objectInfo->object_id()) != _objects.end())
@@ -253,12 +253,9 @@ bool RoomBase::RemoveObject(uint64 objectId)
 	if (_objects.find(objectId) == _objects.end())
 		return false;
 
-	ObjectRef object = _objects[objectId];
-	PlayerRef player = dynamic_pointer_cast<Player>(object);
-	if (player)
-		player->room.store(weak_ptr<RoomBase>()); // null로 밀어주기
-
 	_objects.erase(objectId);
+
+	GObjectManager->RemoveObject(objectId);
 
 	return true;
 }
@@ -266,6 +263,11 @@ bool RoomBase::RemoveObject(uint64 objectId)
 void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 {
 	Broadcast_internal(sendBuffer, exceptId);
+}
+
+bool RoomBase::AddObject(ObjectRef object)
+{
+	return AddObject_internal(object);
 }
 
 PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId)

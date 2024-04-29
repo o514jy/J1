@@ -26,12 +26,13 @@ void Creature::UpdateTick()
 
 void Creature::SetInfo(int32 templateId)
 {
+	__super::SetInfo(templateId);
+
 	_objectId = objectInfo->object_id();
 	_templateId = objectInfo->template_id();
 
-	//posInfo->CopyFrom(InObjectInfo.pos_info());
-
 	Protocol::ObjectType objectType = objectInfo->object_type();
+	_objectType = objectType;
 	Protocol::CreatureType creatureType = objectInfo->creature_type();
 	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
 	{
@@ -55,6 +56,11 @@ void Creature::SetInfo(int32 templateId)
 	/* skill component */
 	_skillComponent = make_shared<SkillComponent>();
 	_skillComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData);
+}
+
+void Creature::SetCreatureData(CreatureDataRef creatureData)
+{
+	_creatureData = creatureData;
 }
 
 void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)

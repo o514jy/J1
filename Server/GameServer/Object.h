@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Data.h"
-
-class Object : public enable_shared_from_this<Object>
+#include "JobQueue.h"
+// enable_shared_from_this<Object>
+class Object : public JobQueue
 {
 public:
 	Object();
@@ -30,7 +31,7 @@ public:
 
 public:
 	/** information **/
-	Protocol::ObjectType* objectType;
+	Protocol::ObjectType _objectType;
 	Protocol::ObjectInfo* objectInfo;
 	Protocol::PosInfo* posInfo;
 

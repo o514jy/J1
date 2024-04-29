@@ -9,7 +9,6 @@
 Object::Object()
 {
 	objectInfo = new Protocol::ObjectInfo();
-	objectType = new Protocol::ObjectType();
 	posInfo = new Protocol::PosInfo();
 	objectInfo->set_allocated_pos_info(posInfo);
 
@@ -34,7 +33,7 @@ void Object::UpdateTick()
 
 void Object::SetInfo(int32 templateId)
 {
-
+	
 }
 
 void Object::SetState(Protocol::MoveState moveState)

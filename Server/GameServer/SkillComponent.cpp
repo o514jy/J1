@@ -43,6 +43,12 @@ void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 		AddSkill(data->SkillRId, Protocol::SkillSlot::SKILL_SLOT_R);
 		AddSkill(data->SkillDashId, Protocol::SkillSlot::SKILL_SLOT_DASH);
 	}
+	else if (creatureData->CreatureType == L"Monster")
+	{
+		MonsterDataRef data = static_pointer_cast<MonsterData>(creatureData);
+
+		AddSkill(data->AdvancedSkillId, Protocol::SkillSlot::SKILL_SLOD_ADVANCED);
+	}
 }
 
 void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
@@ -87,6 +93,10 @@ void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
 	{
 		_dashSkill = skill;
+	}
+	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
+	{
+		_advancedSkill = skill;
 	}
 
 	skill->SetInfo(_owner, templateId);

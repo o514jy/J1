@@ -40,12 +40,13 @@ public:
 	RoomBaseRef GetRoomRef();
 
 protected:
-	bool AddObject(ObjectRef object);
+	bool AddObject_internal(ObjectRef object);
 	bool RemoveObject(uint64 objectId);
 
 public:
 	/** use outside **/
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
+	bool AddObject(ObjectRef object);
 
 	PlayerRef FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId = 0);
 

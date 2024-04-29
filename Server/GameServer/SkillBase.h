@@ -30,11 +30,16 @@ public:
 	virtual void CancledSkill();
 
 public:
+	/** projectile **/
+	virtual ProjectileRef GenerateProjectile(int32 templateId, float spawnPosX, float spawnPosY, float spawnPosZ);
+
+public:
 	/** gather creature in effects **/
 	vector<ObjectRef> GatherObjectInEffectArea(int32 effectId);
 
 	/* is in area */
 	bool IsInPizzaArea(ObjectRef object, float radius, float theta);
+	bool IsInCircleArea(ObjectRef object, float radius);
 
 public:
 	/** exception check **/
