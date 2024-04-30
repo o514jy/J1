@@ -19,7 +19,7 @@ AJ1Creature::AJ1Creature()
 
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
-	//ObjectInfo->set_allocated_pos_info(PosInfo);
+	
 	
 	/** Configure character movement **/
 	{
@@ -178,6 +178,8 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		return;
 
 	SetObjectInfo(InObjectInfo);
+
+	ObjectInfo->set_allocated_pos_info(PosInfo);
 
 	ObjectId = ObjectInfo->object_id();
 	TemplateId = ObjectInfo->template_id();

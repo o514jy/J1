@@ -73,7 +73,7 @@ void SkillBase::OnAttackEvent(int32 timeCount)
 	_animImpactJobs[timeCount] = nullptr;
 }
 
-void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt)
+void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
 	// start skill
 	_owner->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
@@ -166,7 +166,7 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 		{
 			CircleEffectDataRef circleData = static_pointer_cast<CircleEffectData>(effectData);
 
-			if (true == IsInCircleArea(object, circleData->Radius));
+			if (true == IsInCircleArea(object, circleData->Radius))
 			{
 				objects.push_back(object);
 			}

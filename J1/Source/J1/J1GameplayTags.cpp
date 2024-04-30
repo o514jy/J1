@@ -30,4 +30,15 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_NormalAttack, "Sevarog.Skill.NormalAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_NormalAttack_0, "Sevarog.Skill.NormalAttack.0");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_NormalAttack_End, "Sevarog.Skill.NormalAttack.End");
+	/* Sevarog : poison rain */
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain, "Sevarog.Skill.PoisonRain");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_0, "Sevarog.Skill.PoisonRain.0");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_1, "Sevarog.Skill.PoisonRain.1");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_2, "Sevarog.Skill.PoisonRain.2");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_3, "Sevarog.Skill.PoisonRain.3");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_4, "Sevarog.Skill.PoisonRain.4");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_5, "Sevarog.Skill.PoisonRain.5");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_6, "Sevarog.Skill.PoisonRain.6");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_7, "Sevarog.Skill.PoisonRain.7");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_End, "Sevarog.Skill.PoisonRain.End");
 }

@@ -22,7 +22,8 @@
   "bosses": [
     {
       "DataId": 100,
-      "CreatureType": "Boss",
+      "CreatureType": "Monster",
+      "MonsterType": "Boss",
       "DescriptionTextId": "Sevarog",
       "ColliderRadius": 63.0,
       "ColliderHalfHeight": 144.0,

@@ -29,6 +29,7 @@ public:
 class MonsterData : public CreatureData
 {
 public:
+	wstring MonsterType;
 	int32 AdvancedSkillId;
 	float DefaultAtkRange;
 	float SearchMaxDistance;

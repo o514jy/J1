@@ -29,6 +29,8 @@ void PoisonRain::OnAttackEvent(int32 timeCount)
 {
 	__super::OnAttackEvent(timeCount);
 
+	cout << _owner->_objectId << "'s PoisonRain Skill OnAttackEvent " << timeCount << "\n";
+
 	float nx = randomPoses[timeCount].first;
 	float ny = randomPoses[timeCount].second;
 	float nz = _owner->GetPosInfo()->z();
@@ -39,9 +41,9 @@ void PoisonRain::OnAttackEvent(int32 timeCount)
 	projectile->SpawnProjectile();
 }
 
-void PoisonRain::DoSkill(const Protocol::C_SKILL& skillPkt)
+void PoisonRain::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
-	__super::DoSkill(skillPkt);
+	__super::DoSkill(skillPkt, skillPktToSend);
 
 	for (int32 i = 0; i < randomPoses.size(); i++)
 	{
@@ -49,5 +51,10 @@ void PoisonRain::DoSkill(const Protocol::C_SKILL& skillPkt)
 		float ny = _owner->GetPosInfo()->y() + Utils::GetRandom<float>(-800.f, 800.f);
 
 		randomPoses[i] = make_pair(nx, ny);
+
+		// 클라에게 보낼 패킷에 랜덤으로 정했던 위치 정보를 채운다.
+		Protocol::SimplePosInfo* spInfo = skillPktToSend.add_poison_rain_random_poses();
+		spInfo->set_x(nx);
+		spInfo->set_y(ny);
 	}
 }

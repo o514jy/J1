@@ -14,7 +14,7 @@ public:
 
 public:
 	/** initialize **/	
-	virtual void SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templateId, float spawnPosX, float spawnPosY, float spawnPosZ);
+	virtual void SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templateId);
 
 public:
 	/** impact event **/
@@ -28,8 +28,17 @@ public:
 	void SpawnProjectile();
 
 public:
+	/** gather creature in effects **/
+	vector<ObjectRef> GatherObjectInEffectArea(int32 effectId);
+
+public:
+	/** process buff **/
+	void ProcessBuff(vector<ObjectRef>& objects);
+
+public:
 	/** check area **/
 	bool IsInCircleArea(ObjectRef object, float effectRadius);
+
 
 public:
 	/** information **/

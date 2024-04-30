@@ -74,6 +74,9 @@ class UMonsterData : public UCreatureData
 	GENERATED_BODY()
 public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString MonsterType;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	int32 AdvancedSkillId;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)

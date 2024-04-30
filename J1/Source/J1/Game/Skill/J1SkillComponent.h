@@ -31,7 +31,7 @@ public:
 	void AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkillSlot);
 
 public:
-	/** network **/
+	/** network for player skill **/
 	void RegisterNormalAttack(FVector InLocation);
 	void RegisterAuroraQ(FVector InLocation);
 
@@ -70,4 +70,8 @@ public:
 	TObjectPtr<UJ1SkillBase> RSkill;
 	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> DashSkill;
+
+	/** monster **/
+	UPROPERTY()
+	TObjectPtr<UJ1SkillBase> AdvancedSkill;
 };

@@ -254,9 +254,8 @@ void AJ1MyPlayerController::RegisterNotifyPos()
 
 	Protocol::C_NOTIFY_POS notifyPkt;
 	{
-		Protocol::PosInfo* posInfo = new Protocol::PosInfo();
+		Protocol::PosInfo* posInfo = notifyPkt.mutable_info();
 		posInfo->CopyFrom(*myPlayer->GetPosInfo());
-		notifyPkt.set_allocated_info(posInfo);
 	}
 	GetManager(Network)->SendPacket(notifyPkt);
 }

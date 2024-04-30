@@ -24,7 +24,7 @@ protected:
 
 public:
 	/** Process Skill **/
-	virtual void DoSkill(const Protocol::C_SKILL& skillPkt);
+	virtual void DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend);
 
 	// cancled by other cc
 	virtual void CancledSkill();

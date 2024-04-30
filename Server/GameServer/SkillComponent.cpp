@@ -102,22 +102,6 @@ void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
 	skill->SetInfo(_owner, templateId);
 }
 
-void SkillComponent::BroadcastSkill(const Protocol::C_SKILL& skillPkt)
-{
-	// broadcast skill
-	{
-		Protocol::S_SKILL pkt;
-		pkt.set_slot(skillPkt.slot());
-		pkt.set_object_id(skillPkt.object_id());
-		Protocol::SimplePosInfo* simplePosInfo = pkt.mutable_simple_pos_info();
-		simplePosInfo->CopyFrom(skillPkt.simple_pos_info());
-
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
-		RoomBaseRef room = _owner->room.load().lock();
-		room->Broadcast(sendBuffer);
-	}
-}
-
 bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)
 {
 	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
@@ -144,6 +128,10 @@ bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillS
 	{
 		return _dashSkill->GetCanUseSkill();
 	}
+	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
+	{
+		return _advancedSkill->GetCanUseSkill();
+	}
 }
 
 void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
@@ -155,30 +143,46 @@ void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 		return;
 	
 	// notify all client to use skill
-	BroadcastSkill(skillPkt);
+	//BroadcastSkill(skillPkt);
+
+	// 클라에게 보낼 패킷 셋팅, 추가로 넣고싶은 정보는 doSkill쪽에서 해주기
+	Protocol::S_SKILL pkt;
+	pkt.set_slot(skillPkt.slot());
+	pkt.set_object_id(skillPkt.object_id());
+	Protocol::SimplePosInfo* defaultSimplePosInfo = pkt.mutable_simple_pos_info();
+	defaultSimplePosInfo->CopyFrom(skillPkt.simple_pos_info());
 
 	if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_ATTACK)
 	{
-		return _normalAttackSkill->DoSkill(skillPkt);
+		_normalAttackSkill->DoSkill(skillPkt, pkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_Q)
 	{
-		return _qSkill->DoSkill(skillPkt);
+		_qSkill->DoSkill(skillPkt, pkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_W)
 	{
-		return _wSkill->DoSkill(skillPkt);
+		_wSkill->DoSkill(skillPkt, pkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_E)
 	{
-		return _eSkill->DoSkill(skillPkt);
+		_eSkill->DoSkill(skillPkt, pkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_R)
 	{
-		return _rSkill->DoSkill(skillPkt);
+		_rSkill->DoSkill(skillPkt, pkt);
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
 	{
-		return _dashSkill->DoSkill(skillPkt);
+		_dashSkill->DoSkill(skillPkt, pkt);
 	}
+	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
+	{
+		_advancedSkill->DoSkill(skillPkt, pkt);
+	}
+
+	// broadcast packet
+	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
+	RoomBaseRef room = _owner->room.load().lock();
+	room->Broadcast(sendBuffer);
 }

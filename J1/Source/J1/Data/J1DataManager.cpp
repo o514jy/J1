@@ -49,6 +49,8 @@ FGameplayTag UJ1DataManager::SetSkillTagByDataId(int32 InTemplateId)
 		return J1GameplayTags::Aurora_Skill_QSkill;
 	case 1100:
 		return J1GameplayTags::Sevarog_Skill_NormalAttack;
+	case 1101:
+		return J1GameplayTags::Sevarog_Skill_PoisonRain;
 	}
 
 	return FGameplayTag();

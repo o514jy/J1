@@ -63,6 +63,12 @@ void UJ1SkillComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCre
 		AddSkill(data->SkillRId, Protocol::SkillSlot::SKILL_SLOT_R);
 		AddSkill(data->SkillDashId, Protocol::SkillSlot::SKILL_SLOT_DASH);
 	}
+	else if (InCreatureData->CreatureType == TEXT("Monster"))
+	{
+		TObjectPtr<UMonsterData> data = Cast<UMonsterData>(InCreatureData);
+
+		AddSkill(data->AdvancedSkillId, Protocol::SkillSlot::SKILL_SLOD_ADVANCED);
+	}
 }
 
 void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkillSlot)
@@ -102,6 +108,10 @@ void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkill
 	else if (InSkillSlot == Protocol::SkillSlot::SKILL_SLOT_DASH)
 	{
 		DashSkill = skill;
+	}
+	else if (InSkillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
+	{
+		AdvancedSkill = skill;
 	}
 
 	skill->SetInfo(Owner, InTemplateId);

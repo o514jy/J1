@@ -51,9 +51,9 @@ void NormalAttack::OnAttackEvent(int32 timeCount)
 	}
 }
 
-void NormalAttack::DoSkill(const Protocol::C_SKILL& skillPkt)
+void NormalAttack::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
-	__super::DoSkill(skillPkt);
+	__super::DoSkill(skillPkt, skillPktToSend);
 
 	// 애니메이션 재생 (클라에서)
 

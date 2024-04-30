@@ -46,7 +46,7 @@ void AuroraQ::OnAttackEvent(int32 timeCount)
 	}
 }
 
-void AuroraQ::DoSkill(const Protocol::C_SKILL& skillPkt)
+void AuroraQ::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
-	__super::DoSkill(skillPkt);
+	__super::DoSkill(skillPkt, skillPktToSend);
 }

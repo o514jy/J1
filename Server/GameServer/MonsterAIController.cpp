@@ -103,7 +103,26 @@ void MonsterAIController::UpdateSkill()
 	//if (dist > )
 
 	// 아직 스킬 사용을 못하면 idle로 돌아가기
+	bool canUseAdvancedSkill = ownerMonster->GetSkillComponent()->GetCanUseSkillBySkillSlot(Protocol::SKILL_SLOD_ADVANCED);
+	if (canUseAdvancedSkill == true)
+	{
+		Protocol::C_SKILL skillPkt;
+		{
+			Protocol::SimplePosInfo* posPkt = new Protocol::SimplePosInfo();
+			posPkt->set_x(targetPlayer->posInfo->x());
+			posPkt->set_y(targetPlayer->posInfo->y());
+			posPkt->set_z(targetPlayer->posInfo->z());
+			skillPkt.set_allocated_simple_pos_info(posPkt);
+			skillPkt.set_slot(Protocol::SKILL_SLOD_ADVANCED);
+			skillPkt.set_object_id(ownerMonster->_objectId);
+		}
+
+		ownerMonster->GetSkillComponent()->DoSkill(skillPkt);
+		return;
+	}
+
 	bool canUseDefaultAttack = ownerMonster->GetSkillComponent()->GetCanUseSkillBySkillSlot(Protocol::SKILL_SLOT_ATTACK);
+	canUseDefaultAttack = false; // temp
 	if (canUseDefaultAttack == true)
 	{
 		Protocol::C_SKILL skillPkt;
@@ -118,6 +137,7 @@ void MonsterAIController::UpdateSkill()
 		}
 
 		ownerMonster->GetSkillComponent()->DoSkill(skillPkt);
+		return;
 	}
 
 	// 스킬 사용중인 상태니까 끝날때까지 이 상태 유지

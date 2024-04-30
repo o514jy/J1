@@ -2223,10 +2223,29 @@ class S_SKILL final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kPoisonRainRandomPosesFieldNumber = 4,
     kSimplePosInfoFieldNumber = 2,
     kObjectIdFieldNumber = 1,
     kSlotFieldNumber = 3,
   };
+  // repeated .Protocol.SimplePosInfo poison_rain_random_poses = 4;
+  int poison_rain_random_poses_size() const;
+  private:
+  int _internal_poison_rain_random_poses_size() const;
+  public:
+  void clear_poison_rain_random_poses();
+  ::Protocol::SimplePosInfo* mutable_poison_rain_random_poses(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo >*
+      mutable_poison_rain_random_poses();
+  private:
+  const ::Protocol::SimplePosInfo& _internal_poison_rain_random_poses(int index) const;
+  ::Protocol::SimplePosInfo* _internal_add_poison_rain_random_poses();
+  public:
+  const ::Protocol::SimplePosInfo& poison_rain_random_poses(int index) const;
+  ::Protocol::SimplePosInfo* add_poison_rain_random_poses();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo >&
+      poison_rain_random_poses() const;
+
   // .Protocol.SimplePosInfo simple_pos_info = 2;
   bool has_simple_pos_info() const;
   private:
@@ -2271,6 +2290,7 @@ class S_SKILL final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo > poison_rain_random_poses_;
     ::Protocol::SimplePosInfo* simple_pos_info_;
     uint64_t object_id_;
     int slot_;
@@ -3869,6 +3889,43 @@ inline void S_SKILL::_internal_set_slot(::Protocol::SkillSlot value) {
 inline void S_SKILL::set_slot(::Protocol::SkillSlot value) {
   _internal_set_slot(value);
   // @@protoc_insertion_point(field_set:Protocol.S_SKILL.slot)
+}
+
+// repeated .Protocol.SimplePosInfo poison_rain_random_poses = 4;
+inline int S_SKILL::_internal_poison_rain_random_poses_size() const {
+  return _impl_.poison_rain_random_poses_.size();
+}
+inline int S_SKILL::poison_rain_random_poses_size() const {
+  return _internal_poison_rain_random_poses_size();
+}
+inline ::Protocol::SimplePosInfo* S_SKILL::mutable_poison_rain_random_poses(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SKILL.poison_rain_random_poses)
+  return _impl_.poison_rain_random_poses_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo >*
+S_SKILL::mutable_poison_rain_random_poses() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.S_SKILL.poison_rain_random_poses)
+  return &_impl_.poison_rain_random_poses_;
+}
+inline const ::Protocol::SimplePosInfo& S_SKILL::_internal_poison_rain_random_poses(int index) const {
+  return _impl_.poison_rain_random_poses_.Get(index);
+}
+inline const ::Protocol::SimplePosInfo& S_SKILL::poison_rain_random_poses(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SKILL.poison_rain_random_poses)
+  return _internal_poison_rain_random_poses(index);
+}
+inline ::Protocol::SimplePosInfo* S_SKILL::_internal_add_poison_rain_random_poses() {
+  return _impl_.poison_rain_random_poses_.Add();
+}
+inline ::Protocol::SimplePosInfo* S_SKILL::add_poison_rain_random_poses() {
+  ::Protocol::SimplePosInfo* _add = _internal_add_poison_rain_random_poses();
+  // @@protoc_insertion_point(field_add:Protocol.S_SKILL.poison_rain_random_poses)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo >&
+S_SKILL::poison_rain_random_poses() const {
+  // @@protoc_insertion_point(field_list:Protocol.S_SKILL.poison_rain_random_poses)
+  return _impl_.poison_rain_random_poses_;
 }
 
 // -------------------------------------------------------------------

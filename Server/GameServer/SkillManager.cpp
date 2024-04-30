@@ -2,6 +2,7 @@
 #include "SkillManager.h"
 #include "NormalAttack.h"
 #include "AuroraQ.h"
+#include "PoisonRain.h"
 
 SkillManager::SkillManager()
 {
@@ -24,6 +25,9 @@ SkillBaseRef SkillManager::GenerateSkillById(int32 id)
 		break;
 	case 1100:
 		skill = make_shared<NormalAttack>();
+		break;
+	case 1101:
+		skill = make_shared<PoisonRain>();
 		break;
 	default:
 		break;
