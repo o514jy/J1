@@ -7,7 +7,7 @@
 
 class UNiagaraSystem;
 
-UCLASS(BlueprintType, Blueprintable)
+UCLASS()
 class J1_API UJ1PoisonRain : public UJ1SkillBase
 {
 	GENERATED_BODY()
@@ -32,6 +32,9 @@ public:
 	UPROPERTY(BlueprintType, VisibleAnywhere)
 	TArray<FVector> RandomPoses;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<UNiagaraSystem> NS_PoisonRain;
+
+	UPROPERTY()
+	TObjectPtr<UNiagaraSystem> NS_PoisonRain_Fin;
 };

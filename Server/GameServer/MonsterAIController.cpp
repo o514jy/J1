@@ -122,7 +122,7 @@ void MonsterAIController::UpdateSkill()
 	}
 
 	bool canUseDefaultAttack = ownerMonster->GetSkillComponent()->GetCanUseSkillBySkillSlot(Protocol::SKILL_SLOT_ATTACK);
-	canUseDefaultAttack = false; // temp
+	//canUseDefaultAttack = false; // temp
 	if (canUseDefaultAttack == true)
 	{
 		Protocol::C_SKILL skillPkt;

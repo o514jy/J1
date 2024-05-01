@@ -47,8 +47,8 @@ void PoisonRain::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& s
 
 	for (int32 i = 0; i < randomPoses.size(); i++)
 	{
-		float nx = _owner->GetPosInfo()->x() + Utils::GetRandom<float>(-800.f, 800.f);
-		float ny = _owner->GetPosInfo()->y() + Utils::GetRandom<float>(-800.f, 800.f);
+		float nx = _owner->GetPosInfo()->x() + Utils::GetRandom<float>(-400.f, 400.f);
+		float ny = _owner->GetPosInfo()->y() + Utils::GetRandom<float>(-400.f, 400.f);
 
 		randomPoses[i] = make_pair(nx, ny);
 

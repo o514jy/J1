@@ -99,6 +99,10 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 		if (object->_objectId == _owner->_objectId)
 			continue;
 
+		// 크리쳐 아니면 제외
+		if (object->_objectType != Protocol::ObjectType::OBJECT_TYPE_CREATURE)
+			continue;
+
 		// 아군 제외
 
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);
@@ -115,7 +119,8 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 		{
 			CircleEffectDataRef circleData = static_pointer_cast<CircleEffectData>(effectData);
 
-			if (true == IsInCircleArea(object, circleData->Radius));
+			bool flag = IsInCircleArea(object, circleData->Radius);
+			if (true == flag)
 			{
 				objects.push_back(object);
 			}

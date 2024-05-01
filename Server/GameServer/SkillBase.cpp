@@ -135,6 +135,10 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 		if (object->_objectId == _owner->_objectId)
 			continue;
 
+		// 크리쳐 아니면 제외
+		if (object->_objectType != Protocol::ObjectType::OBJECT_TYPE_CREATURE)
+			continue;
+
 		// 아군 제외
 
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);

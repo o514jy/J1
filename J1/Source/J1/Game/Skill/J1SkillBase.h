@@ -9,6 +9,8 @@
 class AJ1Creature;
 class USkillData;
 class UAnimMontage;
+class UNiagaraComponent;
+class UNiagaraSystem;
 
 UCLASS()
 class J1_API UJ1SkillBase : public UObject
@@ -30,6 +32,8 @@ public:
 public:
 	/** Process Skill **/
 	virtual void DoSkill(const Protocol::S_SKILL& InSkillPkt);
+
+	virtual TObjectPtr<UNiagaraComponent> SpawnNiagaraAtLocation(TObjectPtr<UNiagaraSystem> InNiagaraSystem, FVector InLocation);
 
 public:
 	/** handle event **/

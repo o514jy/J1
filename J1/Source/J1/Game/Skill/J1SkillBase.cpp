@@ -1,4 +1,6 @@
 #include "J1SkillBase.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Animation/AnimMontage.h"
 #include "J1/J1GameplayTags.h"
@@ -73,6 +75,12 @@ void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 
 	// 애니메이션 실행
 	Owner->PlayAnimMontage(Montage);
+}
+
+TObjectPtr<UNiagaraComponent> UJ1SkillBase::SpawnNiagaraAtLocation(TObjectPtr<UNiagaraSystem> InNiagaraSystem, FVector InLocation)
+{
+	UObject* world = Owner->GetWorld();
+	return UNiagaraFunctionLibrary::SpawnSystemAtLocation(world, InNiagaraSystem, InLocation);
 }
 
 void UJ1SkillBase::HandleGameplayEvent(FGameplayTag InEventTag)

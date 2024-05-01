@@ -8,6 +8,8 @@ class AJ1Player;
 class AJ1MyPlayer;
 class AJ1Boss;
 
+class UNiagaraSystem;
+
 UCLASS()
 class J1_API UJ1GameInstance : public UGameInstance
 {
@@ -32,4 +34,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Boss> StartBossClass;
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> awef;
 };

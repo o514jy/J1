@@ -1,10 +1,13 @@
 #include "J1PoisonRain.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "TimerManager.h"
 #include "Data/J1Data.h"
+#include "Data/J1DataManager.h"
 #include "Data/J1NiagaraData.h"
 #include "J1/System/J1AssetManager.h"
 #include "Components/SceneComponent.h"
+#include "J1/Game/Object/J1Creature.h"
 
 UJ1PoisonRain::UJ1PoisonRain()
 {
@@ -23,8 +26,14 @@ void UJ1PoisonRain::SetInfo(TObjectPtr<AJ1Creature> InOwner, int32 InTemplateId)
 	RandomPoses.SetNum(SkillData->ProjectileIdList.Num());
 
 	UJ1NiagaraData* NiagaraData = UJ1AssetManager::GetAssetByName<UJ1NiagaraData>("NiagaraData");
-	FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_Poison_Rain")];
-	NS_PoisonRain = Entry.Niagara;
+	{
+		FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_Poison_Rain")];
+		NS_PoisonRain = Entry.Niagara;
+	}
+	{
+		FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_Poison_Rain_Fin")];
+		NS_PoisonRain_Fin = Entry.Niagara;
+	}
 }
 
 void UJ1PoisonRain::DoSkill(const Protocol::S_SKILL& InSkillPkt)
@@ -61,14 +70,18 @@ void UJ1PoisonRain::OnAttackEvent(int32 InTimeCount)
 		int a = 3;
 	}
 
-	UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, NS_PoisonRain, loc);
-	if (NiagaraComp)
-	{
+	TObjectPtr<UNiagaraComponent> NiagaraComp = SpawnNiagaraAtLocation(NS_PoisonRain, loc);
+	TObjectPtr<UNiagaraComponent> NiagaraComp2 = SpawnNiagaraAtLocation(NS_PoisonRain_Fin, loc);
 
-	}
-	else
-	{
-		int a = 3;
-	}
-	//NiagaraComp->SetNiagaraVariableFloat(FString)
+	// Duration, Height, KunaiLifetime, Radius, Scale
+
+	NiagaraComp->SetNiagaraVariableFloat(FString("Duration"), 1);
+
+	UJ1GameData* datas = Owner->GetManager(Data)->GameData;
+	UProjectileData* data = datas->ProjectileData[SkillData->ProjectileIdList[InTimeCount]];
+	auto effectData = datas->EffectData[data->EffectIdList[0]];
+	
+	NiagaraComp->SetNiagaraVariableFloat(FString("Scale"), Cast<UCircleEffectData>(effectData)->Radius * 0.045);
+	NiagaraComp2->SetNiagaraVariableFloat(FString("Scale"), Cast<UCircleEffectData>(effectData)->Radius * 0.016);
+	
 }
