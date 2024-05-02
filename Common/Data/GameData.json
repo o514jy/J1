@@ -83,6 +83,17 @@
       "AnimImpactTimeList": [ 1700, 2200, 2700, 3200, 3700, 4200, 4700, 5200 ],
       "BuffIdList": [],
       "EffectIdList": []
+    },
+    {
+      "DataId": 1102,
+      "Name": "Spreading Clould of Poison (FindSafeZone) (Sevarog)",
+      "Description": "finished FindSafeZone gimmick",
+      "ProjectileIdList": [],
+      "CoolTime": 0.0,
+      "SkillDuration": 1000,
+      "AnimImpactTimeList": [ 500 ],
+      "BuffIdList": [],
+      "EffectIdList": []
     }
   ],
   "effects": [
@@ -262,6 +273,24 @@
       "BuffAmountRate": 4.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
+    },
+    {
+      "DataId": 100102,
+      "BuffType": "Hit",
+      "BuffDurationType": "Instant",
+      "BuffAmountRate": 10.0,
+      "BuffDurationPeriod": 0.0,
+      "BuffDurationMagnitude": 0.0
+    }
+  ],
+  "gimmicks": [
+    {
+      "DataId": 2000,
+      "Name": "One Player One Zone",
+      "DescriptionText": "find own safe zone",
+      "Duration": 10000,
+      "MissionIdList": [],
+      "SkillIdList": [ 1102 ]
     }
   ]
 }

@@ -224,6 +224,31 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
             _buffData.insert(make_pair(dataRef->DataId, dataRef));
         }
+
+        /** gimmicks **/
+        Value& gimmicks = doc["gimmicks"];
+        for (int i = 0; i < gimmicks.Size(); i++)
+        {
+            Value& gimmick = gimmicks[i];
+
+            GimmickDataRef dataRef = make_shared<GimmickData>();
+            dataRef->DataId = gimmick["DataId"].GetInt();
+            dataRef->Name = Utils::StrToWstr(gimmick["Name"].GetString());
+            dataRef->DescriptionText = Utils::StrToWstr(gimmick["DescriptionText"].GetString());
+            dataRef->Duration = gimmicks["Duration"].GetFloat();
+            Value& missionIds = gimmicks["MissionIdList"];
+            for (int j = 0; j < missionIds.Size(); j++)
+            {
+                dataRef->MissionIdList.push_back(missionIds[j].GetInt());
+            }
+            Value& skillIds = gimmicks["SkillIdList"];
+            for (int j = 0; j < skillIds.Size(); j++)
+            {
+                dataRef->SkillIdList.push_back(skillIds[j].GetInt());
+            }
+
+            _gimmickData.insert(make_pair(dataRef->DataId, dataRef));
+        }
     }
     catch (std::exception& e) {
         // 예외 처리
@@ -278,4 +303,12 @@ BuffDataRef DataManager::GetBuffDataById(int32 id)
         return nullptr;
 
     return _buffData[id];
+}
+
+GimmickDataRef DataManager::GetGimmickDataById(int32 id)
+{
+    if (_gimmickData.find(id) == _gimmickData.end())
+        return nullptr;
+
+    return _gimmickData[id];
 }

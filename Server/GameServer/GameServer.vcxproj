@@ -175,9 +175,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="FindSafeZone.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="GameSessionManager.cpp" />
+    <ClCompile Include="GimmickBase.cpp" />
+    <ClCompile Include="GimmickComponent.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAIController.cpp" />
@@ -222,8 +225,11 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.pb.h" />
+    <ClInclude Include="FindSafeZone.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="GameSessionManager.h" />
+    <ClInclude Include="GimmickBase.h" />
+    <ClInclude Include="GimmickComponent.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAIController.h" />

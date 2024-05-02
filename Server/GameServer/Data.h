@@ -109,3 +109,14 @@ public:
 	float BuffDurationPeriod;
 	float BuffDurationMagnitude;
 };
+
+class GimmickData
+{
+public:
+	int32 DataId;
+	wstring Name;
+	wstring DescriptionText;
+	float Duration;
+	vector<int32> MissionIdList;
+	vector<int32> SkillIdList;
+};

@@ -28,6 +28,8 @@ public:
 
 	BuffDataRef GetBuffDataById(int32 id);
 
+	GimmickDataRef GetGimmickDataById(int32 id);
+
 private:
 	USE_LOCK;
 
@@ -42,5 +44,7 @@ private:
 	unordered_map<int32, ProjectileDataRef> _projectileData;
 
 	unordered_map<int32, BuffDataRef> _buffData;
+
+	unordered_map<int32, GimmickDataRef> _gimmickData;
 };
 

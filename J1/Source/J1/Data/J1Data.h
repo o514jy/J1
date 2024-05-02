@@ -253,6 +253,32 @@ public:
 };
 
 UCLASS(BlueprintType)
+class UGimmickData : public UDataAsset
+{
+public:
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 DataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString Name;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString DescriptionText;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	float Duration;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> MissionIdList;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> SkillIdList;
+};
+
+UCLASS(BlueprintType)
 class J1_API UJ1GameData : public UDataAsset
 {
 public:
@@ -287,4 +313,8 @@ public:
 	/* buff */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UBuffData>> BuffData;
+
+	/* gimmick */
+	UPROPERTY(BlueprintType)
+	TMap<int32, TObjectPtr<UGimmickData>> GimmickData;
 };

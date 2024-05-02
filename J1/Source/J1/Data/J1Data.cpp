@@ -231,4 +231,35 @@ void UJ1GameData::ParseJsonData(const FString& path)
             BuffData.Add(data->DataId, data);
         }
     }
+
+    const TArray<TSharedPtr<FJsonValue>> gimmicks = JsonObject->GetArrayField(TEXT("gimmicks"));
+    {
+        for (int32 i = 0; i < gimmicks.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> gimmick = gimmicks[i]->AsObject();
+
+            UGimmickData* data = NewObject<UGimmickData>();
+
+            data->DataId = gimmick->GetIntegerField(TEXT("DataId"));
+            data->Name = gimmick->GetStringField(TEXT("Name"));
+            data->DescriptionText = gimmick->GetStringField(TEXT("DescriptionText"));
+            data->Duration = gimmick->GetNumberField(TEXT("Duration"));
+            TArray<TSharedPtr<FJsonValue>> MissionIds = gimmick->GetArrayField(TEXT("MissionIdList"));
+            for (auto& MissionId : MissionIds)
+            {
+                int32 id;
+                if (MissionId->TryGetNumber(id))
+                    data->MissionIdList.Add(id);
+            }
+            TArray<TSharedPtr<FJsonValue>> SkillIds = gimmick->GetArrayField(TEXT("SkillIdList"));
+            for (auto& SkillId : SkillIds)
+            {
+                int32 id;
+                if (SkillId->TryGetNumber(id))
+                    data->SkillIdList.Add(id);
+            }
+
+            GimmickData.Add(data->DataId, data);
+        }
+    }
 }
