@@ -4,12 +4,15 @@
 #include "StartRoom.h"
 #include "Creature.h"
 #include "BuffInstant.h"
+#include "GimmickBase.h"
+#include "Boss.h"
 
 Projectile::Projectile()
 {
 	_projectileData = nullptr;
 	_owner = nullptr;
 	_ownerSkill = nullptr;
+	_ownerGimmick = nullptr;
 
 	_impactCount = 0;
 }
@@ -19,6 +22,7 @@ Projectile::~Projectile()
 	_projectileData = nullptr;
 	_owner = nullptr;
 	_ownerSkill = nullptr;
+	_ownerGimmick = nullptr;
 }
 
 void Projectile::UpdateTick()
@@ -30,6 +34,19 @@ void Projectile::SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templ
 {
 	_owner = owner;
 	_ownerSkill = ownerSkill;
+
+	_objectId = objectInfo->object_id();
+	_templateId = objectInfo->template_id();
+
+	_projectileData = GDataManager->GetProjectileDataById(templateId);
+
+	_impactCount = 0;
+}
+
+void Projectile::SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templateId)
+{
+	_owner = owner;
+	_ownerGimmick = ownerGimmick;
 
 	_objectId = objectInfo->object_id();
 	_templateId = objectInfo->template_id();

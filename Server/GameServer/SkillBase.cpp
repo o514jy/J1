@@ -7,6 +7,7 @@
 #include "ObjectManager.h"
 #include "StartRoom.h"
 #include "BuffInstant.h"
+#include "SkillComponent.h"
 
 SkillBase::SkillBase()
 {
@@ -60,6 +61,9 @@ void SkillBase::OnAnimCompleteHandler()
 
 	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
 
+	// 활성화중인 스킬에서 해제
+	_owner->GetSkillComponent()->SetActiveSkill(nullptr);
+
 	// TODO : cc상태로 인한 캔슬이면 여기서 skill상태가 아닐 것이다. 그것에 대한 처리 필요
 }
 
@@ -91,6 +95,8 @@ void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& sk
 	// start cooltime
 	SetCanUseSkill(false);
 	
+	// 활성화중인 스킬로 설정
+	_owner->GetSkillComponent()->SetActiveSkill(static_pointer_cast<SkillBase>(shared_from_this()));
 }
 
 void SkillBase::CancledSkill()

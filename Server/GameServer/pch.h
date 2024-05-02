@@ -30,6 +30,7 @@ USING_SHARED_PTR(Monster);
 USING_SHARED_PTR(Boss);
 USING_SHARED_PTR(Creature);
 USING_SHARED_PTR(Projectile);
+USING_SHARED_PTR(SafeZone);
 USING_SHARED_PTR(Object);
 
 /** room **/
@@ -56,6 +57,10 @@ USING_SHARED_PTR(SkillComponent);
 
 /** buff **/
 USING_SHARED_PTR(BuffBase);
+
+/** gimmick **/
+USING_SHARED_PTR(GimmickBase);
+USING_SHARED_PTR(GimmickComponent);
 
 /** ai controller **/
 USING_SHARED_PTR(BaseAIController);

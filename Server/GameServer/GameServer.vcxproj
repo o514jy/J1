@@ -200,10 +200,12 @@
     </ClCompile>
     <ClCompile Include="RoomBase.cpp" />
     <ClCompile Include="RoomManager.cpp" />
+    <ClCompile Include="SafeZone.cpp" />
     <ClCompile Include="ServerPacketHandler.cpp" />
     <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="SkillComponent.cpp" />
     <ClCompile Include="SkillManager.cpp" />
+    <ClCompile Include="SpreadCloud.cpp" />
     <ClCompile Include="StartRoom.cpp" />
     <ClCompile Include="StatComponent.cpp" />
     <ClCompile Include="Struct.pb.cc">
@@ -243,10 +245,12 @@
     <ClInclude Include="Protocol.pb.h" />
     <ClInclude Include="RoomBase.h" />
     <ClInclude Include="RoomManager.h" />
+    <ClInclude Include="SafeZone.h" />
     <ClInclude Include="ServerPacketHandler.h" />
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SkillManager.h" />
+    <ClInclude Include="SpreadCloud.h" />
     <ClInclude Include="StartRoom.h" />
     <ClInclude Include="StatComponent.h" />
     <ClInclude Include="Struct.pb.h" />

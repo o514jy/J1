@@ -8,3 +8,6 @@
 
 /** tick count **/
 #define TICK_COUNT 200
+
+/** gimmick skill id **/
+#define GIMMICK_SPREAD_CLOUD 1102

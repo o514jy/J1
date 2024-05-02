@@ -161,12 +161,13 @@ enum MoveState : int {
   MOVE_STATE_DASH = 3,
   MOVE_STATE_SKILL = 4,
   MOVE_STATE_DEAD = 6,
+  MOVE_STATE_GIMMICK = 7,
   MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool MoveState_IsValid(int value);
 constexpr MoveState MoveState_MIN = MOVE_STATE_NONE;
-constexpr MoveState MoveState_MAX = MOVE_STATE_DEAD;
+constexpr MoveState MoveState_MAX = MOVE_STATE_GIMMICK;
 constexpr int MoveState_ARRAYSIZE = MoveState_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor();
@@ -300,12 +301,13 @@ enum SkillSlot : int {
   SKILL_SLOT_R = 5,
   SKILL_SLOT_DASH = 6,
   SKILL_SLOD_ADVANCED = 7,
+  SKILL_SLOT_GIMMICK = 8,
   SkillSlot_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SkillSlot_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SkillSlot_IsValid(int value);
 constexpr SkillSlot SkillSlot_MIN = SKILL_SLOT_NONE;
-constexpr SkillSlot SkillSlot_MAX = SKILL_SLOD_ADVANCED;
+constexpr SkillSlot SkillSlot_MAX = SKILL_SLOT_GIMMICK;
 constexpr int SkillSlot_ARRAYSIZE = SkillSlot_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillSlot_descriptor();
@@ -372,6 +374,34 @@ inline bool RoomState_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoomState* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RoomState>(
     RoomState_descriptor(), name, value);
+}
+enum Direction : int {
+  DIR_NONE = 0,
+  DIR_UP = 1,
+  DIR_RIGHT = 2,
+  DIR_DOWN = 3,
+  DIR_LEFT = 4,
+  Direction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  Direction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool Direction_IsValid(int value);
+constexpr Direction Direction_MIN = DIR_NONE;
+constexpr Direction Direction_MAX = DIR_LEFT;
+constexpr int Direction_ARRAYSIZE = Direction_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Direction_descriptor();
+template<typename T>
+inline const std::string& Direction_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Direction>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Direction_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    Direction_descriptor(), enum_t_value);
+}
+inline bool Direction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Direction* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Direction>(
+    Direction_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -454,6 +484,11 @@ template <> struct is_proto_enum< ::Protocol::RoomState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::RoomState>() {
   return ::Protocol::RoomState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::Direction> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::Direction>() {
+  return ::Protocol::Direction_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -231,7 +231,13 @@ public:
 	int32 DataId;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	FString OwnerType;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	int32 OwnerSkillDataId;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	int32 OwnerGimmickDataId;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	FString Name;
@@ -270,6 +276,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float Duration;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> ProjectileIdList;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<int32> MissionIdList;

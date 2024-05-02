@@ -86,7 +86,7 @@
     },
     {
       "DataId": 1102,
-      "Name": "Spreading Clould of Poison (FindSafeZone) (Sevarog)",
+      "Name": "Spread Clould of Poison (FindSafeZone) (Sevarog)",
       "Description": "finished FindSafeZone gimmick",
       "ProjectileIdList": [],
       "CoolTime": 0.0,
@@ -170,6 +170,7 @@
   "projectiles": [
     {
       "DataId": 1000001,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (1/8)",
       "Duration": 1000,
@@ -180,6 +181,7 @@
     },
     {
       "DataId": 1000002,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (2/8)",
       "Duration": 1000,
@@ -190,6 +192,7 @@
     },
     {
       "DataId": 1000003,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (3/8)",
       "Duration": 1000,
@@ -200,6 +203,7 @@
     },
     {
       "DataId": 1000004,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (4/8)",
       "Duration": 1000,
@@ -210,6 +214,7 @@
     },
     {
       "DataId": 1000005,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (5/8)",
       "Duration": 1000,
@@ -220,6 +225,7 @@
     },
     {
       "DataId": 1000006,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (6/8)",
       "Duration": 1000,
@@ -230,6 +236,7 @@
     },
     {
       "DataId": 1000007,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (7/8)",
       "Duration": 1000,
@@ -240,6 +247,7 @@
     },
     {
       "DataId": 1000008,
+      "OwnerType": "Skill",
       "OwnerSkillDataId": 1101,
       "Name": "Poison Rain Drop (8/8)",
       "Duration": 1000,
@@ -247,6 +255,17 @@
       "ImpactTimeList": [],
       "BuffIdList": [ 100101 ],
       "EffectIdList": [ 10108 ]
+    },
+    {
+      "DataId": 1000009,
+      "OwnerType": "Gimmick",
+      "OwnerGimmickDataId": 2000,
+      "Name": "Safe Zone (Find Safe Zone)",
+      "Duration": 0,
+      "MoveSpeed": 0,
+      "ImpactTimeList": [],
+      "BuffIdList": [],
+      "EffectIdList": []
     }
   ],
   "buffs": [
@@ -289,6 +308,7 @@
       "Name": "One Player One Zone",
       "DescriptionText": "find own safe zone",
       "Duration": 10000,
+      "ProjectileIdList": [ 1000009 ],
       "MissionIdList": [],
       "SkillIdList": [ 1102 ]
     }

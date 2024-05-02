@@ -46,6 +46,9 @@
     <Filter Include="Game\Gimmick">
       <UniqueIdentifier>{c8ac3a96-25c3-4846-92ba-53a065ae910f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Object\Projectile">
+      <UniqueIdentifier>{5a86900c-de3b-44b8-ad3a-3e90c840783b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -147,9 +150,6 @@
     <ClCompile Include="BossAIController.cpp">
       <Filter>Game\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="PoisonRain.cpp">
       <Filter>Game\Skill</Filter>
     </ClCompile>
@@ -159,7 +159,18 @@
     <ClCompile Include="GimmickBase.cpp">
       <Filter>Game\Gimmick</Filter>
     </ClCompile>
-    <ClCompile Include="FindSafeZone.cpp" />
+    <ClCompile Include="FindSafeZone.cpp">
+      <Filter>Game\Gimmick</Filter>
+    </ClCompile>
+    <ClCompile Include="SpreadCloud.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Game\Object\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="SafeZone.cpp">
+      <Filter>Game\Object\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -261,9 +272,6 @@
     <ClInclude Include="BossAIController.h">
       <Filter>Game\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="PoisonRain.h">
       <Filter>Game\Skill</Filter>
     </ClInclude>
@@ -273,7 +281,18 @@
     <ClInclude Include="GimmickBase.h">
       <Filter>Game\Gimmick</Filter>
     </ClInclude>
-    <ClInclude Include="FindSafeZone.h" />
+    <ClInclude Include="FindSafeZone.h">
+      <Filter>Game\Gimmick</Filter>
+    </ClInclude>
+    <ClInclude Include="SpreadCloud.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Game\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeZone.h">
+      <Filter>Game\Object\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\protoc-21.12-win64\bin\Protocol.proto">

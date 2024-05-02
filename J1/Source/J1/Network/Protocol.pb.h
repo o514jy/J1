@@ -2047,6 +2047,7 @@ class C_SKILL final :
     kSimplePosInfoFieldNumber = 2,
     kObjectIdFieldNumber = 1,
     kSlotFieldNumber = 3,
+    kSkillDataIdFieldNumber = 4,
   };
   // .Protocol.SimplePosInfo simple_pos_info = 2;
   bool has_simple_pos_info() const;
@@ -2084,6 +2085,15 @@ class C_SKILL final :
   void _internal_set_slot(::Protocol::SkillSlot value);
   public:
 
+  // int32 skill_data_id = 4;
+  void clear_skill_data_id();
+  int32_t skill_data_id() const;
+  void set_skill_data_id(int32_t value);
+  private:
+  int32_t _internal_skill_data_id() const;
+  void _internal_set_skill_data_id(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.C_SKILL)
  private:
   class _Internal;
@@ -2095,6 +2105,7 @@ class C_SKILL final :
     ::Protocol::SimplePosInfo* simple_pos_info_;
     uint64_t object_id_;
     int slot_;
+    int32_t skill_data_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2227,6 +2238,7 @@ class S_SKILL final :
     kSimplePosInfoFieldNumber = 2,
     kObjectIdFieldNumber = 1,
     kSlotFieldNumber = 3,
+    kSkillDataIdFieldNumber = 5,
   };
   // repeated .Protocol.SimplePosInfo poison_rain_random_poses = 4;
   int poison_rain_random_poses_size() const;
@@ -2282,6 +2294,15 @@ class S_SKILL final :
   void _internal_set_slot(::Protocol::SkillSlot value);
   public:
 
+  // int32 skill_data_id = 5;
+  void clear_skill_data_id();
+  int32_t skill_data_id() const;
+  void set_skill_data_id(int32_t value);
+  private:
+  int32_t _internal_skill_data_id() const;
+  void _internal_set_skill_data_id(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_SKILL)
  private:
   class _Internal;
@@ -2294,6 +2315,7 @@ class S_SKILL final :
     ::Protocol::SimplePosInfo* simple_pos_info_;
     uint64_t object_id_;
     int slot_;
+    int32_t skill_data_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3762,6 +3784,26 @@ inline void C_SKILL::set_slot(::Protocol::SkillSlot value) {
   // @@protoc_insertion_point(field_set:Protocol.C_SKILL.slot)
 }
 
+// int32 skill_data_id = 4;
+inline void C_SKILL::clear_skill_data_id() {
+  _impl_.skill_data_id_ = 0;
+}
+inline int32_t C_SKILL::_internal_skill_data_id() const {
+  return _impl_.skill_data_id_;
+}
+inline int32_t C_SKILL::skill_data_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_SKILL.skill_data_id)
+  return _internal_skill_data_id();
+}
+inline void C_SKILL::_internal_set_skill_data_id(int32_t value) {
+  
+  _impl_.skill_data_id_ = value;
+}
+inline void C_SKILL::set_skill_data_id(int32_t value) {
+  _internal_set_skill_data_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_SKILL.skill_data_id)
+}
+
 // -------------------------------------------------------------------
 
 // S_SKILL
@@ -3926,6 +3968,26 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInf
 S_SKILL::poison_rain_random_poses() const {
   // @@protoc_insertion_point(field_list:Protocol.S_SKILL.poison_rain_random_poses)
   return _impl_.poison_rain_random_poses_;
+}
+
+// int32 skill_data_id = 5;
+inline void S_SKILL::clear_skill_data_id() {
+  _impl_.skill_data_id_ = 0;
+}
+inline int32_t S_SKILL::_internal_skill_data_id() const {
+  return _impl_.skill_data_id_;
+}
+inline int32_t S_SKILL::skill_data_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SKILL.skill_data_id)
+  return _internal_skill_data_id();
+}
+inline void S_SKILL::_internal_set_skill_data_id(int32_t value) {
+  
+  _impl_.skill_data_id_ = value;
+}
+inline void S_SKILL::set_skill_data_id(int32_t value) {
+  _internal_set_skill_data_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SKILL.skill_data_id)
 }
 
 // -------------------------------------------------------------------

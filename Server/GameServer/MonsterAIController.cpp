@@ -89,6 +89,12 @@ void MonsterAIController::UpdateSkill()
 	MonsterDataRef ownerData = ownerMonster->GetMonsterData();
 	PlayerRef targetPlayer = static_pointer_cast<Player>(ownerMonster->_targetObject);
 
+	// 이미 스킬 사용중이면 통과
+	if (ownerMonster->GetSkillComponent()->GetActiveSkill() != nullptr)
+	{
+		return;
+	}
+
 	// 타겟이 사라지면 idle로 돌아가기
 	if (targetPlayer == nullptr || targetPlayer->room.load().lock() == nullptr)
 	{
@@ -97,10 +103,6 @@ void MonsterAIController::UpdateSkill()
 		BroadcastMove();
 		return;
 	}
-
-	// 타겟이 공격범위를 벗어나면 추적하기
-	float dist = Utils::DirectionVectorLen(_owner->GetPosInfo(), targetPlayer->GetPosInfo());
-	//if (dist > )
 
 	// 아직 스킬 사용을 못하면 idle로 돌아가기
 	bool canUseAdvancedSkill = ownerMonster->GetSkillComponent()->GetCanUseSkillBySkillSlot(Protocol::SKILL_SLOD_ADVANCED);

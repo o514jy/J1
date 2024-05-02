@@ -90,7 +90,9 @@ class ProjectileData
 {
 public:
 	int32 DataId;
+	wstring OwnerType;
 	int32 OwnerSkillDataId;
+	int32 OwnerGimmickDataId;
 	wstring Name;
 	float Duration;
 	float MoveSpeed;
@@ -117,6 +119,7 @@ public:
 	wstring Name;
 	wstring DescriptionText;
 	float Duration;
+	vector<int32> ProjectileIdList;
 	vector<int32> MissionIdList;
 	vector<int32> SkillIdList;
 };

@@ -10,11 +10,31 @@
 SkillComponent::SkillComponent()
 {
 	skillInfo = new Protocol::SkillInfo;
+
+	_activeSkill = nullptr;
+	_normalAttackSkill = nullptr;
+	_qSkill = nullptr;
+	_wSkill = nullptr;
+	_eSkill = nullptr;
+	_rSkill = nullptr;
+	_dashSkill = nullptr;
+	_advancedSkill = nullptr;
+	_SpreadCloudSkill = nullptr;
 }
 
 SkillComponent::~SkillComponent()
 {
 	skillInfo = nullptr;
+
+	_activeSkill = nullptr;
+	_normalAttackSkill = nullptr;
+	_qSkill = nullptr;
+	_wSkill = nullptr;
+	_eSkill = nullptr;
+	_rSkill = nullptr;
+	_dashSkill = nullptr;
+	_advancedSkill = nullptr;
+	_SpreadCloudSkill = nullptr;
 }
 
 void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
@@ -48,6 +68,14 @@ void SkillComponent::SetInfo(CreatureRef owner, CreatureDataRef creatureData)
 		MonsterDataRef data = static_pointer_cast<MonsterData>(creatureData);
 
 		AddSkill(data->AdvancedSkillId, Protocol::SkillSlot::SKILL_SLOD_ADVANCED);
+
+		if (data->MonsterType == L"Boss")
+		{
+			BossDataRef bossData = static_pointer_cast<BossData>(data);
+
+			// temp gimmick
+			AddSkill(1102, Protocol::SkillSlot::SKILL_SLOT_GIMMICK);
+		}
 	}
 }
 
@@ -98,8 +126,29 @@ void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
 	{
 		_advancedSkill = skill;
 	}
+	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_GIMMICK)
+	{
+		switch (skillData->DataId)
+		{
+		case GIMMICK_SPREAD_CLOUD:
+			_SpreadCloudSkill = skill;
+			break;
+		default:
+			break;
+		}
+	}
 
 	skill->SetInfo(_owner, templateId);
+}
+
+void SkillComponent::SetActiveSkill(SkillBaseRef skill)
+{
+	_activeSkill = skill;
+}
+
+SkillBaseRef SkillComponent::GetActiveSkill()
+{
+	return _activeSkill;
 }
 
 bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)
@@ -179,6 +228,13 @@ void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
 	{
 		_advancedSkill->DoSkill(skillPkt, pkt);
+	}
+	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOT_GIMMICK)
+	{
+		if (skillPkt.skill_data_id() == GIMMICK_SPREAD_CLOUD)
+		{
+			_SpreadCloudSkill->DoSkill(skillPkt, pkt);
+		}
 	}
 
 	// broadcast packet

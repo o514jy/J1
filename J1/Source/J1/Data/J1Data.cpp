@@ -183,7 +183,15 @@ void UJ1GameData::ParseJsonData(const FString& path)
             UProjectileData* data = NewObject<UProjectileData>();
 
             data->DataId = projectile->GetIntegerField(TEXT("DataId"));
-            data->OwnerSkillDataId = projectile->GetIntegerField(TEXT("OwnerSkillDataId"));
+            data->OwnerType = projectile->GetStringField(TEXT("OwnerType"));
+            if (data->OwnerType == TEXT("Skill"))
+            {
+                data->OwnerSkillDataId = projectile->GetIntegerField(TEXT("OwnerSkillDataId"));
+            }
+            else if (data->OwnerType == TEXT("Gimmick"))
+            {
+                data->OwnerGimmickDataId = projectile->GetIntegerField(TEXT("OwnerGimmickDataId"));
+            }
             data->Name = projectile->GetStringField(TEXT("Name"));
             data->Duration = projectile->GetNumberField(TEXT("Duration"));
             data->MoveSpeed = projectile->GetNumberField(TEXT("MoveSpeed"));
@@ -244,6 +252,13 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->Name = gimmick->GetStringField(TEXT("Name"));
             data->DescriptionText = gimmick->GetStringField(TEXT("DescriptionText"));
             data->Duration = gimmick->GetNumberField(TEXT("Duration"));
+            TArray<TSharedPtr<FJsonValue>> ProjectileIds = gimmick->GetArrayField(TEXT("ProjectileIdList"));
+            for (auto& ProjectileId : ProjectileIds)
+            {
+                int32 id;
+                if (ProjectileId->TryGetNumber(id))
+                    data->ProjectileIdList.Add(id);
+            }
             TArray<TSharedPtr<FJsonValue>> MissionIds = gimmick->GetArrayField(TEXT("MissionIdList"));
             for (auto& MissionId : MissionIds)
             {

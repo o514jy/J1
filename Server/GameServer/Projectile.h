@@ -14,12 +14,17 @@ public:
 
 public:
 	/** initialize **/	
+
+	/* by skill */
 	virtual void SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templateId);
+
+	/* by gimmick */
+	virtual void SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templateId);
 
 public:
 	/** impact event **/
 	void OnImpactTimeHandler();
-	void OnImpactEvent(int32 impactCount);
+	virtual void OnImpactEvent(int32 impactCount);
 
 	void OnDurationCompleteHandler();
 
@@ -45,7 +50,9 @@ public:
 	ProjectileDataRef _projectileData;
 
 	CreatureRef _owner;
+
 	SkillBaseRef _ownerSkill;
+	GimmickBaseRef _ownerGimmick;
 
 	int32 _impactCount;
 };

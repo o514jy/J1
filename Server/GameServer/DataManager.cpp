@@ -182,10 +182,20 @@ void DataManager::ParseJsonData(const WCHAR* path)
         Value& projectiles = doc["projectiles"];
         for (int i = 0; i < projectiles.Size(); i++)
         {
+
+
             ProjectileDataRef dataRef = make_shared<ProjectileData>();
             Value& projectile = projectiles[i];
             dataRef->DataId = projectile["DataId"].GetInt();
-            dataRef->OwnerSkillDataId = projectile["OwnerSkillDataId"].GetInt();
+            dataRef->OwnerType = Utils::StrToWstr(projectile["OwnerType"].GetString());
+            if (dataRef->OwnerType == L"Skill")
+            {
+                dataRef->OwnerSkillDataId = projectile["OwnerSkillDataId"].GetInt();
+            }
+            else if (dataRef->OwnerType == L"Gimmick")
+            {
+                dataRef->OwnerGimmickDataId = projectile["OwnerGimmickDataId"].GetInt();
+            }
             dataRef->Name = Utils::StrToWstr(projectile["Name"].GetString());
             dataRef->Duration = projectile["Duration"].GetFloat();
             dataRef->MoveSpeed = projectile["MoveSpeed"].GetFloat();
@@ -235,13 +245,18 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->DataId = gimmick["DataId"].GetInt();
             dataRef->Name = Utils::StrToWstr(gimmick["Name"].GetString());
             dataRef->DescriptionText = Utils::StrToWstr(gimmick["DescriptionText"].GetString());
-            dataRef->Duration = gimmicks["Duration"].GetFloat();
-            Value& missionIds = gimmicks["MissionIdList"];
+            dataRef->Duration = gimmick["Duration"].GetFloat();
+            Value& projectileIds = gimmick["ProjectileIdList"];
+            for (int j = 0; j < projectileIds.Size(); j++)
+            {
+                dataRef->ProjectileIdList.push_back(projectileIds[j].GetInt());
+            }
+            Value& missionIds = gimmick["MissionIdList"];
             for (int j = 0; j < missionIds.Size(); j++)
             {
                 dataRef->MissionIdList.push_back(missionIds[j].GetInt());
             }
-            Value& skillIds = gimmicks["SkillIdList"];
+            Value& skillIds = gimmick["SkillIdList"];
             for (int j = 0; j < skillIds.Size(); j++)
             {
                 dataRef->SkillIdList.push_back(skillIds[j].GetInt());

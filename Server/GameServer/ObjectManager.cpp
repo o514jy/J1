@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "ObjectManager.h"
+#include "SkillManager.h"
 #include "Object.h"
 #include "Player.h"
 #include "Monster.h"
 #include "Boss.h"
 #include "Projectile.h"
 #include "RoomBase.h"
+#include "GimmickBase.h"
 
 // [UNUSED(1)][TYPE(31)][ID(32)]
 uint64 ObjectManager::s_objectIdGenerator = 1;
@@ -75,12 +77,12 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 	return boss;
 }
 
-ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill)
+ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill, GimmickBaseRef ownerGimmick)
 {
 	// ID »ý¼º±â
 	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_PROJECTILE);
 
-	ProjectileRef projectile = make_shared<Projectile>();
+	ProjectileRef projectile = GSkillManager->GenerateProjectileById(templateId);
 
 	projectile->objectInfo->set_object_id(newId);
 	projectile->objectInfo->set_template_id(templateId);
@@ -96,7 +98,10 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 	// enter game
 	AddObject(projectile);
 
-	projectile->SetInfo(owner, ownerSkill, templateId);
+	if (ownerSkill != nullptr)
+		projectile->SetInfo(owner, ownerSkill, templateId);
+	else if (ownerGimmick != nullptr)
+		projectile->SetInfo(static_pointer_cast<Boss>(owner), ownerGimmick, templateId);
 
 	return projectile;
 }

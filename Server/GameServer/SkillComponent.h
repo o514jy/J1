@@ -16,6 +16,11 @@ public:
 	void AddSkill(int32 templateId, Protocol::SkillSlot skillSlot);
 
 public:
+	/** setter & getter **/
+	void SetActiveSkill(SkillBaseRef skill);
+	SkillBaseRef GetActiveSkill();
+
+public:
 	/** network **/
 	Protocol::SkillInfo* skillInfo;
 
@@ -29,6 +34,8 @@ public:
 	/** information **/
 	CreatureRef _owner;
 
+	SkillBaseRef _activeSkill;
+
 	SkillBaseRef _normalAttackSkill;
 
 	/** player **/
@@ -40,6 +47,9 @@ public:
 
 	/** monster **/
 	SkillBaseRef _advancedSkill;
+
+	/** boss **/
+	SkillBaseRef _SpreadCloudSkill;
 	
 };
 
