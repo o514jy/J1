@@ -6,6 +6,7 @@
 #include "SpreadCloud.h"
 #include "Projectile.h"
 #include "SafeZone.h"
+#include "FindSafeZone.h"
 
 SkillManager::SkillManager()
 {
@@ -68,4 +69,19 @@ ProjectileRef SkillManager::GenerateProjectileById(int32 id)
 	}
 
 	return projectile;
+}
+
+GimmickBaseRef SkillManager::GenerateGimmickById(int32 id)
+{
+	GimmickBaseRef gimmick = nullptr;
+	switch (id)
+	{
+	case 2000:
+		gimmick = make_shared<FindSafeZone>();
+		break;
+	default:
+		break;
+	}
+
+	return gimmick;
 }

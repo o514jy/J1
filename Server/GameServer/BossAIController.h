@@ -23,6 +23,7 @@ public:
 	virtual void UpdateIdle() override;
 	virtual void UpdateRun() override;
 	virtual void UpdateSkill() override;
+	virtual void UpdateGimmick();
 	virtual void UpdateDead() override;
 
 public:

@@ -5,6 +5,7 @@
 #include "SkillComponent.h"
 #include "SkillBase.h"
 #include "Boss.h"
+#include "GimmickComponent.h"
 
 GimmickBase::GimmickBase()
 {
@@ -44,6 +45,7 @@ void GimmickBase::OnEvent(int32 eventCount)
 void GimmickBase::OnDurationCompleteHandler()
 {
 	// 여기까지 기믹 끝, 전멸기 사용 후 원래대로 돌아감
+	_owner->GetGimmickComponent()->SetActiveGimmick(nullptr);
 
 	Protocol::C_SKILL sendSkillPkt = MakeSkillPkt(_gimmickData->SkillIdList.back());
 	_owner->GetSkillComponent()->DoSkill(sendSkillPkt);
@@ -71,7 +73,11 @@ Protocol::C_SKILL GimmickBase::MakeSkillPkt(int32 skillId, Protocol::SimplePosIn
 
 void GimmickBase::DoGimmick()
 {
-	DoTimer(_gimmickData->Duration, &GimmickBase::OnDurationCompleteHandler);
+	_owner->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
+	_owner->GetGimmickComponent()->SetActiveGimmick(static_pointer_cast<GimmickBase>(shared_from_this()));
 
-	
+	// 중간에 호출할 함수
+
+	// 끝날 때 호출할 함수
+	DoTimer(_gimmickData->Duration, &GimmickBase::OnDurationCompleteHandler);
 }

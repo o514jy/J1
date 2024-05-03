@@ -33,27 +33,24 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 	vector<ObjectRef> objects = GatherObjectInEffectArea(effectId);
 
 	FindSafeZoneRef safeZone = ownerGimmick.lock();
-	// 생존지대 안에 있으면 빼준다.
+	// 생존지대
 	vector<uint64> safeIds = safeZone->GetSafePlayerList();
 
 	// buff 처리
 	for (auto& object : objects)
 	{
 		// 0) 생존지대에 있었으면 빼준다.
-		for (auto& obj : objects)
+		bool isFin = false;
+		for (uint64 id : safeIds)
 		{
-			bool isFin = false;
-			for (uint64 id : safeIds)
+			if (object->_objectId == id)
 			{
-				if (obj->_objectId == id)
-				{
-					isFin = true;
-					continue;
-				}
+				isFin = true;
+				continue;
 			}
-			if (isFin == true)
-				break;
 		}
+		if (isFin == true)
+			continue;
 
 		// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
 		wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;

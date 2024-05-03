@@ -13,6 +13,11 @@ public:
 	void DoGimmick(int32 gimmickId);
 
 public:
+	/** setter & getter **/
+	void SetActiveGimmick(GimmickBaseRef gimmick);
+	GimmickBaseRef GetActiveGimmick();
+
+public:
 	/** information **/
 	BossRef _owner;
 

@@ -20,6 +20,8 @@ public:
 	/** setter & getter **/
 	GimmickComponentRef GetGimmickComponent();
 
+	BossDataRef GetBossData() { return static_pointer_cast<BossData>(_creatureData); }
+
 	virtual void Clear() override;
 
 public:

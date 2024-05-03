@@ -2,6 +2,7 @@
 #include "GimmickComponent.h"
 #include "GimmickBase.h"
 #include "Data.h"
+#include "SkillManager.h"
 
 GimmickComponent::GimmickComponent()
 {
@@ -18,6 +19,8 @@ GimmickComponent::~GimmickComponent()
 void GimmickComponent::SetInfo(BossRef owner)
 {
 	_owner = owner;
+
+	_canActiveGimmickList.push_back(GSkillManager->GenerateGimmickById(FIND_SAFE_ZONE_DATA_ID));
 }
 
 void GimmickComponent::DoGimmick(int32 gimmickId)
@@ -33,4 +36,14 @@ void GimmickComponent::DoGimmick(int32 gimmickId)
 			return;
 		}
 	}
+}
+
+void GimmickComponent::SetActiveGimmick(GimmickBaseRef gimmick)
+{
+	_activeGimmick = gimmick;
+}
+
+GimmickBaseRef GimmickComponent::GetActiveGimmick()
+{
+	return _activeGimmick;
 }
