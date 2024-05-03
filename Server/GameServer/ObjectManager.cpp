@@ -77,7 +77,7 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 	return boss;
 }
 
-ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill, GimmickBaseRef ownerGimmick)
+ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill, GimmickBaseRef ownerGimmick, float posX, float posY, float posZ)
 {
 	// ID 생성기
 	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_PROJECTILE);
@@ -90,6 +90,9 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 
 	projectile->posInfo->set_object_id(newId);
 	projectile->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+	projectile->posInfo->set_x(posX);
+	projectile->posInfo->set_y(posY);
+	projectile->posInfo->set_z(posZ);
 
 	// enter room
 	RoomBaseRef ownerRoom = owner->room.load().lock();
@@ -169,6 +172,9 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 		projectile->_owner = nullptr;
 		projectile->_ownerSkill = nullptr;
 	}
+
+	// ㅇㅏ 모르겠다 아무튼 클리어 함수 써
+	object->Clear();
 
 	_objects.erase(objectId);
 

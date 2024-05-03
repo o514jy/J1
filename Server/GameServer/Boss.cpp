@@ -31,3 +31,10 @@ GimmickComponentRef Boss::GetGimmickComponent()
 {
 	return _gimmickComponent;
 }
+
+void Boss::Clear()
+{
+	__super::Clear();
+
+	_gimmickComponent = nullptr;
+}

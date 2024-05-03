@@ -29,6 +29,8 @@ public:
 
 	StatComponentRef GetStatComponent() { return _statComponent; }
 
+	virtual void Clear();
+
 public:
 	/** information **/
 	Protocol::ObjectType _objectType;

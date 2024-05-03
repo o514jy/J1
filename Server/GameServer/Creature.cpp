@@ -63,6 +63,14 @@ void Creature::SetCreatureData(CreatureDataRef creatureData)
 	_creatureData = creatureData;
 }
 
+void Creature::Clear()
+{
+	__super::Clear();
+
+	_skillComponent = nullptr;
+	_creatureData = nullptr;
+}
+
 void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
 	__super::OnDamaged(attacker, buff);

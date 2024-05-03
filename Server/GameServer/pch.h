@@ -61,6 +61,7 @@ USING_SHARED_PTR(BuffBase);
 /** gimmick **/
 USING_SHARED_PTR(GimmickBase);
 USING_SHARED_PTR(GimmickComponent);
+USING_SHARED_PTR(FindSafeZone);
 
 /** ai controller **/
 USING_SHARED_PTR(BaseAIController);

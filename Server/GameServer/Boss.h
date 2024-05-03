@@ -20,6 +20,8 @@ public:
 	/** setter & getter **/
 	GimmickComponentRef GetGimmickComponent();
 
+	virtual void Clear() override;
+
 public:
 	/** component **/
 	GimmickComponentRef _gimmickComponent;

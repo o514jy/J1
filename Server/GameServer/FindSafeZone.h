@@ -16,9 +16,13 @@ public:
 	/** process gimmick **/
 	virtual void DoGimmick() override;
 
+	void NotifyAndGenerateOtherSafeZone(Protocol::Direction dir);
+
 public:
 	/** helper **/
 	SafeZoneRef GenerateSafeZone(Protocol::Direction dir);
+
+	vector<uint64> GetSafePlayerList();
 	
 public:
 	/** event **/
@@ -28,4 +32,3 @@ public:
 	/** information **/
 	map<Protocol::Direction, SafeZoneRef> _gimmickList;
 };
-

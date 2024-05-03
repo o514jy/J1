@@ -36,23 +36,22 @@ public:
 	void HandleSkill(Protocol::C_SKILL pkt);
 
 public:
-
+	/** get **/
 	RoomBaseRef GetRoomRef();
-
-protected:
-	bool AddObject_internal(ObjectRef object);
-	bool RemoveObject(uint64 objectId);
 
 public:
 	/** use outside **/
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 	bool AddObject(ObjectRef object);
+	bool RemoveObject(uint64 objectId);
 
 	PlayerRef FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId = 0);
 
 protected:
 	// exceptId를 제외한 모든 object에게 sendBuffer를 보낸다.
 	void Broadcast_internal(SendBufferRef sendBuffer, uint64 exceptId = 0);
+	bool AddObject_internal(ObjectRef object);
+	bool RemoveObject_internal(uint64 objectId);
 
 public:
 	unordered_map<uint64, ObjectRef> _objects;

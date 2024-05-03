@@ -247,7 +247,7 @@ bool RoomBase::AddObject_internal(ObjectRef object)
 	return true;
 }
 
-bool RoomBase::RemoveObject(uint64 objectId)
+bool RoomBase::RemoveObject_internal(uint64 objectId)
 {
 	// 없다면 문제가 있다.
 	if (_objects.find(objectId) == _objects.end())
@@ -268,6 +268,11 @@ void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 bool RoomBase::AddObject(ObjectRef object)
 {
 	return AddObject_internal(object);
+}
+
+bool RoomBase::RemoveObject(uint64 objectId)
+{
+	return RemoveObject_internal(objectId);
 }
 
 PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId)

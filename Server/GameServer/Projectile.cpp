@@ -56,6 +56,16 @@ void Projectile::SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templ
 	_impactCount = 0;
 }
 
+void Projectile::Clear()
+{
+	__super::Clear();
+
+	_projectileData = nullptr;
+	_owner = nullptr;
+	_ownerSkill = nullptr;
+	_ownerGimmick = nullptr;
+}
+
 void Projectile::OnImpactTimeHandler()
 {
 	OnImpactEvent(_impactCount++);
@@ -88,6 +98,10 @@ void Projectile::OnDurationCompleteHandler()
 		vector<ObjectRef> objects = GatherObjectInEffectArea(effectId);
 		ProcessBuff(objects);
 	}
+
+	// ´Ù ³¡³µÀ¸´Ï ¼Ò¸ê
+	RoomBaseRef roomRef = this->room.load().lock();
+	roomRef->RemoveObject(this->_objectId);
 }
 
 void Projectile::SpawnProjectile()

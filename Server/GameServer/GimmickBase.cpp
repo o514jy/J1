@@ -48,6 +48,9 @@ void GimmickBase::OnDurationCompleteHandler()
 	Protocol::C_SKILL sendSkillPkt = MakeSkillPkt(_gimmickData->SkillIdList.back());
 	_owner->GetSkillComponent()->DoSkill(sendSkillPkt);
 
+	// 모든 프로젝타일 비활성화
+
+
 	_eventCount = 0;
 }
 

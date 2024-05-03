@@ -56,6 +56,11 @@ Protocol::PosInfo* Object::GetPosInfo()
 	return posInfo;
 }
 
+void Object::Clear()
+{
+	_statComponent = nullptr;
+}
+
 void Object::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
 	if (attacker == nullptr)

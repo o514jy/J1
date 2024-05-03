@@ -121,10 +121,6 @@ ProjectileRef SkillBase::GenerateProjectile(int32 templateId, float spawnPosX, f
 		_owner, 
 		static_pointer_cast<SkillBase>(shared_from_this()));
 
-	projectile->posInfo->set_x(spawnPosX);
-	projectile->posInfo->set_y(spawnPosY);
-	projectile->posInfo->set_z(spawnPosZ);
-
 	return projectile;
 }
 

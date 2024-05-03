@@ -40,3 +40,11 @@ void Monster::SetTargetObject(ObjectRef object)
 {
 	_targetObject = object;
 }
+
+void Monster::Clear()
+{
+	__super::Clear();
+
+	_aiController = nullptr;
+	_targetObject = nullptr;
+}

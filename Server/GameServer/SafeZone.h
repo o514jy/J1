@@ -21,6 +21,14 @@ public:
 	void SetDir(Protocol::Direction dir);
 	Protocol::Direction GetDir();
 
+	PlayerRef GetMatchedPlayer();
+
+	virtual void Clear() override;
+
+public:
+	/** helper **/
+	bool IsInSafeZone(ObjectRef object);
+
 public:
 	/** event **/
 	virtual void OnImpactEvent(int32 impactCount) override;
@@ -28,5 +36,9 @@ public:
 public:
 	/** information **/
 	Protocol::Direction _dir;
+
+	PlayerRef _matchedPlayer;
+
+	bool _callSpawn;
 };
 

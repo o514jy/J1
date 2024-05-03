@@ -23,6 +23,8 @@ public:
 	void SetCreatureData(CreatureDataRef creatureData);
 	CreatureDataRef GetCreatureData() { return _creatureData; }
 
+	virtual void Clear() override;
+
 public:
 	/** component **/
 

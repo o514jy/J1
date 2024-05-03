@@ -22,6 +22,10 @@ public:
 	virtual void SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templateId);
 
 public:
+	/** setter & getter **/
+	virtual void Clear() override;
+
+public:
 	/** impact event **/
 	void OnImpactTimeHandler();
 	virtual void OnImpactEvent(int32 impactCount);

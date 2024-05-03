@@ -261,7 +261,7 @@
       "OwnerType": "Gimmick",
       "OwnerGimmickDataId": 2000,
       "Name": "Safe Zone (Find Safe Zone)",
-      "Duration": 0,
+      "Duration": 10000,
       "MoveSpeed": 0,
       "ImpactTimeList": [],
       "BuffIdList": [],
