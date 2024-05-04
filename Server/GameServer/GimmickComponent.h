@@ -12,6 +12,8 @@ public:
 
 	void DoGimmick(int32 gimmickId);
 
+	void AddGimmick(int32 gimmickId);
+
 public:
 	/** setter & getter **/
 	void SetActiveGimmick(GimmickBaseRef gimmick);
@@ -23,6 +25,10 @@ public:
 
 	GimmickBaseRef _activeGimmick;
 
-	vector<GimmickBaseRef> _canActiveGimmickList;
+	queue<int32> _gimmickIdQueue;
+
+	//vector<GimmickBaseRef> _canActiveGimmickList;
+
+	unordered_map<int32, GimmickBaseRef> _gimmicks;
 };
 

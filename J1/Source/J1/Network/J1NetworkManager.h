@@ -57,6 +57,10 @@ public:
 
 	void HandleSkill(const Protocol::S_SKILL& SkillPkt);
 
+	void HandleGimmick(const Protocol::S_GIMMICK& GimmickPkt);
+
+	void HandleProjectile(const Protocol::S_PROJECTILE& ProjectilePkt);
+
 	void HandleStat(const Protocol::S_STAT& StatPkt);
 
 public:

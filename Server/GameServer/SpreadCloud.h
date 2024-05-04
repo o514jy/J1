@@ -25,5 +25,7 @@ public:
 public:
 	/** information **/
 	weak_ptr<FindSafeZone> ownerGimmick;
+
+	int32 _ownerGimmickDataId;
 };
 

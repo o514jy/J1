@@ -1,8 +1,11 @@
 #include "J1Creature.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "J1/J1GameplayTags.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "J1/Data/J1Data.h"
+#include "J1/Data/J1NiagaraData.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/System/J1AssetManager.h"
 #include "J1/Game/Controllers/J1CreatureController.h"
@@ -170,6 +173,22 @@ void AJ1Creature::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 void AJ1Creature::ProcessNotifyPos(const Protocol::PosInfo& Info)
 {
 	Cast<AJ1CreatureController>(Controller)->ProcessNotifyPos(Info);
+}
+
+void AJ1Creature::ProcessProjectile(const Protocol::ProjectileInfo& Info)
+{
+	// 일단 여기선 aoe 켜주기
+	// NS_FindSafeZone_SafeZone
+
+	UJ1NiagaraData* NiagaraData = UJ1AssetManager::GetAssetByName<UJ1NiagaraData>("NiagaraData");
+	FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_FindSafeZone_SafeZone")];
+	TObjectPtr<UNiagaraSystem> niagara = Entry.Niagara;
+
+	FVector loc;
+	loc.X = Info.spawn_simple_pos_info().x();
+	loc.Y = Info.spawn_simple_pos_info().y();
+	loc.Z = Info.spawn_simple_pos_info().z();
+	TObjectPtr<UNiagaraComponent> NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), niagara, loc);
 }
 
 void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)

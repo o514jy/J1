@@ -9,6 +9,7 @@
 #include "Object/J1MyPlayer.h"
 #include "Object/J1ObjectManager.h"
 #include "J1/Game/Stat/J1StatComponent.h"
+#include "J1/Game/Object/J1Boss.h"
 
 void UJ1NetworkManager::Tick(float DeltaTime)
 {
@@ -207,6 +208,44 @@ void UJ1NetworkManager::HandleSkill(const Protocol::S_SKILL& SkillPkt)
 
 	const Protocol::SkillSlot& slot = SkillPkt.slot();
 	FindActor->ProcessSkill(SkillPkt);
+}
+
+void UJ1NetworkManager::HandleGimmick(const Protocol::S_GIMMICK& GimmickPkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const uint64 ObjectId = GimmickPkt.object_id();
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
+	if (FindActor == nullptr)
+		return;
+
+	TObjectPtr<AJ1Boss> boss = Cast<AJ1Boss>(FindActor);
+	if (boss == nullptr)
+		return;
+	
+	boss->ProcessGimmick(GimmickPkt);
+}
+
+void UJ1NetworkManager::HandleProjectile(const Protocol::S_PROJECTILE& ProjectilePkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const Protocol::ProjectileInfo projInfo = ProjectilePkt.projectile_info();
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->GetCreatureById(projInfo.owner_object_id());
+	if (FindActor == nullptr)
+		return;
+
+	FindActor->ProcessProjectile(projInfo);
 }
 
 void UJ1NetworkManager::HandleStat(const Protocol::S_STAT& StatPkt)

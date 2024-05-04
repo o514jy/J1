@@ -127,6 +127,26 @@ bool Handle_S_SKILL(PacketSessionRef& session, Protocol::S_SKILL& pkt)
 	return true;
 }
 
+bool Handle_S_GIMMICK(PacketSessionRef& session, Protocol::S_GIMMICK& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleGimmick(pkt);
+	}
+
+	return true;
+}
+
+bool Handle_S_PROJECTILE(PacketSessionRef& session, Protocol::S_PROJECTILE& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleProjectile(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt)
 {
 	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))

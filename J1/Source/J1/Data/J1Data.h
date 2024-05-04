@@ -278,6 +278,9 @@ public:
 	float Duration;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	TArray<int32> EventTimeList;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<int32> ProjectileIdList;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)

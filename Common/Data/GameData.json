@@ -261,7 +261,7 @@
       "OwnerType": "Gimmick",
       "OwnerGimmickDataId": 2000,
       "Name": "Safe Zone (Find Safe Zone)",
-      "Duration": 10000,
+      "Duration": 12000,
       "MoveSpeed": 0,
       "ImpactTimeList": [],
       "BuffIdList": [],
@@ -308,6 +308,7 @@
       "Name": "One Player One Zone",
       "DescriptionText": "find own safe zone",
       "Duration": 10000,
+      "EventTimeList": [],
       "ProjectileIdList": [ 1000009 ],
       "MissionIdList": [],
       "SkillIdList": [ 1102 ]

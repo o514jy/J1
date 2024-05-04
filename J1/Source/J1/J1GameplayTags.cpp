@@ -41,4 +41,9 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_6, "Sevarog.Skill.PoisonRain.6");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_7, "Sevarog.Skill.PoisonRain.7");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_End, "Sevarog.Skill.PoisonRain.End");
+
+	/* Sevarog : Gimmick */
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Gimmick, "Sevarog.Gimmick");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Gimmick_FindSafeZone, "Sevarog.Gimmick.FindSafeZone");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Gimmick_FindSafeZone_End, "Sevarog.Gimmick.FindSafeZone.End");
 }

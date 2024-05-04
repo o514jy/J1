@@ -19,9 +19,7 @@ void SpreadCloud::SetInfo(CreatureRef owner, int32 templateId)
 {
 	__super::SetInfo(owner, templateId);
 
-	BossRef boss = static_pointer_cast<Boss>(owner);
-	GimmickBaseRef gimmick = boss->GetGimmickComponent()->_canActiveGimmickList[FIND_SAFE_ZONE_DATA_ID];
-	ownerGimmick = static_pointer_cast<FindSafeZone>(gimmick);
+	_ownerGimmickDataId = FIND_SAFE_ZONE_DATA_ID;
 }
 
 void SpreadCloud::OnAttackEvent(int32 timeCount)
@@ -73,4 +71,16 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 void SpreadCloud::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
 	__super::DoSkill(skillPkt, skillPktToSend);
+
+	BossRef boss = static_pointer_cast<Boss>(_owner);
+	auto gimmicks = boss->GetGimmickComponent()->_gimmicks;
+	if (gimmicks.find(_ownerGimmickDataId) == gimmicks.end())
+	{
+		// 뭔가 문제가 있다.
+		return;
+	}
+	else
+	{
+		ownerGimmick = static_pointer_cast<FindSafeZone>(gimmicks[_ownerGimmickDataId]);
+	}
 }

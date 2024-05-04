@@ -74,6 +74,8 @@ public:
 
 	virtual void ProcessNotifyPos(const Protocol::PosInfo& Info);
 
+	virtual void ProcessProjectile(const Protocol::ProjectileInfo& Info);
+
 public:
 	/** initialize info **/
 	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo);

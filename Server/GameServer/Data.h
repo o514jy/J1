@@ -119,6 +119,7 @@ public:
 	wstring Name;
 	wstring DescriptionText;
 	float Duration;
+	vector<int32> EventTimeList;
 	vector<int32> ProjectileIdList;
 	vector<int32> MissionIdList;
 	vector<int32> SkillIdList;

@@ -246,6 +246,11 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->Name = Utils::StrToWstr(gimmick["Name"].GetString());
             dataRef->DescriptionText = Utils::StrToWstr(gimmick["DescriptionText"].GetString());
             dataRef->Duration = gimmick["Duration"].GetFloat();
+            Value& eventTimeIds = gimmick["EventTimeList"];
+            for (int j = 0; j < eventTimeIds.Size(); j++)
+            {
+                dataRef->EventTimeList.push_back(eventTimeIds[j].GetInt());
+            }
             Value& projectileIds = gimmick["ProjectileIdList"];
             for (int j = 0; j < projectileIds.Size(); j++)
             {

@@ -252,6 +252,13 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->Name = gimmick->GetStringField(TEXT("Name"));
             data->DescriptionText = gimmick->GetStringField(TEXT("DescriptionText"));
             data->Duration = gimmick->GetNumberField(TEXT("Duration"));
+            TArray<TSharedPtr<FJsonValue>> EventTimeIds = gimmick->GetArrayField(TEXT("EventTimeList"));
+            for (auto& EventTimeId : EventTimeIds)
+            {
+                int32 id;
+                if (EventTimeId->TryGetNumber(id))
+                    data->EventTimeList.Add(id);
+            }
             TArray<TSharedPtr<FJsonValue>> ProjectileIds = gimmick->GetArrayField(TEXT("ProjectileIdList"));
             for (auto& ProjectileId : ProjectileIds)
             {

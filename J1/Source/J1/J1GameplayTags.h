@@ -45,4 +45,9 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_6);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_7);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_End);
+
+	/* Sevarog : Gimmick */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Gimmick);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Gimmick_FindSafeZone);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Gimmick_FindSafeZone_End);
 }

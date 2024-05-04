@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Boss.h"
 #include "GimmickComponent.h"
+#include "BossAIController.h"
 
 Boss::Boss()
 {
@@ -25,6 +26,10 @@ void Boss::SetInfo(int32 templateId)
 	/* component */
 	_gimmickComponent = make_shared<GimmickComponent>();
 	_gimmickComponent->SetInfo(static_pointer_cast<Boss>(shared_from_this()));
+
+	/* ai controller */
+	_aiController = make_shared<BossAIController>();
+	_aiController->SetInfo(static_pointer_cast<Object>(shared_from_this()));
 }
 
 GimmickComponentRef Boss::GetGimmickComponent()

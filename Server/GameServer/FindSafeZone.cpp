@@ -4,6 +4,7 @@
 #include "ObjectManager.h"
 #include "SafeZone.h"
 #include "Boss.h"
+#include "StartRoom.h"
 
 FindSafeZone::FindSafeZone()
 {
@@ -58,30 +59,32 @@ SafeZoneRef FindSafeZone::GenerateSafeZone(Protocol::Direction dir)
 	float posX = 0.f;
 	float posY = 0.f;
 	float posZ = 0.f;
+	float centerPosX = _owner->GetPosInfo()->x() - 200.f;
+	float centerPosY = _owner->GetPosInfo()->y() - 0.f;
 	if (dir == Protocol::Direction::DIR_UP)
 	{
-		posX = _owner->GetPosInfo()->x() + SAFE_ZONE_RADIUS;
-		posY = _owner->GetPosInfo()->y() + 0.f;
+		posX = centerPosX + SAFE_ZONE_RADIUS;
+		posY = centerPosY + 0.f;
 	}
 	else if (dir == Protocol::Direction::DIR_RIGHT)
 	{
-		posX = _owner->GetPosInfo()->x() + 0.f;
-		posY = _owner->GetPosInfo()->y() + SAFE_ZONE_RADIUS;
+		posX = centerPosX + 0.f;
+		posY = centerPosY + SAFE_ZONE_RADIUS;
 	}
 	else if (dir == Protocol::Direction::DIR_DOWN)
 	{
-		posX = _owner->GetPosInfo()->x() - SAFE_ZONE_RADIUS;
-		posY = _owner->GetPosInfo()->y() + 0.f;
+		posX = centerPosX - SAFE_ZONE_RADIUS;
+		posY = centerPosY + 0.f;
 	}
 	else if (dir == Protocol::Direction::DIR_LEFT)
 	{
-		posX = _owner->GetPosInfo()->x() + 0.f;
-		posY = _owner->GetPosInfo()->y() - SAFE_ZONE_RADIUS;
+		posX = centerPosX + 0.f;
+		posY = centerPosY - SAFE_ZONE_RADIUS;
 	}
 	posZ = _owner->GetPosInfo()->z();
 
 	safeZone = static_pointer_cast<SafeZone>(GObjectManager->CreateProjectile(
-		_gimmickData->DataId,
+		_gimmickData->ProjectileIdList[0],
 		static_pointer_cast<Creature>(_owner),
 		nullptr,
 		static_pointer_cast<GimmickBase>(shared_from_this()),
@@ -91,11 +94,30 @@ SafeZoneRef FindSafeZone::GenerateSafeZone(Protocol::Direction dir)
 	));
 
 	safeZone->SetDir(dir);
-	safeZone->SetInfo(_owner, static_pointer_cast<GimmickBase>(shared_from_this()), _gimmickData->DataId);
 	
 	_gimmickList.insert(make_pair(dir, safeZone));
 
 	safeZone->SpawnProjectile();
+
+	// send packet Protocol::PosInfo* info = movePkt.mutable_info();
+	Protocol::S_PROJECTILE projPkt;
+	{
+		Protocol::ProjectileInfo* info = projPkt.mutable_projectile_info();
+		info->set_object_id(safeZone->_objectId);
+		info->set_owner_object_id(safeZone->_owner->_objectId);
+		info->set_owner_gimmick_id(safeZone->_ownerGimmick->_gimmickData->DataId);
+		info->set_data_id(safeZone->_projectileData->DataId);
+		{
+			Protocol::SimplePosInfo* spInfo = info->mutable_spawn_simple_pos_info();
+			spInfo->set_x(posX);
+			spInfo->set_y(posY);
+			spInfo->set_z(posZ);
+		}
+		info->set_safe_zone_dir(dir);
+	}
+	RoomBaseRef roomRef = _owner->room.load().lock();
+	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(projPkt);
+	roomRef->Broadcast(sendBuffer);
 
 	return safeZone;
 }

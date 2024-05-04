@@ -25,6 +25,8 @@ public:
 	FGameplayTag SetSkillComponentTagByDataId(int32 InTemplateId);
 	FGameplayTag SetSkillTagByDataId(int32 InTemplateId);
 
+	FGameplayTag SetGimmickTagByDataId(int32 InTemplateId);
+
 public:
 	UPROPERTY(BlueprintType)
 	TObjectPtr<UJ1GameData> GameData;

@@ -26,6 +26,10 @@ public:
 	virtual void Clear() override;
 
 public:
+	/** network **/
+
+
+public:
 	/** impact event **/
 	void OnImpactTimeHandler();
 	virtual void OnImpactEvent(int32 impactCount);

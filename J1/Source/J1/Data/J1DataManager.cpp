@@ -55,3 +55,14 @@ FGameplayTag UJ1DataManager::SetSkillTagByDataId(int32 InTemplateId)
 
 	return FGameplayTag();
 }
+
+FGameplayTag UJ1DataManager::SetGimmickTagByDataId(int32 InTemplateId)
+{
+	switch (InTemplateId)
+	{
+	case 2000:
+		return J1GameplayTags::Sevarog_Gimmick_FindSafeZone;
+	}
+
+	return FGameplayTag();
+}
