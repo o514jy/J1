@@ -198,6 +198,7 @@ void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 	Protocol::S_SKILL pkt;
 	pkt.set_slot(skillPkt.slot());
 	pkt.set_object_id(skillPkt.object_id());
+	pkt.set_skill_data_id(skillPkt.skill_data_id());
 	Protocol::SimplePosInfo* defaultSimplePosInfo = pkt.mutable_simple_pos_info();
 	defaultSimplePosInfo->CopyFrom(skillPkt.simple_pos_info());
 

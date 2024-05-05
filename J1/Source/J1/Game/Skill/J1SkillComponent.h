@@ -41,7 +41,7 @@ public:
 
 public:
 	/** process **/
-	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot);
+	bool GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot, int32 IntemplateId);
 
 	void DoSkill(const Protocol::S_SKILL& InSkillPkt);
 
@@ -74,4 +74,7 @@ public:
 	/** monster **/
 	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> AdvancedSkill;
+
+	/** boss **/
+	TObjectPtr<UJ1SkillBase> _SpreadCloudSkill;
 };

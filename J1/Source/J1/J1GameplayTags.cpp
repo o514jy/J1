@@ -41,6 +41,10 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_6, "Sevarog.Skill.PoisonRain.6");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_7, "Sevarog.Skill.PoisonRain.7");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_PoisonRain_End, "Sevarog.Skill.PoisonRain.End");
+	/* Sevarog : spread cloud */
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_SpreadCloud, "Sevarog.Skill.SpreadCloud");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_SpreadCloud_0, "Sevarog.Skill.SpreadCloud.0");
+	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill_SpreadCloud_End, "Sevarog.Skill.SpreadCloud.End");
 
 	/* Sevarog : Gimmick */
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Gimmick, "Sevarog.Gimmick");

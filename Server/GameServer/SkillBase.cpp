@@ -79,6 +79,9 @@ void SkillBase::OnAttackEvent(int32 timeCount)
 
 void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& skillPktToSend)
 {
+	// skill's dataId
+	skillPktToSend.set_skill_data_id(_skillData->DataId);
+
 	// start skill
 	_owner->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
 

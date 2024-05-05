@@ -1,5 +1,6 @@
 #include "J1GimmickComponent.h"
 #include "J1GimmickBase.h"
+#include "J1/Data/J1Data.h"
 #include "J1/Game/Object/J1Boss.h"
 #include "J1/Game/Skill/J1SkillManager.h"
 
@@ -39,7 +40,7 @@ void UJ1GimmickComponent::AddGimmick(int32 InTemplateId)
 		//ensureAlwaysMsgf(gimmick, TEXT("Can't find gimmick from [%d]."), InTemplateId);
 		return;
 	}
-
+	gimmick->SetInfo(Owner, InTemplateId);
 	CanActiveGimmickList.Add(gimmick);
 }
 

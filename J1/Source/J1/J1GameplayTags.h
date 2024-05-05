@@ -45,6 +45,10 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_6);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_7);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_PoisonRain_End);
+	/* Sevarog : spread cloud */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_SpreadCloud);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_SpreadCloud_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill_SpreadCloud_End);
 
 	/* Sevarog : Gimmick */
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Gimmick);

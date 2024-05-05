@@ -92,7 +92,7 @@ void Projectile::OnDurationCompleteHandler()
 	_impactCount = 0;
 
 	// 데미지 처리를 끝에서 해줘야하는 경우
-	if (_projectileData->ImpactTimeList.size() == 0)
+	if (_projectileData->ImpactTimeList.size() == 0 && _projectileData->EffectIdList.size() != 0)
 	{
 		int32 effectId = _projectileData->EffectIdList[_impactCount];
 		vector<ObjectRef> objects = GatherObjectInEffectArea(effectId);

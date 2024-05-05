@@ -3,6 +3,7 @@
 #include "J1NormalAttack.h"
 #include "J1AuroraQ.h"
 #include "J1PoisonRain.h"
+#include "J1SpreadCloud.h"
 #include "J1/Game/Gimmick/J1FindSafeZone.h"
 
 TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
@@ -21,6 +22,9 @@ TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 		break;
 	case 1101:
 		skill = NewObject<UJ1PoisonRain>();
+		break;
+	case 1102:
+		skill = NewObject<UJ1SpreadCloud>();
 		break;
 	default:
 		break;

@@ -2,6 +2,7 @@
 #include "BossAIController.h"
 #include "Boss.h"
 #include "GimmickComponent.h"
+#include "StatComponent.h"
 #include "FindSafeZone.h"
 
 BossAIController::BossAIController()
@@ -46,6 +47,9 @@ void BossAIController::UpdateIdle()
 	__super::UpdateIdle();
 
 	// 기믹 조건 맞춰지면 기믹 바로 시작
+	if (_owner->GetStatComponent()->GetHp() == _owner->GetStatComponent()->GetMaxHp())
+		return;
+
 	// 일단 플레이어를 찾았으면 실행
 	if (_owner->GetState() == Protocol::MoveState::MOVE_STATE_RUN)
 	{

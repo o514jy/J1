@@ -90,10 +90,10 @@
       "Description": "finished FindSafeZone gimmick",
       "ProjectileIdList": [],
       "CoolTime": 0.0,
-      "SkillDuration": 1000,
-      "AnimImpactTimeList": [ 500 ],
-      "BuffIdList": [],
-      "EffectIdList": []
+      "SkillDuration": 2250,
+      "AnimImpactTimeList": [ 680 ],
+      "BuffIdList": [ 100103 ],
+      "EffectIdList": [ 10109 ]
     }
   ],
   "effects": [
@@ -165,6 +165,12 @@
       "OwnerSkillDataId": 1101,
       "EffectType": "Circle",
       "Radius": 275.0
+    },
+    {
+      "DataId": 10109,
+      "OwnerSkillDataId": 1102,
+      "EffectType": "Circle",
+      "Radius": 1000.0
     }
   ],
   "projectiles": [
@@ -298,6 +304,14 @@
       "BuffType": "Hit",
       "BuffDurationType": "Instant",
       "BuffAmountRate": 10.0,
+      "BuffDurationPeriod": 0.0,
+      "BuffDurationMagnitude": 0.0
+    },
+    {
+      "DataId": 100103,
+      "BuffType": "Hit",
+      "BuffDurationType": "Instant",
+      "BuffAmountRate": 50.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
     }

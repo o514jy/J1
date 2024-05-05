@@ -1,4 +1,5 @@
 #include "J1GimmickBase.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "J1/Game/Object/J1Boss.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/Data/J1Data.h"
@@ -66,9 +67,9 @@ void UJ1GimmickBase::DoGimmick(const Protocol::S_GIMMICK& InGimmickPkt)
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_GIMMICK);
 
 	// 방향 전환 할거면 함
-	//FRotator lookRot = UKismetMathLibrary::FindLookAtRotation(Owner->GetActorLocation(),
-	//	FVector(ImpactPos->x(), ImpactPos->y(), Owner->GetActorLocation().Z));
-	//Owner->SetActorRotation(lookRot);
+	FRotator lookRot = UKismetMathLibrary::FindLookAtRotation(Owner->GetActorLocation(),
+		FVector(-1, 0, 0));
+	Owner->SetActorRotation(lookRot);
 
 	// 애니메이션 실행
 	Owner->PlayAnimMontage(Montage);

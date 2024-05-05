@@ -68,12 +68,30 @@ void UJ1SkillComponent::SetInfo(TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UCre
 		TObjectPtr<UMonsterData> data = Cast<UMonsterData>(InCreatureData);
 
 		AddSkill(data->AdvancedSkillId, Protocol::SkillSlot::SKILL_SLOD_ADVANCED);
+		if (data->MonsterType == TEXT("Boss"))
+		{
+			TObjectPtr<UBossData> bossData = Cast<UBossData>(data);
+			// temp gimmick
+			AddSkill(1102, Protocol::SkillSlot::SKILL_SLOT_GIMMICK);
+		}
 	}
 }
 
 void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkillSlot)
 {
 	if (InTemplateId < 1)
+	{
+		return;
+	}
+
+	TObjectPtr<USkillData> skillData;
+	if (Owner->GetManager(Data)->GameData->SkillData.Find(InTemplateId) == nullptr)
+	{
+		return;
+	}
+	skillData = Owner->GetManager(Data)->GameData->SkillData[InTemplateId];
+
+	if (skillData == nullptr)
 	{
 		return;
 	}
@@ -112,6 +130,17 @@ void UJ1SkillComponent::AddSkill(int32 InTemplateId, Protocol::SkillSlot InSkill
 	else if (InSkillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
 	{
 		AdvancedSkill = skill;
+	}
+	else if (InSkillSlot == Protocol::SkillSlot::SKILL_SLOT_GIMMICK)
+	{
+		switch (skillData->DataId)
+		{
+		case 1102:
+			_SpreadCloudSkill = skill;
+			break;
+		default:
+			break;
+		}
 	}
 
 	skill->SetInfo(Owner, InTemplateId);
@@ -156,11 +185,11 @@ void UJ1SkillComponent::HandleGameplayEvent(FGameplayTag InEventTag)
 	}
 }
 
-bool UJ1SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot)
+bool UJ1SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillSlot, int32 IntemplateId)
 {
 	for (TObjectPtr<UJ1SkillBase> skill : SkillList)
 	{
-		if (skill->Slot == skillSlot)
+		if (skill->Slot == skillSlot && skill->SkillData->DataId == IntemplateId)
 		{
 			return skill->GetCanUseSkill();
 		}
@@ -197,12 +226,12 @@ bool UJ1SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& ski
 void UJ1SkillComponent::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	Protocol::SkillSlot skillSlot = InSkillPkt.slot();
-	if (GetCanUseSkillBySkillSlot(skillSlot) == false)
+	if (GetCanUseSkillBySkillSlot(skillSlot, InSkillPkt.skill_data_id()) == false)
 		return;
 
 	for (TObjectPtr<UJ1SkillBase> skill : SkillList)
 	{
-		if (skill->Slot == skillSlot)
+		if (skill->Slot == skillSlot && skill->SkillData->DataId == InSkillPkt.skill_data_id())
 		{
 			skill->DoSkill(InSkillPkt);
 			return;
