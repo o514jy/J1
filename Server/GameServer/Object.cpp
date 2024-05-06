@@ -39,6 +39,22 @@ void Object::SetInfo(int32 templateId)
 
 void Object::SetState(Protocol::MoveState moveState)
 {
+	string s;
+	if (moveState == Protocol::MOVE_STATE_IDLE)
+		s = "Idle";
+	else if (moveState == Protocol::MOVE_STATE_RUN)
+		s = "Run";
+	else if (moveState == Protocol::MOVE_STATE_SKILL)
+		s = "Skill";
+	else if (moveState == Protocol::MOVE_STATE_GIMMICK)
+		s = "Gimmick";
+	else if (moveState == Protocol::MOVE_STATE_DEAD)
+		s = "Dead";
+	else
+		s = "None";
+	
+	cout << _objectId << "'s State Changed : " << s << "\n";
+
 	posInfo->set_state(moveState);
 }
 

@@ -35,5 +35,5 @@ public:
 	TSubclassOf<AJ1Boss> StartBossClass;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UNiagaraSystem> awef;
+	TSubclassOf<AActor> ShieldMaster;
 };

@@ -8,6 +8,7 @@
 #include "J1/Data/J1NiagaraData.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/System/J1AssetManager.h"
+#include "J1/System/J1GameInstance.h"
 #include "J1/Game/Controllers/J1CreatureController.h"
 #include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
@@ -160,6 +161,33 @@ void AJ1Creature::HandleGameplayEvent(FGameplayTag EventTag)
 	}
 }
 
+void AJ1Creature::destroyProjectile()
+{
+	if (UpZone != nullptr)
+	{
+		UpZone->Destroy();
+		UpZone = nullptr;
+	}
+
+	if (LeftZone != nullptr)
+	{
+		LeftZone->Destroy();
+		LeftZone = nullptr;
+	}
+
+	if (DownZone != nullptr)
+	{
+		DownZone->Destroy();
+		DownZone = nullptr;
+	}
+
+	if (RightZone != nullptr)
+	{
+		RightZone->Destroy();
+		RightZone = nullptr;
+	}
+}
+
 void AJ1Creature::ProcessMove(const Protocol::PosInfo& Info)
 {
 	Cast<AJ1CreatureController>(Controller)->ProcessMove(Info);
@@ -180,15 +208,34 @@ void AJ1Creature::ProcessProjectile(const Protocol::ProjectileInfo& Info)
 	// 일단 여기선 aoe 켜주기
 	// NS_FindSafeZone_SafeZone
 
-	UJ1NiagaraData* NiagaraData = UJ1AssetManager::GetAssetByName<UJ1NiagaraData>("NiagaraData");
-	FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_FindSafeZone_SafeZone")];
-	TObjectPtr<UNiagaraSystem> niagara = Entry.Niagara;
+	//UJ1NiagaraData* NiagaraData = UJ1AssetManager::GetAssetByName<UJ1NiagaraData>("NiagaraData");
+	//FJ1NiagaraEntry& Entry = NiagaraData->NameToNiagaraEntry[TEXT("NS_FindSafeZone_SafeZone")];
+	//TObjectPtr<UNiagaraSystem> niagara = Entry.Niagara;
+	//
+	//FVector loc;
+	//loc.X = Info.spawn_simple_pos_info().x();
+	//loc.Y = Info.spawn_simple_pos_info().y();
+	//loc.Z = Info.spawn_simple_pos_info().z();
+	//TObjectPtr<UNiagaraComponent> NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), niagara, loc);
 
+	TSubclassOf<AActor> shield = Cast<UJ1GameInstance>(GetGameInstance())->ShieldMaster;
 	FVector loc;
 	loc.X = Info.spawn_simple_pos_info().x();
 	loc.Y = Info.spawn_simple_pos_info().y();
-	loc.Z = Info.spawn_simple_pos_info().z();
-	TObjectPtr<UNiagaraComponent> NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), niagara, loc);
+	//loc.Z = Info.spawn_simple_pos_info().z();
+	loc.Z = 0;
+	if (Info.safe_zone_dir() == Protocol::DIR_UP)
+		UpZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	else if (Info.safe_zone_dir() == Protocol::DIR_LEFT)
+		LeftZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	else if (Info.safe_zone_dir() == Protocol::DIR_RIGHT)
+		RightZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	else if (Info.safe_zone_dir() == Protocol::DIR_DOWN)
+		DownZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+
+	FTimerHandle TimerHandle;
+	float Delay = 10.0f; // 삭제까지의 시간 (초)
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AJ1Creature::destroyProjectile, Delay, false);
 }
 
 void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)

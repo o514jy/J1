@@ -168,10 +168,10 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 	}
 	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
 	{
-		ProjectileRef projectile = static_pointer_cast<Projectile>(object);
-		projectile->_projectileData = nullptr;
-		projectile->_owner = nullptr;
-		projectile->_ownerSkill = nullptr;
+		//ProjectileRef projectile = static_pointer_cast<Projectile>(object);
+		//projectile->_projectileData = nullptr;
+		//projectile->_owner = nullptr;
+		//projectile->_ownerSkill = nullptr;
 	}
 
 	// ㅇㅏ 모르겠다 아무튼 클리어 함수 써

@@ -41,5 +41,8 @@ public:
 	PlayerRef _matchedPlayer;
 
 	bool _callSpawn;
+
+	// to log
+	string dirStr;
 };
 

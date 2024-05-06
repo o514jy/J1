@@ -26,6 +26,8 @@ void FindSafeZone::DoGimmick()
 {
 	__super::DoGimmick();
 
+	cout << "Gimmick : Find Safe Zone Start!!" << "\n";
+
 	// 일단 위아래 안전장판 두개 생성
 	SafeZoneRef upZone = GenerateSafeZone(Protocol::Direction::DIR_UP);
 	SafeZoneRef downZone = GenerateSafeZone(Protocol::Direction::DIR_DOWN);
@@ -151,6 +153,8 @@ void FindSafeZone::OnEvent(int32 eventCount)
 void FindSafeZone::OnDurationCompleteHandler()
 {
 	__super::OnDurationCompleteHandler();
+
+	cout << "Gimmick : Find Safe Zone End!!" << "\n";
 
 	// 위아래는 알아서 될거고 왼쪽오른쪽 강제종료
 	if (_gimmickList.find(Protocol::DIR_LEFT) != _gimmickList.end())

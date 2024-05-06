@@ -66,6 +66,10 @@ public:
 	virtual void HandleGameplayEvent(FGameplayTag EventTag);
 
 public:
+	/** temp **/
+	void destroyProjectile();
+
+public:
 	/** network **/
 
 	virtual void ProcessMove(const Protocol::PosInfo& Info);
@@ -92,4 +96,10 @@ protected:
 	FGameplayTag TemplateTag; // key tag for data id
 
 	TObjectPtr<UCreatureData> CreatureData;
+
+	// temp
+	AActor* UpZone;
+	AActor* LeftZone;
+	AActor* DownZone;
+	AActor* RightZone;
 };

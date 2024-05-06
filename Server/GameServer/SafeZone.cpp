@@ -15,6 +15,7 @@ SafeZone::SafeZone()
 
 SafeZone::~SafeZone()
 {
+	cout << dirStr << "'s Safe Zone Destroyed" << "\n";
 	_matchedPlayer = nullptr;
 }
 
@@ -33,6 +34,7 @@ void SafeZone::UpdateTick()
 		else
 		{
 			// 없으면 해제하고 새로 찾아야됨
+			cout << dirStr << "'s Matched Player is disappeared " << "\n";
 			_matchedPlayer = nullptr;
 		}
 	}
@@ -48,6 +50,7 @@ void SafeZone::UpdateTick()
 		// 안에 있는사람 찾았으면 matchedPlayer로 설정
 		if (IsInSafeZone(object) == true)
 		{
+			cout << dirStr << "'s Matched Player object id : " << object->_objectId << "\n";
 			_matchedPlayer = static_pointer_cast<Player>(object);
 
 			// 위아래 안전지대일 경우 처음으로 찾은거면 왼쪽오른쪽 안전지대 생성 요청
@@ -72,6 +75,15 @@ void SafeZone::SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templat
 void SafeZone::SetDir(Protocol::Direction dir)
 {
 	_dir = dir;
+
+	if (_dir == Protocol::DIR_UP)
+		dirStr = "UP";
+	else if (_dir == Protocol::DIR_RIGHT)
+		dirStr = "RIGHT";
+	else if (_dir == Protocol::DIR_DOWN)
+		dirStr = "DOWN";
+	else if (_dir == Protocol::DIR_LEFT)
+		dirStr = "LEFT";
 }
 
 Protocol::Direction SafeZone::GetDir()
@@ -86,6 +98,16 @@ PlayerRef SafeZone::GetMatchedPlayer()
 
 void SafeZone::Clear()
 {
+	if (_matchedPlayer != nullptr)
+	{
+		SpreadCloudRef finSkill = static_pointer_cast<SpreadCloud>(_owner->GetSkillComponent()->_SpreadCloudSkill);
+		if (finSkill->safePlayers.find(_matchedPlayer->_objectId) == finSkill->safePlayers.end())
+		{
+			cout << _matchedPlayer->_objectId << " becomes safe by " << dirStr << "'s Safe Zone" << "\n";
+			finSkill->safePlayers.insert(_matchedPlayer->_objectId);
+		}
+	}
+
 	__super::Clear();
 
 	_matchedPlayer = nullptr;
@@ -118,6 +140,7 @@ void SafeZone::OnDurationCompleteHandler()
 {
 	if (_matchedPlayer != nullptr)
 	{
+		cout << _matchedPlayer->_objectId << " becomes safe by " << dirStr << "'s Safe Zone" << "\n";
 		SpreadCloudRef finSkill = static_pointer_cast<SpreadCloud>(_owner->GetSkillComponent()->_SpreadCloudSkill);
 		finSkill->safePlayers.insert(_matchedPlayer->_objectId);
 	}

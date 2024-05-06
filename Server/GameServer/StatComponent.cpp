@@ -58,6 +58,7 @@ void StatComponent::SetHp(float hp)
 {
 	_hp = hp;
 	_statInfo->set_hp(_hp);
+	cout << _owner->_objectId << "'s Hp is changed : " << hp << "\n";
 	_shouldRefresh = true;
 }
 
@@ -105,6 +106,7 @@ float StatComponent::GetDef()
 void StatComponent::RefreshAll()
 {
 	// todo : refresh all
+	cout << _owner->_objectId << "'s Stat is Modified!!" << "\n";
 
 	// send stat packet to client
 	{

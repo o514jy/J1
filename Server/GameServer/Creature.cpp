@@ -77,9 +77,9 @@ void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 
 	// todo : calculate final damage
 	float finalDamage = max(0, buff->GetFinalAmount() - GetCreatureData()->Def);
+	cout << _objectId << " has damaged : " << finalDamage << "\n";
 	// calculate final hp
 	float finalHp = max(0, GetStatComponent()->GetHp() - finalDamage);
-
 	// process buff type
 
 
