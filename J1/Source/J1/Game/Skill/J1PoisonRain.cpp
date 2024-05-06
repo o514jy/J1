@@ -81,7 +81,7 @@ void UJ1PoisonRain::OnAttackEvent(int32 InTimeCount)
 	UProjectileData* data = datas->ProjectileData[SkillData->ProjectileIdList[InTimeCount]];
 	auto effectData = datas->EffectData[data->EffectIdList[0]];
 	
-	NiagaraComp->SetNiagaraVariableFloat(FString("Scale"), Cast<UCircleEffectData>(effectData)->Radius * 0.045);
-	NiagaraComp2->SetNiagaraVariableFloat(FString("Scale"), Cast<UCircleEffectData>(effectData)->Radius * 0.016);
+	NiagaraComp->SetNiagaraVariableFloat(FString("Radius"), Cast<UCircleEffectData>(effectData)->Radius * 0.1);
+	NiagaraComp2->SetNiagaraVariableFloat(FString("Scale"), Cast<UCircleEffectData>(effectData)->Radius * 0.02);
 	
 }

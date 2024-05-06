@@ -5,6 +5,7 @@
 #include "SafeZone.h"
 #include "Boss.h"
 #include "StartRoom.h"
+#include "Player.h"
 
 FindSafeZone::FindSafeZone()
 {
@@ -128,7 +129,13 @@ vector<uint64> FindSafeZone::GetSafePlayerList()
 
 	for (auto& item : _gimmickList)
 	{
-		players.push_back(item.second->_objectId);
+		SafeZoneRef safeZone = item.second;
+		if (safeZone->GetMatchedPlayer() == nullptr)
+		{
+			continue;
+		}
+
+		players.push_back(safeZone->GetMatchedPlayer()->_objectId);
 	}
 
 	return players;
@@ -139,4 +146,17 @@ void FindSafeZone::OnEvent(int32 eventCount)
 	__super::OnEvent(eventCount);
 
 
+}
+
+void FindSafeZone::OnDurationCompleteHandler()
+{
+	__super::OnDurationCompleteHandler();
+
+	// 위아래는 알아서 될거고 왼쪽오른쪽 강제종료
+	if (_gimmickList.find(Protocol::DIR_LEFT) != _gimmickList.end())
+		_gimmickList[Protocol::DIR_LEFT]->ForceDelete();
+	if (_gimmickList.find(Protocol::DIR_RIGHT) != _gimmickList.end())
+		_gimmickList[Protocol::DIR_RIGHT]->ForceDelete();
+
+	_gimmickList.clear();
 }

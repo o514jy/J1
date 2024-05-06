@@ -32,6 +32,7 @@ public:
 public:
 	/** event **/
 	virtual void OnImpactEvent(int32 impactCount) override;
+	virtual void OnDurationCompleteHandler() override;
 
 public:
 	/** information **/

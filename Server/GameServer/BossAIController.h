@@ -28,5 +28,7 @@ public:
 
 public:
 	/** information **/
+
+	int32 _activeGimmickId;
 };
 

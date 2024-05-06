@@ -25,16 +25,18 @@ public:
 	/** setter & getter **/
 	virtual void Clear() override;
 
+	void ForceDelete();
+
 public:
 	/** network **/
-
+	vector<weak_ptr<Job>> _timerJobs;
 
 public:
 	/** impact event **/
 	void OnImpactTimeHandler();
 	virtual void OnImpactEvent(int32 impactCount);
 
-	void OnDurationCompleteHandler();
+	virtual void OnDurationCompleteHandler();
 
 public:
 	/** spawn projectile **/

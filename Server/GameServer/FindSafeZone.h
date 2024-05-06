@@ -28,6 +28,8 @@ public:
 	/** event **/
 	virtual void OnEvent(int32 eventCount) override;
 
+	virtual void OnDurationCompleteHandler() override;
+
 public:
 	/** information **/
 	map<Protocol::Direction, SafeZoneRef> _gimmickList;

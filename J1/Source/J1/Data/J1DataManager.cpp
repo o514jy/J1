@@ -68,3 +68,14 @@ FGameplayTag UJ1DataManager::SetGimmickTagByDataId(int32 InTemplateId)
 
 	return FGameplayTag();
 }
+
+FGameplayTag UJ1DataManager::SetGimmickComponentTagByDataId(int32 InTemplateId)
+{
+	switch (InTemplateId)
+	{
+	case 100:
+		return J1GameplayTags::Sevarog_Gimmick;
+	}
+
+	return FGameplayTag();
+}

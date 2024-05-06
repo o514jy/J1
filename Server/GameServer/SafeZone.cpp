@@ -3,6 +3,9 @@
 #include "StartRoom.h"
 #include "Player.h"
 #include "FindSafeZone.h"
+#include "SkillComponent.h"
+#include "SpreadCloud.h"
+#include "Player.h"
 
 SafeZone::SafeZone()
 {
@@ -12,6 +15,7 @@ SafeZone::SafeZone()
 
 SafeZone::~SafeZone()
 {
+	_matchedPlayer = nullptr;
 }
 
 void SafeZone::UpdateTick()
@@ -108,6 +112,17 @@ bool SafeZone::IsInSafeZone(ObjectRef object)
 void SafeZone::OnImpactEvent(int32 impactCount)
 {
 	__super::OnImpactEvent(impactCount);
+}
+
+void SafeZone::OnDurationCompleteHandler()
+{
+	if (_matchedPlayer != nullptr)
+	{
+		SpreadCloudRef finSkill = static_pointer_cast<SpreadCloud>(_owner->GetSkillComponent()->_SpreadCloudSkill);
+		finSkill->safePlayers.insert(_matchedPlayer->_objectId);
+	}
+
+	__super::OnDurationCompleteHandler();
 }
 
 

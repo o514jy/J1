@@ -87,6 +87,7 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 	projectile->objectInfo->set_object_id(newId);
 	projectile->objectInfo->set_template_id(templateId);
 	projectile->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_PROJECTILE);
+	projectile->_objectType = Protocol::ObjectType::OBJECT_TYPE_PROJECTILE;
 
 	projectile->posInfo->set_object_id(newId);
 	projectile->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);

@@ -6,9 +6,12 @@
 #include "DataManager.h"
 #include "BuffInstant.h"
 #include "SafeZone.h"
+#include "StartRoom.h"
+#include "Projectile.h"
 
 SpreadCloud::SpreadCloud()
 {
+	_ownerGimmickDataId = 0;
 }
 
 SpreadCloud::~SpreadCloud()
@@ -20,6 +23,31 @@ void SpreadCloud::SetInfo(CreatureRef owner, int32 templateId)
 	__super::SetInfo(owner, templateId);
 
 	_ownerGimmickDataId = FIND_SAFE_ZONE_DATA_ID;
+}
+
+void SpreadCloud::OnAnimCompleteHandler()
+{
+	__super::OnAnimCompleteHandler();
+
+	if (_owner == nullptr)
+		return;
+
+	// 생존자리스트 초기화
+	safePlayers.clear();
+
+	// safe zone 제거
+	//RoomBaseRef roomRef = _owner->room.load().lock();
+	//for (int i = 0; i < roomRef->_objects.size(); i++)
+	//{
+	//	auto& item = roomRef->_objects[i];
+	//	if (!object)
+	//		continue;
+	//	if (object->_objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
+	//	{
+	//		ProjectileRef proj = static_pointer_cast<Projectile>(object);
+	//		proj->ForceDelete();
+	//	}
+	//}
 }
 
 void SpreadCloud::OnAttackEvent(int32 timeCount)
@@ -38,17 +66,10 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 	for (auto& object : objects)
 	{
 		// 0) 생존지대에 있었으면 빼준다.
-		bool isFin = false;
-		for (uint64 id : safeIds)
+		if (safePlayers.find(object->_objectId) != safePlayers.end())
 		{
-			if (object->_objectId == id)
-			{
-				isFin = true;
-				continue;
-			}
-		}
-		if (isFin == true)
 			continue;
+		}
 
 		// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
 		wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;

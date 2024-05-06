@@ -17,7 +17,7 @@ public:
 	void OnEventTimeHandler();
 	virtual void OnEvent(int32 eventCount);
 
-	void OnDurationCompleteHandler();
+	virtual void OnDurationCompleteHandler();
 
 public:
 	/** network **/
@@ -28,10 +28,17 @@ public:
 	virtual void DoGimmick();
 
 public:
+	/** setter & geter **/
+	void SetCanUseGimmick(bool flag);
+	bool GetCanUseGimmick();
+
+public:
 	/** information **/
 	BossRef _owner;
 
 	GimmickDataRef _gimmickData;
+
+	bool _canUseGimmick;
 
 	int32 _eventCount;
 };

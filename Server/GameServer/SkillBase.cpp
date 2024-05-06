@@ -122,7 +122,12 @@ ProjectileRef SkillBase::GenerateProjectile(int32 templateId, float spawnPosX, f
 	ProjectileRef projectile = GObjectManager->CreateProjectile(
 		templateId, 
 		_owner, 
-		static_pointer_cast<SkillBase>(shared_from_this()));
+		static_pointer_cast<SkillBase>(shared_from_this()),
+		nullptr,
+		spawnPosX,
+		spawnPosY,
+		spawnPosZ
+	);
 
 	return projectile;
 }
@@ -221,6 +226,21 @@ bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 bool SkillBase::IsInCircleArea(ObjectRef object, float radius)
 {
 	bool ret = false;
+
+	float dist = Utils::DirectionVectorLen(_owner->posInfo, object->posInfo);
+
+	CreatureRef creature = static_pointer_cast<Creature>(object);
+	float radiusSum = creature->GetCreatureData()->ColliderRadius + radius;
+
+	// 중심간의 거리가 반지름의 합보다 작은 경우
+	if (dist < radiusSum)
+	{
+		ret = true;
+	}
+	else
+	{
+		ret = false;
+	}
 
 	return ret;
 }

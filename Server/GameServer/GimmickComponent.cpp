@@ -24,9 +24,8 @@ void GimmickComponent::SetInfo(BossRef owner)
 
 	//_canActiveGimmickList.push_back(GSkillManager->GenerateGimmickById(FIND_SAFE_ZONE_DATA_ID));
 	AddGimmick(FIND_SAFE_ZONE_DATA_ID);
-	
-	// temp 일단 조건 만족시키기 위해 넣기
-	_gimmickIdQueue.push(FIND_SAFE_ZONE_DATA_ID);
+
+
 }
 
 void GimmickComponent::DoGimmick(int32 gimmickId)
@@ -53,6 +52,12 @@ void GimmickComponent::DoGimmick(int32 gimmickId)
 	{
 		if (item.first == gimmickId)
 		{
+			if (item.second->GetCanUseGimmick() == false)
+			{
+				return;
+			}
+
+			SetActiveGimmick(item.second);
 			item.second->DoGimmick();
 
 			// 기믹 시작과 관련된 정보가 필요한 경우 패킷 보내기
@@ -76,6 +81,20 @@ void GimmickComponent::AddGimmick(int32 gimmickId)
 	gimmick->SetInfo(_owner, gimmickId);
 
 	_gimmicks.insert(make_pair(FIND_SAFE_ZONE_DATA_ID, gimmick));
+}
+
+int32 GimmickComponent::PopCanActiveGimmickId()
+{
+	if (_gimmickIdQueue.empty() == true)
+	{
+		return 0;
+	}
+	else
+	{
+		int32 ret = _gimmickIdQueue.front();
+		_gimmickIdQueue.pop();
+		return ret;
+	}
 }
 
 void GimmickComponent::SetActiveGimmick(GimmickBaseRef gimmick)

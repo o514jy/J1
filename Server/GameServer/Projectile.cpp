@@ -64,6 +64,26 @@ void Projectile::Clear()
 	_owner = nullptr;
 	_ownerSkill = nullptr;
 	_ownerGimmick = nullptr;
+
+	for (int i = 0; i < _timerJobs.size(); i++)
+	{
+		if (_timerJobs[i].lock())
+		{
+			_timerJobs[i].lock()->SetCancled(true);
+		}
+		_timerJobs[i] = weak_ptr<Job>();
+	}
+
+	_timerJobs.clear();
+
+}
+
+void Projectile::ForceDelete()
+{
+	Clear();
+
+	RoomBaseRef roomRef = this->room.load().lock();
+	roomRef->RemoveObject(this->_objectId);
 }
 
 void Projectile::OnImpactTimeHandler()
@@ -110,10 +130,10 @@ void Projectile::SpawnProjectile()
 	// do projectile
 	for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
 	{
-		DoTimer(_projectileData->ImpactTimeList[i], &Projectile::OnImpactTimeHandler);
+		_timerJobs.push_back(DoTimer(_projectileData->ImpactTimeList[i], &Projectile::OnImpactTimeHandler));
 	}
 
-	DoTimer(_projectileData->Duration, &Projectile::OnDurationCompleteHandler);
+	_timerJobs.push_back(DoTimer(_projectileData->Duration, &Projectile::OnDurationCompleteHandler));
 	
 }
 

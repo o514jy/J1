@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "J1Core.h"
+#include "GameplayTagContainer.h"
 #include "Components/ActorComponent.h"
 #include "J1GimmickComponent.generated.h"
 
@@ -31,10 +32,20 @@ public:
 	void DoGimmick(const Protocol::S_GIMMICK& GimmickPkt);
 
 public:
+	/** handle event **/
+	void HandleGameplayEvent(FGameplayTag InEventTag);
+
+public:
 	/** information **/
+
+	UPROPERTY()
 	TObjectPtr<AJ1Boss> Owner;
 
+	FGameplayTag GimmickComponentTag;
+
+	UPROPERTY()
 	TObjectPtr<UJ1GimmickBase> ActiveGimmick;
 
+	UPROPERTY()
 	TArray<TObjectPtr<UJ1GimmickBase>> CanActiveGimmickList;
 };

@@ -76,5 +76,6 @@ public:
 	TObjectPtr<UJ1SkillBase> AdvancedSkill;
 
 	/** boss **/
+	UPROPERTY()
 	TObjectPtr<UJ1SkillBase> _SpreadCloudSkill;
 };

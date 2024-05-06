@@ -1,6 +1,7 @@
 #include "J1GimmickComponent.h"
 #include "J1GimmickBase.h"
 #include "J1/Data/J1Data.h"
+#include "J1/Data/J1DataManager.h"
 #include "J1/Game/Object/J1Boss.h"
 #include "J1/Game/Skill/J1SkillManager.h"
 
@@ -23,6 +24,7 @@ void UJ1GimmickComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 void UJ1GimmickComponent::SetInfo(TObjectPtr<AJ1Boss> InOwner)
 {
 	Owner = InOwner;
+	GimmickComponentTag = Owner->GetManager(Data)->SetGimmickComponentTagByDataId(Owner->GetTemplateId());
 
 	AddGimmick(2000);
 }
@@ -52,6 +54,17 @@ void UJ1GimmickComponent::DoGimmick(const Protocol::S_GIMMICK& GimmickPkt)
 		{
 			gimmick->DoGimmick(GimmickPkt);
 			return;
+		}
+	}
+}
+
+void UJ1GimmickComponent::HandleGameplayEvent(FGameplayTag InEventTag)
+{
+	for (TObjectPtr<UJ1GimmickBase> gimmick : CanActiveGimmickList)
+	{
+		if (InEventTag.MatchesTag(gimmick->GimmickTag) == true)
+		{
+			gimmick->HandleGameplayEvent(InEventTag);
 		}
 	}
 }

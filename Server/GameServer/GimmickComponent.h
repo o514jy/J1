@@ -15,6 +15,10 @@ public:
 	void AddGimmick(int32 gimmickId);
 
 public:
+	/** process gimmick **/
+	int32 PopCanActiveGimmickId();
+
+public:
 	/** setter & getter **/
 	void SetActiveGimmick(GimmickBaseRef gimmick);
 	GimmickBaseRef GetActiveGimmick();

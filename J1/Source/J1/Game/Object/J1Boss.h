@@ -25,6 +25,10 @@ public:
 	void ProcessGimmick(const Protocol::S_GIMMICK& GimmickPkt);
 
 public:
+	/** anim event **/
+	virtual void HandleGameplayEvent(FGameplayTag EventTag) override;
+
+public:
 	/** component **/
 	TObjectPtr<UJ1GimmickComponent> GimmickComponent;
 };

@@ -18,7 +18,7 @@ public:
 protected:
 	/** AnimEvent **/
 	void OnAnimImpactTimeHandler();
-	void OnAnimCompleteHandler();
+	virtual void OnAnimCompleteHandler();
 
 	virtual void OnAttackEvent(int32 timeCount);
 

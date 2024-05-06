@@ -15,3 +15,16 @@ void AJ1Boss::ProcessGimmick(const Protocol::S_GIMMICK& GimmickPkt)
 {
 	GimmickComponent->DoGimmick(GimmickPkt);
 }
+
+void AJ1Boss::HandleGameplayEvent(FGameplayTag EventTag)
+{
+	Super::HandleGameplayEvent(EventTag);
+
+	if (EventTag.MatchesTag(TemplateTag) == true)
+	{
+		if (EventTag.MatchesTag(GimmickComponent->GimmickComponentTag) == true)
+		{
+			GimmickComponent->HandleGameplayEvent(EventTag);
+		}
+	}
+}

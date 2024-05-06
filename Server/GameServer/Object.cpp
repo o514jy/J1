@@ -11,6 +11,7 @@ Object::Object()
 	objectInfo = new Protocol::ObjectInfo();
 	posInfo = new Protocol::PosInfo();
 	objectInfo->set_allocated_pos_info(posInfo);
+	_objectType = Protocol::ObjectType::OBJECT_TYPE_NONE;
 
 	_statComponent = nullptr;
 

@@ -53,6 +53,7 @@ USING_SHARED_PTR(GimmickData);
 
 /** skill **/
 USING_SHARED_PTR(SkillBase);
+USING_SHARED_PTR(SpreadCloud);
 USING_SHARED_PTR(SkillComponent);
 
 /** buff **/

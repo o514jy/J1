@@ -7,6 +7,7 @@
 
 BossAIController::BossAIController()
 {
+	_activeGimmickId = 0;
 }
 
 BossAIController::~BossAIController()
@@ -55,10 +56,10 @@ void BossAIController::UpdateIdle()
 	{
 		BossRef boss = static_pointer_cast<Boss>(_owner);
 		// 실행 가능한 기믹이 있으면 실행
-		queue<int32> gimmickQueue = boss->GetGimmickComponent()->_gimmickIdQueue;
-		if (gimmickQueue.empty() == false)
+		_activeGimmickId = boss->GetGimmickComponent()->PopCanActiveGimmickId();
+		if (_activeGimmickId != 0)
 		{
-			_owner->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
+			boss->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
 		}
 	}
 }
@@ -90,11 +91,9 @@ void BossAIController::UpdateGimmick()
 	{
 		//ownerBoss->GetGimmickComponent()->DoGimmick(FIND_SAFE_ZONE_DATA_ID);
 		BossRef boss = static_pointer_cast<Boss>(_owner);
-		queue<int32> gimmickIdQueue = boss->GetGimmickComponent()->_gimmickIdQueue;
-		if (gimmickIdQueue.empty() == false)
+		if (_activeGimmickId != 0)
 		{
-			boss->GetGimmickComponent()->DoGimmick(gimmickIdQueue.front());
-			gimmickIdQueue.pop();
+			boss->GetGimmickComponent()->DoGimmick(_activeGimmickId);
 		}
 	}
 }

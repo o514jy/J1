@@ -12,6 +12,7 @@ GimmickBase::GimmickBase()
 	_owner = nullptr;
 	_gimmickData = nullptr;
 	_eventCount = 0;
+	_canUseGimmick = true;
 }
 
 GimmickBase::~GimmickBase()
@@ -19,6 +20,7 @@ GimmickBase::~GimmickBase()
 	_owner = nullptr;
 	_gimmickData = nullptr;
 	_eventCount = 0;
+	_canUseGimmick = false;
 }
 
 void GimmickBase::SetInfo(BossRef owner, int32 templateId)
@@ -27,7 +29,7 @@ void GimmickBase::SetInfo(BossRef owner, int32 templateId)
 
 	_gimmickData = GDataManager->GetGimmickDataById(templateId);
 
-
+	SetCanUseGimmick(true);
 }
 
 void GimmickBase::OnEventTimeHandler()
@@ -49,6 +51,9 @@ void GimmickBase::OnDurationCompleteHandler()
 
 	Protocol::C_SKILL sendSkillPkt = MakeSkillPkt(_gimmickData->SkillIdList.back());
 	_owner->GetSkillComponent()->DoSkill(sendSkillPkt);
+
+	// 쿨타임 돌아가기
+	DoTimer(_gimmickData->CoolTime, &GimmickBase::SetCanUseGimmick, true);
 
 	// 모든 프로젝타일 비활성화
 
@@ -80,4 +85,22 @@ void GimmickBase::DoGimmick()
 
 	// 끝날 때 호출할 함수
 	DoTimer(_gimmickData->Duration, &GimmickBase::OnDurationCompleteHandler);
+
+	// 기믹중에 기믹 호출x
+	SetCanUseGimmick(false);
+}
+
+void GimmickBase::SetCanUseGimmick(bool flag)
+{
+	if (flag == true)
+	{
+		_owner->GetGimmickComponent()->_gimmickIdQueue.push(_gimmickData->DataId);
+	}
+
+	_canUseGimmick = flag;
+}
+
+bool GimmickBase::GetCanUseGimmick()
+{
+	return _canUseGimmick;
 }
