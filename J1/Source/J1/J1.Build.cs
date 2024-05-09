@@ -28,6 +28,8 @@ public class J1 : ModuleRules
             "GameplayTags",
             // Json
             "Json",
+            // UI
+            "UMG"
              });
 
         PrivateDependencyModuleNames.AddRange(new string[] { "ProtobufCore" });

@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "J1LogChannels.h"
@@ -29,6 +27,9 @@ public:
 
 	template<typename AssetType>
 	static AssetType* GetAssetByName(const FName& AssetName);
+
+	template<typename AssetType>
+	static TSubclassOf<AssetType> GetClassByName(const FName& AssetName);
 
 	static void LoadSyncByPath(const FSoftObjectPath& AssetPath);
 	static void LoadSyncByName(const FName& AssetName);
@@ -74,4 +75,20 @@ AssetType* UJ1AssetManager::GetAssetByName(const FName& AssetName)
 		}
 	}
 	return LoadedAsset;
+}
+
+template<typename AssetType>
+TSubclassOf<AssetType> UJ1AssetManager::GetClassByName(const FName& AssetName)
+{
+	UJ1AssetData* AssetData = Get().LoadedAssetData;
+	check(AssetData);
+
+	TSubclassOf<AssetType> LoadedSubclass;
+	const FSoftObjectPath& AssetPath = AssetData->GetAssetPathByName(AssetName);
+	if (AssetPath.IsValid())
+	{
+		LoadedSubclass = Cast<UClass>(UAssetManager::GetStreamableManager().LoadSynchronous(AssetPath));
+	}
+
+	return LoadedSubclass;
 }

@@ -12,6 +12,7 @@ class UCreatureData;
 class UJ1SkillComponent;
 class UJ1SkillBase;
 class UJ1StatComponent;
+class UWidgetComponent;
 
 UCLASS()
 class J1_API AJ1Creature : public ACharacter
@@ -51,11 +52,16 @@ public:
 	/** Component **/
 
 	/* Stat */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TObjectPtr<UJ1StatComponent> StatComponent;
 
 	/* Skill */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TObjectPtr<UJ1SkillComponent> SkillComponent;
+
+	/* UI */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TObjectPtr<UWidgetComponent> HpBarComponent;
 
 public:
 	/** battle **/

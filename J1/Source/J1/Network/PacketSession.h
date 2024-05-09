@@ -30,7 +30,7 @@ public:
 	SendWorkerRef SendWorkerThread; // Send를 담당하는 스레드
 
 	// GameThread와 NetworkThread가 데이터 주고 받는 공용 큐.
-	// 별도의 스레드를 만들고 메인 스레드에서 접근하려고 하면 Crash가 난다.
+	// 별도의 스레드를 만들고 거기서 메인 스레드의 함수로 접근하려고 하면 Crash가 난다.
 	// 따라서 패킷 조립은 별도의 스레드가 해서 저장해놓고, 메인 스레드가 가져가게끔 해야한다.
 	TQueue<TArray<uint8>> RecvPacketQueue;
 	TQueue<SendBufferRef> SendPacketQueue;

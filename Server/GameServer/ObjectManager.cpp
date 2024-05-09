@@ -174,7 +174,7 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 		//projectile->_ownerSkill = nullptr;
 	}
 
-	// ㅇㅏ 모르겠다 아무튼 클리어 함수 써
+	// 클리어
 	object->Clear();
 
 	_objects.erase(objectId);

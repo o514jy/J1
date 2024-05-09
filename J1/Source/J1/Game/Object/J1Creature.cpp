@@ -3,7 +3,9 @@
 #include "NiagaraFunctionLibrary.h"
 #include "J1/J1GameplayTags.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "J1/UI/J1HpBarWidget.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1NiagaraData.h"
 #include "J1/Data/J1DataManager.h"
@@ -45,6 +47,15 @@ AJ1Creature::AJ1Creature()
 	{
 		//auto a = UJ1AssetManager::GetAssetByName<>("IndicatorComponent");
 	}
+
+	// Hp Bar
+	{
+		HpBarComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBar"));
+		HpBarComponent->SetupAttachment(GetRootComponent());
+	}
+
+	// temp
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
 }
 
 AJ1Creature::~AJ1Creature()
@@ -281,4 +292,15 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	/* skill component */
 	SkillComponent = NewObject<UJ1SkillComponent>(this, UJ1SkillComponent::StaticClass(), TEXT("SkillComponent"));
 	SkillComponent->SetInfo(this, CreatureData);
+	/* widget component */
+	TSubclassOf<UUserWidget> hpwidget = UJ1AssetManager::GetClassByName<UUserWidget>("HpBar");
+	//TSubclassOf<UUserWidget> hpwidget = Cast<UUserWidget>(object);
+	if (hpwidget != nullptr)
+	{
+		HpBarComponent->SetWidgetClass(hpwidget);
+		HpBarComponent->SetWidgetSpace(EWidgetSpace::Screen);
+		HpBarComponent->SetDrawAtDesiredSize(true);
+		HpBarComponent->SetRelativeLocation(FVector(0, 0, CreatureData->ColliderHalfHeight * 1.2f));
+	}
+	
 }

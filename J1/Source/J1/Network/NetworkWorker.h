@@ -46,7 +46,7 @@ public:
 	~RecvWorker();
 
 	virtual bool Init() override;
-	// loop를 돌면서 받아온 패킷을 RecvPacketQueue에 넣는다.
+	// 스레드 실행 시 호출되는 함수, loop를 돌면서 받아온 패킷을 RecvPacketQueue에 넣는다.
 	virtual uint32 Run() override;
 	virtual void Exit() override;
 

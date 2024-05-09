@@ -121,7 +121,7 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
-	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
+	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, Hit);
 
 	// If we hit a surface, cache the location
 	if (bHitSuccessful)
@@ -173,7 +173,7 @@ void AJ1MyPlayerController::OnBaseAttackTriggered()
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
-	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, OUT Hit);
+	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, OUT Hit);
 	FVector location = Hit.Location;
 
 	// 싸우는 상황이면 평타
@@ -194,7 +194,7 @@ void AJ1MyPlayerController::OnQTriggered()
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
-	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, OUT Hit);
+	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, OUT Hit);
 	FVector location = Hit.Location;
 
 	// Q스킬 날리겠다는 요청 보내기

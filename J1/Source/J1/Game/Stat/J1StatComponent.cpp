@@ -1,6 +1,8 @@
 #include "J1StatComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Data/J1Data.h"
 #include "J1/Game/Object/J1Creature.h"
+#include "J1/UI/J1HpBarWidget.h"
 
 UJ1StatComponent::UJ1StatComponent()
 {
@@ -59,6 +61,14 @@ void UJ1StatComponent::SetHp(float InHp)
 {
 	StatInfo->set_hp(InHp);
 	Hp = InHp;
+
+	if (Owner->HpBarComponent)
+	{
+		float Ratio = static_cast<float>(Hp) / MaxHp; 
+		UJ1HpBarWidget* HpBar = Cast<UJ1HpBarWidget>(Owner->HpBarComponent->GetUserWidgetObject());
+		if (HpBar)
+			HpBar->SetHpRatio(Ratio);
+	}
 	
 	ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
 }

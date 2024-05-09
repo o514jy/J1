@@ -14,7 +14,7 @@
 AJ1Player::AJ1Player()
 {
 	// Set size for player capsule
-	GetCapsuleComponent()->InitCapsuleSize(1.f, 96.0f);
+	GetCapsuleComponent()->InitCapsuleSize(20.f, 96.0f);
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 1080.f, 0.f);
 	
 	//GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);

@@ -111,6 +111,7 @@ void UJ1NetworkManager::HandleSpawn(const Protocol::ObjectInfo& ObjectInfo, bool
 	if (IsMine) // MyPlayerÀÏ °æ¿ì
 	{
 		auto* PC = UGameplayStatics::GetPlayerController(this, 0);
+		auto* abc = PC->GetPawn();
 		AJ1MyPlayer* MyPlayer = Cast<AJ1MyPlayer>(PC->GetPawn());
 		if (MyPlayer == nullptr)
 			return;
@@ -187,7 +188,9 @@ void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosP
 
 	const uint64 ObjectId = NotifyPosPkt.info().object_id();
 	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->MyPlayer;
-	
+	if (FindActor == nullptr)
+		return;
+
 	const Protocol::PosInfo& Info = NotifyPosPkt.info();
 	FindActor->ProcessNotifyPos(Info);
 }

@@ -1,4 +1,5 @@
 #include "J1Boss.h"
+#include "Components/CapsuleComponent.h"
 #include "J1/Game/Gimmick/J1GimmickComponent.h"
 
 void AJ1Boss::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
@@ -9,6 +10,8 @@ void AJ1Boss::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	/* gimmick component */
 	GimmickComponent = NewObject<UJ1GimmickComponent>(this, UJ1GimmickComponent::StaticClass(), TEXT("GimmickComponent"));
 	GimmickComponent->SetInfo(this);
+
+	//GetCapsuleComponent()->InitCapsuleSize(20.f, 96.0f);
 }
 
 void AJ1Boss::ProcessGimmick(const Protocol::S_GIMMICK& GimmickPkt)
