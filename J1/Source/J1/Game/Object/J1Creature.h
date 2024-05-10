@@ -90,6 +90,10 @@ public:
 	/** initialize info **/
 	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo);
 
+public:
+	/** state **/
+	virtual void OnDead();
+
 protected:
 	/** information **/
 	Protocol::ObjectInfo* ObjectInfo; // Á¤º¸

@@ -174,7 +174,15 @@ void UJ1NetworkManager::HandleMove(const Protocol::S_MOVE& MovePkt)
 		return;
 
 	const Protocol::PosInfo& Info = MovePkt.info();
-	FindActor->ProcessMove(Info);
+	if (Info.state() == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		FindActor->SetMoveState(Info.state());
+		FindActor->OnDead();
+	}
+	else
+	{
+		FindActor->ProcessMove(Info);
+	}
 }
 
 void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt)
@@ -205,7 +213,7 @@ void UJ1NetworkManager::HandleSkill(const Protocol::S_SKILL& SkillPkt)
 		return;
 
 	const uint64 ObjectId = SkillPkt.object_id();
-	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->GetCreatureById(ObjectId);
 	if (FindActor == nullptr)
 		return;
 
@@ -223,7 +231,7 @@ void UJ1NetworkManager::HandleGimmick(const Protocol::S_GIMMICK& GimmickPkt)
 		return;
 
 	const uint64 ObjectId = GimmickPkt.object_id();
-	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->Creatures[ObjectId];
+	TObjectPtr<AJ1Creature> FindActor = GetManager(Object)->GetCreatureById(ObjectId);
 	if (FindActor == nullptr)
 		return;
 
@@ -261,7 +269,7 @@ void UJ1NetworkManager::HandleStat(const Protocol::S_STAT& StatPkt)
 		return;
 
 	const uint64 ObjectId = StatPkt.object_id();
-	TObjectPtr<AJ1Creature> creature = GetManager(Object)->Creatures[ObjectId];
+	TObjectPtr<AJ1Creature> creature = GetManager(Object)->GetCreatureById(ObjectId);
 	if (creature == nullptr)
 		return;
 

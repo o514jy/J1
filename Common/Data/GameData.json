@@ -6,7 +6,7 @@
       "DescriptionTextId": "Aurora",
       "ColliderRadius": 42.0,
       "ColliderHalfHeight": 96.0,
-      "MaxHp": 1000.0,
+      "MaxHp": 10000000.0,
       "Atk": 100.0,
       "Def": 0.0,
       "MaxWalkSpeed": 400.0,

@@ -60,6 +60,12 @@ void StatComponent::SetHp(float hp)
 	_statInfo->set_hp(_hp);
 	cout << _owner->_objectId << "'s Hp is changed : " << hp << "\n";
 	_shouldRefresh = true;
+
+	// check alive
+	if (_hp <= 0)
+	{
+		_owner->SetState(Protocol::MOVE_STATE_DEAD);
+	}
 }
 
 float StatComponent::GetHp()

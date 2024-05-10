@@ -51,8 +51,8 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 	// 랜덤 위치
 	if (randPos)
 	{
-		object->posInfo->set_x(Utils::GetRandom(0.f, 100.f));
-		object->posInfo->set_y(Utils::GetRandom(0.f, 500.f));
+		object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
+		object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
 		object->posInfo->set_z(100.f);
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
 	}
@@ -250,6 +250,9 @@ bool RoomBase::AddObject_internal(ObjectRef object)
 bool RoomBase::RemoveObject_internal(uint64 objectId)
 {
 	// 없다면 문제가 있다.
+	if (_objects.empty() == true)
+		return false;
+
 	if (_objects.find(objectId) == _objects.end())
 		return false;
 

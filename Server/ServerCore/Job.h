@@ -30,8 +30,6 @@ public:
 	{
 		if (_cancled == false)
 			_callback();
-		else
-			int32 a = 3;
 	}
 
 	void SetCancled(bool flag) { _cancled = flag; }

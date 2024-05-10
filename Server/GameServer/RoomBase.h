@@ -55,6 +55,7 @@ protected:
 
 public:
 	unordered_map<uint64, ObjectRef> _objects;
+	//map<uint64, ObjectRef> _objects;
 
 protected:
 	atomic<bool> _entered;

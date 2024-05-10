@@ -62,7 +62,8 @@ void UJ1PoisonRain::OnAttackEvent(int32 InTimeCount)
 	//NiagaraComp->SetNiagaraVariableFloat(FString("StrengthCoef"), CoefStrength);
 
 	FVector loc = RandomPoses[InTimeCount];
-	loc.Z += 100.f;
+	//loc.Z += 100.f;
+	loc.Z = 0.f;
 
 	// temp
 	if (!NS_PoisonRain)

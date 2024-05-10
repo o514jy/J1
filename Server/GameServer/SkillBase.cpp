@@ -150,6 +150,10 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 			continue;
 
 		// 아군 제외
+		CreatureRef creature = static_pointer_cast<Creature>(object);
+		CreatureRef ownerCreature = static_pointer_cast<Creature>(_owner);
+		if (creature->GetCreatureData()->CreatureType == ownerCreature->GetCreatureData()->CreatureType)
+			continue;
 
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);
 		wstring effectType = effectData->EffectType;

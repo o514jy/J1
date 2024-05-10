@@ -125,7 +125,7 @@ Protocol::ObjectType UJ1ObjectManager::GetObjectTypeById(uint64 InObjectId)
 
 TObjectPtr<AJ1Object> UJ1ObjectManager::GetObjectById(uint64 InObjectId)
 {
-	if (Objects[InObjectId] == nullptr)
+	if (Objects.Find(InObjectId) == nullptr)
 		return nullptr;
 
 	return Objects[InObjectId];
@@ -133,7 +133,7 @@ TObjectPtr<AJ1Object> UJ1ObjectManager::GetObjectById(uint64 InObjectId)
 
 TObjectPtr<AJ1Creature> UJ1ObjectManager::GetCreatureById(uint64 InObjectId)
 {
-	if (Creatures[InObjectId] == nullptr)
+	if (Creatures.Find(InObjectId) == nullptr)
 		return nullptr;
 
 	return Creatures[InObjectId];

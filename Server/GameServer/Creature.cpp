@@ -75,6 +75,10 @@ void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 {
 	__super::OnDamaged(attacker, buff);
 
+	// 이미 죽었으면 데미지 처리x
+	if (GetState() == Protocol::MOVE_STATE_DEAD)
+		return;
+
 	// todo : calculate final damage
 	float finalDamage = max(0, buff->GetFinalAmount() - GetCreatureData()->Def);
 	cout << _objectId << " has damaged : " << finalDamage << "\n";

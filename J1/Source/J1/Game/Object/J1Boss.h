@@ -31,4 +31,8 @@ public:
 public:
 	/** component **/
 	TObjectPtr<UJ1GimmickComponent> GimmickComponent;
+
+public:
+	/** state **/
+	virtual void OnDead() override;
 };

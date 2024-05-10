@@ -6,6 +6,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "J1/UI/J1HpBarWidget.h"
+#include "J1/Data/J1AnimData.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1NiagaraData.h"
 #include "J1/Data/J1DataManager.h"
@@ -303,4 +304,15 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		HpBarComponent->SetRelativeLocation(FVector(0, 0, CreatureData->ColliderHalfHeight * 1.2f));
 	}
 	
+}
+
+void AJ1Creature::OnDead()
+{
+	int32 OwnerDataId = GetTemplateId();
+	UJ1AnimData* InputData = UJ1AssetManager::GetAssetByName<UJ1AnimData>("AnimData");
+	FJ1AnimSet& AnimSet = InputData->OwnerIdToAnimSet[OwnerDataId];
+	FJ1AnimEntry& AnimEntry = AnimSet.SkillIdToAnimEntry[-1];
+	UAnimMontage* Montage = AnimEntry.Montage;
+	
+	PlayAnimMontage(Montage);
 }

@@ -5,6 +5,7 @@
 #include "SkillBase.h"
 #include "BuffBase.h"
 #include "StatComponent.h"
+#include "RoomBase.h"
 
 Object::Object()
 {
@@ -39,6 +40,8 @@ void Object::SetInfo(int32 templateId)
 
 void Object::SetState(Protocol::MoveState moveState)
 {
+	posInfo->set_state(moveState);
+
 	string s;
 	if (moveState == Protocol::MOVE_STATE_IDLE)
 		s = "Idle";
@@ -49,13 +52,23 @@ void Object::SetState(Protocol::MoveState moveState)
 	else if (moveState == Protocol::MOVE_STATE_GIMMICK)
 		s = "Gimmick";
 	else if (moveState == Protocol::MOVE_STATE_DEAD)
+	{
 		s = "Dead";
+
+		Protocol::S_MOVE movePkt;
+		Protocol::PosInfo* info = movePkt.mutable_info();
+		info->CopyFrom(*posInfo);
+
+		RoomBaseRef roomRef = room.load().lock();
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
+		roomRef->Broadcast(sendBuffer);
+	}
 	else
 		s = "None";
 	
 	cout << _objectId << "'s State Changed : " << s << "\n";
 
-	posInfo->set_state(moveState);
+	
 }
 
 Protocol::MoveState Object::GetState()

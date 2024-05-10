@@ -115,6 +115,11 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 		return;
 	}
 
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		return;
+	}
+
 	// We flag that the input is being pressed
 	FollowTime += GetWorld()->GetDeltaSeconds();
 
@@ -149,6 +154,10 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 	{
 		return;
 	}
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		return;
+	}
 
 	// If it was a short press
 	if (FollowTime <= ShortPressThreshold)
@@ -169,6 +178,10 @@ void AJ1MyPlayerController::OnBaseAttackTriggered()
 	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
 	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		return;
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		return;
+	}
 
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
@@ -190,6 +203,10 @@ void AJ1MyPlayerController::OnQTriggered()
 	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
 	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		return;
+	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		return;
+	}
 
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;

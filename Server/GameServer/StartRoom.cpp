@@ -77,28 +77,28 @@ bool StartRoom::LeaveRoom(ObjectRef object)
 void StartRoom::SpawnBoss()
 {
 	////test//////
-	//{
-	//	Protocol::S_SPAWN sPkt;
-	//
-	//	for (int i = 0; i < 50; i++)
-	//	{
-	//		BossRef sevas = GObjectManager->CreateBoss(100); // sevarog
-	//		sevas->posInfo->set_x(1000.0f);
-	//		sevas->posInfo->set_y(i);
-	//		sevas->posInfo->set_z(100.0f);
-	//
-	//		Protocol::ObjectInfo* objectInfo = sPkt.add_players();
-	//		objectInfo->CopyFrom(*sevas->objectInfo);
-	//
-	//		bool flag = AddObject(sevas);
-	//		if (flag == true)
-	//			cout << "Boss " << sevas->objectInfo->object_id() << " is Spawned\n";
-	//	}
-	//
-	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(sPkt);
-	//	Broadcast(sendBuffer);
-	//	
-	//}
+	{
+		Protocol::S_SPAWN sPkt;
+	
+		for (int i = 0; i < 10; i++)
+		{
+			BossRef sevas = GObjectManager->CreateBoss(100); // sevarog
+			sevas->posInfo->set_x(1000.0f);
+			sevas->posInfo->set_y(i * Utils::GetRandom(-400.f, 400.f));
+			sevas->posInfo->set_z(100.0f);
+	
+			Protocol::ObjectInfo* objectInfo = sPkt.add_players();
+			objectInfo->CopyFrom(*sevas->objectInfo);
+	
+			bool flag = AddObject(sevas);
+			if (flag == true)
+				cout << "Boss " << sevas->objectInfo->object_id() << " is Spawned\n";
+		}
+	
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(sPkt);
+		Broadcast(sendBuffer);
+		
+	}
 	////////////////
 
 	BossRef boss = GetSevarog();

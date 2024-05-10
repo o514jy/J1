@@ -31,3 +31,8 @@ void AJ1Boss::HandleGameplayEvent(FGameplayTag EventTag)
 		}
 	}
 }
+
+void AJ1Boss::OnDead()
+{
+	Super::OnDead();
+}

@@ -154,8 +154,6 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 		if (object->_objectType != Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 			continue;
 
-		// 아군 제외
-
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);
 		wstring effectType = effectData->EffectType;
 		if (effectType == L"Rectangle")
