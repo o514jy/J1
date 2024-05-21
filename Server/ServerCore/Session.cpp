@@ -32,10 +32,10 @@ void Session::Send(SendBufferRef sendBuffer)
 
 		if (_sendRegistered.exchange(true) == false)
 			registerSend = true;
-
-		if (registerSend)
-			RegisterSend();
 	}
+
+	if (registerSend == true)
+		RegisterSend();
 }
 
 bool Session::Connect()
@@ -165,7 +165,7 @@ void Session::RegisterSend()
 
 	// 보낼 데이터를 sendEvent에 등록
 	{
-		//WRITE_LOCK;
+		WRITE_LOCK;
 
 		int32 writeSize = 0;
 		while (_sendQueue.empty() == false)
@@ -274,11 +274,23 @@ void Session::ProcessSend(int32 numOfBytes)
 	// 컨텐츠 코드에서 재정의
 	OnSend(numOfBytes);
 
-	WRITE_LOCK;
+	//WRITE_LOCK;
+	//
+	//if (_sendQueue.empty())
+	//	_sendRegistered.store(false);
+	//else
+	//	RegisterSend();
 
-	if (_sendQueue.empty())
-		_sendRegistered.store(false);
-	else
+	bool registerSend = false;
+	{
+		WRITE_LOCK;
+		if (_sendQueue.empty() == true)
+			_sendRegistered.store(false);
+		else
+			registerSend = true;
+	}
+
+	if (registerSend == true)
 		RegisterSend();
 }
 
