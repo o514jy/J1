@@ -1,11 +1,10 @@
 #pragma once
 
-#include "JobQueue.h"
-
 class Creature;
 class SkillData;
 
-class SkillBase : public JobQueue
+class SkillBase : public enable_shared_from_this<SkillBase>// : public JobQueue
+//class SkillBase : public JobQueue
 {
 public:
 	SkillBase();

@@ -1,8 +1,6 @@
 #pragma once
 
-#include "JobQueue.h"
-
-class GimmickBase : public JobQueue
+class GimmickBase : public enable_shared_from_this<GimmickBase>
 {
 public:
 	GimmickBase();

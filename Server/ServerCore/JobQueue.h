@@ -38,6 +38,15 @@ public:
 		return job;
 	}
 
+	template<typename T, typename Ret, typename... Args>
+	JobRef DoTimer(uint64 tickAfter, shared_ptr<T> InOwner, Ret(T::* memFunc)(Args...), Args... args)
+	{
+		shared_ptr<T> owner = static_pointer_cast<T>(InOwner);
+		JobRef job = make_shared<Job>(owner, memFunc, std::forward<Args>(args)...);
+		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
+		return job;
+	}
+
 	void					ClearJobs() { _jobs.Clear(); }
 
 public:

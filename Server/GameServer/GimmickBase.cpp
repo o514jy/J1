@@ -6,6 +6,7 @@
 #include "SkillBase.h"
 #include "Boss.h"
 #include "GimmickComponent.h"
+#include "RoomBase.h"
 
 GimmickBase::GimmickBase()
 {
@@ -46,6 +47,8 @@ void GimmickBase::OnEvent(int32 eventCount)
 
 void GimmickBase::OnDurationCompleteHandler()
 {
+	RoomBaseRef roomRef = _owner->GetRoomRef();
+
 	// 여기까지 기믹 끝, 전멸기 사용 후 원래대로 돌아감
 	_owner->GetGimmickComponent()->SetActiveGimmick(nullptr);
 
@@ -53,7 +56,10 @@ void GimmickBase::OnDurationCompleteHandler()
 	_owner->GetSkillComponent()->DoSkill(sendSkillPkt);
 
 	// 쿨타임 돌아가기
-	DoTimer(_gimmickData->CoolTime, &GimmickBase::SetCanUseGimmick, true);
+	if (roomRef != nullptr)
+	{
+		roomRef->DoTimer(_gimmickData->CoolTime, shared_from_this(), &GimmickBase::SetCanUseGimmick, true);
+	}
 
 	// 모든 프로젝타일 비활성화
 
@@ -78,13 +84,18 @@ Protocol::C_SKILL GimmickBase::MakeSkillPkt(int32 skillId, Protocol::SimplePosIn
 
 void GimmickBase::DoGimmick()
 {
+	RoomBaseRef roomRef = _owner->GetRoomRef();
+
 	_owner->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
 	_owner->GetGimmickComponent()->SetActiveGimmick(static_pointer_cast<GimmickBase>(shared_from_this()));
 
 	// 중간에 호출할 함수
 
 	// 끝날 때 호출할 함수
-	DoTimer(_gimmickData->Duration, &GimmickBase::OnDurationCompleteHandler);
+	if (roomRef != nullptr)
+	{
+		roomRef->DoTimer(_gimmickData->Duration, shared_from_this(), &GimmickBase::OnDurationCompleteHandler);
+	}
 
 	// 기믹중에 기믹 호출x
 	SetCanUseGimmick(false);

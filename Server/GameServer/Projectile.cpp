@@ -6,6 +6,7 @@
 #include "BuffInstant.h"
 #include "GimmickBase.h"
 #include "Boss.h"
+#include "ObjectManager.h"
 
 Projectile::Projectile()
 {
@@ -82,8 +83,7 @@ void Projectile::ForceDelete()
 {
 	Clear();
 
-	RoomBaseRef roomRef = this->room.load().lock();
-	roomRef->RemoveObject(this->_objectId);
+	GObjectManager->RemoveObject(this->_objectId);
 }
 
 void Projectile::OnImpactTimeHandler()
@@ -120,21 +120,26 @@ void Projectile::OnDurationCompleteHandler()
 	}
 
 	// ´Ù ³¡³µÀ¸´Ï ¼Ò¸ê
-	RoomBaseRef roomRef = this->room.load().lock();
-	roomRef->RemoveObject(this->_objectId);
+	GObjectManager->RemoveObject(this->_objectId);
+	//RoomBaseRef roomRef = this->room.load().lock();
+	//roomRef->RemoveObject(this->_objectId);
 }
 
 void Projectile::SpawnProjectile()
 {
 	_impactCount = 0;
 	// do projectile
-	for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
-	{
-		_timerJobs.push_back(DoTimer(_projectileData->ImpactTimeList[i], &Projectile::OnImpactTimeHandler));
-	}
 
-	_timerJobs.push_back(DoTimer(_projectileData->Duration, &Projectile::OnDurationCompleteHandler));
-	
+	RoomBaseRef roomRef = GetRoomRef();
+	if (roomRef != nullptr)
+	{
+		for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
+		{
+			_timerJobs.push_back(roomRef->DoTimer(_projectileData->ImpactTimeList[i], static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnImpactTimeHandler));
+		}
+
+		_timerJobs.push_back(roomRef->DoTimer(_projectileData->Duration, static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnDurationCompleteHandler));
+	}
 }
 
 vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)

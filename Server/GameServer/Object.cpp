@@ -86,6 +86,12 @@ Protocol::PosInfo* Object::GetPosInfo()
 	return posInfo;
 }
 
+RoomBaseRef Object::GetRoomRef()
+{
+	RoomBaseRef roomRef = room.load().lock();
+	return roomRef;
+}
+
 void Object::Clear()
 {
 	_statComponent = nullptr;

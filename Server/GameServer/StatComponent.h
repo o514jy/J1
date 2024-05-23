@@ -1,8 +1,6 @@
 #pragma once
 
-#include "JobQueue.h"
-
-class StatComponent : public JobQueue
+class StatComponent : public enable_shared_from_this<StatComponent>
 {
 public:
 	StatComponent();

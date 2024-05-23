@@ -1,8 +1,6 @@
 #pragma once
 
-#include "JobQueue.h"
-
-class BuffBase : public JobQueue
+class BuffBase : public enable_shared_from_this<BuffBase>
 {
 public:
 	BuffBase();

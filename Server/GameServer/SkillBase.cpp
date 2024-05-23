@@ -59,7 +59,12 @@ void SkillBase::OnAnimCompleteHandler()
 	if (_owner->GetState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 
-	DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
+	RoomBaseRef roomRef = _owner->room.load().lock();
+	if (roomRef != nullptr)
+	{
+		roomRef->DoTimer(_skillData->CoolTime, shared_from_this(), & SkillBase::SetCanUseSkill, true);
+	}
+	//DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
 
 	// 활성화중인 스킬에서 해제
 	_owner->GetSkillComponent()->SetActiveSkill(nullptr);
@@ -87,13 +92,26 @@ void SkillBase::DoSkill(const Protocol::C_SKILL& skillPkt, Protocol::S_SKILL& sk
 
 	_impactPos->CopyFrom(skillPkt.simple_pos_info());
 
-	vector<int32> impactList = _skillData->AnimImpactTimeList;
-	for (int32 i = 0; i < impactList.size(); i++)
+	RoomBaseRef roomRef = _owner->room.load().lock();
+	if (roomRef != nullptr)
 	{
-		_animImpactJobs[i] = DoTimer(impactList[i], &SkillBase::OnAnimImpactTimeHandler);
+		vector<int32> impactList = _skillData->AnimImpactTimeList;
+		for (int32 i = 0; i < impactList.size(); i++)
+		{
+			_animImpactJobs[i] = roomRef->DoTimer(impactList[i], shared_from_this(), &SkillBase::OnAnimImpactTimeHandler);
+		}
+	
+		roomRef->DoTimer(_skillData->SkillDuration, shared_from_this(), &SkillBase::OnAnimCompleteHandler);
 	}
 
-	DoTimer(_skillData->SkillDuration, &SkillBase::OnAnimCompleteHandler);
+	//vector<int32> impactList = _skillData->AnimImpactTimeList;
+	//for (int32 i = 0; i < impactList.size(); i++)
+	//{
+	//	_animImpactJobs[i] = DoTimer(impactList[i], &SkillBase::OnAnimImpactTimeHandler);
+	//}
+	//
+	//DoTimer(_skillData->SkillDuration, &SkillBase::OnAnimCompleteHandler);
+
 
 	// start cooltime
 	SetCanUseSkill(false);

@@ -1,9 +1,8 @@
 #pragma once
 
 #include "Data.h"
-#include "JobQueue.h"
 // enable_shared_from_this<Object>
-class Object : public JobQueue
+class Object : public enable_shared_from_this<Object>
 {
 public:
 	Object();
@@ -28,6 +27,8 @@ public:
 	Protocol::PosInfo* GetPosInfo();
 
 	StatComponentRef GetStatComponent() { return _statComponent; }
+
+	RoomBaseRef GetRoomRef();
 
 	virtual void Clear();
 

@@ -148,31 +148,18 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 		return false;
 
 	ObjectRef object = _objects[objectId];
+
+	// room에 속해있을 경우 그 room의 목록에서 제거
+	RoomBaseRef roomRef = object->room.load().lock();
+	if (roomRef != nullptr)
+	{
+		//roomRef->DoAsync(&RoomBase::RemoveObject, objectId);
+		roomRef->RemoveObject(objectId);
+	}
+
 	object->room.store(weak_ptr<RoomBase>()); // null로 밀어주기
 	object->session = weak_ptr<GameSession>();
 	object->_statComponent = nullptr;
-
-	Protocol::ObjectType objectType = object->objectInfo->object_type();
-	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
-	{
-		CreatureRef creature = static_pointer_cast<Creature>(object);
-		creature->_skillComponent = nullptr;
-		creature->SetCreatureData(nullptr);
-
-		if (creature->objectInfo->creature_type() == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
-		{
-			MonsterRef monster = static_pointer_cast<Monster>(creature);
-			monster->_aiController = nullptr;
-			monster->_targetObject = nullptr;
-		}
-	}
-	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
-	{
-		//ProjectileRef projectile = static_pointer_cast<Projectile>(object);
-		//projectile->_projectileData = nullptr;
-		//projectile->_owner = nullptr;
-		//projectile->_ownerSkill = nullptr;
-	}
 
 	// 클리어
 	object->Clear();

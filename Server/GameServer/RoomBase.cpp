@@ -114,7 +114,8 @@ bool RoomBase::LeaveRoom(ObjectRef object)
 		return false;
 
 	const uint64 objectId = object->objectInfo->object_id();
-	bool success = RemoveObject(objectId);
+	//bool success = RemoveObject(objectId);
+	bool success = GObjectManager->RemoveObject(objectId);
 
 	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
 	if (auto player = dynamic_pointer_cast<Player>(object))
@@ -258,7 +259,7 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 
 	_objects.erase(objectId);
 
-	GObjectManager->RemoveObject(objectId);
+	//GObjectManager->RemoveObject(objectId);
 
 	return true;
 }
