@@ -12,6 +12,8 @@ class UInputMappingContext;
 class UInputAction;
 class UJ1NetworkManager;
 class Protocol::PosInfo;
+class AJ1MyPlayer;
+class USplineComponent;
 
 UCLASS()
 class AJ1MyPlayerController : public APlayerController
@@ -28,25 +30,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	float sendMovePacketThreshold;
 
-	/** FX Class that we will spawn when clicking */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-	//UNiagaraSystem* FXCursor;
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
 
-	/** MappingContext */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//UInputMappingContext* DefaultMappingContext;
-
-	/** Jump Input Action */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//UInputAction* SetDestinationClickAction;
+public:
+	/** setter & getter **/
+	TObjectPtr<AJ1MyPlayer> GetMyPlayer();
+	
 
 public:
 	/** network **/
-	void RegisterMove(FVector location);
-	void ProcessMove(const Protocol::PosInfo& posInfo);
-
-	void RegisterNotifyPos();
-	void ProcessNotifyPos(const Protocol::PosInfo& Info);
 
 protected:
 	UJ1NetworkManager* GetNetworkManager() const;
@@ -57,7 +50,8 @@ protected:
 	virtual void SetupInputComponent() override;
 
 	// To add mapping context
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
+	virtual void PlayerTick(float DeltaTime) override;
 
 	/** Input handlers for SetDestination action. */
 	void OnInputStarted();
@@ -70,9 +64,14 @@ protected:
 	/** Input handlers for Q action. */
 	void OnQTriggered();
 
-private:
-	FVector CachedDestination;
+public:
+	/** move **/
+	void AutoRun();
 
-	bool bIsTouch; // Is it a touch device
+private:
+	UPROPERTY(EditDefaultsOnly)
+	float AutoRunAcceptanceRadius = 50.f;
+
+	FVector CachedDestination;
 	float FollowTime; // For how long it has been pressed
 };

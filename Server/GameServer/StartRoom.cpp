@@ -80,7 +80,7 @@ void StartRoom::SpawnBoss()
 	{
 		Protocol::S_SPAWN sPkt;
 		
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 0; i++)
 		{
 			BossRef sevas = GObjectManager->CreateBoss(100); // sevarog
 			sevas->posInfo->set_x(300.0f);

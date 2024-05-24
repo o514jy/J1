@@ -47,74 +47,70 @@ void AJ1MyPlayer::Tick(float DeltaTime)
 	CheckAndRegisterMove(DeltaTime);
 }
 
+void AJ1MyPlayer::SetAutoRunning(bool InFlag)
+{
+	bAutoRunning = InFlag;
+	if (bAutoRunning == true)
+	{
+		SetMoveState(Protocol::MoveState::MOVE_STATE_RUN);
+	}
+	else
+	{
+		SetMoveState(Protocol::MoveState::MOVE_STATE_IDLE);
+	}
+}
+
+bool AJ1MyPlayer::GetAutoRunning()
+{
+	return bAutoRunning;
+}
+
+void AJ1MyPlayer::SetDesiredYaw(float InYaw)
+{
+	DesiredYaw = InYaw;
+}
+
+float AJ1MyPlayer::GetDesiredYaw()
+{
+	return DesiredYaw;
+}
+
 void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 {
 	// Send 판정
 	bool ForceSendPacket = false;
 
-	// 목적지에 도착해서 멈췄는지 확인
-	if (PosInfo->state() == Protocol::MOVE_STATE_RUN)
+	// 이동 상태가 달라졌는지 확인
+	if (bLastAutoRunning != bAutoRunning)
 	{
-		if (CompareNowPosAndDestPos() == true)
-		{
-			ForceSendPacket = true;
-			SetMoveState(Protocol::MOVE_STATE_IDLE);
-		}
+		ForceSendPacket = true;
+		bLastAutoRunning = bAutoRunning;
 	}
 
-	//MovePacketSendTimer -= DeltaTime;
+	MovePacketSendTimer -= DeltaTime;
 
-	if (/*MovePacketSendTimer <= 0 || */ForceSendPacket == true)
+	if (MovePacketSendTimer <= 0 || ForceSendPacket == true)
 	{
-		//MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
+		MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
 
-		// send Notify Pos Packet
-		//SetMoveState(Protocol::MOVE_STATE_RUN);
-
-		Protocol::C_NOTIFY_POS NotifyPosPkt;
-
-		{
-			Protocol::PosInfo* Info = NotifyPosPkt.mutable_info();
-			Info->CopyFrom(*PosInfo);
-		}	
-
-		GetNetworkManager()->SendPacket(NotifyPosPkt);
+		RegisterMove();
 	}
 }
 
-void AJ1MyPlayer::ProcessMove(const Protocol::PosInfo& Info)
+void AJ1MyPlayer::RegisterMove()
 {
-	//Super::ProcessMove(Info);
-	Cast<AJ1MyPlayerController>(Controller)->ProcessMove(Info);
+	Protocol::C_MOVE MovePkt;
+	{
+		Protocol::PosInfo* Info = MovePkt.mutable_info();
+		Info->CopyFrom(*PosInfo);
+		Info->set_yaw(DesiredYaw);
+	}
+	GetNetworkManager()->SendPacket(MovePkt);
 }
 
 void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	Super::ProcessSkill(InSkillPkt);
-}
-
-void AJ1MyPlayer::ProcessNotifyPos(const Protocol::PosInfo& Info)
-{
-	Cast<AJ1MyPlayerController>(Controller)->ProcessNotifyPos(Info);
-}
-
-bool AJ1MyPlayer::CompareNowPosAndDestPos()
-{
-	FVector2D nowPos, destPos;
-
-	nowPos.X = PosInfo->x();
-	nowPos.Y = PosInfo->y();
-	destPos.X = PosInfo->dest_x();
-	destPos.Y = PosInfo->dest_y();
-
-	//float dist = FVector::DistSquared(nowPos, destPos);
-	float dist = FVector2D::DistSquared(nowPos, destPos);
-	if (dist <= 2.f)
-	{
-		return true;
-	}
-
-	return false;
 }
 
 /*

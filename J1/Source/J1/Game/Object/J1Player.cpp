@@ -29,11 +29,13 @@ AJ1Player::AJ1Player()
 	bUseControllerRotationRoll = false;
 
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
+
+	TempDestInfo = new Protocol::PosInfo();
 }
 
 AJ1Player::~AJ1Player()
 {
-	
+	delete TempDestInfo;
 }
 
 void AJ1Player::BeginPlay()
@@ -44,23 +46,54 @@ void AJ1Player::BeginPlay()
 void AJ1Player::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	if (IsMyPlayer() == false)
+	{
+		const Protocol::MoveState State = PosInfo->state();
+
+		if (State == Protocol::MOVE_STATE_RUN)
+		{
+			SetActorRotation(FRotator(0, TempDestInfo->yaw(), 0));
+			AddMovementInput(GetActorForwardVector());
+		}
+		else
+		{
+
+		}
+	}
 }
 
-bool AJ1Player::IsMyPlayer()
+void AJ1Player::SetTempDestPosInfo(const Protocol::PosInfo& InPosInfo)
 {
-	return Cast<AJ1MyPlayer>(this) != nullptr;
+	if (ObjectInfo->object_id() != 0)
+	{
+		assert(ObjectInfo->object_id() == Info.object_id());
+	}
+
+	TempDestInfo->CopyFrom(InPosInfo);
+
+	// 상태는 적용
+	SetMoveState(InPosInfo.state());
+}
+
+void AJ1Player::SetTempDestYaw(const float InYaw)
+{
+	TempDestYaw = InYaw;
 }
 
 void AJ1Player::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 {
 	Super::SetInfo(InObjectInfo);
 
-	// player data
+	// temp dest pos info and yaw
+	SetTempDestPosInfo(InObjectInfo.pos_info());
+	SetTempDestYaw(InObjectInfo.pos_info().yaw());
 }
 
 void AJ1Player::ProcessMove(const Protocol::PosInfo& Info)
 {
-	Cast<AJ1PlayerController>(Controller)->ProcessMove(Info);
+	// 목적지 적용
+	SetTempDestPosInfo(Info);
 }
 
 void AJ1Player::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)

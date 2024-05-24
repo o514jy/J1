@@ -94,6 +94,10 @@ public:
 	/** state **/
 	virtual void OnDead();
 
+public:
+	/** helper **/
+	virtual bool IsMyPlayer();
+
 protected:
 	/** information **/
 	Protocol::ObjectInfo* ObjectInfo; // Á¤º¸

@@ -29,12 +29,12 @@ void RoomBase::UpdateTick()
 	//DoTimer(100, &RoomBase::UpdateTick);
 
 	// 존재하는 object들에게 서있는 곳 알려달라고 보내기
-	if (_entered.load() == true)
-	{
-		Protocol::S_NOTIFY_POS notifyPkt;
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
-		Broadcast(sendBuffer);
-	}
+	//if (_entered.load() == true)
+	//{
+	//	Protocol::S_NOTIFY_POS notifyPkt;
+	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
+	//	Broadcast(sendBuffer);
+	//}
 }
 
 bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
@@ -54,7 +54,11 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 		object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
 		object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
 		object->posInfo->set_z(100.f);
+		object->posInfo->set_dest_x(object->posInfo->x());
+		object->posInfo->set_dest_y(object->posInfo->y());
+		object->posInfo->set_dest_z(object->posInfo->z());
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+		object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
 	}
 
 	// 입장 사실을 신입 플레이어에게 알린다
@@ -175,10 +179,9 @@ void RoomBase::HandleMove(Protocol::C_MOVE pkt)
 		{
 			Protocol::PosInfo* info = movePkt.mutable_info();
 			info->CopyFrom(pkt.info());
-			info->set_state(Protocol::MoveState::MOVE_STATE_RUN);
 		}
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
-		Broadcast(sendBuffer);
+		Broadcast(sendBuffer, objectId);
 	}
 }
 

@@ -16,6 +16,7 @@
 #include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Skill/J1SkillComponent.h"
 #include "J1/Game/Skill/J1SkillBase.h"
+#include "J1/Game/Object/J1MyPlayer.h"
 
 
 // Sets default values
@@ -72,7 +73,15 @@ void AJ1Creature::BeginPlay()
 	
 	SetNowPosInfo();
 
-	SetMoveState(Protocol::MOVE_STATE_IDLE);
+	{
+		FVector Location = GetActorLocation();
+		PosInfo->set_dest_x(Location.X);
+		PosInfo->set_dest_y(Location.Y);
+		PosInfo->set_dest_z(Location.Z);
+		PosInfo->set_yaw(GetControlRotation().Yaw);
+
+		SetMoveState(Protocol::MOVE_STATE_IDLE);
+	}
 }
 
 void AJ1Creature::Tick(float DeltaTime)
@@ -315,4 +324,9 @@ void AJ1Creature::OnDead()
 	UAnimMontage* Montage = AnimEntry.Montage;
 	
 	PlayAnimMontage(Montage);
+}
+
+bool AJ1Creature::IsMyPlayer()
+{
+	return Cast<AJ1MyPlayer>(this) != nullptr;
 }

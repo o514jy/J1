@@ -8,6 +8,7 @@
 #include "J1/Game/Object/J1Creature.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/Data/J1AnimData.h"
+#include "J1/Game/Object/J1MyPlayer.h"
 
 
 UJ1SkillBase::UJ1SkillBase()
@@ -64,6 +65,9 @@ void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	// 우선 움직이고 있었다면 멈추기
 	Owner->GetController()->StopMovement();
+	// 내 플레이어면 움직이는거 멈추는거 추가로 해줘야됨
+	if (Owner->IsMyPlayer() == true)
+		Cast<AJ1MyPlayer>(Owner)->SetAutoRunning(false);
 
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
 	ImpactPos->CopyFrom(InSkillPkt.simple_pos_info());

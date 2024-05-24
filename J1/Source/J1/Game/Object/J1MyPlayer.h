@@ -27,16 +27,21 @@ protected:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
+public:
+	/** setter & getter **/
+	void SetAutoRunning(bool InFlag);
+	bool GetAutoRunning();
+
+	void SetDesiredYaw(float InYaw);
+	float GetDesiredYaw();
 
 public:
 	/** network **/
 	void CheckAndRegisterMove(float DeltaTime);
-	virtual void ProcessMove(const Protocol::PosInfo& Info) override;
+
+	void RegisterMove();
+
 	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt) override;
-
-	virtual void ProcessNotifyPos(const Protocol::PosInfo& Info) override;
-
-	bool CompareNowPosAndDestPos();
 
 protected:
 	UJ1NetworkManager* GetNetworkManager() const;
@@ -53,4 +58,12 @@ private:
 protected:
 	const float MOVE_PACKET_SEND_DELAY = 0.2f;
 	float MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
+
+	// Cache
+	bool bAutoRunning = false;
+	FVector DesiredMoveDirection;
+	float DesiredYaw;
+
+	// Dirty Flag
+	bool bLastAutoRunning = false;
 };

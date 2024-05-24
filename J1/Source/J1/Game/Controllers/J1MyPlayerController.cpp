@@ -14,6 +14,10 @@
 #include "EnhancedInputComponent.h"
 // AI
 #include "Blueprint/AIBlueprintHelperLibrary.h"
+// Navigation & Spline
+#include "NavigationPath.h"
+#include "NavigationSystem.h"
+#include "Components/SplineComponent.h"
 // Data
 #include "Data/J1InputData.h"
 // GAS
@@ -23,6 +27,7 @@
 #include "GameFramework/Pawn.h"
 #include "J1LogChannels.h"
 #include "System/J1AssetManager.h"
+#include "Kismet/KismetMathLibrary.h"
 // Skill
 #include "J1/Game/Skill/J1SkillComponent.h"
 
@@ -34,6 +39,8 @@ AJ1MyPlayerController::AJ1MyPlayerController()
 	FollowTime = 0.f;
 	sendMovePacketThreshold = 0.2f;
 	ShortPressThreshold = 0.3f;
+
+	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AJ1MyPlayerController::SetupInputComponent()
@@ -102,9 +109,16 @@ void AJ1MyPlayerController::BeginPlay()
 	//}
 }
 
+void AJ1MyPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	AutoRun();
+}
+
 void AJ1MyPlayerController::OnInputStarted()
 {
-	//StopMovement();
+	StopMovement();
 }
 
 void AJ1MyPlayerController::OnSetDestinationTriggered()
@@ -132,18 +146,19 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 	if (bHitSuccessful)
 	{
 		CachedDestination = Hit.Location;
+		GetMyPlayer()->SetDestPosInfo(CachedDestination);
 	}
 	
 	// Move towards mouse pointer or touch
 	APawn* ControlledPawn = GetPawn();
 	if (ControlledPawn != nullptr)
 	{
-		if (FollowTime > sendMovePacketThreshold)
-		{
-			RegisterMove(CachedDestination);
-		}
-		//FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
-		//ControlledPawn->AddMovementInput(WorldDirection, 1.0, false);
+		FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+		ControlledPawn->AddMovementInput(WorldDirection, 1.0, false);
+
+		// set desired yaw
+		FRotator Rotator = UKismetMathLibrary::FindLookAtRotation(ControlledPawn->GetActorLocation(), CachedDestination);
+		GetMyPlayer()->SetDesiredYaw(Rotator.Yaw);
 	}
 }
 
@@ -159,14 +174,23 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 		return;
 	}
 
-	// If it was a short press
-	if (FollowTime <= ShortPressThreshold)
+	APawn* ControlledPawn = GetPawn();
+	if (FollowTime <= ShortPressThreshold && ControlledPawn != nullptr)
 	{
-		RegisterMove(CachedDestination);
-		UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, InputData->GetFXCursor(), CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+		{
+			Spline->ClearSplinePoints();
+			for (const FVector& PointLoc : NavPath->PathPoints)
+			{
+				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+				DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 1.f);
+			}
+			CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+			GetMyPlayer()->SetAutoRunning(true);
+		}
 	}
-
+	UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, InputData->GetFXCursor(), CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 	FollowTime = 0.f;
 }
 
@@ -221,68 +245,32 @@ void AJ1MyPlayerController::OnQTriggered()
 	}
 }
 
-void AJ1MyPlayerController::RegisterMove(FVector location)
+void AJ1MyPlayerController::AutoRun()
 {
-	// send Notify Pos Packet
-	Protocol::C_MOVE MovePkt;
+	if (GetMyPlayer()->GetAutoRunning() == false)
+		return;
 
-	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
-
+	if (TObjectPtr<AJ1MyPlayer> ControlledPawn = GetMyPlayer())
 	{
-		Protocol::PosInfo* Info = MovePkt.mutable_info();
-		Info->CopyFrom(*myPlayer->GetPosInfo());
-		Info->set_dest_x(location.X);
-		Info->set_dest_y(location.Y);
-		Info->set_dest_z(location.Z);
+		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
+		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
+		ControlledPawn->AddMovementInput(Direction);
+
+		// set desired yaw
+		FRotator Rotator = UKismetMathLibrary::FindLookAtRotation(ControlledPawn->GetActorLocation(), CachedDestination);
+		GetMyPlayer()->SetDesiredYaw(Rotator.Yaw);
+
+		const float DistanceToDestination = (LocationOnSpline - CachedDestination).Length();
+		if (DistanceToDestination <= AutoRunAcceptanceRadius)
+		{
+			GetMyPlayer()->SetAutoRunning(false);
+		}
 	}
-	
-	GetNetworkManager()->SendPacket(MovePkt);
 }
 
-void AJ1MyPlayerController::ProcessMove(const Protocol::PosInfo& posInfo)
+TObjectPtr<AJ1MyPlayer> AJ1MyPlayerController::GetMyPlayer()
 {
-	// send Notify Pos Packet
-	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
-	//myPlayer->SetMoveState(Protocol::MOVE_STATE_RUN);
-
-	// 목적지 기입
-	myPlayer->SetPosInfo(posInfo);
-
-	// start move
-	FVector location;
-	location.X = posInfo.dest_x();
-	location.Y = posInfo.dest_y();
-	location.Z = posInfo.dest_z();
-	//if (FollowTime <= ShortPressThreshold)
-	{
-		
-		UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, location);
-	}
-	//else
-	//{
-	//	FVector WorldDirection = (location - GetPawn()->GetActorLocation()).GetSafeNormal();
-	//	GetPawn()->AddMovementInput(WorldDirection, 1.0, false);
-	//}
-}
-
-void AJ1MyPlayerController::RegisterNotifyPos()
-{
-	AJ1MyPlayer* myPlayer = Cast<AJ1MyPlayer>(GetPawn());
-
-	Protocol::C_NOTIFY_POS notifyPkt;
-	{
-		Protocol::PosInfo* posInfo = notifyPkt.mutable_info();
-		posInfo->CopyFrom(*myPlayer->GetPosInfo());
-	}
-	GetManager(Network)->SendPacket(notifyPkt);
-}
-
-void AJ1MyPlayerController::ProcessNotifyPos(const Protocol::PosInfo& Info)
-{
-	// todo : 위치 교정해야하면 여기서 해주고
-
-	// 답장 보내기
-	RegisterNotifyPos();
+	return Cast<AJ1MyPlayer>(GetPawn());
 }
 
 /*
