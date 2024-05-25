@@ -1,4 +1,5 @@
 #include "J1AIController.h"
+#include "J1/Game/Object/J1Creature.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 
 AJ1AIController::AJ1AIController(const FObjectInitializer& ObjectInitializer)

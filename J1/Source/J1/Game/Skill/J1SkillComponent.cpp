@@ -152,6 +152,8 @@ void UJ1SkillComponent::RegisterNormalAttack(FVector InLocation)
 {
 	Protocol::C_SKILL skillPkt;
 	skillPkt.set_object_id(Owner->GetPosInfo()->object_id());
+	Protocol::PosInfo* posinfo = skillPkt.mutable_pos_info();
+	posinfo->CopyFrom(*Owner->GetPosInfo());
 	skillPkt.set_slot(Protocol::SKILL_SLOT_ATTACK);
 	Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
 	simplePosInfo->set_x(InLocation.X);
@@ -165,6 +167,8 @@ void UJ1SkillComponent::RegisterAuroraQ(FVector InLocation)
 {
 	Protocol::C_SKILL skillPkt;
 	skillPkt.set_object_id(Owner->GetPosInfo()->object_id());
+	Protocol::PosInfo* posinfo = skillPkt.mutable_pos_info();
+	posinfo->CopyFrom(*Owner->GetPosInfo());
 	skillPkt.set_slot(Protocol::SKILL_SLOT_Q);
 	Protocol::SimplePosInfo* simplePosInfo = skillPkt.mutable_simple_pos_info();
 	simplePosInfo->set_x(InLocation.X);

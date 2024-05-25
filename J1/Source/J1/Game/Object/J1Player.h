@@ -24,8 +24,10 @@ public:
 	/** setter & getter **/
 	TObjectPtr<UPlayerData> GetPlayerData() { return Cast<UPlayerData>(CreatureData); }
 
-	void SetTempDestPosInfo(const Protocol::PosInfo& InPosInfo);
-	void SetTempDestYaw(const float InYaw);
+	virtual void SetPosInfo(const Protocol::PosInfo& Info, bool Forced = false) override;
+
+	//void SetTempDestPosInfo(const Protocol::PosInfo& InPosInfo);
+	//void SetTempDestYaw(const float InYaw);
 
 public:
 
@@ -40,6 +42,6 @@ public:
 
 public:
 	/** information **/
-	Protocol::PosInfo* TempDestInfo; // 움직이는 용도로 사용하는 임시 목적지
-	float TempDestYaw;
+	//Protocol::PosInfo* TempDestInfo; // 움직이는 용도로 사용하는 임시 목적지
+	//float TempDestYaw;
 };

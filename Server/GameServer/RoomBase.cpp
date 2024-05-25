@@ -173,7 +173,7 @@ void RoomBase::HandleMove(Protocol::C_MOVE pkt)
 	PlayerRef player = dynamic_pointer_cast<Player>(_objects[objectId]);
 	player->posInfo->CopyFrom(pkt.info());
 
-	// 이동 사실을 알린다 (본인 포함? 빼고?)
+	// 이동 사실을 알린다 (본인 빼고)
 	{
 		Protocol::S_MOVE movePkt;
 		{
@@ -194,6 +194,18 @@ void RoomBase::HandleNotifyPos(Protocol::C_NOTIFY_POS pkt)
 	// check pos ?
 	ObjectRef object = _objects[objectId];
 	object->SetPosInfo(pkt.info());
+
+	// 위치 알려주고 보정이 필요한 경우 클라에서 진행
+	{
+		Protocol::S_NOTIFY_POS notifyPosPkt;
+		{
+			notifyPosPkt.set_object_id(objectId);
+			Protocol::PosInfo* posInfo = notifyPosPkt.mutable_info();
+			posInfo->CopyFrom(pkt.info());
+		}
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPosPkt);
+		Broadcast(sendBuffer, objectId);
+	}
 	
 	// log
 	//cout << player->posInfo->object_id() << "의 좌표 : " << "( " << player->posInfo->x() << " " << player->posInfo->y() << " " << player->posInfo->z() << endl;

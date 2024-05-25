@@ -101,19 +101,19 @@ void StartRoom::SpawnBoss()
 	}
 	////////////////
 
-	BossRef boss = GetSevarog();
-
-	Protocol::S_SPAWN spawnPkt;
-	{
-		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-		objectInfo->CopyFrom(*boss->objectInfo);
-	}
-
-	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
-	Broadcast(sendBuffer);
-
-	bool flag = AddObject_internal(boss);
-	
-	if (flag == true)
-		cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";
+	//BossRef boss = GetSevarog();
+	//
+	//Protocol::S_SPAWN spawnPkt;
+	//{
+	//	Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+	//	objectInfo->CopyFrom(*boss->objectInfo);
+	//}
+	//
+	//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+	//Broadcast(sendBuffer);
+	//
+	//bool flag = AddObject_internal(boss);
+	//
+	//if (flag == true)
+	//	cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";
 }

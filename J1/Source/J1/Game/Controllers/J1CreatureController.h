@@ -19,7 +19,7 @@ public:
 	virtual void ProcessMove(const Protocol::PosInfo& posInfo) override;
 
 	//virtual void RegisterNotifyPos() override;
-	//virtual void ProcessNotifyPos(const Protocol::PosInfo& posInfo) override;
+	virtual void ProcessNotifyPos(const Protocol::PosInfo& posInfo) override;
 
 public:
 	/** finite state machine **/

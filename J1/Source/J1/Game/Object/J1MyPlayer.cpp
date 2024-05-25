@@ -93,7 +93,7 @@ void AJ1MyPlayer::CheckAndRegisterMove(float DeltaTime)
 	{
 		MovePacketSendTimer = MOVE_PACKET_SEND_DELAY;
 
-		RegisterMove();
+		RegisterNotifyPos();
 	}
 }
 
@@ -106,6 +106,17 @@ void AJ1MyPlayer::RegisterMove()
 		Info->set_yaw(DesiredYaw);
 	}
 	GetNetworkManager()->SendPacket(MovePkt);
+}
+
+void AJ1MyPlayer::RegisterNotifyPos()
+{
+	Protocol::C_NOTIFY_POS NotifyPosPkt;
+	{
+		Protocol::PosInfo* Info = NotifyPosPkt.mutable_info();
+		Info->CopyFrom(*PosInfo);
+		Info->set_yaw(DesiredYaw);
+	}
+	GetNetworkManager()->SendPacket(NotifyPosPkt);
 }
 
 void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)

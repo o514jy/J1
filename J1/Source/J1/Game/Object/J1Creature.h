@@ -34,7 +34,7 @@ public:
 	void SetMoveState(Protocol::MoveState State);
 	Protocol::MoveState GetMoveState() { return PosInfo->state(); }
 
-	void SetPosInfo(const Protocol::PosInfo& Info, bool Forced = false);
+	virtual void SetPosInfo(const Protocol::PosInfo& Info, bool Forced = false);
 	Protocol::PosInfo* GetPosInfo() { return PosInfo; }
 
 	void SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo);

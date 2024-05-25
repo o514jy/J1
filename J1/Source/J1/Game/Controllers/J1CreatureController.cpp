@@ -28,12 +28,14 @@ void AJ1CreatureController::ProcessMove(const Protocol::PosInfo& posInfo)
 		// 이동 명령 생성
 		FAIMoveRequest MoveRequest;
 		MoveRequest.SetGoalLocation(location);
-		MoveRequest.SetAcceptanceRadius(0.f);
+		MoveRequest.SetAcceptanceRadius(50.f);
 	
 		// AI에게 이동 명령을 내림
 		MoveTo(MoveRequest);
 	}
 }
+
+
 
 //void AJ1CreatureController::RegisterNotifyPos()
 //{
@@ -48,16 +50,39 @@ void AJ1CreatureController::ProcessMove(const Protocol::PosInfo& posInfo)
 //	}
 //	GetManager(Network)->SendPacket(notifyPkt);
 //}
-//
-//void AJ1CreatureController::ProcessNotifyPos(const Protocol::PosInfo& posInfo)
-//{
-//	Super::ProcessNotifyPos(posInfo);
-//
-//	// todo : 위치 교정해야하면 여기서 해주고
-//
-//	// 답장 보내기
-//	RegisterNotifyPos();
-//}
+
+void AJ1CreatureController::ProcessNotifyPos(const Protocol::PosInfo& posInfo)
+{
+	Super::ProcessNotifyPos(posInfo);
+
+	// 클라와 차이가 심하면 강제이동으로 보정
+	FVector ServerLocation;
+	ServerLocation.X = posInfo.x();
+	ServerLocation.Y = posInfo.y();
+	ServerLocation.Z = posInfo.z();
+
+	if (FVector::Dist(GetPawn()->GetActorLocation(), ServerLocation) >= 100.f)
+	{
+		if (GetPawn() != nullptr && GetWorld()->GetNavigationSystem())
+		{
+			Cast<AJ1Creature>(GetPawn())->SetPosInfo(posInfo, true);
+
+			StopMovement();
+			// 다시 이동 명령 생성
+			FVector location;
+			location.X = posInfo.dest_x();
+			location.Y = posInfo.dest_y();
+			location.Z = posInfo.dest_z();
+
+			FAIMoveRequest MoveRequest;
+			MoveRequest.SetGoalLocation(location);
+			MoveRequest.SetAcceptanceRadius(50.f);
+
+			// AI에게 이동 명령을 내림
+			MoveTo(MoveRequest);
+		}
+	}
+}
 
 void AJ1CreatureController::Tick(float DeltaTime)
 {

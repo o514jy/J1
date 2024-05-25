@@ -41,6 +41,8 @@ public:
 
 	void RegisterMove();
 
+	void RegisterNotifyPos();
+
 	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt) override;
 
 protected:

@@ -160,6 +160,9 @@ void AJ1MyPlayerController::OnSetDestinationTriggered()
 		FRotator Rotator = UKismetMathLibrary::FindLookAtRotation(ControlledPawn->GetActorLocation(), CachedDestination);
 		GetMyPlayer()->SetDesiredYaw(Rotator.Yaw);
 	}
+
+	// send S_MOVE
+	GetMyPlayer()->RegisterMove();
 }
 
 void AJ1MyPlayerController::OnSetDestinationReleased()
@@ -180,13 +183,17 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
 		{
 			Spline->ClearSplinePoints();
-			for (const FVector& PointLoc : NavPath->PathPoints)
+			if (NavPath->PathPoints.Num() >= 1)
 			{
-				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-				DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 1.f);
+				for (const FVector& PointLoc : NavPath->PathPoints)
+				{
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+					DrawDebugSphere(GetWorld(), PointLoc, 8.f, 8, FColor::Green, false, 1.f);
+				}
+
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				GetMyPlayer()->SetAutoRunning(true);
 			}
-			CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
-			GetMyPlayer()->SetAutoRunning(true);
 		}
 	}
 	UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");

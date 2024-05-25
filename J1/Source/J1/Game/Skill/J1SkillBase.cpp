@@ -63,11 +63,18 @@ bool UJ1SkillBase::GetCanUseSkill()
 
 void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 {
-	// 우선 움직이고 있었다면 멈추기
+	// 우선 움직이고 있었다면 멈추고 위치 보정
 	Owner->GetController()->StopMovement();
 	// 내 플레이어면 움직이는거 멈추는거 추가로 해줘야됨
 	if (Owner->IsMyPlayer() == true)
+	{
 		Cast<AJ1MyPlayer>(Owner)->SetAutoRunning(false);
+	}
+	else
+	{
+		// 위치 보정처리
+		Owner->SetPosInfo(InSkillPkt.pos_info(), true);
+	}
 
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
 	ImpactPos->CopyFrom(InSkillPkt.simple_pos_info());
