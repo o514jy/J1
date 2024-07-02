@@ -63,7 +63,6 @@ void GimmickBase::OnDurationCompleteHandler()
 
 	// 모든 프로젝타일 비활성화
 
-
 	_eventCount = 0;
 }
 

@@ -181,6 +181,10 @@ bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillS
 	{
 		return _advancedSkill->GetCanUseSkill();
 	}
+	else
+	{
+		return false;
+	}
 }
 
 void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
@@ -199,7 +203,7 @@ void SkillComponent::DoSkill(const Protocol::C_SKILL& skillPkt)
 	pkt.set_slot(skillPkt.slot());
 	pkt.set_object_id(skillPkt.object_id());
 	Protocol::PosInfo* posinfo = pkt.mutable_pos_info();
-	posinfo->CopyFrom(skillPkt.pos_info());
+	posinfo->CopyFrom(*_owner->posInfo);
 	pkt.set_skill_data_id(skillPkt.skill_data_id());
 	Protocol::SimplePosInfo* defaultSimplePosInfo = pkt.mutable_simple_pos_info();
 	defaultSimplePosInfo->CopyFrom(skillPkt.simple_pos_info());

@@ -78,42 +78,42 @@ void StartRoom::SpawnBoss()
 {
 	////test//////
 	{
-		Protocol::S_SPAWN sPkt;
-		
-		for (int i = 0; i < 0; i++)
-		{
-			BossRef sevas = GObjectManager->CreateBoss(100); // sevarog
-			sevas->posInfo->set_x(300.0f);
-			sevas->posInfo->set_y(i * Utils::GetRandom(-200.f, 200.f));
-			sevas->posInfo->set_z(100.0f);
-		
-			Protocol::ObjectInfo* objectInfo = sPkt.add_players();
-			objectInfo->CopyFrom(*sevas->objectInfo);
-		
-			bool flag = AddObject(sevas);
-			if (flag == true)
-				cout << "Boss " << sevas->objectInfo->object_id() << " is Spawned\n";
-		}
-		
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(sPkt);
-		Broadcast(sendBuffer);
+		//Protocol::S_SPAWN sPkt;
+		//
+		//for (int i = 0; i < 10; i++)
+		//{
+		//	BossRef sevas = GObjectManager->CreateBoss(100); // sevarog
+		//	sevas->posInfo->set_x(300.0f);
+		//	sevas->posInfo->set_y(i * Utils::GetRandom(-200.f, 200.f));
+		//	sevas->posInfo->set_z(100.0f);
+		//
+		//	Protocol::ObjectInfo* objectInfo = sPkt.add_players();
+		//	objectInfo->CopyFrom(*sevas->objectInfo);
+		//
+		//	bool flag = AddObject(sevas);
+		//	if (flag == true)
+		//		cout << "Boss " << sevas->objectInfo->object_id() << " is Spawned\n";
+		//}
+		//
+		//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(sPkt);
+		//Broadcast(sendBuffer);
 		
 	}
 	////////////////
 
-	//BossRef boss = GetSevarog();
-	//
-	//Protocol::S_SPAWN spawnPkt;
-	//{
-	//	Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-	//	objectInfo->CopyFrom(*boss->objectInfo);
-	//}
-	//
-	//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
-	//Broadcast(sendBuffer);
-	//
-	//bool flag = AddObject_internal(boss);
-	//
-	//if (flag == true)
-	//	cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";
+	BossRef boss = GetSevarog();
+	
+	Protocol::S_SPAWN spawnPkt;
+	{
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		objectInfo->CopyFrom(*boss->objectInfo);
+	}
+	
+	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+	Broadcast(sendBuffer);
+	
+	bool flag = AddObject_internal(boss);
+	
+	if (flag == true)
+		cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";
 }

@@ -79,7 +79,8 @@
     <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
+    <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\JY\UnrealProject\J1\Server\Libraries\Include\eigen-3.4.0;$(IncludePath)</IncludePath>
@@ -168,6 +169,7 @@
     <ClCompile Include="BuffBase.cpp" />
     <ClCompile Include="BuffComponent.cpp" />
     <ClCompile Include="BuffInstant.cpp" />
+    <ClCompile Include="ChunkyTriMesh.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataManager.cpp" />
@@ -176,14 +178,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="FindSafeZone.cpp" />
+    <ClCompile Include="FVector3.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="GameSessionManager.cpp" />
     <ClCompile Include="GimmickBase.cpp" />
     <ClCompile Include="GimmickComponent.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="InputGeom.cpp" />
+    <ClCompile Include="MeshLoaderObj.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAIController.cpp" />
+    <ClCompile Include="Navigation.cpp" />
     <ClCompile Include="NormalAttack.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
@@ -191,6 +197,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PoisonRain.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -201,6 +208,7 @@
     <ClCompile Include="RoomBase.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="SafeZone.cpp" />
+    <ClCompile Include="SampleInterfaces.cpp" />
     <ClCompile Include="ServerPacketHandler.cpp" />
     <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="SkillComponent.cpp" />
@@ -222,23 +230,29 @@
     <ClInclude Include="BuffBase.h" />
     <ClInclude Include="BuffComponent.h" />
     <ClInclude Include="BuffInstant.h" />
+    <ClInclude Include="ChunkyTriMesh.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="FindSafeZone.h" />
+    <ClInclude Include="FVector3.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="GameSessionManager.h" />
     <ClInclude Include="GimmickBase.h" />
     <ClInclude Include="GimmickComponent.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="InputGeom.h" />
+    <ClInclude Include="MeshLoaderObj.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAIController.h" />
+    <ClInclude Include="Navigation.h" />
     <ClInclude Include="NormalAttack.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PoisonRain.h" />
     <ClInclude Include="Projectile.h" />
@@ -246,6 +260,7 @@
     <ClInclude Include="RoomBase.h" />
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="SafeZone.h" />
+    <ClInclude Include="SampleInterfaces.h" />
     <ClInclude Include="ServerPacketHandler.h" />
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="SkillComponent.h" />

@@ -66,7 +66,7 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 	for (auto& object : objects)
 	{
 		// 0) 생존지대에 있었으면 빼준다.
-		if (safePlayers.find(object->_objectId) != safePlayers.end())
+		if (safePlayers.find((int32)object->_objectId) != safePlayers.end())
 		{
 			continue;
 		}

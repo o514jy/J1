@@ -49,6 +49,9 @@
     <Filter Include="Game\Object\Projectile">
       <UniqueIdentifier>{5a86900c-de3b-44b8-ad3a-3e90c840783b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Navigation">
+      <UniqueIdentifier>{ad224d09-fa58-4e69-91ee-8c25185e1f1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -171,6 +174,27 @@
     <ClCompile Include="SafeZone.cpp">
       <Filter>Game\Object\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="Navigation.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="InputGeom.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkyTriMesh.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLoaderObj.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleInterfaces.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTimer.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="FVector3.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -292,6 +316,27 @@
     </ClInclude>
     <ClInclude Include="SafeZone.h">
       <Filter>Game\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigation.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="InputGeom.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkyTriMesh.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLoaderObj.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleInterfaces.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTimer.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="FVector3.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

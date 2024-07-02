@@ -50,7 +50,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** players **/
         Value& players = doc["players"];
-        for (int i = 0; i < players.Size(); i++)
+        for (uint32 i = 0; i < players.Size(); i++)
         {
             PlayerDataRef dataRef = make_shared<PlayerData>();
             Value& player = players[i];
@@ -76,7 +76,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** bosses **/
         Value& bosses = doc["bosses"];
-        for (int i = 0; i < bosses.Size(); i++)
+        for (uint32 i = 0; i < bosses.Size(); i++)
         {
             BossDataRef dataRef = make_shared<BossData>();
             Value& boss = bosses[i];
@@ -102,7 +102,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** skills **/
         Value& skills = doc["skills"];
-        for (int i = 0; i < skills.Size(); i++)
+        for (uint32 i = 0; i < skills.Size(); i++)
         {
             SkillDataRef dataRef = make_shared<SkillData>();
             Value& skill = skills[i];
@@ -110,24 +110,24 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->Name = Utils::StrToWstr(skill["Name"].GetString());
             dataRef->Description = Utils::StrToWstr(skill["Description"].GetString());
             Value& projIds = skill["ProjectileIdList"];
-            for (int j = 0; j < projIds.Size(); j++)
+            for (uint32 j = 0; j < projIds.Size(); j++)
             {
                 dataRef->ProjectileIdList.push_back(projIds[j].GetInt());
             }
             dataRef->CoolTime = skill["CoolTime"].GetFloat();
             dataRef->SkillDuration = skill["SkillDuration"].GetFloat();
             Value& impactTimes = skill["AnimImpactTimeList"];
-            for (int j = 0; j < impactTimes.Size(); j++)
+            for (uint32 j = 0; j < impactTimes.Size(); j++)
             {
                 dataRef->AnimImpactTimeList.push_back(impactTimes[j].GetInt());
             }
             Value& buffIds = skill["BuffIdList"];
-            for (int j = 0; j < buffIds.Size(); j++)
+            for (uint32 j = 0; j < buffIds.Size(); j++)
             {
                 dataRef->BuffIdList.push_back(buffIds[j].GetInt());
             }
             Value& effectIds = skill["EffectIdList"];
-            for (int j = 0; j < effectIds.Size(); j++)
+            for (uint32 j = 0; j < effectIds.Size(); j++)
             {
                 dataRef->EffectIdList.push_back(effectIds[j].GetInt());
             }
@@ -137,7 +137,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** effects **/
         Value& effects = doc["effects"];
-        for (int i = 0; i < effects.Size(); i++)
+        for (uint32 i = 0; i < effects.Size(); i++)
         {
             Value& effect = effects[i];
             
@@ -180,7 +180,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** projectiles **/
         Value& projectiles = doc["projectiles"];
-        for (int i = 0; i < projectiles.Size(); i++)
+        for (uint32 i = 0; i < projectiles.Size(); i++)
         {
 
 
@@ -220,7 +220,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** buffs **/
         Value& buffs = doc["buffs"];
-        for (int i = 0; i < buffs.Size(); i++)
+        for (uint32 i = 0; i < buffs.Size(); i++)
         {
             Value& buff = buffs[i];
 
@@ -237,7 +237,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
         /** gimmicks **/
         Value& gimmicks = doc["gimmicks"];
-        for (int i = 0; i < gimmicks.Size(); i++)
+        for (uint32 i = 0; i < gimmicks.Size(); i++)
         {
             Value& gimmick = gimmicks[i];
 
@@ -248,22 +248,22 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->Duration = gimmick["Duration"].GetFloat();
             dataRef->CoolTime = gimmick["CoolTime"].GetFloat();
             Value& eventTimeIds = gimmick["EventTimeList"];
-            for (int j = 0; j < eventTimeIds.Size(); j++)
+            for (uint32 j = 0; j < eventTimeIds.Size(); j++)
             {
                 dataRef->EventTimeList.push_back(eventTimeIds[j].GetInt());
             }
             Value& projectileIds = gimmick["ProjectileIdList"];
-            for (int j = 0; j < projectileIds.Size(); j++)
+            for (uint32 j = 0; j < projectileIds.Size(); j++)
             {
                 dataRef->ProjectileIdList.push_back(projectileIds[j].GetInt());
             }
             Value& missionIds = gimmick["MissionIdList"];
-            for (int j = 0; j < missionIds.Size(); j++)
+            for (uint32 j = 0; j < missionIds.Size(); j++)
             {
                 dataRef->MissionIdList.push_back(missionIds[j].GetInt());
             }
             Value& skillIds = gimmick["SkillIdList"];
-            for (int j = 0; j < skillIds.Size(); j++)
+            for (uint32 j = 0; j < skillIds.Size(); j++)
             {
                 dataRef->SkillIdList.push_back(skillIds[j].GetInt());
             }

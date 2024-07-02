@@ -51,8 +51,23 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 	// ·£´ý À§Ä¡
 	if (randPos)
 	{
-		object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
-		object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
+		//object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
+		//object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
+		//object->posInfo->set_z(100.f);
+		//object->posInfo->set_dest_x(object->posInfo->x());
+		//object->posInfo->set_dest_y(object->posInfo->y());
+		//object->posInfo->set_dest_z(object->posInfo->z());
+		//object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+		//object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+	}
+
+	// test for stress
+	if (randPos)
+	{
+		//object->posInfo->set_x(Utils::GetRandom(-500.f, 300.f));
+		//object->posInfo->set_y(Utils::GetRandom(-500.f, 700.f));
+		object->posInfo->set_x(Utils::GetRandom(-500.f, -480.f));
+		object->posInfo->set_y(Utils::GetRandom(-200.f, -190.f));
 		object->posInfo->set_z(100.f);
 		object->posInfo->set_dest_x(object->posInfo->x());
 		object->posInfo->set_dest_y(object->posInfo->y());

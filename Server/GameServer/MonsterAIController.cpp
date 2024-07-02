@@ -115,6 +115,8 @@ void MonsterAIController::UpdateSkill()
 			posPkt->set_y(targetPlayer->posInfo->y());
 			posPkt->set_z(targetPlayer->posInfo->z());
 			skillPkt.set_allocated_simple_pos_info(posPkt);
+			Protocol::PosInfo* posInfo = skillPkt.mutable_pos_info();
+			posInfo->CopyFrom(*(_owner->posInfo));
 			skillPkt.set_slot(Protocol::SKILL_SLOD_ADVANCED);
 			skillPkt.set_object_id(ownerMonster->_objectId);
 		}

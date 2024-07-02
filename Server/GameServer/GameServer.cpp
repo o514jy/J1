@@ -13,6 +13,8 @@
 #include "StartRoom.h"
 #include "DataManager.h"
 
+#include "recastnavigation/Recast.h"
+
 enum
 {
 	WORKER_TICK = 64
@@ -37,6 +39,12 @@ void DoWorkerJob(ServerServiceRef& service)
 
 int main()
 {
+	//temp
+	//rcContext* ctx = new rcContext();
+	//rcConfig cfg;
+	//memset(&cfg, 0, sizeof(cfg));
+	//temp
+
 	ServerPacketHandler::Init();
 
 	ServerServiceRef service = make_shared<ServerService>(

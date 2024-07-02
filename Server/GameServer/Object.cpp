@@ -42,31 +42,31 @@ void Object::SetState(Protocol::MoveState moveState)
 {
 	posInfo->set_state(moveState);
 
-	string s;
-	if (moveState == Protocol::MOVE_STATE_IDLE)
-		s = "Idle";
-	else if (moveState == Protocol::MOVE_STATE_RUN)
-		s = "Run";
-	else if (moveState == Protocol::MOVE_STATE_SKILL)
-		s = "Skill";
-	else if (moveState == Protocol::MOVE_STATE_GIMMICK)
-		s = "Gimmick";
-	else if (moveState == Protocol::MOVE_STATE_DEAD)
-	{
-		s = "Dead";
-
-		Protocol::S_MOVE movePkt;
-		Protocol::PosInfo* info = movePkt.mutable_info();
-		info->CopyFrom(*posInfo);
-
-		RoomBaseRef roomRef = room.load().lock();
-		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
-		roomRef->Broadcast(sendBuffer);
-	}
-	else
-		s = "None";
-	
-	cout << _objectId << "'s State Changed : " << s << "\n";
+	//string s;
+	//if (moveState == Protocol::MOVE_STATE_IDLE)
+	//	s = "Idle";
+	//else if (moveState == Protocol::MOVE_STATE_RUN)
+	//	s = "Run";
+	//else if (moveState == Protocol::MOVE_STATE_SKILL)
+	//	s = "Skill";
+	//else if (moveState == Protocol::MOVE_STATE_GIMMICK)
+	//	s = "Gimmick";
+	//else if (moveState == Protocol::MOVE_STATE_DEAD)
+	//{
+	//	s = "Dead";
+	//
+	//	Protocol::S_MOVE movePkt;
+	//	Protocol::PosInfo* info = movePkt.mutable_info();
+	//	info->CopyFrom(*posInfo);
+	//
+	//	RoomBaseRef roomRef = room.load().lock();
+	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
+	//	roomRef->Broadcast(sendBuffer);
+	//}
+	//else
+	//	s = "None";
+	//
+	//cout << _objectId << "'s State Changed : " << s << "\n";
 
 	
 }
@@ -76,7 +76,7 @@ Protocol::MoveState Object::GetState()
 	return posInfo->state();
 }
 
-void Object::SetPosInfo(const Protocol::PosInfo& InPosInfo)
+void Object::SetPosInfo(Protocol::PosInfo InPosInfo)
 {
 	posInfo->CopyFrom(InPosInfo);
 }
@@ -84,6 +84,11 @@ void Object::SetPosInfo(const Protocol::PosInfo& InPosInfo)
 Protocol::PosInfo* Object::GetPosInfo()
 {
 	return posInfo;
+}
+
+void Object::SetAgentIdx(int32 idx)
+{
+	_agentIdx = idx;
 }
 
 RoomBaseRef Object::GetRoomRef()

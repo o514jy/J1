@@ -23,8 +23,11 @@ public:
 	void SetState(Protocol::MoveState moveState);
 	Protocol::MoveState GetState();
 
-	void SetPosInfo(const Protocol::PosInfo& InPosInfo);
+	void SetPosInfo(Protocol::PosInfo InPosInfo);
 	Protocol::PosInfo* GetPosInfo();
+
+	void SetAgentIdx(int32 idx);
+	int32 GetAgentIdx() { return _agentIdx; }
 
 	StatComponentRef GetStatComponent() { return _statComponent; }
 
@@ -40,6 +43,7 @@ public:
 
 	uint64 _objectId;
 	int32 _templateId;
+	int32 _agentIdx;
 
 public:
 	/** battle **/
@@ -54,6 +58,7 @@ public:
 
 protected:
 	bool _isPlayer = false;
+	bool _isCrowd = true;
 
 public:
 	weak_ptr<GameSession> session;

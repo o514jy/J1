@@ -231,19 +231,20 @@ void AJ1MyPlayerController::OnBaseAttackTriggered()
 void AJ1MyPlayerController::OnQTriggered()
 {
 	// 이미 다른 스킬을 쓰고있는 상태면 불가능
-	TObjectPtr<AJ1Creature> creature = Cast<AJ1Creature>(GetPawn());
+	TObjectPtr<AJ1MyPlayer> creature = Cast<AJ1MyPlayer>(GetPawn());
 	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_SKILL)
 		return;
 	if (creature->GetMoveState() == Protocol::MoveState::MOVE_STATE_DEAD)
-	{
 		return;
-	}
 
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
 	bHitSuccessful = GetHitResultUnderCursor(ECollisionChannel::ECC_WorldStatic, true, OUT Hit);
 	FVector location = Hit.Location;
+	
+	// 일단 가능할 것 같은 상황이면 멈춰서 결과 보고 받기
+	creature->SetAutoRunning(false);
 
 	// Q스킬 날리겠다는 요청 보내기
 	if (creature != nullptr)

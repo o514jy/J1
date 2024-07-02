@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include "Define.h"
+#include "FVector3.h"
 
 class Utils
 {
@@ -110,9 +111,15 @@ public:
 		// 다음 프레임에 갈 곳 구하기
 
 		pair<float, float> nextPos;
-		nextPos.first = start.first + dirVec2d.first * TICK_COUNT * speed * 0.001;
-		nextPos.second = start.second + dirVec2d.second * TICK_COUNT * speed * 0.001;
+		nextPos.first = start.first + dirVec2d.first * TICK_COUNT * speed * 0.001f;
+		nextPos.second = start.second + dirVec2d.second * TICK_COUNT * speed * 0.001f;
 
 		return nextPos;
 	}
+
+	// 최신
+	
+	static FVector3 Recast2UnrealPoint(const FVector3& Vector);
+	static FVector3 Unreal2RecastPoint(const FVector3& Vector);
+	static FVector3 Unreal2RecastPoint(const Protocol::PosInfo& posInfo);
 };

@@ -173,5 +173,6 @@ uint64 ObjectManager::GenerateIdLocked(Protocol::ObjectType objectType)
 {
 	WRITE_LOCK;
 
-	return ((uint64)objectType << 32) | (s_objectIdGenerator++);
+	//return ((uint64)objectType << 32) | (s_objectIdGenerator++);
+	return (s_objectIdGenerator++);
 }

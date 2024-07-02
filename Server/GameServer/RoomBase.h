@@ -55,7 +55,7 @@ protected:
 
 public:
 	unordered_map<uint64, ObjectRef> _objects;
-	//map<uint64, ObjectRef> _objects;
+	unordered_map<int32, ObjectRef> _AgentIdxToObject;
 
 protected:
 	atomic<bool> _entered;
