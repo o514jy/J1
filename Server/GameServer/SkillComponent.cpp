@@ -87,7 +87,7 @@ void SkillComponent::AddSkill(int32 templateId, Protocol::SkillSlot skillSlot)
 	SkillDataRef skillData = GDataManager->GetSkillDataById(templateId);
 	if (skillData == nullptr)
 	{
-		cout << "AddSkill Failed " << templateId << "\n";
+		//cout << "AddSkill Failed " << templateId << "\n";
 		return;
 	}
 

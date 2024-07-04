@@ -18,18 +18,27 @@ public:
 public:
 	/** setter & getter **/
 	BossRef GetSevarog();
+	PortalRef GetPortal();
 
 	virtual void SetRoomState(Protocol::RoomState state);
 
 public:
+	/** network **/
+	virtual void HandleTeleport(Protocol::C_TELEPORT pkt) override;
+
+public:
 	/** in game logic **/
-	virtual bool EnterRoom(ObjectRef object, bool randPos = true) override;
+	virtual bool EnterRoom(ObjectRef object, bool randPos = true, FVector3 spawnPos = FVector3()) override;
 	virtual bool LeaveRoom(ObjectRef object) override;
 
 	void SpawnBoss();
+
+	void SpawnPortal();
 	
 protected:
 	/** information **/
-	BossRef _sevarog;
+	BossRef _sevarog; // temp
+
+	PortalRef _portal; // temp
 };
 

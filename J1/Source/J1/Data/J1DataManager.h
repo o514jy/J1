@@ -31,4 +31,6 @@ public:
 public:
 	UPROPERTY(BlueprintType)
 	TObjectPtr<UJ1GameData> GameData;
+
+	bool bInitialized = false;
 };

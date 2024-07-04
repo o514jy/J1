@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[13];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[15];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -32,45 +32,48 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\n\nEnum.proto\022\010Protocol*m\n\nObjectType\022\024\n\020"
   "OBJECT_TYPE_NONE\020\000\022\030\n\024OBJECT_TYPE_CREATU"
   "RE\020\001\022\032\n\026OBJECT_TYPE_PROJECTILE\020\002\022\023\n\017OBJE"
-  "CT_TYPE_ENV\020\003*r\n\014CreatureType\022\026\n\022CREATUR"
-  "E_TYPE_NONE\020\000\022\030\n\024CREATURE_TYPE_PLAYER\020\001\022"
-  "\031\n\025CREATURE_TYPE_MONSTER\020\002\022\025\n\021CREATURE_T"
-  "YPE_NPC\020\003*h\n\nPlayerType\022\024\n\020PLAYER_TYPE_N"
-  "ONE\020\000\022\026\n\022PLAYER_TYPE_KNIGHT\020\001\022\024\n\020PLAYER_"
-  "TYPE_MAGE\020\002\022\026\n\022PLAYER_TYPE_ARCHER\020\003*U\n\013M"
-  "onsterType\022\025\n\021MONSTER_TYPE_NONE\020\000\022\030\n\024MON"
-  "STER_TYPE_GENERAL\020\001\022\025\n\021MONSTER_TYPE_BOSS"
-  "\020\002*\241\001\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n"
-  "\017MOVE_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN\020\002\022\023"
-  "\n\017MOVE_STATE_DASH\020\003\022\024\n\020MOVE_STATE_SKILL\020"
-  "\004\022\023\n\017MOVE_STATE_DEAD\020\006\022\026\n\022MOVE_STATE_GIM"
-  "MICK\020\007*q\n\010BuffType\022\022\n\016BUFF_TYPE_NONE\020\000\022\021"
-  "\n\rBUFF_TYPE_HIT\020\001\022\027\n\023BUFF_TYPE_PARALYSIS"
-  "\020\002\022\022\n\016BUFF_TYPE_PUSH\020\003\022\021\n\rBUFF_TYPE_MEZ\020"
-  "\004*\217\001\n\020BuffDurationType\022\033\n\027BUFF_DURATION_"
-  "TYPE_NONE\020\000\022\036\n\032BUFF_DURATION_TYPE_INSTAN"
-  "T\020\001\022\035\n\031BUFF_DURATION_TYPE_FINITE\020\002\022\037\n\033BU"
-  "FF_DURATION_TYPE_INFINITE\020\003*Q\n\tSkillType"
-  "\022\023\n\017SKILL_TYPE_NONE\020\000\022\024\n\020SKILL_TYPE_CLOS"
-  "E\020\001\022\031\n\025SKILL_TYPE_PROJECTILE\020\002*l\n\nEffect"
-  "Type\022\024\n\020EFFECT_TYPE_NONE\020\000\022\031\n\025EFFECT_TYP"
-  "E_RECTANGLE\020\001\022\026\n\022EFFECT_TYPE_CIRCLE\020\002\022\025\n"
-  "\021EFFECT_TYPE_PIZZA\020\003*\305\001\n\tSkillSlot\022\023\n\017SK"
-  "ILL_SLOT_NONE\020\000\022\025\n\021SKILL_SLOT_ATTACK\020\001\022\020"
-  "\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKILL_SLOT_W\020\003\022\020\n\014SK"
-  "ILL_SLOT_E\020\004\022\020\n\014SKILL_SLOT_R\020\005\022\023\n\017SKILL_"
-  "SLOT_DASH\020\006\022\027\n\023SKILL_SLOD_ADVANCED\020\007\022\026\n\022"
-  "SKILL_SLOT_GIMMICK\020\010*9\n\010RoomType\022\023\n\017ROOO"
-  "M_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_ROOM\020\001*"
-  "O\n\tRoomState\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022ROO"
-  "M_STATE_PREPARE\020\001\022\025\n\021ROOM_STATE_BATTLE\020\002"
-  "*P\n\tDirection\022\014\n\010DIR_NONE\020\000\022\n\n\006DIR_UP\020\001\022"
-  "\r\n\tDIR_RIGHT\020\002\022\014\n\010DIR_DOWN\020\003\022\014\n\010DIR_LEFT"
-  "\020\004b\006proto3"
+  "CT_TYPE_ENV\020\003**\n\016ProjectileType\022\030\n\024PROJE"
+  "CTILE_TYPE_NONE\020\000*1\n\007EnvType\022\021\n\rENV_TYPE"
+  "_NONE\020\000\022\023\n\017ENV_TYPE_PORTAL\020\001*r\n\014Creature"
+  "Type\022\026\n\022CREATURE_TYPE_NONE\020\000\022\030\n\024CREATURE"
+  "_TYPE_PLAYER\020\001\022\031\n\025CREATURE_TYPE_MONSTER\020"
+  "\002\022\025\n\021CREATURE_TYPE_NPC\020\003*h\n\nPlayerType\022\024"
+  "\n\020PLAYER_TYPE_NONE\020\000\022\026\n\022PLAYER_TYPE_KNIG"
+  "HT\020\001\022\024\n\020PLAYER_TYPE_MAGE\020\002\022\026\n\022PLAYER_TYP"
+  "E_ARCHER\020\003*U\n\013MonsterType\022\025\n\021MONSTER_TYP"
+  "E_NONE\020\000\022\030\n\024MONSTER_TYPE_GENERAL\020\001\022\025\n\021MO"
+  "NSTER_TYPE_BOSS\020\002*\241\001\n\tMoveState\022\023\n\017MOVE_"
+  "STATE_NONE\020\000\022\023\n\017MOVE_STATE_IDLE\020\001\022\022\n\016MOV"
+  "E_STATE_RUN\020\002\022\023\n\017MOVE_STATE_DASH\020\003\022\024\n\020MO"
+  "VE_STATE_SKILL\020\004\022\023\n\017MOVE_STATE_DEAD\020\006\022\026\n"
+  "\022MOVE_STATE_GIMMICK\020\007*q\n\010BuffType\022\022\n\016BUF"
+  "F_TYPE_NONE\020\000\022\021\n\rBUFF_TYPE_HIT\020\001\022\027\n\023BUFF"
+  "_TYPE_PARALYSIS\020\002\022\022\n\016BUFF_TYPE_PUSH\020\003\022\021\n"
+  "\rBUFF_TYPE_MEZ\020\004*\217\001\n\020BuffDurationType\022\033\n"
+  "\027BUFF_DURATION_TYPE_NONE\020\000\022\036\n\032BUFF_DURAT"
+  "ION_TYPE_INSTANT\020\001\022\035\n\031BUFF_DURATION_TYPE"
+  "_FINITE\020\002\022\037\n\033BUFF_DURATION_TYPE_INFINITE"
+  "\020\003*Q\n\tSkillType\022\023\n\017SKILL_TYPE_NONE\020\000\022\024\n\020"
+  "SKILL_TYPE_CLOSE\020\001\022\031\n\025SKILL_TYPE_PROJECT"
+  "ILE\020\002*l\n\nEffectType\022\024\n\020EFFECT_TYPE_NONE\020"
+  "\000\022\031\n\025EFFECT_TYPE_RECTANGLE\020\001\022\026\n\022EFFECT_T"
+  "YPE_CIRCLE\020\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\305\001\n\t"
+  "SkillSlot\022\023\n\017SKILL_SLOT_NONE\020\000\022\025\n\021SKILL_"
+  "SLOT_ATTACK\020\001\022\020\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKILL"
+  "_SLOT_W\020\003\022\020\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SLO"
+  "T_R\020\005\022\023\n\017SKILL_SLOT_DASH\020\006\022\027\n\023SKILL_SLOD"
+  "_ADVANCED\020\007\022\026\n\022SKILL_SLOT_GIMMICK\020\010*U\n\010R"
+  "oomType\022\023\n\017ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYP"
+  "E_START_ROOM\020\001\022\032\n\026ROOM_TYPE_DUNGEON_ROOM"
+  "\020\002*O\n\tRoomState\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022"
+  "ROOM_STATE_PREPARE\020\001\022\025\n\021ROOM_STATE_BATTL"
+  "E\020\002*P\n\tDirection\022\014\n\010DIR_NONE\020\000\022\n\n\006DIR_UP"
+  "\020\001\022\r\n\tDIR_RIGHT\020\002\022\014\n\010DIR_DOWN\020\003\022\014\n\010DIR_L"
+  "EFT\020\004b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 1490, descriptor_table_protodef_Enum_2eproto,
+    false, false, 1613, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -100,9 +103,36 @@ bool ObjectType_IsValid(int value) {
   }
 }
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CreatureType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProjectileType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
   return file_level_enum_descriptors_Enum_2eproto[1];
+}
+bool ProjectileType_IsValid(int value) {
+  switch (value) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EnvType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[2];
+}
+bool EnvType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CreatureType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[3];
 }
 bool CreatureType_IsValid(int value) {
   switch (value) {
@@ -118,7 +148,7 @@ bool CreatureType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PlayerType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[2];
+  return file_level_enum_descriptors_Enum_2eproto[4];
 }
 bool PlayerType_IsValid(int value) {
   switch (value) {
@@ -134,7 +164,7 @@ bool PlayerType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MonsterType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[3];
+  return file_level_enum_descriptors_Enum_2eproto[5];
 }
 bool MonsterType_IsValid(int value) {
   switch (value) {
@@ -149,7 +179,7 @@ bool MonsterType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[4];
+  return file_level_enum_descriptors_Enum_2eproto[6];
 }
 bool MoveState_IsValid(int value) {
   switch (value) {
@@ -168,7 +198,7 @@ bool MoveState_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[5];
+  return file_level_enum_descriptors_Enum_2eproto[7];
 }
 bool BuffType_IsValid(int value) {
   switch (value) {
@@ -185,7 +215,7 @@ bool BuffType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffDurationType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[6];
+  return file_level_enum_descriptors_Enum_2eproto[8];
 }
 bool BuffDurationType_IsValid(int value) {
   switch (value) {
@@ -201,7 +231,7 @@ bool BuffDurationType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[7];
+  return file_level_enum_descriptors_Enum_2eproto[9];
 }
 bool SkillType_IsValid(int value) {
   switch (value) {
@@ -216,7 +246,7 @@ bool SkillType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EffectType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[8];
+  return file_level_enum_descriptors_Enum_2eproto[10];
 }
 bool EffectType_IsValid(int value) {
   switch (value) {
@@ -232,7 +262,7 @@ bool EffectType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillSlot_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[9];
+  return file_level_enum_descriptors_Enum_2eproto[11];
 }
 bool SkillSlot_IsValid(int value) {
   switch (value) {
@@ -253,12 +283,13 @@ bool SkillSlot_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[10];
+  return file_level_enum_descriptors_Enum_2eproto[12];
 }
 bool RoomType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -267,7 +298,7 @@ bool RoomType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[11];
+  return file_level_enum_descriptors_Enum_2eproto[13];
 }
 bool RoomState_IsValid(int value) {
   switch (value) {
@@ -282,7 +313,7 @@ bool RoomState_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Direction_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[12];
+  return file_level_enum_descriptors_Enum_2eproto[14];
 }
 bool Direction_IsValid(int value) {
   switch (value) {

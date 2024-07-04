@@ -3,6 +3,11 @@
 
 void UJ1DataManager::SetInfo()
 {
+	if (bInitialized == true)
+		return;
+
+	bInitialized = true;
+
 	ParseAllJsonData();
 }
 

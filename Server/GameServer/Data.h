@@ -49,8 +49,8 @@ public:
 	wstring Name;
 	wstring Description;
 	vector<int32> ProjectileIdList;
-	float CoolTime;
-	float SkillDuration;
+	int32 CoolTime;
+	int32 SkillDuration;
 	vector<int32> AnimImpactTimeList;
 	vector<int32> BuffIdList;
 	vector<int32> EffectIdList;
@@ -94,7 +94,7 @@ public:
 	int32 OwnerSkillDataId;
 	int32 OwnerGimmickDataId;
 	wstring Name;
-	float Duration;
+	int32 Duration;
 	float MoveSpeed;
 	vector<int32> ImpactTimeList;
 	vector<int32> BuffIdList;
@@ -118,8 +118,8 @@ public:
 	int32 DataId;
 	wstring Name;
 	wstring DescriptionText;
-	float Duration;
-	float CoolTime;
+	int32 Duration;
+	int32 CoolTime;
 	vector<int32> EventTimeList;
 	vector<int32> ProjectileIdList;
 	vector<int32> MissionIdList;

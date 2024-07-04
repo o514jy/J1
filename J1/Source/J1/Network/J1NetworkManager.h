@@ -53,6 +53,8 @@ public:
 
 	void HandleMove(const Protocol::S_MOVE& MovePkt);
 
+	void HandleTeleport(const Protocol::S_TELEPORT& TeleportPkt);
+
 	void HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt);
 
 	void HandleSkill(const Protocol::S_SKILL& SkillPkt);
@@ -70,6 +72,8 @@ public:
 	int16 Port = 7777;
 
 	TSharedPtr<class PacketSession> GameServerSession;
+
+	bool bConnected = false;
 };
 
 /**

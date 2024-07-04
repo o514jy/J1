@@ -73,12 +73,14 @@ int main()
 
 	// 1) initialize all room
 	{
-		GRoomManager->InitializeAllRoom();
+		GRoomManager->DoAsync(&RoomManager::InitializeAllRoom);
+		//GRoomManager->InitializeAllRoom();
 	}
 
 	// 2) start update tick
 	{
-		GRoomManager->AllUpdateTickStart();
+		GRoomManager->DoAsync(&RoomManager::AllUpdateTickStart);
+		//GRoomManager->AllUpdateTickStart();
 	}
 
 	cout << "Game Server : Open!!" << "\n";

@@ -1415,6 +1415,8 @@ class ObjectInfo final :
     kObjectTypeFieldNumber = 3,
     kCreatureTypeFieldNumber = 6,
     kMonsterTypeFieldNumber = 8,
+    kProjectileTypeFieldNumber = 9,
+    kEnvTypeFieldNumber = 10,
   };
   // .Protocol.PosInfo pos_info = 4;
   bool has_pos_info() const;
@@ -1515,6 +1517,24 @@ class ObjectInfo final :
   void _internal_set_monster_type(::Protocol::MonsterType value);
   public:
 
+  // .Protocol.ProjectileType projectile_type = 9;
+  void clear_projectile_type();
+  ::Protocol::ProjectileType projectile_type() const;
+  void set_projectile_type(::Protocol::ProjectileType value);
+  private:
+  ::Protocol::ProjectileType _internal_projectile_type() const;
+  void _internal_set_projectile_type(::Protocol::ProjectileType value);
+  public:
+
+  // .Protocol.EnvType env_type = 10;
+  void clear_env_type();
+  ::Protocol::EnvType env_type() const;
+  void set_env_type(::Protocol::EnvType value);
+  private:
+  ::Protocol::EnvType _internal_env_type() const;
+  void _internal_set_env_type(::Protocol::EnvType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.ObjectInfo)
  private:
   class _Internal;
@@ -1531,6 +1551,8 @@ class ObjectInfo final :
     int object_type_;
     int creature_type_;
     int monster_type_;
+    int projectile_type_;
+    int env_type_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2689,6 +2711,46 @@ inline void ObjectInfo::_internal_set_monster_type(::Protocol::MonsterType value
 inline void ObjectInfo::set_monster_type(::Protocol::MonsterType value) {
   _internal_set_monster_type(value);
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.monster_type)
+}
+
+// .Protocol.ProjectileType projectile_type = 9;
+inline void ObjectInfo::clear_projectile_type() {
+  _impl_.projectile_type_ = 0;
+}
+inline ::Protocol::ProjectileType ObjectInfo::_internal_projectile_type() const {
+  return static_cast< ::Protocol::ProjectileType >(_impl_.projectile_type_);
+}
+inline ::Protocol::ProjectileType ObjectInfo::projectile_type() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.projectile_type)
+  return _internal_projectile_type();
+}
+inline void ObjectInfo::_internal_set_projectile_type(::Protocol::ProjectileType value) {
+  
+  _impl_.projectile_type_ = value;
+}
+inline void ObjectInfo::set_projectile_type(::Protocol::ProjectileType value) {
+  _internal_set_projectile_type(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.projectile_type)
+}
+
+// .Protocol.EnvType env_type = 10;
+inline void ObjectInfo::clear_env_type() {
+  _impl_.env_type_ = 0;
+}
+inline ::Protocol::EnvType ObjectInfo::_internal_env_type() const {
+  return static_cast< ::Protocol::EnvType >(_impl_.env_type_);
+}
+inline ::Protocol::EnvType ObjectInfo::env_type() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.env_type)
+  return _internal_env_type();
+}
+inline void ObjectInfo::_internal_set_env_type(::Protocol::EnvType value) {
+  
+  _impl_.env_type_ = value;
+}
+inline void ObjectInfo::set_env_type(::Protocol::EnvType value) {
+  _internal_set_env_type(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.env_type)
 }
 
 #ifdef __GNUC__

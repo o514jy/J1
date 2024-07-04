@@ -32,6 +32,6 @@ public:
 
 	// 기믹리스트는 기믹이 끝나는대로 밀어주고 살아남을 사람만 따로 받아서 나중에 판정에서 제외시키기
 	// 기믹 딱 끝날때 projectile 해제 순간 기록
-	unordered_set<int32> safePlayers;
+	unordered_set<uint64> safePlayers;
 };
 

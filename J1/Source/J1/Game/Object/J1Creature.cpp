@@ -296,12 +296,6 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	}
 
 	/** add components **/
-	/* stat component */
-	StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
-	StatComponent->SetInfo(this, CreatureData, creatureType);
-	/* skill component */
-	SkillComponent = NewObject<UJ1SkillComponent>(this, UJ1SkillComponent::StaticClass(), TEXT("SkillComponent"));
-	SkillComponent->SetInfo(this, CreatureData);
 	/* widget component */
 	TSubclassOf<UUserWidget> hpwidget = UJ1AssetManager::GetClassByName<UUserWidget>("HpBar");
 	//TSubclassOf<UUserWidget> hpwidget = Cast<UUserWidget>(object);
@@ -312,7 +306,12 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 		HpBarComponent->SetDrawAtDesiredSize(true);
 		HpBarComponent->SetRelativeLocation(FVector(0, 0, CreatureData->ColliderHalfHeight * 1.2f));
 	}
-	
+	/* stat component */
+	StatComponent = NewObject<UJ1StatComponent>(this, UJ1StatComponent::StaticClass(), TEXT("StatComponent"));
+	StatComponent->SetInfo(this, CreatureData, creatureType);
+	/* skill component */
+	SkillComponent = NewObject<UJ1SkillComponent>(this, UJ1SkillComponent::StaticClass(), TEXT("SkillComponent"));
+	SkillComponent->SetInfo(this, CreatureData);
 }
 
 void AJ1Creature::OnDead()

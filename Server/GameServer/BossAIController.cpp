@@ -59,7 +59,7 @@ void BossAIController::UpdateIdle()
 		_activeGimmickId = boss->GetGimmickComponent()->PopCanActiveGimmickId();
 		if (_activeGimmickId != 0)
 		{
-			boss->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
+			//boss->SetState(Protocol::MoveState::MOVE_STATE_GIMMICK);
 		}
 	}
 }

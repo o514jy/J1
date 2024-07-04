@@ -95,7 +95,7 @@ void NavDevice::AddAgentToCrowd()
 
 	dtCrowdAgentParams ap;
 	memset(&ap, 0, sizeof(ap));
-	ap.radius = m_sample->getAgentRadius() * 0.66;
+	ap.radius = m_sample->getAgentRadius() * 0.66f;
 	ap.height = m_sample->getAgentHeight();
 	ap.maxAcceleration = 20.48f;
 	ap.maxSpeed = 3.f;

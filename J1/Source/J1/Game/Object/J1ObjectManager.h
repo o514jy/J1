@@ -9,6 +9,7 @@ class AJ1MyPlayer;
 class AJ1Player;
 class AJ1Object;
 class AJ1Creature;
+class AJ1Env;
 
 UCLASS()
 class J1_API UJ1ObjectManager : public UGameInstanceSubsystem
@@ -51,4 +52,6 @@ public:
 	TMap<uint64, TObjectPtr<AJ1Object>> Objects;
 	UPROPERTY()
 	TMap<uint64, TObjectPtr<AJ1Creature>> Creatures;
+	UPROPERTY()
+	TMap<uint64, TObjectPtr<AJ1Env>> Envs;
 };

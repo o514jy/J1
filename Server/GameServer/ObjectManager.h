@@ -9,9 +9,15 @@ public:
 public:
 	ObjectRef CreateObject(GameSessionRef session, Protocol::ObjectType objectType, uint64 templateId);
 	
+	/** creature **/
 	PlayerRef CreatePlayer(GameSessionRef session, int32 templateId);
 	BossRef CreateBoss(int32 templateId);
+
+	/** projectile**/
 	ProjectileRef CreateProjectile(int32 templateId, CreatureRef owner = nullptr, SkillBaseRef ownerSkill = nullptr, GimmickBaseRef ownerGimmick = nullptr, float posX = 0.f, float posY = 0.f, float posZ = 0.f);
+
+	/** env **/
+	PortalRef CreatePortal(int32 templateId, RoomBaseRef destRoom);
 
 public:
 	ObjectRef GetObjectById(uint64 objectId);

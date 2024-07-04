@@ -10,3 +10,5 @@
 /** Screen Debug Message **/
 #define ScreenDebugMessageString(x) if(GEngine) { GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Cyan, x); }
 #define ScreenDebugMessageNotString(x) ScreenDebugMessageString(FString::Printf(TEXT("%f"), x));
+
+#define LevelName_Dungeon_One TEXT("DungeonMap_One")

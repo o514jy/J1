@@ -28,6 +28,9 @@ TStatId UJ1NetworkManager::GetStatId() const
 
 void UJ1NetworkManager::ConnectToGameServer()
 {
+	if (bConnected == true)
+		return;
+
 	// Create Socket
 	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(TEXT("Stream"), TEXT("Client Socket"));
 
@@ -52,6 +55,8 @@ void UJ1NetworkManager::ConnectToGameServer()
 		// Create Server Session
 		GameServerSession = MakeShared<PacketSession>(Socket);
 		GameServerSession->Run(); // SendWorker, RecvWorker 스레드 생성
+
+		bConnected = true;
 
 		// TEMP : Lobby에서 캐릭터 선택창 등
 		{
@@ -118,7 +123,8 @@ void UJ1NetworkManager::HandleSpawn(const Protocol::ObjectInfo& ObjectInfo, bool
 
 		MyPlayer->SetInfo(ObjectInfo);
 		GetManager(Object)->MyPlayer = MyPlayer;
-		GetManager(Object)->AddActorToMap(PC->GetPawn(), ObjectId);
+		//GetManager(Object)->AddActorToMap(PC->GetPawn(), ObjectId);
+		GetManager(Object)->Creatures.Add(ObjectId, Cast<AJ1Creature>(MyPlayer));
 	}
 	else // 내가 아닌 Player일 경우
 	{
@@ -183,6 +189,27 @@ void UJ1NetworkManager::HandleMove(const Protocol::S_MOVE& MovePkt)
 	{
 		FindActor->ProcessMove(Info);
 	}
+}
+
+void UJ1NetworkManager::HandleTeleport(const Protocol::S_TELEPORT& TeleportPkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const uint64 ObjectId = TeleportPkt.info().object_id();
+	TObjectPtr<AJ1Creature> creature = GetManager(Object)->GetCreatureById(ObjectId);
+	if (creature == nullptr)
+		return;
+
+	TObjectPtr<AJ1MyPlayer> myPlayer = Cast<AJ1MyPlayer>(creature);
+	if (myPlayer == nullptr)
+		return;
+
+	myPlayer->ProcessTeleport(TeleportPkt);
 }
 
 void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt)

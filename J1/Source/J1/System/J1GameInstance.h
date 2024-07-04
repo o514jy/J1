@@ -7,6 +7,7 @@
 class AJ1Player;
 class AJ1MyPlayer;
 class AJ1Boss;
+class AJ1Portal;
 
 class UNiagaraSystem;
 
@@ -36,4 +37,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ShieldMaster;
+
+	/** env **/
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1Portal> PortalClass;
 };

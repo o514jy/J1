@@ -114,8 +114,8 @@ void DataManager::ParseJsonData(const WCHAR* path)
             {
                 dataRef->ProjectileIdList.push_back(projIds[j].GetInt());
             }
-            dataRef->CoolTime = skill["CoolTime"].GetFloat();
-            dataRef->SkillDuration = skill["SkillDuration"].GetFloat();
+            dataRef->CoolTime = skill["CoolTime"].GetInt();
+            dataRef->SkillDuration = skill["SkillDuration"].GetInt();
             Value& impactTimes = skill["AnimImpactTimeList"];
             for (uint32 j = 0; j < impactTimes.Size(); j++)
             {
@@ -182,8 +182,6 @@ void DataManager::ParseJsonData(const WCHAR* path)
         Value& projectiles = doc["projectiles"];
         for (uint32 i = 0; i < projectiles.Size(); i++)
         {
-
-
             ProjectileDataRef dataRef = make_shared<ProjectileData>();
             Value& projectile = projectiles[i];
             dataRef->DataId = projectile["DataId"].GetInt();
@@ -197,20 +195,20 @@ void DataManager::ParseJsonData(const WCHAR* path)
                 dataRef->OwnerGimmickDataId = projectile["OwnerGimmickDataId"].GetInt();
             }
             dataRef->Name = Utils::StrToWstr(projectile["Name"].GetString());
-            dataRef->Duration = projectile["Duration"].GetFloat();
+            dataRef->Duration = projectile["Duration"].GetInt();
             dataRef->MoveSpeed = projectile["MoveSpeed"].GetFloat();
             Value& impactTimes = projectile["ImpactTimeList"];
-            for (int j = 0; j < impactTimes.Size(); j++)
+            for (uint32 j = 0; j < impactTimes.Size(); j++)
             {
                 dataRef->ImpactTimeList.push_back(impactTimes[j].GetInt());
             }
             Value& buffIds = projectile["BuffIdList"];
-            for (int j = 0; j < buffIds.Size(); j++)
+            for (uint32 j = 0; j < buffIds.Size(); j++)
             {
                 dataRef->BuffIdList.push_back(buffIds[j].GetInt());
             }
             Value& effectIds = projectile["EffectIdList"];
-            for (int j = 0; j < effectIds.Size(); j++)
+            for (uint32 j = 0; j < effectIds.Size(); j++)
             {
                 dataRef->EffectIdList.push_back(effectIds[j].GetInt());
             }
@@ -245,8 +243,8 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->DataId = gimmick["DataId"].GetInt();
             dataRef->Name = Utils::StrToWstr(gimmick["Name"].GetString());
             dataRef->DescriptionText = Utils::StrToWstr(gimmick["DescriptionText"].GetString());
-            dataRef->Duration = gimmick["Duration"].GetFloat();
-            dataRef->CoolTime = gimmick["CoolTime"].GetFloat();
+            dataRef->Duration = gimmick["Duration"].GetInt();
+            dataRef->CoolTime = gimmick["CoolTime"].GetInt();
             Value& eventTimeIds = gimmick["EventTimeList"];
             for (uint32 j = 0; j < eventTimeIds.Size(); j++)
             {

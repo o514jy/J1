@@ -5,6 +5,10 @@ AJ1Object::AJ1Object()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	ObjectInfo = new Protocol::ObjectInfo();
+	PosInfo = new Protocol::PosInfo();
+	ObjectInfo->set_allocated_pos_info(PosInfo);
 }
 
 // Called when the game starts or when spawned

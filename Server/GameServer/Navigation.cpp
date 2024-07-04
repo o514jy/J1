@@ -96,19 +96,19 @@ void Navigation::UpdateTick()
 
 			const float* pos = agent->npos;
 			FVector3 tempPos = FVector3(pos[0], pos[1], pos[2]);
-			FVector3 retPos = Recast2UnrealPoint(tempPos);
+			FVector3 retPos = Utils::Recast2UnrealPoint(tempPos);
 
-			ObjectRef obj = m_room.lock()->FindObjectByAgentIdx(i);
-			if (obj != nullptr)
-			{
-				obj->posInfo->set_x(retPos.X * 100.f);
-				obj->posInfo->set_y(retPos.Y * 100.f);
-				obj->posInfo->set_z(retPos.Z * 100.f);
-			}
-			else
-			{
-				continue;
-			}
+			//ObjectRef obj = m_room.lock()->FindObjectByAgentIdx(i);
+			//if (obj != nullptr)
+			//{
+			//	obj->posInfo->set_x(retPos.X);
+			//	obj->posInfo->set_y(retPos.Y);
+			//	obj->posInfo->set_z(retPos.Z);
+			//}
+			//else
+			//{
+			//	continue;
+			//}
 		}
 	}
 }

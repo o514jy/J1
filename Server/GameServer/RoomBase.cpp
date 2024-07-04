@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "GameSession.h"
 #include "Monster.h"
+#include "RoomManager.h"
 #include "DataManager.h"
 #include "ObjectManager.h"
 #include "Creature.h"
@@ -15,6 +16,7 @@ RoomBase::RoomBase()
 	_entered = false;
 
 	_roomState = Protocol::RoomState::ROOM_STATE_PREPARE;
+	_roomType = Protocol::RoomType::ROOOM_TYPE_NONE;
 }
 
 RoomBase::~RoomBase()
@@ -24,50 +26,22 @@ RoomBase::~RoomBase()
 
 void RoomBase::UpdateTick()
 {
-	//cout << "Update RoomBase" << endl;
-
-	//DoTimer(100, &RoomBase::UpdateTick);
-
-	// 존재하는 object들에게 서있는 곳 알려달라고 보내기
-	//if (_entered.load() == true)
-	//{
-	//	Protocol::S_NOTIFY_POS notifyPkt;
-	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(notifyPkt);
-	//	Broadcast(sendBuffer);
-	//}
+	// all object in start room process update tick 
+	for (auto& object : _objects)
+	{
+		object.second->UpdateTick();
+	}
 }
 
-bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
+bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/, FVector3 spawnPos)
 {
 	bool success = AddObject_internal(object);
-
-	// temp
-	// 처음으로 들어온애가 보스 소환 시키기, 나중엔 버튼이나 준비완료 이런거 만들 것
-	if (_objects.size() == 1)
-	{
-		DoTimer(3000, &RoomBase::SetRoomState, Protocol::RoomState::ROOM_STATE_BATTLE);
-	}
 
 	// 랜덤 위치
 	if (randPos)
 	{
-		//object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
-		//object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
-		//object->posInfo->set_z(100.f);
-		//object->posInfo->set_dest_x(object->posInfo->x());
-		//object->posInfo->set_dest_y(object->posInfo->y());
-		//object->posInfo->set_dest_z(object->posInfo->z());
-		//object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
-		//object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
-	}
-
-	// test for stress
-	if (randPos)
-	{
-		//object->posInfo->set_x(Utils::GetRandom(-500.f, 300.f));
-		//object->posInfo->set_y(Utils::GetRandom(-500.f, 700.f));
-		object->posInfo->set_x(Utils::GetRandom(-500.f, -480.f));
-		object->posInfo->set_y(Utils::GetRandom(-200.f, -190.f));
+		object->posInfo->set_x(Utils::GetRandom(0.f, 300.f));
+		object->posInfo->set_y(Utils::GetRandom(-300.f, 300.f));
 		object->posInfo->set_z(100.f);
 		object->posInfo->set_dest_x(object->posInfo->x());
 		object->posInfo->set_dest_y(object->posInfo->y());
@@ -75,6 +49,32 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/)
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
 		object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
 	}
+	else
+	{
+		object->posInfo->set_x(spawnPos.X);
+		object->posInfo->set_y(spawnPos.Y);
+		object->posInfo->set_z(100.f);
+		object->posInfo->set_dest_x(object->posInfo->x());
+		object->posInfo->set_dest_y(object->posInfo->y());
+		object->posInfo->set_dest_z(object->posInfo->z());
+		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+		object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+	}
+
+	// test for stress
+	//if (randPos)
+	//{
+	//	//object->posInfo->set_x(Utils::GetRandom(-500.f, 300.f));
+	//	//object->posInfo->set_y(Utils::GetRandom(-500.f, 700.f));
+	//	//object->posInfo->set_x(Utils::GetRandom(-500.f, -480.f));
+	//	//object->posInfo->set_y(Utils::GetRandom(-200.f, -190.f));
+	//	object->posInfo->set_z(100.f);
+	//	object->posInfo->set_dest_x(object->posInfo->x());
+	//	object->posInfo->set_dest_y(object->posInfo->y());
+	//	object->posInfo->set_dest_z(object->posInfo->z());
+	//	object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+	//	object->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+	//}
 
 	// 입장 사실을 신입 플레이어에게 알린다
 	if (auto player = dynamic_pointer_cast<Player>(object))
@@ -133,8 +133,7 @@ bool RoomBase::LeaveRoom(ObjectRef object)
 		return false;
 
 	const uint64 objectId = object->objectInfo->object_id();
-	//bool success = RemoveObject(objectId);
-	bool success = GObjectManager->RemoveObject(objectId);
+	bool success = RemoveObject(objectId);
 
 	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
 	if (auto player = dynamic_pointer_cast<Player>(object))
@@ -154,18 +153,43 @@ bool RoomBase::LeaveRoom(ObjectRef object)
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(despawnPkt);
 		Broadcast(sendBuffer, objectId);
 
-		if (auto player = dynamic_pointer_cast<Player>(object))
-			if (auto session = player->session.lock())
-				session->Send(sendBuffer);
+		//if (auto player = dynamic_pointer_cast<Player>(object))
+		//	if (auto session = player->session.lock())
+		//		session->Send(sendBuffer);
 	}
 
+	//bool success = GObjectManager->RemoveObject(objectId);
+
 	return success;
+}
+
+void RoomBase::SendSpawnPktAboutOthers(ObjectRef object)
+{
+	if (auto player = dynamic_pointer_cast<Player>(object))
+	{
+		Protocol::S_SPAWN spawnPkt;
+
+		for (auto& item : _objects)
+		{
+			if (item.second->IsPlayer() == false)
+				continue;
+
+			if (item.second->_objectId == object->_objectId)
+				continue;
+
+			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+			playerInfo->CopyFrom(*item.second->objectInfo);
+		}
+
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+		if (auto session = player->session.lock())
+			session->Send(sendBuffer);
+	}
 }
 
 void RoomBase::SetRoomState(Protocol::RoomState state)
 {
 	_roomState = state;
-
 }
 
 bool RoomBase::HandleEnterPlayer(PlayerRef player)
@@ -198,6 +222,33 @@ void RoomBase::HandleMove(Protocol::C_MOVE pkt)
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
 		Broadcast(sendBuffer, objectId);
 	}
+}
+
+void RoomBase::HandleTeleport(Protocol::C_TELEPORT pkt)
+{
+	
+}
+
+void RoomBase::HandleTeleportFin(Protocol::C_TELEPORT_FIN pkt)
+{
+	cout << "TeleportFin Pkt is dilivered!!" << "\n";
+
+	if (pkt.dest_room_type() == Protocol::RoomType::ROOOM_TYPE_NONE)
+		return;
+
+	RoomBaseRef destRoom = GRoomManager->GetRoom(pkt.dest_room_type());
+
+	if (_objects.find(pkt.info().object_id()) == _objects.end())
+		return;
+
+	ObjectRef object = _objects[pkt.info().object_id()];
+
+	if (object == nullptr)
+		return;
+
+	cout << "Player : " << object->_objectId << "'s Changing Room is registered!!" << "\n";
+
+	GRoomManager->DoAsync(&RoomManager::ChangeRoom, object, destRoom);
 }
 
 void RoomBase::HandleNotifyPos(Protocol::C_NOTIFY_POS pkt)
@@ -271,6 +322,8 @@ bool RoomBase::AddObject_internal(ObjectRef object)
 	if (_objects.find(object->objectInfo->object_id()) != _objects.end())
 		return false;
 
+	cout << "object " << object->objectInfo->object_id() << " is added to Room " << _roomType << "\n";
+
 	_objects.insert(make_pair(object->objectInfo->object_id(), object));
 
 	object->room.store(GetRoomRef());
@@ -286,6 +339,8 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 
 	if (_objects.find(objectId) == _objects.end())
 		return false;
+
+	cout << "object " << objectId << " is removed to Room " << _roomType << "\n";
 
 	_objects.erase(objectId);
 

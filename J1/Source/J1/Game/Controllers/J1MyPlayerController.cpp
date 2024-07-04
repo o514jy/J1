@@ -2,6 +2,7 @@
 // Player
 #include "Object/J1MyPlayer.h"
 #include "Object/J1Player.h"
+#include "Object/J1ObjectManager.h"
 #include "Engine/LocalPlayer.h"
 // Network
 #include "Network/J1NetworkManager.h" 
@@ -199,6 +200,9 @@ void AJ1MyPlayerController::OnSetDestinationReleased()
 	UJ1InputData* InputData = UJ1AssetManager::GetAssetByName<UJ1InputData>("InputData");
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, InputData->GetFXCursor(), CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 	FollowTime = 0.f;
+
+	// temp
+	AActor* cre = GetManager(Object)->GetActorById(creature->GetObjectId());
 }
 
 void AJ1MyPlayerController::OnBaseAttackTriggered()

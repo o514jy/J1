@@ -1,6 +1,8 @@
 #pragma once
 
-class RoomManager
+#include "JobQueue.h"
+
+class RoomManager : public JobQueue
 {
 public:
 	RoomManager();
@@ -11,6 +13,9 @@ public:
 
 public:
 	void AllUpdateTickStart();
+
+public:
+	bool ChangeRoom(ObjectRef object, RoomBaseRef destRoom);
 
 public:
 	RoomBaseRef GetRoom(uint64 roomId);

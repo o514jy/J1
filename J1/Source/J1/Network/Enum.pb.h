@@ -74,6 +74,55 @@ inline bool ObjectType_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ObjectType>(
     ObjectType_descriptor(), name, value);
 }
+enum ProjectileType : int {
+  PROJECTILE_TYPE_NONE = 0,
+  ProjectileType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ProjectileType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ProjectileType_IsValid(int value);
+constexpr ProjectileType ProjectileType_MIN = PROJECTILE_TYPE_NONE;
+constexpr ProjectileType ProjectileType_MAX = PROJECTILE_TYPE_NONE;
+constexpr int ProjectileType_ARRAYSIZE = ProjectileType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProjectileType_descriptor();
+template<typename T>
+inline const std::string& ProjectileType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ProjectileType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ProjectileType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ProjectileType_descriptor(), enum_t_value);
+}
+inline bool ProjectileType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ProjectileType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ProjectileType>(
+    ProjectileType_descriptor(), name, value);
+}
+enum EnvType : int {
+  ENV_TYPE_NONE = 0,
+  ENV_TYPE_PORTAL = 1,
+  EnvType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  EnvType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool EnvType_IsValid(int value);
+constexpr EnvType EnvType_MIN = ENV_TYPE_NONE;
+constexpr EnvType EnvType_MAX = ENV_TYPE_PORTAL;
+constexpr int EnvType_ARRAYSIZE = EnvType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EnvType_descriptor();
+template<typename T>
+inline const std::string& EnvType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EnvType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EnvType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EnvType_descriptor(), enum_t_value);
+}
+inline bool EnvType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EnvType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EnvType>(
+    EnvType_descriptor(), name, value);
+}
 enum CreatureType : int {
   CREATURE_TYPE_NONE = 0,
   CREATURE_TYPE_PLAYER = 1,
@@ -327,12 +376,13 @@ inline bool SkillSlot_Parse(
 enum RoomType : int {
   ROOOM_TYPE_NONE = 0,
   ROOM_TYPE_START_ROOM = 1,
+  ROOM_TYPE_DUNGEON_ROOM = 2,
   RoomType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RoomType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RoomType_IsValid(int value);
 constexpr RoomType RoomType_MIN = ROOOM_TYPE_NONE;
-constexpr RoomType RoomType_MAX = ROOM_TYPE_START_ROOM;
+constexpr RoomType RoomType_MAX = ROOM_TYPE_DUNGEON_ROOM;
 constexpr int RoomType_ARRAYSIZE = RoomType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomType_descriptor();
@@ -429,6 +479,16 @@ template <> struct is_proto_enum< ::Protocol::ObjectType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ObjectType>() {
   return ::Protocol::ObjectType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ProjectileType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ProjectileType>() {
+  return ::Protocol::ProjectileType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EnvType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EnvType>() {
+  return ::Protocol::EnvType_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::CreatureType> : ::std::true_type {};
 template <>

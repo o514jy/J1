@@ -52,6 +52,12 @@
     <Filter Include="Navigation">
       <UniqueIdentifier>{ad224d09-fa58-4e69-91ee-8c25185e1f1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Object\Creature">
+      <UniqueIdentifier>{a5ebe447-4228-42ff-8c2a-2d100a3e5822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Env">
+      <UniqueIdentifier>{4160580f-b4f6-4faf-8ba4-5e95b44463ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -81,18 +87,6 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Creature.cpp">
-      <Filter>Game\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>Main</Filter>
     </ClCompile>
@@ -107,9 +101,6 @@
     </ClCompile>
     <ClCompile Include="StartRoom.cpp">
       <Filter>Game\Room</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="DataManager.cpp">
       <Filter>Manager</Filter>
@@ -195,6 +186,33 @@
     <ClCompile Include="FVector3.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="NavDevice.cpp">
+      <Filter>Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonRoom.cpp">
+      <Filter>Game\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Game\Object\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Game\Object\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Game\Object\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Game\Object\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Object\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Game\Object\Env</Filter>
+    </ClCompile>
+    <ClCompile Include="Env.cpp">
+      <Filter>Game\Object\Env</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -221,18 +239,6 @@
     <ClInclude Include="Utils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Creature.h">
-      <Filter>Game\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -250,9 +256,6 @@
     </ClInclude>
     <ClInclude Include="StartRoom.h">
       <Filter>Game\Room</Filter>
-    </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="DataManager.h">
       <Filter>Manager</Filter>
@@ -337,6 +340,33 @@
     </ClInclude>
     <ClInclude Include="FVector3.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="NavDevice.h">
+      <Filter>Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonRoom.h">
+      <Filter>Game\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Game\Object\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Game\Object\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Game\Object\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Game\Object\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Object\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Game\Object\Env</Filter>
+    </ClInclude>
+    <ClInclude Include="Env.h">
+      <Filter>Game\Object\Env</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

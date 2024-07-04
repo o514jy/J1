@@ -4,6 +4,8 @@
 #include "J1Player.h"
 #include "J1MyPlayer.h"
 #include "J1Boss.h"
+#include "J1Env.h"
+#include "J1Portal.h"
 #include "J1LogChannels.h"
 #include "System/J1GameInstance.h"
 
@@ -38,9 +40,23 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 {
 	const Protocol::ObjectType objectType = InObjectInfo.object_type();
 	const uint64 objectId = InObjectInfo.object_id();
+
 	// 중복 체크
-	if (Objects.Find(objectId) != nullptr || Creatures.Find(objectId) != nullptr)
-		return nullptr;
+	if (Objects.Find(objectId) != nullptr)
+	{
+		if (Objects[objectId] == nullptr)
+			Objects.Remove(objectId);
+		else
+			return nullptr;
+	}
+
+	if (Creatures.Find(objectId) != nullptr)
+	{
+		if (Creatures[objectId] == nullptr)
+			Creatures.Remove(objectId);
+		else
+			return nullptr;
+	}
 	
 	FVector SpawnLocation(InObjectInfo.pos_info().x(), InObjectInfo.pos_info().y(), InObjectInfo.pos_info().z());
 
@@ -89,7 +105,20 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 	}
 	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_ENV)
 	{
+		TObjectPtr<AJ1Env> env = nullptr;
+		Protocol::EnvType envType = InObjectInfo.env_type();
+		if (envType == Protocol::EnvType::ENV_TYPE_PORTAL)
+		{
+			env = Cast<AJ1Env>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->PortalClass, &SpawnLocation));
+			if (env == nullptr)
+			{
+				int a = 3;
+			}
+		}
 
+		env->SetInfo(InObjectInfo);
+		Envs.Add(objectId, env);
+		object = env;
 	}
 
 	return object;
@@ -110,6 +139,7 @@ bool UJ1ObjectManager::DespawnObject(uint64 InObjectId)
 			return false;
 
 		// Destroy Object
+		Creatures.Remove(InObjectId);
 		World->DestroyActor(*Creature);
 	}
 

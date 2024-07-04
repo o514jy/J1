@@ -7,6 +7,7 @@
 #include "Controllers/J1MyPlayerController.h"
 // System
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -122,6 +123,21 @@ void AJ1MyPlayer::RegisterNotifyPos()
 void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 {
 	Super::ProcessSkill(InSkillPkt);
+}
+
+void AJ1MyPlayer::ProcessTeleport(const Protocol::S_TELEPORT& TeleportPkt)
+{
+	UGameplayStatics::OpenLevel(this, LevelName_Dungeon_One);
+
+	// send pkt
+	Protocol::C_TELEPORT_FIN finPkt;
+	{
+		Protocol::ObjectInfo* info = finPkt.mutable_info();
+		info->CopyFrom(TeleportPkt.info());
+		finPkt.set_start_room_type(TeleportPkt.start_room_type());
+		finPkt.set_dest_room_type(TeleportPkt.dest_room_type());
+	}
+	GetNetworkManager()->SendPacket(finPkt);
 }
 
 /*

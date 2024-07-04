@@ -45,6 +45,8 @@ public:
 
 	virtual void ProcessSkill(const Protocol::S_SKILL& InSkillPkt) override;
 
+	void ProcessTeleport(const Protocol::S_TELEPORT& TeleportPkt);
+
 protected:
 	UJ1NetworkManager* GetNetworkManager() const;
 

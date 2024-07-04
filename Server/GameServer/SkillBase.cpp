@@ -230,7 +230,7 @@ bool SkillBase::IsInPizzaArea(ObjectRef object, float radius, float theta)
 		float dot = interVNormalized.first * dirV.first + interVNormalized.second * dirV.second;
 		// theta ±¸ÇÏ±â
 		float tempTheta = acos(dot);
-		float degree = tempTheta * (180.0 / (float)3.141592653589793238463);
+		float degree = tempTheta * (180.0f / (float)3.141592653589793238463);
 
 		if (degree <= theta)
 			ret = true;

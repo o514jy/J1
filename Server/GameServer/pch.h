@@ -32,10 +32,13 @@ USING_SHARED_PTR(Creature);
 USING_SHARED_PTR(Projectile);
 USING_SHARED_PTR(SafeZone);
 USING_SHARED_PTR(Object);
+USING_SHARED_PTR(Env);
+USING_SHARED_PTR(Portal);
 
 /** room **/
 USING_SHARED_PTR(RoomBase);
 USING_SHARED_PTR(StartRoom);
+USING_SHARED_PTR(DungeonRoom);
 
 /** data **/
 USING_SHARED_PTR(CreatureData);

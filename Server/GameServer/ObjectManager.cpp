@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Boss.h"
+#include "Portal.h"
+#include "Env.h"
 #include "Projectile.h"
 #include "RoomBase.h"
 #include "GimmickBase.h"
@@ -110,6 +112,29 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 	return projectile;
 }
 
+PortalRef ObjectManager::CreatePortal(int32 templateId, RoomBaseRef destRoom)
+{
+	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_ENV);
+
+	PortalRef portal = make_shared<Portal>();
+
+	portal->objectInfo->set_object_id(newId);
+	portal->objectInfo->set_template_id(templateId);
+	portal->objectInfo->set_object_type(Protocol::OBJECT_TYPE_ENV);
+	portal->_objectType = Protocol::OBJECT_TYPE_ENV;
+
+	portal->posInfo->set_object_id(newId);
+	portal->posInfo->set_state(Protocol::MOVE_STATE_IDLE);
+
+	portal->SetInfo(templateId);
+
+	portal->SetDestRoom(destRoom);
+
+	AddObject(portal);
+
+	return portal;
+}
+
 ObjectRef ObjectManager::GetObjectById(uint64 objectId)
 {
 	WRITE_LOCK;
@@ -173,6 +198,6 @@ uint64 ObjectManager::GenerateIdLocked(Protocol::ObjectType objectType)
 {
 	WRITE_LOCK;
 
-	//return ((uint64)objectType << 32) | (s_objectIdGenerator++);
-	return (s_objectIdGenerator++);
+	return ((uint64)objectType << 32) | (s_objectIdGenerator++);
+	//return (s_objectIdGenerator++);
 }
