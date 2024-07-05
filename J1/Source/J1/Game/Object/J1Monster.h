@@ -13,4 +13,8 @@ public:
 public:
 	/** setter & getter **/
 	TObjectPtr<UMonsterData> GetMonsterData() { return Cast<UMonsterData>(CreatureData); }
+
+public:
+	/** initialize info **/
+	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo) override;
 };

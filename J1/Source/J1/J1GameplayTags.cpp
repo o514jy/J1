@@ -24,6 +24,14 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Aurora_Skill_QSkill_0, "Aurora.Skill.QSkill.0");
 	UE_DEFINE_GAMEPLAY_TAG(Aurora_Skill_QSkill_End, "Aurora.Skill.QSkill.End");
 
+	/** GoblinSpear **/
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear, "GoblinSpear");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill, "GoblinSpear.Skill");
+	/* GoblinSpear : normal attack */
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill_NormalAttack, "GoblinSpear.Skill.NormalAttack");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill_NormalAttack_1, "GoblinSpear.Skill.NormalAttack.0");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill_NormalAttack_End, "GoblinSpear.Skill.NormalAttack.End");
+
 	/** Sevarog **/
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog, "Sevarog");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill, "Sevarog.Skill");

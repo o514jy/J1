@@ -25,6 +25,10 @@ AJ1Creature::AJ1Creature()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
+	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
+	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
 	
@@ -276,18 +280,22 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 
 	Protocol::ObjectType objectType = ObjectInfo->object_type();
 	Protocol::CreatureType creatureType = ObjectInfo->creature_type();
-	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
+	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 	{
-		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
+		if (creatureType == Protocol::CreatureType::CREATURE_TYPE_PLAYER)
 		{
 			CreatureData = GetManager(Data)->GameData->PlayerData[TemplateId];
 		}
-		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
+		else if (creatureType == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
 		{
 			Protocol::MonsterType monsterType = ObjectInfo->monster_type();
-			if (monsterType == Protocol::MONSTER_TYPE_BOSS)
+			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
 				CreatureData = GetManager(Data)->GameData->BossData[TemplateId];
+			}
+			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_GENERAL)
+			{
+				CreatureData = GetManager(Data)->GameData->MonsterData[TemplateId];
 			}
 		}
 		GetCharacterMovement()->MaxWalkSpeed = CreatureData->MaxWalkSpeed;

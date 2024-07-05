@@ -51,6 +51,36 @@ void UJ1GameData::ParseJsonData(const FString& path)
         }
     }
 
+    const TArray<TSharedPtr<FJsonValue>> monsters = JsonObject->GetArrayField(TEXT("monsters"));
+    {
+        for (int32 i = 0; i < monsters.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> monster = monsters[i]->AsObject();
+
+            UMonsterData* data = NewObject<UMonsterData>();
+            /** creature **/
+            data->DataId = monster->GetIntegerField(TEXT("DataId"));
+            data->CreatureType = monster->GetStringField(TEXT("CreatureType"));
+            data->DescriptionTextId = monster->GetStringField(TEXT("DescriptionTextId"));
+            data->ColliderRadius = monster->GetNumberField(TEXT("ColliderRadius"));
+            data->ColliderHalfHeight = monster->GetNumberField(TEXT("ColliderHalfHeight"));
+            data->MaxHp = monster->GetNumberField(TEXT("MaxHp"));
+            data->Atk = monster->GetNumberField(TEXT("Atk"));
+            data->Def = monster->GetNumberField(TEXT("Def"));
+            data->MaxWalkSpeed = monster->GetNumberField(TEXT("MaxWalkSpeed"));
+            data->MoveSpeedRate = monster->GetNumberField(TEXT("MoveSpeedRate"));
+            data->SkillAttackId = monster->GetIntegerField(TEXT("SkillAttackId"));
+            /** monster **/
+            data->MonsterType = monster->GetStringField(TEXT("MonsterType"));
+            //data->AdvancedSkillId = monster->GetIntegerField(TEXT("AdvancedSkillId"));
+            data->DefaultAtkRange = monster->GetNumberField(TEXT("DefaultAtkRange"));
+            data->SearchMaxDistance = monster->GetNumberField(TEXT("SearchMaxDistance"));
+            data->ChaseMaxDistance = monster->GetNumberField(TEXT("ChaseMaxDistance"));
+
+            MonsterData.Add(data->DataId, data);
+        }
+    }
+
     const TArray<TSharedPtr<FJsonValue>> bosses = JsonObject->GetArrayField(TEXT("bosses"));
     {
         for (int32 i = 0; i < bosses.Num(); i++)

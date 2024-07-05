@@ -27,6 +27,15 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_QSkill_0);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Aurora_Skill_QSkill_End);
 
+	/** GoblinSpear **/
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill);
+
+	/* GoblinSpear : normal attack */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill_NormalAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill_NormalAttack_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill_NormalAttack_End);
+
 	/** Sevarog **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill);

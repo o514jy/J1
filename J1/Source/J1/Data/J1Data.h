@@ -313,6 +313,9 @@ public:
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<UBossData>> BossData;
 
+	UPROPERTY(BlueprintType)
+	TMap<int32, TObjectPtr<UMonsterData>> MonsterData;
+
 	/* skill */
 	UPROPERTY(BlueprintType)
 	TMap<int32, TObjectPtr<USkillData>> SkillData;

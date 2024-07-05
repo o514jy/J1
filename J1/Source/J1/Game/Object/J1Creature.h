@@ -98,7 +98,7 @@ public:
 	/** helper **/
 	virtual bool IsMyPlayer();
 
-protected:
+public:
 	/** information **/
 	Protocol::ObjectInfo* ObjectInfo; // Á¤º¸
 
@@ -110,6 +110,9 @@ protected:
 	FGameplayTag TemplateTag; // key tag for data id
 
 	TObjectPtr<UCreatureData> CreatureData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	TObjectPtr<USkeletalMeshComponent> Weapon;
 
 	// temp
 	AActor* UpZone;
