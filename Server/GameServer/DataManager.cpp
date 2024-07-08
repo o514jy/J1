@@ -74,6 +74,32 @@ void DataManager::ParseJsonData(const WCHAR* path)
             _playerData.insert(make_pair(dataRef->DataId, dataRef));
         }
 
+        /** monsters **/
+        Value& monsters = doc["monsters"];
+        for (uint32 i = 0; i < monsters.Size(); i++)
+        {
+            MonsterDataRef dataRef = make_shared<MonsterData>();
+            Value& monster = monsters[i];
+            dataRef->DataId = monster["DataId"].GetInt();
+            dataRef->CreatureType = Utils::StrToWstr(monster["CreatureType"].GetString());
+            dataRef->DescriptionTextId = Utils::StrToWstr(monster["DescriptionTextId"].GetString());
+            dataRef->ColliderRadius = monster["ColliderRadius"].GetFloat();
+            dataRef->ColliderHalfHeight = monster["ColliderHalfHeight"].GetFloat();
+            dataRef->MaxHp = monster["MaxHp"].GetFloat();
+            dataRef->Atk = monster["Atk"].GetFloat();
+            dataRef->Def = monster["Def"].GetFloat();
+            dataRef->MaxWalkSpeed = monster["MaxWalkSpeed"].GetFloat();
+            dataRef->MoveSpeedRate = monster["MoveSpeedRate"].GetFloat();
+            dataRef->SkillAttackId = monster["SkillAttackId"].GetInt();
+            dataRef->MonsterType = Utils::StrToWstr(monster["MonsterType"].GetString());
+            //dataRef->AdvancedSkillId = monster["AdvancedSkillId"].GetInt();
+            dataRef->DefaultAtkRange = monster["DefaultAtkRange"].GetFloat();
+            dataRef->SearchMaxDistance = monster["SearchMaxDistance"].GetFloat();
+            dataRef->ChaseMaxDistance = monster["ChaseMaxDistance"].GetFloat();
+
+            _monsterData.insert(make_pair(dataRef->DataId, dataRef));
+        }
+
         /** bosses **/
         Value& bosses = doc["bosses"];
         for (uint32 i = 0; i < bosses.Size(); i++)
@@ -282,6 +308,14 @@ PlayerDataRef DataManager::GetPlayerDataById(int32 id)
 		return nullptr;
 
 	return _playerData[id];
+}
+
+MonsterDataRef DataManager::GetMonsterDataById(int32 id)
+{
+    if (_monsterData.find(id) == _monsterData.end())
+        return nullptr;
+
+    return _monsterData[id];
 }
 
 BossDataRef DataManager::GetBossDataById(int32 id)

@@ -8,6 +8,10 @@
 #include "ObjectManager.h"
 #include "Creature.h"
 #include "SkillComponent.h"
+// recast-detour
+#include "InputGeom.h"
+#include "SampleInterfaces.h"
+#include "Navigation.h"
 
 RoomBaseRef GRoomBase = make_shared<RoomBase>();
 
@@ -24,12 +28,41 @@ RoomBase::~RoomBase()
 	
 }
 
+void RoomBase::init(string objFilePath)
+{
+	BuildContext* ctx = new BuildContext();
+	_nav = make_shared<Navigation>(GetRoomRef());
+	/** build nav mesh **/
+	{
+		InputGeom* geom = new InputGeom();
+
+		// geom 설정
+		_nav->handleMeshChanged(geom);
+		// ctx 설정
+		_nav->setContext(ctx);
+
+		if (geom->load(ctx, objFilePath) == false)
+			cout << "[ " << roomName << " ] can't load file" << "\n";
+		else
+			cout << "[ " << roomName << " ] load completed!!" << "\n";
+
+		_nav->handleBuild();
+	}
+	//////////////////////
+}
+
 void RoomBase::UpdateTick()
 {
 	// all object in start room process update tick 
 	for (auto& object : _objects)
 	{
 		object.second->UpdateTick();
+	}
+
+	// update navigation
+	if (_nav != nullptr)
+	{
+		_nav->UpdateTick();
 	}
 }
 
@@ -106,23 +139,40 @@ bool RoomBase::EnterRoom(ObjectRef object, bool randPos /*= true*/, FVector3 spa
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
+	//if (auto player = dynamic_pointer_cast<Player>(object))
+	//{
+	//	Protocol::S_SPAWN spawnPkt;
+	//
+	//	for (auto& item : _objects)
+	//	{
+	//		if (item.second->IsPlayer() == false)
+	//			continue;
+	//
+	//		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+	//		playerInfo->CopyFrom(*item.second->objectInfo);
+	//	}
+	//
+	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+	//	if (auto session = player->session.lock())
+	//		session->Send(sendBuffer);
+	//}
+
+	// 기존에 있던 오브젝트 목록을 신입 플레이어한테 전송해준다
 	if (auto player = dynamic_pointer_cast<Player>(object))
 	{
 		Protocol::S_SPAWN spawnPkt;
 
 		for (auto& item : _objects)
 		{
-			if (item.second->IsPlayer() == false)
-				continue;
-
-			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
-			playerInfo->CopyFrom(*item.second->objectInfo);
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+			objectInfo->CopyFrom(*item.second->objectInfo);
 		}
 
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
 		if (auto session = player->session.lock())
 			session->Send(sendBuffer);
 	}
+
 
 	return success;
 }
@@ -326,6 +376,15 @@ bool RoomBase::AddObject_internal(ObjectRef object)
 
 	_objects.insert(make_pair(object->objectInfo->object_id(), object));
 
+	// temp
+	{
+		// device의 통제를 받으면 추가
+		if (MonsterRef monster = dynamic_pointer_cast<Monster>(object))
+		{
+			_AgentIdxToObject.insert({ monster->GetAgentIdx(), object });
+		}
+	}
+
 	object->room.store(GetRoomRef());
 
 	return true;
@@ -340,9 +399,20 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 	if (_objects.find(objectId) == _objects.end())
 		return false;
 
+	ObjectRef delObject = _objects[objectId];
+
 	cout << "object " << objectId << " is removed to Room " << _roomType << "\n";
 
 	_objects.erase(objectId);
+
+	// temp
+	{
+		// device의 통제를 받았으면 삭제
+		if (MonsterRef monster = dynamic_pointer_cast<Monster>(delObject))
+		{
+			_AgentIdxToObject.insert({ monster->GetAgentIdx(), delObject });
+		}
+	}
 
 	//GObjectManager->RemoveObject(objectId);
 
@@ -391,6 +461,14 @@ PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 ex
 	}
 	
 	return closestPlayer;
+}
+
+ObjectRef RoomBase::FindObjectByAgentIdx(int32 agentIdx)
+{
+	if (_AgentIdxToObject.find(agentIdx) == _AgentIdxToObject.end())
+		return nullptr;
+
+	return _AgentIdxToObject[agentIdx];
 }
 
 void RoomBase::Broadcast_internal(SendBufferRef sendBuffer, uint64 exceptId)

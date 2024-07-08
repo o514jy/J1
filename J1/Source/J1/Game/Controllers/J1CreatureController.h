@@ -5,6 +5,7 @@
 #include "Game/Controllers/J1AIController.h"
 #include "J1CreatureController.generated.h"
 
+class AJ1Creature;
 
 UCLASS()
 class J1_API AJ1CreatureController : public AJ1AIController
@@ -13,6 +14,10 @@ class J1_API AJ1CreatureController : public AJ1AIController
 public:
 	AJ1CreatureController();
 	~AJ1CreatureController();
+
+public:
+	/** setter & getter **/
+	TObjectPtr<AJ1Creature> GetOwner() { return Cast<AJ1Creature>(GetPawn()); }
 	
 public:
 	/** network **/

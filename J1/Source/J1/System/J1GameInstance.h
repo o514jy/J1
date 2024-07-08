@@ -6,6 +6,7 @@
 
 class AJ1Player;
 class AJ1MyPlayer;
+class AJ1Monster;
 class AJ1Boss;
 class AJ1Portal;
 
@@ -26,11 +27,15 @@ public:
 	virtual void BeginPlay();
 
 public:
+	/** creature **/
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Player> OtherPlayerClass;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1MyPlayer> MyPlayerClass;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1Monster> GoblinSpearClass;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Boss> StartBossClass;

@@ -27,16 +27,17 @@ enum : uint16
 	PKT_C_TELEPORT = 1010,
 	PKT_S_TELEPORT = 1011,
 	PKT_C_TELEPORT_FIN = 1012,
-	PKT_C_NOTIFY_POS = 1013,
-	PKT_S_NOTIFY_POS = 1014,
-	PKT_C_SKILL = 1015,
-	PKT_S_SKILL = 1016,
-	PKT_S_GIMMICK = 1017,
-	PKT_S_PROJECTILE = 1018,
-	PKT_S_BUFF = 1019,
-	PKT_S_STAT = 1020,
-	PKT_C_CHAT = 1021,
-	PKT_S_CHAT = 1022,
+	PKT_S_CHANGE_TARGET = 1013,
+	PKT_C_NOTIFY_POS = 1014,
+	PKT_S_NOTIFY_POS = 1015,
+	PKT_C_SKILL = 1016,
+	PKT_S_SKILL = 1017,
+	PKT_S_GIMMICK = 1018,
+	PKT_S_PROJECTILE = 1019,
+	PKT_S_BUFF = 1020,
+	PKT_S_STAT = 1021,
+	PKT_C_CHAT = 1022,
+	PKT_S_CHAT = 1023,
 };
 
 // Custom Handlers
@@ -48,6 +49,7 @@ bool Handle_S_SPAWN(PacketSessionRef& session, Protocol::S_SPAWN& pkt);
 bool Handle_S_DESPAWN(PacketSessionRef& session, Protocol::S_DESPAWN& pkt);
 bool Handle_S_MOVE(PacketSessionRef& session, Protocol::S_MOVE& pkt);
 bool Handle_S_TELEPORT(PacketSessionRef& session, Protocol::S_TELEPORT& pkt);
+bool Handle_S_CHANGE_TARGET(PacketSessionRef& session, Protocol::S_CHANGE_TARGET& pkt);
 bool Handle_S_NOTIFY_POS(PacketSessionRef& session, Protocol::S_NOTIFY_POS& pkt);
 bool Handle_S_SKILL(PacketSessionRef& session, Protocol::S_SKILL& pkt);
 bool Handle_S_GIMMICK(PacketSessionRef& session, Protocol::S_GIMMICK& pkt);
@@ -70,6 +72,7 @@ public:
 		GPacketHandler[PKT_S_DESPAWN] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_DESPAWN>(Handle_S_DESPAWN, session, buffer, len); };
 		GPacketHandler[PKT_S_MOVE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_MOVE>(Handle_S_MOVE, session, buffer, len); };
 		GPacketHandler[PKT_S_TELEPORT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_TELEPORT>(Handle_S_TELEPORT, session, buffer, len); };
+		GPacketHandler[PKT_S_CHANGE_TARGET] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_CHANGE_TARGET>(Handle_S_CHANGE_TARGET, session, buffer, len); };
 		GPacketHandler[PKT_S_NOTIFY_POS] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_NOTIFY_POS>(Handle_S_NOTIFY_POS, session, buffer, len); };
 		GPacketHandler[PKT_S_SKILL] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_SKILL>(Handle_S_SKILL, session, buffer, len); };
 		GPacketHandler[PKT_S_GIMMICK] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_GIMMICK>(Handle_S_GIMMICK, session, buffer, len); };

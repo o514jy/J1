@@ -4,10 +4,13 @@
 #include "Player.h"
 #include "Monster.h"
 #include "StartRoom.h"
+#include "NavDevice.h"
+#include "Navigation.h"
 
 BaseAIController::BaseAIController()
 {
 	_owner = nullptr;
+	_navDevice = nullptr;
 	_distToTarget = 0.f;
 }
 
@@ -20,7 +23,7 @@ void BaseAIController::SetInfo(ObjectRef owner)
 {
 	_owner = owner;
 
-
+	InitNavDevice(_owner->GetRoomRef()->GetNav());
 }
 
 void BaseAIController::SetDistToTarget(float dist)
@@ -85,6 +88,30 @@ void BaseAIController::BroadcastMove()
 	room->Broadcast(sendBuffer);
 }
 
+void BaseAIController::BroadcastNowPos()
+{
+	cout << "monster pos [ " << _owner->posInfo->x() << ", " << _owner->posInfo->y() << ", " << _owner->posInfo->z() << " ]\n";
+	if (MonsterRef mon = static_pointer_cast<Monster>(_owner))
+	{
+		if (mon->_targetObject != nullptr)
+		{
+			cout << "target  pos [ " << mon->_targetObject->posInfo->x() << ", " << mon->_targetObject->posInfo->y() << ", " << mon->_targetObject->posInfo->z() << " ]\n";
+		}
+	}
+	// 몬스터의 기본적인 상태 패킷을 보낸다.
+	if (_owner == nullptr)
+		return;
+
+	Protocol::S_MOVE movePkt;
+	{
+		Protocol::PosInfo* posInfo = movePkt.mutable_info();
+		posInfo->CopyFrom(*_owner->GetPosInfo());
+	}
+
+	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
+	_owner->GetRoomRef()->Broadcast(sendBuffer);
+}
+
 void BaseAIController::UpdateTick()
 {
 	if (_owner->GetState() == Protocol::MoveState::MOVE_STATE_IDLE)
@@ -123,19 +150,29 @@ void BaseAIController::UpdateDead()
 
 void BaseAIController::ChaseOrAttackTarget(float chaseRange, float attackRange)
 {
-	float distToTarget = GetDistToTarget();
-
 	MonsterRef _ownerMon = static_pointer_cast<Monster>(_owner);
+
+	//float distToTarget = GetDistToTarget();
+	FVector3 dirV = FVector3(
+		_ownerMon->_targetObject->posInfo->x() - _ownerMon->posInfo->x(),
+		_ownerMon->_targetObject->posInfo->y() - _ownerMon->posInfo->y(),
+		_ownerMon->_targetObject->posInfo->z() - _ownerMon->posInfo->z()
+	);
+	float distToTarget = max(0, dirV.Magnitude() - _ownerMon->_targetObject->_colliderRadius);
 
 	if (distToTarget <= attackRange)
 	{
-		// 공격 범위 이내로 들어왔다면 공격
+		// 공격 범위 이내로 들어왔다면 더이상 움직이지 않고
+		StopMovement();
+
+		// 공격 상태로 전환
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_SKILL);
 	}
 	else
 	{
 		// 공격 범위 밖이라면 추적
-		BroadcastMove();
+		//BroadcastMove();
+		RegisterTargetPosToNavDevice();
 
 		// 추적 범위 밖이면 idle로
 		if (distToTarget > chaseRange)
@@ -144,4 +181,35 @@ void BaseAIController::ChaseOrAttackTarget(float chaseRange, float attackRange)
 			_ownerMon->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 		}
 	}
+}
+
+void BaseAIController::InitNavDevice(NavigationRef sample)
+{
+	if (_owner == nullptr)
+		return;
+
+	if (_navDevice == nullptr)
+		_navDevice = make_shared<NavDevice>();
+
+	_navDevice->init(sample.get(), _owner);
+}
+
+void BaseAIController::RegisterTargetPosToNavDevice()
+{
+	MonsterRef mon = static_pointer_cast<Monster>(_owner);
+	if (mon == nullptr)
+		return;
+	if (mon->_targetObject == nullptr)
+		return;
+
+	FVector3 dPos = Utils::Unreal2RecastPoint(*mon->_targetObject->GetPosInfo());
+
+	if (_navDevice != nullptr)
+		_navDevice->SetMoveTarget(dPos);
+}
+
+void BaseAIController::StopMovement()
+{
+	FVector3 dPos = Utils::Unreal2RecastPoint(*_owner->GetPosInfo());
+	_navDevice->SetMoveTarget(dPos);
 }

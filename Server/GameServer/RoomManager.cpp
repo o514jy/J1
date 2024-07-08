@@ -16,19 +16,31 @@ RoomManager::~RoomManager()
 
 void RoomManager::InitializeAllRoom()
 {
-	StartRoomRef startRoom = make_shared<StartRoom>();
-	_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_START_ROOM, startRoom));
-	startRoom->_roomType = Protocol::RoomType::ROOM_TYPE_START_ROOM;
+	// start room
+	{
+		StartRoomRef startRoom = make_shared<StartRoom>();
+		string objFilePath = "../../Common/NavMesh/DevMap.obj";
+		startRoom->roomName = "start room";
+		startRoom->init(objFilePath);
+		_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_START_ROOM, startRoom));
+		startRoom->_roomType = Protocol::RoomType::ROOM_TYPE_START_ROOM;
+	}
 
-	DungeonRoomRef dungeonRoom = make_shared<DungeonRoom>();
-	_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM, dungeonRoom));
-	dungeonRoom->_roomType = Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM;
+	// dungeon room one
+	{
+		DungeonRoomRef dungeonRoom = make_shared<DungeonRoom>();
+		string objFilePath = "../../Common/NavMesh/DungeonMap_One.obj";
+		dungeonRoom->roomName = "dungeon map one";
+		dungeonRoom->init(objFilePath);
+		_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM, dungeonRoom));
+		dungeonRoom->_roomType = Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM;
+	}
 }
 
 void RoomManager::AllUpdateTickStart()
 {
-	//cout << "Update RoomManager" << "\n";
-	//DoTimer(1000, &RoomManager::AllUpdateTick);
+	//cout << "Update All Room" << "\n";
+	//DoTimer(TICK_COUNT, &RoomManager::AllUpdateTickStart);
 
 	for (auto roomData : _rooms)
 	{

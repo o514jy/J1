@@ -45,6 +45,9 @@ public:
 	int32 _templateId;
 	int32 _agentIdx;
 
+	// helper
+	float _colliderRadius = 0.f;
+
 public:
 	/** battle **/
 	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff);

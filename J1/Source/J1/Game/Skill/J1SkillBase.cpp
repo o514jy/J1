@@ -72,8 +72,9 @@ void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 	}
 	else
 	{
-		// 위치 보정처리
-		Owner->SetPosInfo(InSkillPkt.pos_info(), true);
+		// 플레이어면 위치 보정처리
+		if (TObjectPtr<AJ1Player> OtherPlayer = Cast<AJ1Player>(Owner))
+			OtherPlayer->SetPosInfo(InSkillPkt.pos_info(), true);
 	}
 
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);

@@ -17,6 +17,8 @@ TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 	case 1001:
 		skill = NewObject<UJ1AuroraQ>();
 		break;
+	case 1010:
+		skill = NewObject<UJ1NormalAttack>();
 	case 1100:
 		skill = NewObject<UJ1NormalAttack>();
 		break;

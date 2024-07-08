@@ -179,6 +179,8 @@ bool SkillComponent::GetCanUseSkillBySkillSlot(const Protocol::SkillSlot& skillS
 	}
 	else if (skillSlot == Protocol::SkillSlot::SKILL_SLOD_ADVANCED)
 	{
+		if (_advancedSkill == nullptr)
+			return false;
 		return _advancedSkill->GetCanUseSkill();
 	}
 	else

@@ -212,6 +212,34 @@ void UJ1NetworkManager::HandleTeleport(const Protocol::S_TELEPORT& TeleportPkt)
 	myPlayer->ProcessTeleport(TeleportPkt);
 }
 
+void UJ1NetworkManager::HandleChangeTarget(const Protocol::S_CHANGE_TARGET& ctPkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	const uint64 ObjectId = ctPkt.info().object_id();
+	TObjectPtr<AJ1Monster> monster = Cast<AJ1Monster>(GetManager(Object)->GetCreatureById(ObjectId));
+	if (monster == nullptr)
+		return;
+
+	if (ctPkt.target_object_id() == 0)
+	{
+		monster->SetTargetPlayer(nullptr);
+	}
+	else
+	{
+		TObjectPtr<AJ1Player> target = Cast<AJ1Player>(GetManager(Object)->GetCreatureById(ctPkt.target_object_id()));
+		if (target == nullptr)
+			return;
+
+		monster->SetTargetPlayer(target);
+	}
+}
+
 void UJ1NetworkManager::HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt)
 {
 	if (Socket == nullptr || GameServerSession == nullptr)

@@ -100,7 +100,9 @@ public:
 
 	virtual class dtNavMesh* getNavMesh() { return m_navMesh; }
 	virtual class dtNavMeshQuery* getNavMeshQuery() { return m_navQuery; }
+	virtual void SetAgentRadius(float radius) { m_agentRadius = radius; }
 	virtual float getAgentRadius() { return m_agentRadius; }
+	virtual void SetAgentHeight(float height) { m_agentHeight = height; }
 	virtual float getAgentHeight() { return m_agentHeight; }
 	virtual class dtCrowd* getCrowd() { return m_crowd; }
 

@@ -11,6 +11,7 @@ public:
 	
 	/** creature **/
 	PlayerRef CreatePlayer(GameSessionRef session, int32 templateId);
+	MonsterRef CreateMonster(int32 templateId, FVector3 spawnPos = FVector3(0.f, 0.f, 0.f), RoomBaseRef spawnedRoom = nullptr);
 	BossRef CreateBoss(int32 templateId);
 
 	/** projectile**/

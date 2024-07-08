@@ -55,6 +55,8 @@ public:
 
 	void HandleTeleport(const Protocol::S_TELEPORT& TeleportPkt);
 
+	void HandleChangeTarget(const Protocol::S_CHANGE_TARGET& ctPkt);
+
 	void HandleNotifyPos(const Protocol::S_NOTIFY_POS& NotifyPosPkt);
 
 	void HandleSkill(const Protocol::S_SKILL& SkillPkt);

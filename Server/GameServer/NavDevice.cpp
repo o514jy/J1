@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "NavDevice.h"
 #include "Object.h"
+#include "Monster.h"
 // recast-detour
 #include "RecastNavigation/Recast.h"
 #include "RecastNavigation/RecastDebugDraw.h"
@@ -91,14 +92,22 @@ void NavDevice::AddAgentToCrowd()
 	if (m_sample == nullptr)
 		return;
 
+	ObjectRef temp = m_owner.lock();
+	if (temp == nullptr)
+		return;
+	
+	CreatureRef owner = dynamic_pointer_cast<Creature>(temp);
+	if (owner == nullptr)
+		return;
+
 	dtCrowd* crowd = m_sample->getCrowd();
 
 	dtCrowdAgentParams ap;
 	memset(&ap, 0, sizeof(ap));
-	ap.radius = m_sample->getAgentRadius() * 0.66f;
-	ap.height = m_sample->getAgentHeight();
+	ap.radius = owner->GetCreatureData()->ColliderRadius * 0.01f;
+	ap.height = owner->GetCreatureData()->ColliderHalfHeight * 0.01f;
 	ap.maxAcceleration = 20.48f;
-	ap.maxSpeed = 3.f;
+	ap.maxSpeed = owner->GetCreatureData()->MaxWalkSpeed * 0.01f;
 	ap.collisionQueryRange = ap.radius * 12.0f;
 	ap.pathOptimizationRange = ap.radius * 30.0f;
 	ap.updateFlags = 0;
@@ -112,7 +121,6 @@ void NavDevice::AddAgentToCrowd()
 	//ap.obstacleAvoidanceType = (unsigned char)3.0f; // 1 ~ 3
 	//ap.separationWeight = 2.f;
 
-	ObjectRef owner = m_owner.lock();
 	FVector3 vec = Utils::Unreal2RecastPoint(*owner->GetPosInfo());
 	float pos[3] = { vec.X, vec.Y, vec.Z };
 

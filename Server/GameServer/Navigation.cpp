@@ -98,6 +98,21 @@ void Navigation::UpdateTick()
 			FVector3 tempPos = FVector3(pos[0], pos[1], pos[2]);
 			FVector3 retPos = Utils::Recast2UnrealPoint(tempPos);
 
+			ObjectRef object = m_room.lock()->FindObjectByAgentIdx(i);
+			if (object == nullptr)
+				continue;
+
+			//{
+			//	auto a = agent->nvel;
+			//	FVector3 vec1 = FVector3(a[0], a[1], a[2]);
+			//	float re = vec1.Magnitude();
+			//	int awfjaew = 4;
+			//}
+
+			object->posInfo->set_x(retPos.X);
+			object->posInfo->set_y(retPos.Y);
+			object->posInfo->set_z(retPos.Z);
+
 			//ObjectRef obj = m_room.lock()->FindObjectByAgentIdx(i);
 			//if (obj != nullptr)
 			//{

@@ -34,21 +34,28 @@ void Creature::SetInfo(int32 templateId)
 	Protocol::ObjectType objectType = objectInfo->object_type();
 	_objectType = objectType;
 	Protocol::CreatureType creatureType = objectInfo->creature_type();
-	if (objectType == Protocol::OBJECT_TYPE_CREATURE)
+	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 	{
-		if (creatureType == Protocol::CREATURE_TYPE_PLAYER)
+		if (creatureType == Protocol::CreatureType::CREATURE_TYPE_PLAYER)
 		{
 			_creatureData = GDataManager->GetPlayerDataById(_templateId);
 		}
-		else if (creatureType == Protocol::CREATURE_TYPE_MONSTER)
+		else if (creatureType == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
 		{
 			Protocol::MonsterType monsterType = objectInfo->monster_type();
 			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
 				_creatureData = GDataManager->GetBossDataById(_templateId);
 			}
+			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_GENERAL)
+			{
+				_creatureData = GDataManager->GetMonsterDataById(_templateId);
+			}
 		}
 	}
+
+	_colliderRadius = _creatureData->ColliderRadius;
+
 	/** component **/
 	/* stat component */
 	_statComponent = make_shared<StatComponent>();

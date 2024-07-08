@@ -1,0 +1,86 @@
+v 38.100015 -4.000001 -39.999998
+v -41.900000 -4.000001 -39.999998
+v 38.100015 -4.000001 40.000002
+v -41.900000 -4.000001 40.000002
+v 38.100015 -0.000000 -39.999998
+v -41.900000 -0.000000 -39.999998
+v 38.100015 0.000000 40.000002
+v -41.900000 0.000000 40.000002
+f 1 4 2
+f 7 3 1
+f 1 3 4
+f 4 3 7
+f 2 5 1
+f 1 5 7
+f 7 8 4
+f 4 8 2
+f 2 6 5
+f 5 6 8
+f 8 6 2
+f 5 8 7
+# RecastDemo specific data
+rd_bbox -5050.0000000 -250.0000000 -4940.0000000 4950.0000000 250.0000000 5060.0000000
+# Cell Size
+rd_cs 19.00000
+# Cell Height
+rd_ch 10.00000
+# Agent max slope
+rd_ams 44.00000
+# warkable height
+rd_wh 15
+# warkable Climb
+rd_wc 4
+# warkable radius
+rd_wr 2
+# AgentHeight
+rd_agh 144.00000
+# AgentRadius
+rd_agr 35.00000
+# Agent max climb
+rd_amc 0.00000
+# border size
+rd_bs 5
+# Max edge len
+rd_mel 63
+# maxSimplificationError
+rd_mse 1.30000
+# Region min size
+rd_rmis 0
+# Region merge size
+rd_rmas 21
+# maxVertsPerPoly
+rd_mvpp 6
+# detailSampleDist
+rd_dsd 600.00000
+# detailSampleMaxError
+rd_dsm 1.00000
+# PolyMaxHeight
+# minRegionArea
+rd_minra 0
+# mergeRegionArea
+rd_mergera 443
+# Perform Voxel Filtering
+rd_pvf 1
+# bMarkLowHeightAreas
+rd_mlha 0
+# bFilterLowSpanSequences
+rd_flss 0
+# bFilterLowSpanFromTileCache
+rd_flstc 0
+# AgentIndex
+rd_ai 0
+# Tile size
+rd_ts 52
+# regionChunkSize
+rd_rcs 26
+# TileCacheChunkSize
+rd_tccs 26
+# regionPartitioning
+rd_rp 1
+# TileCachePartitionType
+rd_tcpt 1
+# Generate Detailed Mesh
+rd_gdm 1
+# MaxPolysPerTile
+rd_mppt 2147483647
+

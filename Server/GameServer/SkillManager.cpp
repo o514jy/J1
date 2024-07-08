@@ -27,6 +27,9 @@ SkillBaseRef SkillManager::GenerateSkillById(int32 id)
 	case 1001:
 		skill = make_shared<AuroraQ>();
 		break;
+	case 1010:
+		skill = make_shared<NormalAttack>();
+		break;
 	case 1100:
 		skill = make_shared<NormalAttack>();
 		break;

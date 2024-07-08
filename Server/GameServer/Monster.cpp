@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Monster.h"
+#include "RoomBase.h"
 #include "MonsterAIController.h"
 
 Monster::Monster()
@@ -38,6 +39,22 @@ void Monster::SetInfo(int32 templateId)
 
 void Monster::SetTargetObject(ObjectRef object)
 {
+	if (_targetObject == nullptr || _targetObject != object)
+	{
+		// 타겟이 바뀌었다는 패킷을 보낸다.
+		Protocol::S_CHANGE_TARGET pkt;
+		{
+			Protocol::ObjectInfo* info = pkt.mutable_info();
+			info->CopyFrom(*objectInfo);
+
+			if (object == nullptr)
+				pkt.set_target_object_id(0);
+			else
+				pkt.set_target_object_id(object->_objectId);
+		}
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
+		GetRoomRef()->Broadcast(sendBuffer);
+	}
 	_targetObject = object;
 }
 

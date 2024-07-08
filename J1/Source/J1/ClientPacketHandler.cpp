@@ -117,6 +117,16 @@ bool Handle_S_TELEPORT(PacketSessionRef& session, Protocol::S_TELEPORT& pkt)
 	return true;
 }
 
+bool Handle_S_CHANGE_TARGET(PacketSessionRef& session, Protocol::S_CHANGE_TARGET& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleChangeTarget(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_NOTIFY_POS(PacketSessionRef& session, Protocol::S_NOTIFY_POS& pkt)
 {
 	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))

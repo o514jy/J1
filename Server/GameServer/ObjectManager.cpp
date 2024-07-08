@@ -56,6 +56,36 @@ PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 	return player;
 }
 
+MonsterRef ObjectManager::CreateMonster(int32 templateId, FVector3 spawnPos, RoomBaseRef spawnedRoom)
+{
+	// ID 积己扁
+	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_CREATURE);
+
+	MonsterRef monster = make_shared<Monster>();
+
+	monster->objectInfo->set_object_id(newId);
+	monster->objectInfo->set_template_id(templateId);
+	monster->objectInfo->set_object_type(Protocol::ObjectType::OBJECT_TYPE_CREATURE);
+	monster->objectInfo->set_creature_type(Protocol::CreatureType::CREATURE_TYPE_MONSTER);
+	monster->objectInfo->set_monster_type(Protocol::MonsterType::MONSTER_TYPE_GENERAL);
+
+	monster->posInfo->set_object_id(newId);
+	monster->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+
+	monster->posInfo->set_x(spawnPos.X);
+	monster->posInfo->set_y(spawnPos.Y);
+	monster->posInfo->set_z(spawnPos.Z);
+
+	if (spawnedRoom != nullptr)
+		monster->room = spawnedRoom;
+
+	monster->SetInfo(templateId);
+
+	AddObject(monster);
+
+	return monster;
+}
+
 BossRef ObjectManager::CreateBoss(int32 templateId)
 {
 	// ID 积己扁

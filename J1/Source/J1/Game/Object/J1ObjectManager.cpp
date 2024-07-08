@@ -2,6 +2,7 @@
 #include "J1Object.h"
 #include "J1Creature.h"
 #include "J1Player.h"
+#include "J1Monster.h"
 #include "J1MyPlayer.h"
 #include "J1Boss.h"
 #include "J1Env.h"
@@ -75,7 +76,16 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			Protocol::MonsterType monsterType = InObjectInfo.monster_type();
 			if (monsterType == Protocol::MonsterType::MONSTER_TYPE_GENERAL)
 			{
-				int a = 3;
+				// temp
+				{
+					auto* wor = GetWorld();
+					auto* gain = Cast<UJ1GameInstance>(GetGameInstance());
+					auto cla = gain->GoblinSpearClass;
+					SpawnLocation.Z = 100.f;
+					auto* act = wor->SpawnActor(cla, &SpawnLocation);
+					creature = Cast<AJ1Creature>(act);
+				}
+				//creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->GoblinSpearClass, &SpawnLocation));
 			}
 			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{

@@ -14,7 +14,8 @@ public:
 
 public:
 	/** setter & getter **/
-	
+	void SetShouldSyncPos(bool flag) { _shouldSyncPos = flag; }
+	bool GetShouldSyncPos() { return _shouldSyncPos; }
 
 public:
 	/** finite state machine **/
@@ -27,5 +28,5 @@ public:
 
 public:
 	/** information **/
-	
+	bool _shouldSyncPos = false;
 };

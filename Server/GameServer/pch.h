@@ -71,6 +71,10 @@ USING_SHARED_PTR(FindSafeZone);
 USING_SHARED_PTR(BaseAIController);
 USING_SHARED_PTR(MonsterAIController);
 
+/** navigation **/
+USING_SHARED_PTR(Navigation);
+USING_SHARED_PTR(NavDevice);
+
 /** stat **/
 USING_SHARED_PTR(StatComponent);
 

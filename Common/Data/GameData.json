@@ -29,6 +29,7 @@
       "ColliderHalfHeight": 52.0,
       "MaxHp": 200.0,
       "Atk": 50.0,
+      "Def": 0.0,
       "MaxWalkSpeed": 200.0,
       "MoveSpeedRate": 1.0,
       "SkillAttackId": 1010,
@@ -87,7 +88,7 @@
       "ProjectileIdList": [],
       "CoolTime": 0,
       "SkillDuration": 1200,
-      "AnimImpactTimeList": [ 700 ],
+      "AnimImpactTimeList": [ 280 ],
       "BuffIdList": [ 100000 ],
       "EffectIdList": [ 10010 ]
     },

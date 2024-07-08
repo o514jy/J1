@@ -17,7 +17,9 @@ public:
 
 public:
 	/** network **/
-	void BroadcastMove();
+	void BroadcastMove(); // legacy
+	
+	void BroadcastNowPos();
 
 public:
 	/** finite state machine **/
@@ -37,7 +39,19 @@ public:
 	float _distToTarget;
 
 public:
+	/** nav device **/
+	void InitNavDevice(NavigationRef sample);
+
+	void RegisterTargetPosToNavDevice();
+
+	// register NowPos to MoveTarget to stop
+	void StopMovement();
+
+public:
 	/** information **/
 	ObjectRef _owner;
+
+	// nav device for detour
+	NavDeviceRef _navDevice;
 };
 

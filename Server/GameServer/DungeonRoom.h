@@ -14,5 +14,20 @@ public:
 public:
 	/** tick **/
 	virtual void UpdateTick() override;
+
+public:
+	/** in game logic **/
+	virtual bool EnterRoom(ObjectRef object, bool randPos = true, FVector3 spawnPos = FVector3()) override;
+
+public:
+	/** information **/
+
+
+	// temp
+	virtual void SetRoomState(Protocol::RoomState state);
+	MonsterRef GetMonster();
+	vector<MonsterRef> GetMonsters();
+	MonsterRef _monster = nullptr;
+	void SpawnMonster();
 };
 

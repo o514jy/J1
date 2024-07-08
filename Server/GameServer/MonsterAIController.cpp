@@ -22,6 +22,9 @@ void MonsterAIController::SetInfo(ObjectRef owner)
 void MonsterAIController::UpdateTick()
 {
 	__super::UpdateTick();
+
+	if (GetShouldSyncPos() == true)
+		BroadcastNowPos();
 }
 
 void MonsterAIController::UpdateIdle()
@@ -31,11 +34,14 @@ void MonsterAIController::UpdateIdle()
 	MonsterRef _ownerMonster = static_pointer_cast<Monster>(_owner);
 
 	RoomBaseRef room = _owner->room.load().lock();
-	PlayerRef player = room->FindClosestPlayer(_owner, _ownerMonster->GetMonsterData()->SearchMaxDistance);
+	PlayerRef player = nullptr;
+	//if (_ownerMonster->_targetObject == nullptr)
+	player = room->FindClosestPlayer(_owner, _ownerMonster->GetMonsterData()->SearchMaxDistance);
 
 	if (player != nullptr)
 	{
-		_ownerMonster->_targetObject = player;
+		//_ownerMonster->_targetObject = player;
+		_ownerMonster->SetTargetObject(player);
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_RUN);
 	}
 }
@@ -53,7 +59,7 @@ void MonsterAIController::UpdateRun()
 	{
 		ownerMonster->SetTargetObject(nullptr);
 		ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
-		BroadcastMove();
+		//BroadcastMove();
 		return;
 	}
 
@@ -100,7 +106,7 @@ void MonsterAIController::UpdateSkill()
 	{
 		ownerMonster->SetTargetObject(nullptr);
 		ownerMonster->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
-		BroadcastMove();
+		//BroadcastMove();
 		return;
 	}
 

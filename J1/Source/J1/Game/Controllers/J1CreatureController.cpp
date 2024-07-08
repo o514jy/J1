@@ -28,7 +28,7 @@ void AJ1CreatureController::ProcessMove(const Protocol::PosInfo& posInfo)
 		// 이동 명령 생성
 		FAIMoveRequest MoveRequest;
 		MoveRequest.SetGoalLocation(location);
-		MoveRequest.SetAcceptanceRadius(50.f);
+		MoveRequest.SetAcceptanceRadius(100.f);
 	
 		// AI에게 이동 명령을 내림
 		MoveTo(MoveRequest);

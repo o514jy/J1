@@ -8,6 +8,8 @@ public:
 	RoomBase();
 	virtual ~RoomBase();
 
+	void init(string objFilePath);
+
 public:
 	/** update tick**/
 	virtual void UpdateTick();
@@ -23,6 +25,7 @@ public:
 public:
 	/** setter & getter **/
 	virtual void SetRoomState(Protocol::RoomState state);
+	NavigationRef GetNav() { return _nav; }
 
 public: 
 	/** network **/
@@ -51,6 +54,7 @@ public:
 	bool RemoveObject(uint64 objectId);
 
 	PlayerRef FindClosestPlayer(ObjectRef object, float maxDist, uint64 exceptId = 0);
+	ObjectRef FindObjectByAgentIdx(int32 agentIdx);
 
 protected:
 	// exceptId를 제외한 모든 object에게 sendBuffer를 보낸다.
@@ -59,10 +63,16 @@ protected:
 	bool RemoveObject_internal(uint64 objectId);
 
 public:
+	/** information **/
 	unordered_map<uint64, ObjectRef> _objects;
 	unordered_map<int32, ObjectRef> _AgentIdxToObject;
 
+	// Nav
+	NavigationRef _nav;
+
 	Protocol::RoomType _roomType;
+
+	string roomName;
 
 protected:
 	atomic<bool> _entered;

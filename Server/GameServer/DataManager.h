@@ -18,6 +18,8 @@ public:
 	/** setter & getter **/
 	PlayerDataRef GetPlayerDataById(int32 id);
 
+	MonsterDataRef GetMonsterDataById(int32 id);
+
 	BossDataRef GetBossDataById(int32 id);
 
 	SkillDataRef GetSkillDataById(int32 id);
@@ -34,6 +36,8 @@ private:
 	USE_LOCK;
 
 	unordered_map<int32, PlayerDataRef> _playerData;
+
+	unordered_map<int32, MonsterDataRef> _monsterData;
 	
 	unordered_map<int32, BossDataRef> _bossData;
 
