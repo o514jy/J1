@@ -30,6 +30,9 @@ void BuffInstant::ApplyBuff()
 
 		RoomBaseRef room = _owner->room.load().lock();
 
+		if (room == nullptr)
+			return;
+
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(buffPkt);
 		room->Broadcast(sendBuffer);
 	}

@@ -25,6 +25,8 @@ void MonsterAIController::UpdateTick()
 
 	if (GetShouldSyncPos() == true)
 		BroadcastNowPos();
+
+	cout << "monster pos [ " << _owner->posInfo->x() << ", " << _owner->posInfo->y() << ", " << _owner->posInfo->z() << " ]\n";
 }
 
 void MonsterAIController::UpdateIdle()

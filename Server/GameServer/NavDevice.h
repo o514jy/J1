@@ -13,6 +13,7 @@ public:
 	virtual void reset();
 
 	virtual void AddAgentToCrowd();
+	virtual void SubAgentToCrowd();
 
 public:
 	/** setter & getter **/

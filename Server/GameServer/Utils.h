@@ -119,7 +119,7 @@ public:
 
 	// √÷Ω≈
 	
-	static FVector3 Recast2UnrealPoint(const FVector3& Vector);
-	static FVector3 Unreal2RecastPoint(const FVector3& Vector);
-	static FVector3 Unreal2RecastPoint(const Protocol::PosInfo& posInfo);
+	static FVector3 Recast2UnrealPoint(const FVector3& Vector, float halfHeight = 0.0f);
+	static FVector3 Unreal2RecastPoint(const FVector3& Vector, float halfHeight = 0.0f);
+	static FVector3 Unreal2RecastPoint(const Protocol::PosInfo& posInfo, float halfHeight = 0.0f);
 };

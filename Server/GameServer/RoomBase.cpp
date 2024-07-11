@@ -410,7 +410,7 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 		// device의 통제를 받았으면 삭제
 		if (MonsterRef monster = dynamic_pointer_cast<Monster>(delObject))
 		{
-			_AgentIdxToObject.insert({ monster->GetAgentIdx(), delObject });
+			_AgentIdxToObject.erase(monster->GetAgentIdx());
 		}
 	}
 
@@ -441,6 +441,9 @@ PlayerRef RoomBase::FindClosestPlayer(ObjectRef object, float maxDist, uint64 ex
 
 	for (auto& item : _objects)
 	{
+		if (item.second == nullptr)
+			continue;
+
 		PlayerRef player = dynamic_pointer_cast<Player>(item.second);
 		if (player == nullptr)
 			continue;

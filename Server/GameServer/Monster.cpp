@@ -58,10 +58,17 @@ void Monster::SetTargetObject(ObjectRef object)
 	_targetObject = object;
 }
 
+void Monster::SetState(Protocol::MoveState moveState)
+{
+	__super::SetState(moveState);
+}
+
 void Monster::Clear()
 {
 	__super::Clear();
 
+	_aiController->Clear();
 	_aiController = nullptr;
+
 	_targetObject = nullptr;
 }

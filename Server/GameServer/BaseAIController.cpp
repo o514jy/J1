@@ -17,6 +17,7 @@ BaseAIController::BaseAIController()
 BaseAIController::~BaseAIController()
 {
 	_owner = nullptr;
+	_navDevice = nullptr;
 }
 
 void BaseAIController::SetInfo(ObjectRef owner)
@@ -24,6 +25,14 @@ void BaseAIController::SetInfo(ObjectRef owner)
 	_owner = owner;
 
 	InitNavDevice(_owner->GetRoomRef()->GetNav());
+}
+
+void BaseAIController::Clear()
+{
+	_owner = nullptr;
+
+	_navDevice->SubAgentToCrowd();
+	_navDevice = nullptr;
 }
 
 void BaseAIController::SetDistToTarget(float dist)

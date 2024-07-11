@@ -10,6 +10,8 @@ public:
 	/** initialize **/
 	virtual void SetInfo(ObjectRef owner);
 
+	virtual void Clear();
+
 public:
 	/** setter & getter **/
 	void SetDistToTarget(float dist);

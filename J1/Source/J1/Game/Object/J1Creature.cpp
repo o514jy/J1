@@ -107,6 +107,11 @@ void AJ1Creature::SetMoveState(Protocol::MoveState State)
 	{
 		GetController()->StopMovement();
 	}
+	else if (State == Protocol::MoveState::MOVE_STATE_DEAD)
+	{
+		GetController()->StopMovement();
+		OnDead();
+	}
 }
 
 void AJ1Creature::SetPosInfo(const Protocol::PosInfo& Info, bool Forced)

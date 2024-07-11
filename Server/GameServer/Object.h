@@ -20,7 +20,7 @@ public:
 
 public:
 	/** setter & getter **/
-	void SetState(Protocol::MoveState moveState);
+	virtual void SetState(Protocol::MoveState moveState);
 	Protocol::MoveState GetState();
 
 	void SetPosInfo(Protocol::PosInfo InPosInfo);
@@ -47,6 +47,7 @@ public:
 
 	// helper
 	float _colliderRadius = 0.f;
+	float _colliderHalfHeight = 0.f;
 
 public:
 	/** battle **/

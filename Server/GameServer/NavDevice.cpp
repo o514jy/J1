@@ -121,7 +121,7 @@ void NavDevice::AddAgentToCrowd()
 	//ap.obstacleAvoidanceType = (unsigned char)3.0f; // 1 ~ 3
 	//ap.separationWeight = 2.f;
 
-	FVector3 vec = Utils::Unreal2RecastPoint(*owner->GetPosInfo());
+	FVector3 vec = Utils::Unreal2RecastPoint(*owner->GetPosInfo(), owner->_colliderHalfHeight);
 	float pos[3] = { vec.X, vec.Y, vec.Z };
 
 	agentIdx = crowd->addAgent(pos, &ap);
@@ -131,6 +131,12 @@ void NavDevice::AddAgentToCrowd()
 		// fail
 		cout << "failed to add agent !! " << "\n";
 	}
+}
+
+void NavDevice::SubAgentToCrowd()
+{
+	dtCrowd* crowd = m_sample->getCrowd();
+	crowd->removeAgent(agentIdx);
 }
 
 void NavDevice::SetStartPos(float sPos[])

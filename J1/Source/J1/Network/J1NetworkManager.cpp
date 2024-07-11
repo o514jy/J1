@@ -182,8 +182,9 @@ void UJ1NetworkManager::HandleMove(const Protocol::S_MOVE& MovePkt)
 	const Protocol::PosInfo& Info = MovePkt.info();
 	if (Info.state() == Protocol::MoveState::MOVE_STATE_DEAD)
 	{
-		FindActor->SetMoveState(Info.state());
-		FindActor->OnDead();
+		FindActor->StatComponent->SetHp(0.f);
+		//FindActor->SetMoveState(Info.state());
+		//FindActor->OnDead();
 	}
 	else
 	{

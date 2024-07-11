@@ -17,7 +17,9 @@ public:
 
 public:
 	/** setter & getter **/
-	void SetTargetObject(ObjectRef object);
+	void SetTargetObject(ObjectRef object); 
+
+	virtual void SetState(Protocol::MoveState moveState) override;
 
 	MonsterDataRef GetMonsterData() { return static_pointer_cast<MonsterData>(_creatureData); }
 

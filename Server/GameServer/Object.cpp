@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Object.h"
+#include "ObjectManager.h"
 #include "DataManager.h"
 #include "Data.h"
 #include "SkillBase.h"
@@ -42,33 +43,34 @@ void Object::SetState(Protocol::MoveState moveState)
 {
 	posInfo->set_state(moveState);
 
-	//string s;
-	//if (moveState == Protocol::MOVE_STATE_IDLE)
-	//	s = "Idle";
-	//else if (moveState == Protocol::MOVE_STATE_RUN)
-	//	s = "Run";
-	//else if (moveState == Protocol::MOVE_STATE_SKILL)
-	//	s = "Skill";
-	//else if (moveState == Protocol::MOVE_STATE_GIMMICK)
-	//	s = "Gimmick";
-	//else if (moveState == Protocol::MOVE_STATE_DEAD)
-	//{
-	//	s = "Dead";
-	//
-	//	Protocol::S_MOVE movePkt;
-	//	Protocol::PosInfo* info = movePkt.mutable_info();
-	//	info->CopyFrom(*posInfo);
-	//
-	//	RoomBaseRef roomRef = room.load().lock();
-	//	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
-	//	roomRef->Broadcast(sendBuffer);
-	//}
-	//else
-	//	s = "None";
-	//
-	//cout << _objectId << "'s State Changed : " << s << "\n";
-
+	string s;
+	if (moveState == Protocol::MOVE_STATE_IDLE)
+		s = "Idle";
+	else if (moveState == Protocol::MOVE_STATE_RUN)
+		s = "Run";
+	else if (moveState == Protocol::MOVE_STATE_SKILL)
+		s = "Skill";
+	else if (moveState == Protocol::MOVE_STATE_GIMMICK)
+		s = "Gimmick";
+	else if (moveState == Protocol::MOVE_STATE_DEAD)
+	{
+		s = "Dead";
 	
+		Protocol::S_MOVE movePkt;
+		Protocol::PosInfo* info = movePkt.mutable_info();
+		info->CopyFrom(*posInfo);
+		
+		RoomBaseRef roomRef = room.load().lock();
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(movePkt);
+		roomRef->Broadcast(sendBuffer);
+		
+		GObjectManager->DoAsync(&ObjectManager::RemoveObject, _objectId);
+		//GObjectManager->RemoveObject(_objectId);
+	}
+	else
+		s = "None";
+	
+	cout << _objectId << "'s State Changed : " << s << "\n";
 }
 
 Protocol::MoveState Object::GetState()

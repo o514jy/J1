@@ -94,13 +94,13 @@ void Navigation::UpdateTick()
 			if (agent == nullptr)
 				continue;
 
-			const float* pos = agent->npos;
-			FVector3 tempPos = FVector3(pos[0], pos[1], pos[2]);
-			FVector3 retPos = Utils::Recast2UnrealPoint(tempPos);
-
 			ObjectRef object = m_room.lock()->FindObjectByAgentIdx(i);
 			if (object == nullptr)
 				continue;
+
+			const float* pos = agent->npos;
+			FVector3 tempPos = FVector3(pos[0], pos[1], pos[2]);
+			FVector3 retPos = Utils::Recast2UnrealPoint(tempPos, object->_colliderHalfHeight);
 
 			//{
 			//	auto a = agent->nvel;

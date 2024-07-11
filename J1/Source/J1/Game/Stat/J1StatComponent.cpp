@@ -70,6 +70,12 @@ void UJ1StatComponent::SetHp(float InHp)
 			HpBar->SetHpRatio(Ratio);
 	}
 	
+	if (Hp == 0.f)
+	{
+		if (Owner->PosInfo->state() != Protocol::MoveState::MOVE_STATE_DEAD)
+			Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_DEAD);
+	}
+
 	ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
 }
 

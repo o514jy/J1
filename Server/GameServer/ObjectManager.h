@@ -1,6 +1,8 @@
 #pragma once
 
-class ObjectManager
+#include "JobQueue.h"
+
+class ObjectManager : public JobQueue
 {
 public:
 	ObjectManager();
@@ -28,8 +30,8 @@ public:
 	Protocol::ObjectType GetObjectTypeById(uint64 id);
 
 public:
-	bool AddObject(ObjectRef object);
-	bool RemoveObject(uint64 objectId);
+	void AddObject(ObjectRef object);
+	void RemoveObject(uint64 objectId);
 
 	uint64 GenerateIdLocked(Protocol::ObjectType objectType);
 

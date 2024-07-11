@@ -24,7 +24,7 @@ ObjectManager::~ObjectManager()
 
 ObjectRef ObjectManager::CreateObject(GameSessionRef session, Protocol::ObjectType objectType, uint64 templateId)
 {
-	WRITE_LOCK;
+	//WRITE_LOCK;
 
 	return ObjectRef();
 }
@@ -51,7 +51,8 @@ PlayerRef ObjectManager::CreatePlayer(GameSessionRef session, int32 templateId)
 
 	player->SetInfo(templateId);
 
-	AddObject(player);
+	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(player));
+	//AddObject(player);
 
 	return player;
 }
@@ -81,7 +82,8 @@ MonsterRef ObjectManager::CreateMonster(int32 templateId, FVector3 spawnPos, Roo
 
 	monster->SetInfo(templateId);
 
-	AddObject(monster);
+	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(monster));
+	//AddObject(monster);
 
 	return monster;
 }
@@ -104,7 +106,8 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 
 	boss->SetInfo(templateId);
 
-	AddObject(boss);
+	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(boss));
+	//AddObject(boss);
 
 	return boss;
 }
@@ -132,7 +135,8 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 	ownerRoom->AddObject(projectile);
 
 	// enter game
-	AddObject(projectile);
+	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(projectile));
+	//AddObject(projectile);
 
 	if (ownerSkill != nullptr)
 		projectile->SetInfo(owner, ownerSkill, templateId);
@@ -160,7 +164,8 @@ PortalRef ObjectManager::CreatePortal(int32 templateId, RoomBaseRef destRoom)
 
 	portal->SetDestRoom(destRoom);
 
-	AddObject(portal);
+	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(portal));
+	//AddObject(portal);
 
 	return portal;
 }
@@ -183,24 +188,22 @@ Protocol::ObjectType ObjectManager::GetObjectTypeById(uint64 id)
 	return (Protocol::ObjectType)type;
 }
 
-bool ObjectManager::AddObject(ObjectRef object)
+void ObjectManager::AddObject(ObjectRef object)
 {
-	WRITE_LOCK;
+	//WRITE_LOCK;
 
 	if (_objects.find(object->objectInfo->object_id()) != _objects.end())
-		return false;
+		return;
 
 	_objects.insert(make_pair(object->objectInfo->object_id(), object));
-
-	return true;
 }
 
-bool ObjectManager::RemoveObject(uint64 objectId)
+void ObjectManager::RemoveObject(uint64 objectId)
 {
-	WRITE_LOCK;
+	//WRITE_LOCK;
 
 	if (_objects.find(objectId) == _objects.end())
-		return false;
+		return;
 
 	ObjectRef object = _objects[objectId];
 
@@ -208,20 +211,17 @@ bool ObjectManager::RemoveObject(uint64 objectId)
 	RoomBaseRef roomRef = object->room.load().lock();
 	if (roomRef != nullptr)
 	{
-		//roomRef->DoAsync(&RoomBase::RemoveObject, objectId);
-		roomRef->RemoveObject(objectId);
+		roomRef->DoAsync(&RoomBase::RemoveObject, objectId);
+		//roomRef->RemoveObject(objectId);
 	}
 
 	object->room.store(weak_ptr<RoomBase>()); // null로 밀어주기
 	object->session = weak_ptr<GameSession>();
-	object->_statComponent = nullptr;
 
 	// 클리어
 	object->Clear();
 
 	_objects.erase(objectId);
-
-	return true;
 }
 
 uint64 ObjectManager::GenerateIdLocked(Protocol::ObjectType objectType)

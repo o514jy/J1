@@ -55,6 +55,7 @@ void Creature::SetInfo(int32 templateId)
 	}
 
 	_colliderRadius = _creatureData->ColliderRadius;
+	_colliderHalfHeight = _creatureData->ColliderHalfHeight;
 
 	/** component **/
 	/* stat component */
