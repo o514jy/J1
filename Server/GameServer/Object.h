@@ -26,6 +26,8 @@ public:
 	void SetPosInfo(Protocol::PosInfo InPosInfo);
 	Protocol::PosInfo* GetPosInfo();
 
+	FVector3 GetPosInfoVec();
+
 	void SetAgentIdx(int32 idx);
 	int32 GetAgentIdx() { return _agentIdx; }
 

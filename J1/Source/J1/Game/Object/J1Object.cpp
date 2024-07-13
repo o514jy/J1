@@ -9,6 +9,9 @@ AJ1Object::AJ1Object()
 	ObjectInfo = new Protocol::ObjectInfo();
 	PosInfo = new Protocol::PosInfo();
 	ObjectInfo->set_allocated_pos_info(PosInfo);
+
+	ObjectId = 0;
+	TemplateId = 0;
 }
 
 // Called when the game starts or when spawned
@@ -56,7 +59,7 @@ void AJ1Object::SetPosInfo(const Protocol::PosInfo& Info, bool Forced)
 
 void AJ1Object::SetObjectInfo(const Protocol::ObjectInfo& InObjectInfo)
 {
-	if (ObjectInfo->object_id() == 0)
+	if (InObjectInfo.object_id() == 0)
 		return;
 
 	ObjectInfo->CopyFrom(InObjectInfo);
@@ -67,11 +70,16 @@ void AJ1Object::SetInfo(Protocol::ObjectInfo& InObjectInfo)
 	if (InObjectInfo.object_id() == 0)
 		return;
 
-	ObjectInfo->CopyFrom(InObjectInfo);
+	SetObjectInfo(InObjectInfo);
+
+	ObjectInfo->set_allocated_pos_info(PosInfo);
 
 	ObjectId = ObjectInfo->object_id();
+	TemplateId = ObjectInfo->template_id();
 
-	SetPosInfo(ObjectInfo->pos_info(), true);
+	PosInfo->set_object_id(ObjectId);
+	SetPosInfo(InObjectInfo.pos_info(), true);
 
-
+	Protocol::ObjectType objectType = ObjectInfo->object_type();
+	
 }

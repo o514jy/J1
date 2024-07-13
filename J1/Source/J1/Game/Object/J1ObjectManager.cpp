@@ -1,5 +1,6 @@
 #include "J1ObjectManager.h"
 #include "J1Object.h"
+#include "J1Projectile.h"
 #include "J1Creature.h"
 #include "J1Player.h"
 #include "J1Monster.h"
@@ -37,7 +38,7 @@ void UJ1ObjectManager::Initialize(FSubsystemCollectionBase& Collection)
 	ManagerCount = GManagerCount++;
 }
 
-TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectInfo)
+TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectInfo, TObjectPtr<AJ1Creature> InOwner, TObjectPtr<UJ1SkillBase> InOwnerSkill, FVector InDestPos)
 {
 	const Protocol::ObjectType objectType = InObjectInfo.object_type();
 	const uint64 objectId = InObjectInfo.object_id();
@@ -66,10 +67,12 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 	if (objectType == Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 	{
 		Protocol::CreatureType creatureType = InObjectInfo.creature_type();
-		TObjectPtr<AJ1Creature> creature;
+		TObjectPtr<AJ1Creature> creature = nullptr;
+		TSubclassOf<AJ1Creature> CreatureClass = GetCreatureClassById(InObjectInfo.template_id());
+		
 		if (creatureType == Protocol::CreatureType::CREATURE_TYPE_PLAYER)
 		{
-			creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->OtherPlayerClass, &SpawnLocation));
+			creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation));
 		}
 		else if (creatureType == Protocol::CreatureType::CREATURE_TYPE_MONSTER)
 		{
@@ -78,18 +81,18 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			{
 				// temp
 				{
-					auto* wor = GetWorld();
-					auto* gain = Cast<UJ1GameInstance>(GetGameInstance());
-					auto cla = gain->GoblinSpearClass;
-					SpawnLocation.Z = 100.f;
-					auto* act = wor->SpawnActor(cla, &SpawnLocation);
-					creature = Cast<AJ1Creature>(act);
+				//	auto* wor = GetWorld();
+				//	auto* gain = Cast<UJ1GameInstance>(GetGameInstance());
+				//	auto cla = gain->GoblinSpearClass;
+				//	SpawnLocation.Z = 100.f;
+				//	auto* act = wor->SpawnActor(cla, &SpawnLocation);
+				//	creature = Cast<AJ1Creature>(act);
 				}
-				//creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->GoblinSpearClass, &SpawnLocation));
+				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation));
 			}
 			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
-				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(Cast<UJ1GameInstance>(GetGameInstance())->StartBossClass, &SpawnLocation));
+				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation));
 				if (creature == nullptr)
 				{
 					int a = 3;
@@ -111,7 +114,23 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 	}
 	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
 	{
+		TObjectPtr<AJ1Projectile> projectile = nullptr;
+		Protocol::ProjectileType projectileType = InObjectInfo.projectile_type();
+		TSubclassOf<AJ1Projectile> projectileClass = GetProjectileClassById(InObjectInfo.template_id());
 
+		if (projectileType == Protocol::ProjectileType::PROJECTILE_TYPE_GENERAL)
+		{
+			FActorSpawnParameters ActorSpawnParams;
+			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+			projectile = Cast<AJ1Projectile>(GetWorld()->SpawnActor<AJ1Projectile>(projectileClass, SpawnLocation, FRotator(), ActorSpawnParams));
+		}
+
+		projectile->SetOwner(InOwner);
+		projectile->SetOwnerSkill(InOwnerSkill);
+		projectile->SetDestPos(InDestPos);
+		projectile->SetInfo(InObjectInfo);
+		Projectiles.Add(objectId, projectile);
+		object = projectile;
 	}
 	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_ENV)
 	{
@@ -152,6 +171,15 @@ bool UJ1ObjectManager::DespawnObject(uint64 InObjectId)
 		Creatures.Remove(InObjectId);
 		World->DestroyActor(*Creature);
 	}
+	else if (objectType == Protocol::ObjectType::OBJECT_TYPE_PROJECTILE)
+	{
+		TObjectPtr<AJ1Projectile>* Projectile = Projectiles.Find(InObjectId);
+		if (Projectile == nullptr)
+			return false;
+
+		Projectiles.Remove(InObjectId);
+		World->DestroyActor(*Projectile);
+	}
 
 	return true;
 }
@@ -179,6 +207,14 @@ TObjectPtr<AJ1Creature> UJ1ObjectManager::GetCreatureById(uint64 InObjectId)
 	return Creatures[InObjectId];
 }
 
+TObjectPtr<AJ1Projectile> UJ1ObjectManager::GetProjectileById(uint64 InObjectId)
+{
+	if (Projectiles.Find(InObjectId) == nullptr)
+		return nullptr;
+
+	return Projectiles[InObjectId];
+}
+
 TObjectPtr<AActor> UJ1ObjectManager::GetActorById(uint64 InObjectId)
 {
 	Protocol::ObjectType objectType = GetObjectTypeById(InObjectId);
@@ -192,6 +228,36 @@ TObjectPtr<AActor> UJ1ObjectManager::GetActorById(uint64 InObjectId)
 	}
 
 	return nullptr;
+}
+
+TSubclassOf<AJ1Creature> UJ1ObjectManager::GetCreatureClassById(int32 InTemplateId)
+{
+	UJ1GameInstance* instance = Cast<UJ1GameInstance>(GetGameInstance());
+	switch (InTemplateId)
+	{
+	case 1:
+		return instance->OtherPlayerClass; // aurora
+	case 10:
+		return instance->GoblinSpearClass;
+	case 11:
+		return instance->GoblinSlingshotClass;
+	case 100:
+		return instance->StartBossClass;
+	}
+
+	return TSubclassOf<AJ1Creature>();
+}
+
+TSubclassOf<AJ1Projectile> UJ1ObjectManager::GetProjectileClassById(int32 InTemplateId)
+{
+	UJ1GameInstance* instance = Cast<UJ1GameInstance>(GetGameInstance());
+	switch (InTemplateId)
+	{
+	case 1000010:
+		return instance->RockForSlingshotClass; // goblin sling shot's rock
+	}
+
+	return TSubclassOf<AJ1Projectile>();
 }
 
 bool UJ1ObjectManager::AddActorToMap(TObjectPtr<AActor> InActor, uint64 InObjectId)

@@ -9,6 +9,7 @@ class AJ1MyPlayer;
 class AJ1Monster;
 class AJ1Boss;
 class AJ1Portal;
+class AJ1Projectile;
 
 class UNiagaraSystem;
 
@@ -34,8 +35,11 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1MyPlayer> MyPlayerClass;
 
+	/* monster */
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Monster> GoblinSpearClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1Monster> GoblinSlingshotClass;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Boss> StartBossClass;
@@ -46,4 +50,8 @@ public:
 	/** env **/
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Portal> PortalClass;
+
+	/** projectile **/
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1Projectile> RockForSlingshotClass;
 };

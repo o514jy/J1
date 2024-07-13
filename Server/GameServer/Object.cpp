@@ -88,6 +88,15 @@ Protocol::PosInfo* Object::GetPosInfo()
 	return posInfo;
 }
 
+FVector3 Object::GetPosInfoVec()
+{
+	FVector3 pos;
+	pos.X = posInfo->x();
+	pos.Y = posInfo->y();
+	pos.Z = posInfo->z();
+	return pos;
+}
+
 void Object::SetAgentIdx(int32 idx)
 {
 	_agentIdx = idx;

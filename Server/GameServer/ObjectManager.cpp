@@ -112,7 +112,7 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 	return boss;
 }
 
-ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill, GimmickBaseRef ownerGimmick, float posX, float posY, float posZ)
+ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owner, SkillBaseRef ownerSkill, GimmickBaseRef ownerGimmick, float posX, float posY, float posZ, FVector3 destPos)
 {
 	// ID »ý¼º±â
 	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_PROJECTILE);
@@ -129,6 +129,9 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 	projectile->posInfo->set_x(posX);
 	projectile->posInfo->set_y(posY);
 	projectile->posInfo->set_z(posZ);
+
+	if (destPos != FVector3())
+		projectile->_destPos = destPos;
 
 	// enter room
 	RoomBaseRef ownerRoom = owner->room.load().lock();

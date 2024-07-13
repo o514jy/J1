@@ -1,4 +1,18 @@
 #include "J1Monster.h"
+#include "Controllers/J1MonsterController.h"
+
+AJ1Monster::AJ1Monster()
+{
+	/** Ai Controller **/
+	{
+		AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+		AIControllerClass = AJ1MonsterController::StaticClass();
+	}
+}
+
+AJ1Monster::~AJ1Monster()
+{
+}
 
 void AJ1Monster::SetTargetPlayer(TObjectPtr<AJ1Player> InPlayer)
 {

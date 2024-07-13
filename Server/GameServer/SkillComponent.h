@@ -36,6 +36,7 @@ public:
 
 	SkillBaseRef _activeSkill;
 
+	/* normal attack */
 	SkillBaseRef _normalAttackSkill;
 
 	/** player **/

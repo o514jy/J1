@@ -70,6 +70,7 @@ void StartRoom::SetRoomState(Protocol::RoomState state)
 	{
 		//SpawnBoss();
 		SpawnPortal();
+		//SpawnRanged();
 	}
 }
 
@@ -198,4 +199,36 @@ void StartRoom::SpawnPortal()
 
 	if (flag == true)
 		cout << "portal " << portal->objectInfo->object_id() << " is Spawned\n";
+}
+
+MonsterRef StartRoom::GetRanged()
+{
+	if (_monster != nullptr)
+	{
+		return _monster;
+	}
+
+	FVector3 spawnPos = FVector3(550.f, 300.f, 100.f);
+	_monster = GObjectManager->CreateMonster(11, spawnPos, GetRoomRef());
+
+	return _monster;
+}
+
+void StartRoom::SpawnRanged()
+{
+	MonsterRef ranged = GetRanged();
+
+	Protocol::S_SPAWN spawnPkt;
+	{
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		objectInfo->CopyFrom(*ranged->objectInfo);
+	}
+
+	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+	Broadcast(sendBuffer);
+
+	bool flag = AddObject_internal(ranged);
+
+	if (flag == true)
+		cout << "ranged " << ranged->objectInfo->object_id() << " is Spawned\n";
 }

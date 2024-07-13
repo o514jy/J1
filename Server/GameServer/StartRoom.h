@@ -34,6 +34,12 @@ public:
 	void SpawnBoss();
 
 	void SpawnPortal();
+
+public:
+	// ranged temp
+	MonsterRef GetRanged();
+	void SpawnRanged();
+	MonsterRef _monster;
 	
 protected:
 	/** information **/

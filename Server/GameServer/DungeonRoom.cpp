@@ -96,21 +96,21 @@ vector<MonsterRef> DungeonRoom::GetMonsters()
 
 	{
 		FVector3 spawnPos = FVector3(740.f, -500.f, 100.f);
-		MonsterRef mon = GObjectManager->CreateMonster(10, spawnPos, GetRoomRef());
+		MonsterRef mon = GObjectManager->CreateMonster(11, spawnPos, GetRoomRef());
 		AddObject(mon);
 		v.push_back(mon);
 	}
 
 	{
 		FVector3 spawnPos = FVector3(800.f, -500.f, 100.f);
-		MonsterRef mon = GObjectManager->CreateMonster(10, spawnPos, GetRoomRef());
+		MonsterRef mon = GObjectManager->CreateMonster(11, spawnPos, GetRoomRef());
 		AddObject(mon);
 		v.push_back(mon);
 	}
 
 	{
 		FVector3 spawnPos = FVector3(860.f, -500.f, 100.f);
-		MonsterRef mon = GObjectManager->CreateMonster(10, spawnPos, GetRoomRef());
+		MonsterRef mon = GObjectManager->CreateMonster(11, spawnPos, GetRoomRef());
 		AddObject(mon);
 		v.push_back(mon);
 	}

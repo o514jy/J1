@@ -1410,13 +1410,14 @@ class ObjectInfo final :
     kPosInfoFieldNumber = 4,
     kStatInfoFieldNumber = 5,
     kSkillInfoFieldNumber = 7,
+    kProjectileInfoFieldNumber = 10,
     kObjectIdFieldNumber = 1,
     kTemplateIdFieldNumber = 2,
     kObjectTypeFieldNumber = 3,
     kCreatureTypeFieldNumber = 6,
     kMonsterTypeFieldNumber = 8,
     kProjectileTypeFieldNumber = 9,
-    kEnvTypeFieldNumber = 10,
+    kEnvTypeFieldNumber = 11,
   };
   // .Protocol.PosInfo pos_info = 4;
   bool has_pos_info() const;
@@ -1472,6 +1473,24 @@ class ObjectInfo final :
       ::Protocol::SkillInfo* skill_info);
   ::Protocol::SkillInfo* unsafe_arena_release_skill_info();
 
+  // .Protocol.ProjectileInfo projectile_info = 10;
+  bool has_projectile_info() const;
+  private:
+  bool _internal_has_projectile_info() const;
+  public:
+  void clear_projectile_info();
+  const ::Protocol::ProjectileInfo& projectile_info() const;
+  PROTOBUF_NODISCARD ::Protocol::ProjectileInfo* release_projectile_info();
+  ::Protocol::ProjectileInfo* mutable_projectile_info();
+  void set_allocated_projectile_info(::Protocol::ProjectileInfo* projectile_info);
+  private:
+  const ::Protocol::ProjectileInfo& _internal_projectile_info() const;
+  ::Protocol::ProjectileInfo* _internal_mutable_projectile_info();
+  public:
+  void unsafe_arena_set_allocated_projectile_info(
+      ::Protocol::ProjectileInfo* projectile_info);
+  ::Protocol::ProjectileInfo* unsafe_arena_release_projectile_info();
+
   // uint64 object_id = 1;
   void clear_object_id();
   uint64_t object_id() const;
@@ -1526,7 +1545,7 @@ class ObjectInfo final :
   void _internal_set_projectile_type(::Protocol::ProjectileType value);
   public:
 
-  // .Protocol.EnvType env_type = 10;
+  // .Protocol.EnvType env_type = 11;
   void clear_env_type();
   ::Protocol::EnvType env_type() const;
   void set_env_type(::Protocol::EnvType value);
@@ -1546,6 +1565,7 @@ class ObjectInfo final :
     ::Protocol::PosInfo* pos_info_;
     ::Protocol::StatInfo* stat_info_;
     ::Protocol::SkillInfo* skill_info_;
+    ::Protocol::ProjectileInfo* projectile_info_;
     uint64_t object_id_;
     int32_t template_id_;
     int object_type_;
@@ -2733,7 +2753,97 @@ inline void ObjectInfo::set_projectile_type(::Protocol::ProjectileType value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.projectile_type)
 }
 
-// .Protocol.EnvType env_type = 10;
+// .Protocol.ProjectileInfo projectile_info = 10;
+inline bool ObjectInfo::_internal_has_projectile_info() const {
+  return this != internal_default_instance() && _impl_.projectile_info_ != nullptr;
+}
+inline bool ObjectInfo::has_projectile_info() const {
+  return _internal_has_projectile_info();
+}
+inline void ObjectInfo::clear_projectile_info() {
+  if (GetArenaForAllocation() == nullptr && _impl_.projectile_info_ != nullptr) {
+    delete _impl_.projectile_info_;
+  }
+  _impl_.projectile_info_ = nullptr;
+}
+inline const ::Protocol::ProjectileInfo& ObjectInfo::_internal_projectile_info() const {
+  const ::Protocol::ProjectileInfo* p = _impl_.projectile_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::ProjectileInfo&>(
+      ::Protocol::_ProjectileInfo_default_instance_);
+}
+inline const ::Protocol::ProjectileInfo& ObjectInfo::projectile_info() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.projectile_info)
+  return _internal_projectile_info();
+}
+inline void ObjectInfo::unsafe_arena_set_allocated_projectile_info(
+    ::Protocol::ProjectileInfo* projectile_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.projectile_info_);
+  }
+  _impl_.projectile_info_ = projectile_info;
+  if (projectile_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ObjectInfo.projectile_info)
+}
+inline ::Protocol::ProjectileInfo* ObjectInfo::release_projectile_info() {
+  
+  ::Protocol::ProjectileInfo* temp = _impl_.projectile_info_;
+  _impl_.projectile_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::ProjectileInfo* ObjectInfo::unsafe_arena_release_projectile_info() {
+  // @@protoc_insertion_point(field_release:Protocol.ObjectInfo.projectile_info)
+  
+  ::Protocol::ProjectileInfo* temp = _impl_.projectile_info_;
+  _impl_.projectile_info_ = nullptr;
+  return temp;
+}
+inline ::Protocol::ProjectileInfo* ObjectInfo::_internal_mutable_projectile_info() {
+  
+  if (_impl_.projectile_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::ProjectileInfo>(GetArenaForAllocation());
+    _impl_.projectile_info_ = p;
+  }
+  return _impl_.projectile_info_;
+}
+inline ::Protocol::ProjectileInfo* ObjectInfo::mutable_projectile_info() {
+  ::Protocol::ProjectileInfo* _msg = _internal_mutable_projectile_info();
+  // @@protoc_insertion_point(field_mutable:Protocol.ObjectInfo.projectile_info)
+  return _msg;
+}
+inline void ObjectInfo::set_allocated_projectile_info(::Protocol::ProjectileInfo* projectile_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.projectile_info_;
+  }
+  if (projectile_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(projectile_info);
+    if (message_arena != submessage_arena) {
+      projectile_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, projectile_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.projectile_info_ = projectile_info;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.projectile_info)
+}
+
+// .Protocol.EnvType env_type = 11;
 inline void ObjectInfo::clear_env_type() {
   _impl_.env_type_ = 0;
 }

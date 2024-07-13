@@ -256,6 +256,7 @@ PROTOBUF_CONSTEXPR S_SKILL::S_SKILL(
     /*decltype(_impl_.poison_rain_random_poses_)*/{}
   , /*decltype(_impl_.pos_info_)*/nullptr
   , /*decltype(_impl_.simple_pos_info_)*/nullptr
+  , /*decltype(_impl_.projectile_object_info_)*/nullptr
   , /*decltype(_impl_.object_id_)*/uint64_t{0u}
   , /*decltype(_impl_.slot_)*/0
   , /*decltype(_impl_.skill_data_id_)*/0
@@ -499,6 +500,7 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SKILL, _impl_.slot_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SKILL, _impl_.poison_rain_random_poses_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SKILL, _impl_.skill_data_id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_SKILL, _impl_.projectile_object_info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_GIMMICK, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -565,12 +567,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 111, -1, -1, sizeof(::Protocol::S_NOTIFY_POS)},
   { 119, -1, -1, sizeof(::Protocol::C_SKILL)},
   { 130, -1, -1, sizeof(::Protocol::S_SKILL)},
-  { 142, -1, -1, sizeof(::Protocol::S_GIMMICK)},
-  { 150, -1, -1, sizeof(::Protocol::S_PROJECTILE)},
-  { 157, -1, -1, sizeof(::Protocol::S_BUFF)},
-  { 165, -1, -1, sizeof(::Protocol::S_STAT)},
-  { 173, -1, -1, sizeof(::Protocol::C_CHAT)},
-  { 180, -1, -1, sizeof(::Protocol::S_CHAT)},
+  { 143, -1, -1, sizeof(::Protocol::S_GIMMICK)},
+  { 151, -1, -1, sizeof(::Protocol::S_PROJECTILE)},
+  { 158, -1, -1, sizeof(::Protocol::S_BUFF)},
+  { 166, -1, -1, sizeof(::Protocol::S_STAT)},
+  { 174, -1, -1, sizeof(::Protocol::C_CHAT)},
+  { 181, -1, -1, sizeof(::Protocol::S_CHAT)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -631,22 +633,23 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "ect_id\030\001 \001(\004\022#\n\010pos_info\030\002 \001(\0132\021.Protoco"
   "l.PosInfo\0220\n\017simple_pos_info\030\003 \001(\0132\027.Pro"
   "tocol.SimplePosInfo\022!\n\004slot\030\004 \001(\0162\023.Prot"
-  "ocol.SkillSlot\022\025\n\rskill_data_id\030\005 \001(\005\"\350\001"
+  "ocol.SkillSlot\022\025\n\rskill_data_id\030\005 \001(\005\"\236\002"
   "\n\007S_SKILL\022\021\n\tobject_id\030\001 \001(\004\022#\n\010pos_info"
   "\030\002 \001(\0132\021.Protocol.PosInfo\0220\n\017simple_pos_"
   "info\030\003 \001(\0132\027.Protocol.SimplePosInfo\022!\n\004s"
   "lot\030\004 \001(\0162\023.Protocol.SkillSlot\0229\n\030poison"
   "_rain_random_poses\030\005 \003(\0132\027.Protocol.Simp"
-  "lePosInfo\022\025\n\rskill_data_id\030\006 \001(\005\"7\n\tS_GI"
-  "MMICK\022\021\n\tobject_id\030\001 \001(\004\022\027\n\017gimmick_data"
-  "_id\030\002 \001(\005\"A\n\014S_PROJECTILE\0221\n\017projectile_"
-  "info\030\001 \001(\0132\030.Protocol.ProjectileInfo\"B\n\006"
-  "S_BUFF\022\021\n\tobject_id\030\001 \001(\004\022%\n\tbuff_info\030\002"
-  " \001(\0132\022.Protocol.BuffInfo\"B\n\006S_STAT\022\021\n\tob"
-  "ject_id\030\001 \001(\004\022%\n\tstat_info\030\002 \001(\0132\022.Proto"
-  "col.StatInfo\"\025\n\006C_CHAT\022\013\n\003msg\030\001 \001(\t\"\'\n\006S"
-  "_CHAT\022\020\n\010playerId\030\001 \001(\004\022\013\n\003msg\030\002 \001(\tb\006pr"
-  "oto3"
+  "lePosInfo\022\025\n\rskill_data_id\030\006 \001(\005\0224\n\026proj"
+  "ectile_object_info\030\007 \001(\0132\024.Protocol.Obje"
+  "ctInfo\"7\n\tS_GIMMICK\022\021\n\tobject_id\030\001 \001(\004\022\027"
+  "\n\017gimmick_data_id\030\002 \001(\005\"A\n\014S_PROJECTILE\022"
+  "1\n\017projectile_info\030\001 \001(\0132\030.Protocol.Proj"
+  "ectileInfo\"B\n\006S_BUFF\022\021\n\tobject_id\030\001 \001(\004\022"
+  "%\n\tbuff_info\030\002 \001(\0132\022.Protocol.BuffInfo\"B"
+  "\n\006S_STAT\022\021\n\tobject_id\030\001 \001(\004\022%\n\tstat_info"
+  "\030\002 \001(\0132\022.Protocol.StatInfo\"\025\n\006C_CHAT\022\013\n\003"
+  "msg\030\001 \001(\t\"\'\n\006S_CHAT\022\020\n\010playerId\030\001 \001(\004\022\013\n"
+  "\003msg\030\002 \001(\tb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -654,7 +657,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_de
 };
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 1804, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 1858, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
     &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 2, 24,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
@@ -3980,6 +3983,7 @@ class S_SKILL::_Internal {
  public:
   static const ::Protocol::PosInfo& pos_info(const S_SKILL* msg);
   static const ::Protocol::SimplePosInfo& simple_pos_info(const S_SKILL* msg);
+  static const ::Protocol::ObjectInfo& projectile_object_info(const S_SKILL* msg);
 };
 
 const ::Protocol::PosInfo&
@@ -3989,6 +3993,10 @@ S_SKILL::_Internal::pos_info(const S_SKILL* msg) {
 const ::Protocol::SimplePosInfo&
 S_SKILL::_Internal::simple_pos_info(const S_SKILL* msg) {
   return *msg->_impl_.simple_pos_info_;
+}
+const ::Protocol::ObjectInfo&
+S_SKILL::_Internal::projectile_object_info(const S_SKILL* msg) {
+  return *msg->_impl_.projectile_object_info_;
 }
 void S_SKILL::clear_pos_info() {
   if (GetArenaForAllocation() == nullptr && _impl_.pos_info_ != nullptr) {
@@ -4005,6 +4013,12 @@ void S_SKILL::clear_simple_pos_info() {
 void S_SKILL::clear_poison_rain_random_poses() {
   _impl_.poison_rain_random_poses_.Clear();
 }
+void S_SKILL::clear_projectile_object_info() {
+  if (GetArenaForAllocation() == nullptr && _impl_.projectile_object_info_ != nullptr) {
+    delete _impl_.projectile_object_info_;
+  }
+  _impl_.projectile_object_info_ = nullptr;
+}
 S_SKILL::S_SKILL(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -4018,6 +4032,7 @@ S_SKILL::S_SKILL(const S_SKILL& from)
       decltype(_impl_.poison_rain_random_poses_){from._impl_.poison_rain_random_poses_}
     , decltype(_impl_.pos_info_){nullptr}
     , decltype(_impl_.simple_pos_info_){nullptr}
+    , decltype(_impl_.projectile_object_info_){nullptr}
     , decltype(_impl_.object_id_){}
     , decltype(_impl_.slot_){}
     , decltype(_impl_.skill_data_id_){}
@@ -4029,6 +4044,9 @@ S_SKILL::S_SKILL(const S_SKILL& from)
   }
   if (from._internal_has_simple_pos_info()) {
     _this->_impl_.simple_pos_info_ = new ::Protocol::SimplePosInfo(*from._impl_.simple_pos_info_);
+  }
+  if (from._internal_has_projectile_object_info()) {
+    _this->_impl_.projectile_object_info_ = new ::Protocol::ObjectInfo(*from._impl_.projectile_object_info_);
   }
   ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.skill_data_id_) -
@@ -4044,6 +4062,7 @@ inline void S_SKILL::SharedCtor(
       decltype(_impl_.poison_rain_random_poses_){arena}
     , decltype(_impl_.pos_info_){nullptr}
     , decltype(_impl_.simple_pos_info_){nullptr}
+    , decltype(_impl_.projectile_object_info_){nullptr}
     , decltype(_impl_.object_id_){uint64_t{0u}}
     , decltype(_impl_.slot_){0}
     , decltype(_impl_.skill_data_id_){0}
@@ -4065,6 +4084,7 @@ inline void S_SKILL::SharedDtor() {
   _impl_.poison_rain_random_poses_.~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.pos_info_;
   if (this != internal_default_instance()) delete _impl_.simple_pos_info_;
+  if (this != internal_default_instance()) delete _impl_.projectile_object_info_;
 }
 
 void S_SKILL::SetCachedSize(int size) const {
@@ -4086,6 +4106,10 @@ void S_SKILL::Clear() {
     delete _impl_.simple_pos_info_;
   }
   _impl_.simple_pos_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.projectile_object_info_ != nullptr) {
+    delete _impl_.projectile_object_info_;
+  }
+  _impl_.projectile_object_info_ = nullptr;
   ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.skill_data_id_) -
       reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.skill_data_id_));
@@ -4148,6 +4172,14 @@ const char* S_SKILL::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _impl_.skill_data_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.ObjectInfo projectile_object_info = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_projectile_object_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4222,6 +4254,13 @@ uint8_t* S_SKILL::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_skill_data_id(), target);
   }
 
+  // .Protocol.ObjectInfo projectile_object_info = 7;
+  if (this->_internal_has_projectile_object_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::projectile_object_info(this),
+        _Internal::projectile_object_info(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4257,6 +4296,13 @@ size_t S_SKILL::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.simple_pos_info_);
+  }
+
+  // .Protocol.ObjectInfo projectile_object_info = 7;
+  if (this->_internal_has_projectile_object_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.projectile_object_info_);
   }
 
   // uint64 object_id = 1;
@@ -4301,6 +4347,10 @@ void S_SKILL::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   if (from._internal_has_simple_pos_info()) {
     _this->_internal_mutable_simple_pos_info()->::Protocol::SimplePosInfo::MergeFrom(
         from._internal_simple_pos_info());
+  }
+  if (from._internal_has_projectile_object_info()) {
+    _this->_internal_mutable_projectile_object_info()->::Protocol::ObjectInfo::MergeFrom(
+        from._internal_projectile_object_info());
   }
   if (from._internal_object_id() != 0) {
     _this->_internal_set_object_id(from._internal_object_id());

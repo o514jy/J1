@@ -11,6 +11,8 @@ class J1_API AJ1Monster : public AJ1Creature
 {
 	GENERATED_BODY()
 public:
+	AJ1Monster();
+	~AJ1Monster();
 	
 public:
 	/** setter & getter **/

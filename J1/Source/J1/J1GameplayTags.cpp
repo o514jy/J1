@@ -32,6 +32,14 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill_NormalAttack_1, "GoblinSpear.Skill.NormalAttack.0");
 	UE_DEFINE_GAMEPLAY_TAG(GoblinSpear_Skill_NormalAttack_End, "GoblinSpear.Skill.NormalAttack.End");
 
+	/** GoblinSpear **/
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSlingshot, "GoblinSlingshot");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSlingshot_Skill, "GoblinSlingshot.Skill");
+	/* GoblinSpear : normal attack */
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSlingshot_Skill_RangedNormalAttack, "GoblinSlingshot.Skill.RangedNormalAttack");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSlingshot_Skill_RangedNormalAttack_1, "GoblinSlingshot.Skill.RangedNormalAttack.0");
+	UE_DEFINE_GAMEPLAY_TAG(GoblinSlingshot_Skill_RangedNormalAttack_End, "GoblinSlingshot.Skill.RangedNormalAttack.End");
+
 	/** Sevarog **/
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog, "Sevarog");
 	UE_DEFINE_GAMEPLAY_TAG(Sevarog_Skill, "Sevarog.Skill");

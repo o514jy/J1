@@ -47,7 +47,9 @@ void AJ1MonsterController::UpdateRun()
 	// 이동 명령 생성
 	FAIMoveRequest MoveRequest;
 	MoveRequest.SetGoalActor(player);
-	MoveRequest.SetAcceptanceRadius(player->GetCreatureData()->ColliderRadius);
+	float OwnerAttackDist = GetOwner()->GetMonsterData()->DefaultAtkRange;
+	// OwnerAttackDist + player->GetCreatureData()->ColliderRadius
+	MoveRequest.SetAcceptanceRadius(OwnerAttackDist);
 
 
 	// AI에게 이동 명령을 내림

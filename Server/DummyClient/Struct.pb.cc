@@ -132,6 +132,7 @@ PROTOBUF_CONSTEXPR ObjectInfo::ObjectInfo(
     /*decltype(_impl_.pos_info_)*/nullptr
   , /*decltype(_impl_.stat_info_)*/nullptr
   , /*decltype(_impl_.skill_info_)*/nullptr
+  , /*decltype(_impl_.projectile_info_)*/nullptr
   , /*decltype(_impl_.object_id_)*/uint64_t{0u}
   , /*decltype(_impl_.template_id_)*/0
   , /*decltype(_impl_.object_type_)*/0
@@ -240,6 +241,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.skill_info_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.monster_type_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.projectile_type_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.projectile_info_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.env_type_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -283,7 +285,7 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\002\022\016\n\006max_hp\030\003 \001(\002\022\013\n\003atk\030\004 \001(\002\022\013\n\003def\030\005 "
   "\001(\002\"Q\n\010BuffInfo\022\027\n\017owner_object_id\030\001 \001(\004"
   "\022\027\n\017giver_object_id\030\002 \001(\004\022\023\n\013template_id"
-  "\030\003 \001(\005\"\210\003\n\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004"
+  "\030\003 \001(\005\"\273\003\n\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004"
   "\022\023\n\013template_id\030\002 \001(\005\022)\n\013object_type\030\003 \001"
   "(\0162\024.Protocol.ObjectType\022#\n\010pos_info\030\004 \001"
   "(\0132\021.Protocol.PosInfo\022%\n\tstat_info\030\005 \001(\013"
@@ -292,15 +294,16 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "o\030\007 \001(\0132\023.Protocol.SkillInfo\022+\n\014monster_"
   "type\030\010 \001(\0162\025.Protocol.MonsterType\0221\n\017pro"
   "jectile_type\030\t \001(\0162\030.Protocol.Projectile"
-  "Type\022#\n\010env_type\030\n \001(\0162\021.Protocol.EnvTyp"
-  "eb\006proto3"
+  "Type\0221\n\017projectile_info\030\n \001(\0132\030.Protocol"
+  ".ProjectileInfo\022#\n\010env_type\030\013 \001(\0162\021.Prot"
+  "ocol.EnvTypeb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 1209, descriptor_table_protodef_Struct_2eproto,
+    false, false, 1260, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 7,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2307,6 +2310,7 @@ class ObjectInfo::_Internal {
   static const ::Protocol::PosInfo& pos_info(const ObjectInfo* msg);
   static const ::Protocol::StatInfo& stat_info(const ObjectInfo* msg);
   static const ::Protocol::SkillInfo& skill_info(const ObjectInfo* msg);
+  static const ::Protocol::ProjectileInfo& projectile_info(const ObjectInfo* msg);
 };
 
 const ::Protocol::PosInfo&
@@ -2321,6 +2325,10 @@ const ::Protocol::SkillInfo&
 ObjectInfo::_Internal::skill_info(const ObjectInfo* msg) {
   return *msg->_impl_.skill_info_;
 }
+const ::Protocol::ProjectileInfo&
+ObjectInfo::_Internal::projectile_info(const ObjectInfo* msg) {
+  return *msg->_impl_.projectile_info_;
+}
 ObjectInfo::ObjectInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -2334,6 +2342,7 @@ ObjectInfo::ObjectInfo(const ObjectInfo& from)
       decltype(_impl_.pos_info_){nullptr}
     , decltype(_impl_.stat_info_){nullptr}
     , decltype(_impl_.skill_info_){nullptr}
+    , decltype(_impl_.projectile_info_){nullptr}
     , decltype(_impl_.object_id_){}
     , decltype(_impl_.template_id_){}
     , decltype(_impl_.object_type_){}
@@ -2353,6 +2362,9 @@ ObjectInfo::ObjectInfo(const ObjectInfo& from)
   if (from._internal_has_skill_info()) {
     _this->_impl_.skill_info_ = new ::Protocol::SkillInfo(*from._impl_.skill_info_);
   }
+  if (from._internal_has_projectile_info()) {
+    _this->_impl_.projectile_info_ = new ::Protocol::ProjectileInfo(*from._impl_.projectile_info_);
+  }
   ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.env_type_) -
     reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.env_type_));
@@ -2367,6 +2379,7 @@ inline void ObjectInfo::SharedCtor(
       decltype(_impl_.pos_info_){nullptr}
     , decltype(_impl_.stat_info_){nullptr}
     , decltype(_impl_.skill_info_){nullptr}
+    , decltype(_impl_.projectile_info_){nullptr}
     , decltype(_impl_.object_id_){uint64_t{0u}}
     , decltype(_impl_.template_id_){0}
     , decltype(_impl_.object_type_){0}
@@ -2392,6 +2405,7 @@ inline void ObjectInfo::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.pos_info_;
   if (this != internal_default_instance()) delete _impl_.stat_info_;
   if (this != internal_default_instance()) delete _impl_.skill_info_;
+  if (this != internal_default_instance()) delete _impl_.projectile_info_;
 }
 
 void ObjectInfo::SetCachedSize(int size) const {
@@ -2416,6 +2430,10 @@ void ObjectInfo::Clear() {
     delete _impl_.skill_info_;
   }
   _impl_.skill_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.projectile_info_ != nullptr) {
+    delete _impl_.projectile_info_;
+  }
+  _impl_.projectile_info_ = nullptr;
   ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.env_type_) -
       reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.env_type_));
@@ -2504,9 +2522,17 @@ const char* ObjectInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.EnvType env_type = 10;
+      // .Protocol.ProjectileInfo projectile_info = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr = ctx->ParseMessage(_internal_mutable_projectile_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.EnvType env_type = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_env_type(static_cast<::Protocol::EnvType>(val));
@@ -2603,11 +2629,18 @@ uint8_t* ObjectInfo::_InternalSerialize(
       9, this->_internal_projectile_type(), target);
   }
 
-  // .Protocol.EnvType env_type = 10;
+  // .Protocol.ProjectileInfo projectile_info = 10;
+  if (this->_internal_has_projectile_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(10, _Internal::projectile_info(this),
+        _Internal::projectile_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.EnvType env_type = 11;
   if (this->_internal_env_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      10, this->_internal_env_type(), target);
+      11, this->_internal_env_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2647,6 +2680,13 @@ size_t ObjectInfo::ByteSizeLong() const {
         *_impl_.skill_info_);
   }
 
+  // .Protocol.ProjectileInfo projectile_info = 10;
+  if (this->_internal_has_projectile_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.projectile_info_);
+  }
+
   // uint64 object_id = 1;
   if (this->_internal_object_id() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_object_id());
@@ -2681,7 +2721,7 @@ size_t ObjectInfo::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_projectile_type());
   }
 
-  // .Protocol.EnvType env_type = 10;
+  // .Protocol.EnvType env_type = 11;
   if (this->_internal_env_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_env_type());
@@ -2716,6 +2756,10 @@ void ObjectInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_has_skill_info()) {
     _this->_internal_mutable_skill_info()->::Protocol::SkillInfo::MergeFrom(
         from._internal_skill_info());
+  }
+  if (from._internal_has_projectile_info()) {
+    _this->_internal_mutable_projectile_info()->::Protocol::ProjectileInfo::MergeFrom(
+        from._internal_projectile_info());
   }
   if (from._internal_object_id() != 0) {
     _this->_internal_set_object_id(from._internal_object_id());

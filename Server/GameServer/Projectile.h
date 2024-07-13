@@ -12,6 +12,8 @@ public:
 	/** update tick **/
 	virtual void UpdateTick() override;
 
+	virtual void MoveToDestPos();
+
 public:
 	/** initialize **/	
 
@@ -24,6 +26,8 @@ public:
 public:
 	/** setter & getter **/
 	virtual void Clear() override;
+
+	void SetDestPos(FVector3 destPos);
 
 	void ForceDelete();
 
@@ -59,11 +63,17 @@ public:
 	/** information **/
 	ProjectileDataRef _projectileData;
 
+	// cache
+	Protocol::ProjectileInfo* _projectileInfo;
+	Protocol::ProjectileType _projectileType;
+
 	CreatureRef _owner;
 
 	SkillBaseRef _ownerSkill;
 	GimmickBaseRef _ownerGimmick;
 
 	int32 _impactCount;
+
+	FVector3 _destPos;
 };
 

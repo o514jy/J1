@@ -60,10 +60,11 @@ void SkillBase::OnAnimCompleteHandler()
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 
 	RoomBaseRef roomRef = _owner->room.load().lock();
-	if (roomRef != nullptr)
-	{
-		roomRef->DoTimer(_skillData->CoolTime, shared_from_this(), & SkillBase::SetCanUseSkill, true);
-	}
+	if (roomRef == nullptr)
+		return;
+	
+	roomRef->DoTimer(_skillData->CoolTime, shared_from_this(), & SkillBase::SetCanUseSkill, true);
+	
 	//DoTimer(_skillData->CoolTime, &SkillBase::SetCanUseSkill, true);
 
 	// 활성화중인 스킬에서 해제
@@ -155,6 +156,9 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 	vector<ObjectRef> objects;
 	
 	RoomBaseRef room = _owner->room.load().lock();
+	if (room == nullptr)
+		return objects;
+
 	for (auto& item : room->_objects)
 	{
 		ObjectRef object = item.second;

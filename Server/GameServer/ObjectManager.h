@@ -17,7 +17,7 @@ public:
 	BossRef CreateBoss(int32 templateId);
 
 	/** projectile**/
-	ProjectileRef CreateProjectile(int32 templateId, CreatureRef owner = nullptr, SkillBaseRef ownerSkill = nullptr, GimmickBaseRef ownerGimmick = nullptr, float posX = 0.f, float posY = 0.f, float posZ = 0.f);
+	ProjectileRef CreateProjectile(int32 templateId, CreatureRef owner = nullptr, SkillBaseRef ownerSkill = nullptr, GimmickBaseRef ownerGimmick = nullptr, float posX = 0.f, float posY = 0.f, float posZ = 0.f, FVector3 destPos = FVector3());
 
 	/** env **/
 	PortalRef CreatePortal(int32 templateId, RoomBaseRef destRoom);

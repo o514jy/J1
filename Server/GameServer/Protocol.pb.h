@@ -2986,6 +2986,7 @@ class S_SKILL final :
     kPoisonRainRandomPosesFieldNumber = 5,
     kPosInfoFieldNumber = 2,
     kSimplePosInfoFieldNumber = 3,
+    kProjectileObjectInfoFieldNumber = 7,
     kObjectIdFieldNumber = 1,
     kSlotFieldNumber = 4,
     kSkillDataIdFieldNumber = 6,
@@ -3044,6 +3045,24 @@ class S_SKILL final :
       ::Protocol::SimplePosInfo* simple_pos_info);
   ::Protocol::SimplePosInfo* unsafe_arena_release_simple_pos_info();
 
+  // .Protocol.ObjectInfo projectile_object_info = 7;
+  bool has_projectile_object_info() const;
+  private:
+  bool _internal_has_projectile_object_info() const;
+  public:
+  void clear_projectile_object_info();
+  const ::Protocol::ObjectInfo& projectile_object_info() const;
+  PROTOBUF_NODISCARD ::Protocol::ObjectInfo* release_projectile_object_info();
+  ::Protocol::ObjectInfo* mutable_projectile_object_info();
+  void set_allocated_projectile_object_info(::Protocol::ObjectInfo* projectile_object_info);
+  private:
+  const ::Protocol::ObjectInfo& _internal_projectile_object_info() const;
+  ::Protocol::ObjectInfo* _internal_mutable_projectile_object_info();
+  public:
+  void unsafe_arena_set_allocated_projectile_object_info(
+      ::Protocol::ObjectInfo* projectile_object_info);
+  ::Protocol::ObjectInfo* unsafe_arena_release_projectile_object_info();
+
   // uint64 object_id = 1;
   void clear_object_id();
   uint64_t object_id() const;
@@ -3082,6 +3101,7 @@ class S_SKILL final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::SimplePosInfo > poison_rain_random_poses_;
     ::Protocol::PosInfo* pos_info_;
     ::Protocol::SimplePosInfo* simple_pos_info_;
+    ::Protocol::ObjectInfo* projectile_object_info_;
     uint64_t object_id_;
     int slot_;
     int32_t skill_data_id_;
@@ -5739,6 +5759,91 @@ inline void S_SKILL::_internal_set_skill_data_id(int32_t value) {
 inline void S_SKILL::set_skill_data_id(int32_t value) {
   _internal_set_skill_data_id(value);
   // @@protoc_insertion_point(field_set:Protocol.S_SKILL.skill_data_id)
+}
+
+// .Protocol.ObjectInfo projectile_object_info = 7;
+inline bool S_SKILL::_internal_has_projectile_object_info() const {
+  return this != internal_default_instance() && _impl_.projectile_object_info_ != nullptr;
+}
+inline bool S_SKILL::has_projectile_object_info() const {
+  return _internal_has_projectile_object_info();
+}
+inline const ::Protocol::ObjectInfo& S_SKILL::_internal_projectile_object_info() const {
+  const ::Protocol::ObjectInfo* p = _impl_.projectile_object_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::ObjectInfo&>(
+      ::Protocol::_ObjectInfo_default_instance_);
+}
+inline const ::Protocol::ObjectInfo& S_SKILL::projectile_object_info() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SKILL.projectile_object_info)
+  return _internal_projectile_object_info();
+}
+inline void S_SKILL::unsafe_arena_set_allocated_projectile_object_info(
+    ::Protocol::ObjectInfo* projectile_object_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.projectile_object_info_);
+  }
+  _impl_.projectile_object_info_ = projectile_object_info;
+  if (projectile_object_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SKILL.projectile_object_info)
+}
+inline ::Protocol::ObjectInfo* S_SKILL::release_projectile_object_info() {
+  
+  ::Protocol::ObjectInfo* temp = _impl_.projectile_object_info_;
+  _impl_.projectile_object_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::ObjectInfo* S_SKILL::unsafe_arena_release_projectile_object_info() {
+  // @@protoc_insertion_point(field_release:Protocol.S_SKILL.projectile_object_info)
+  
+  ::Protocol::ObjectInfo* temp = _impl_.projectile_object_info_;
+  _impl_.projectile_object_info_ = nullptr;
+  return temp;
+}
+inline ::Protocol::ObjectInfo* S_SKILL::_internal_mutable_projectile_object_info() {
+  
+  if (_impl_.projectile_object_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::ObjectInfo>(GetArenaForAllocation());
+    _impl_.projectile_object_info_ = p;
+  }
+  return _impl_.projectile_object_info_;
+}
+inline ::Protocol::ObjectInfo* S_SKILL::mutable_projectile_object_info() {
+  ::Protocol::ObjectInfo* _msg = _internal_mutable_projectile_object_info();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SKILL.projectile_object_info)
+  return _msg;
+}
+inline void S_SKILL::set_allocated_projectile_object_info(::Protocol::ObjectInfo* projectile_object_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.projectile_object_info_);
+  }
+  if (projectile_object_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(projectile_object_info));
+    if (message_arena != submessage_arena) {
+      projectile_object_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, projectile_object_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.projectile_object_info_ = projectile_object_info;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SKILL.projectile_object_info)
 }
 
 // -------------------------------------------------------------------

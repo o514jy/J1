@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SkillManager.h"
 #include "NormalAttack.h"
+#include "RangedNormalAttack.h"
 #include "AuroraQ.h"
 #include "PoisonRain.h"
 #include "SpreadCloud.h"
@@ -29,6 +30,9 @@ SkillBaseRef SkillManager::GenerateSkillById(int32 id)
 		break;
 	case 1010:
 		skill = make_shared<NormalAttack>();
+		break;
+	case 1011:
+		skill = make_shared<RangedNormalAttack>();
 		break;
 	case 1100:
 		skill = make_shared<NormalAttack>();
@@ -66,6 +70,9 @@ ProjectileRef SkillManager::GenerateProjectileById(int32 id)
 		break;
 	case 1000009:
 		projectile = make_shared<SafeZone>();
+		break;
+	case 1000010:
+		projectile = make_shared<Projectile>();
 		break;
 	default:
 		break;

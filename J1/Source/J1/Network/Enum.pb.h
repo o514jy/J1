@@ -76,12 +76,13 @@ inline bool ObjectType_Parse(
 }
 enum ProjectileType : int {
   PROJECTILE_TYPE_NONE = 0,
+  PROJECTILE_TYPE_GENERAL = 1,
   ProjectileType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   ProjectileType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool ProjectileType_IsValid(int value);
 constexpr ProjectileType ProjectileType_MIN = PROJECTILE_TYPE_NONE;
-constexpr ProjectileType ProjectileType_MAX = PROJECTILE_TYPE_NONE;
+constexpr ProjectileType ProjectileType_MAX = PROJECTILE_TYPE_GENERAL;
 constexpr int ProjectileType_ARRAYSIZE = ProjectileType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProjectileType_descriptor();

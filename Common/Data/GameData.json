@@ -36,6 +36,23 @@
       "DefaultAtkRange": 100.0,
       "SearchMaxDistance": 500.0,
       "ChaseMaxDistance": 800.0
+    },
+    {
+      "DataId": 11,
+      "CreatureType": "Monster",
+      "DescriptionTextId": "GoblinSlingshot",
+      "MonsterType": "General",
+      "ColliderRadius": 26.0,
+      "ColliderHalfHeight": 52.0,
+      "MaxHp": 200.0,
+      "Atk": 60.0,
+      "Def": 0.0,
+      "MaxWalkSpeed": 200.0,
+      "MoveSpeedRate": 1.0,
+      "SkillAttackId": 1011,
+      "DefaultAtkRange": 400.0,
+      "SearchMaxDistance": 600.0,
+      "ChaseMaxDistance": 800.0
     }
   ],
   "bosses": [
@@ -93,6 +110,17 @@
       "EffectIdList": [ 10010 ]
     },
     {
+      "DataId": 1011,
+      "Name": "Ranged Normal Attack 1 (GoblinSlingshot)",
+      "Description": "Ranged Normal Attack 1 (GoblinSlingshot)",
+      "ProjectileIdList": [ 1000010 ],
+      "CoolTime": 0,
+      "SkillDuration": 1170,
+      "AnimImpactTimeList": [ 170 ],
+      "BuffIdList": [ 100000 ],
+      "EffectIdList": [ 10000 ]
+    },
+    {
       "DataId": 1100,
       "Name": "Normal Attack 1 (Sevarog)",
       "Description": "Normal Attack 1 (Sevarog)",
@@ -147,6 +175,12 @@
       "EffectType": "Pizza",
       "Radius": 110.0,
       "Theta": 60.0
+    },
+    {
+      "DataId": 10011,
+      "OwnerSkillDataId": 1011,
+      "EffectType": "Circle",
+      "Radius": 30.0
     },
     {
       "DataId": 10100,
@@ -309,6 +343,17 @@
       "ImpactTimeList": [],
       "BuffIdList": [],
       "EffectIdList": []
+    },
+    {
+      "DataId": 1000010,
+      "OwnerType": "Skill",
+      "OwnerSkillDataId": 1011,
+      "Name": "Rock (Slingshot's Ranged Normal Attack)",
+      "Duration": 0,
+      "MoveSpeed": 600,
+      "ImpactTimeList": [],
+      "BuffIdList": [ 100010 ],
+      "EffectIdList": [ 10011 ]
     }
   ],
   "buffs": [
@@ -325,6 +370,14 @@
       "BuffType": "Hit",
       "BuffDurationType": "Instant",
       "BuffAmountRate": 3.0,
+      "BuffDurationPeriod": 0.0,
+      "BuffDurationMagnitude": 0.0
+    },
+    {
+      "DataId": 100010,
+      "BuffType": "Hit",
+      "BuffDurationType": "Instant",
+      "BuffAmountRate": 1.0,
       "BuffDurationPeriod": 0.0,
       "BuffDurationMagnitude": 0.0
     },

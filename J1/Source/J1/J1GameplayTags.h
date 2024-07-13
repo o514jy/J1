@@ -36,6 +36,15 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill_NormalAttack_0);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSpear_Skill_NormalAttack_End);
 
+	/** GoblinSlingshot **/
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill);
+
+	/* GoblinSlingshot : normal attack */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill_RangedNormalAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill_RangedNormalAttack_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill_RangedNormalAttack_End);
+
 	/** Sevarog **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill);

@@ -139,11 +139,10 @@ void MonsterAIController::UpdateSkill()
 	{
 		Protocol::C_SKILL skillPkt;
 		{
-			Protocol::SimplePosInfo* posPkt = new Protocol::SimplePosInfo();
+			Protocol::SimplePosInfo* posPkt = skillPkt.mutable_simple_pos_info();
 			posPkt->set_x(targetPlayer->posInfo->x());
 			posPkt->set_y(targetPlayer->posInfo->y());
 			posPkt->set_z(targetPlayer->posInfo->z());
-			skillPkt.set_allocated_simple_pos_info(posPkt);
 			skillPkt.set_slot(Protocol::SKILL_SLOT_ATTACK);
 			skillPkt.set_object_id(ownerMonster->_objectId);
 		}

@@ -213,6 +213,9 @@
     <ClCompile Include="Env.cpp">
       <Filter>Game\Object\Env</Filter>
     </ClCompile>
+    <ClCompile Include="RangedNormalAttack.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -367,6 +370,9 @@
     </ClInclude>
     <ClInclude Include="Env.h">
       <Filter>Game\Object\Env</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedNormalAttack.h">
+      <Filter>Game\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

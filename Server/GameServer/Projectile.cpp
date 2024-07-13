@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "StartRoom.h"
 #include "Creature.h"
+#include "SkillBase.h"
 #include "BuffInstant.h"
 #include "GimmickBase.h"
 #include "Boss.h"
@@ -14,8 +15,13 @@ Projectile::Projectile()
 	_owner = nullptr;
 	_ownerSkill = nullptr;
 	_ownerGimmick = nullptr;
-
+	_destPos = FVector3();
 	_impactCount = 0;
+
+	_projectileInfo = new Protocol::ProjectileInfo();
+	_projectileType = Protocol::ProjectileType::PROJECTILE_TYPE_NONE;
+	objectInfo->set_allocated_projectile_info(_projectileInfo);
+	objectInfo->set_projectile_type(Protocol::ProjectileType::PROJECTILE_TYPE_GENERAL);
 }
 
 Projectile::~Projectile()
@@ -29,6 +35,32 @@ Projectile::~Projectile()
 void Projectile::UpdateTick()
 {
 	__super::UpdateTick();
+
+	// 목적지를 향해 이동
+	MoveToDestPos();
+}
+
+void Projectile::MoveToDestPos()
+{
+	if (_destPos != FVector3())
+	{
+		FVector3 dir = _destPos - GetPosInfoVec();
+		float distLen = dir.Magnitude();
+		dir = dir.Normalize();
+		FVector3 delta = dir * _projectileData->MoveSpeed * TICK_COUNT_SEC;
+		if (distLen > delta.Magnitude())
+		{
+			posInfo->set_x(posInfo->x() + delta.X);
+			posInfo->set_y(posInfo->y() + delta.Y);
+			posInfo->set_z(posInfo->z() + delta.Z);
+		}
+		else
+		{
+			posInfo->set_x(_destPos.X);
+			posInfo->set_y(_destPos.Y);
+			posInfo->set_z(_destPos.Z);
+		}
+	}
 }
 
 void Projectile::SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templateId)
@@ -40,6 +72,17 @@ void Projectile::SetInfo(CreatureRef owner, SkillBaseRef ownerSkill, int32 templ
 	_templateId = objectInfo->template_id();
 
 	_projectileData = GDataManager->GetProjectileDataById(templateId);
+
+	_projectileInfo->set_object_id(_objectId);
+	_projectileInfo->set_owner_object_id(_owner->_objectId);
+	_projectileInfo->set_owner_skill_id(_ownerSkill->_skillData->DataId);
+	_projectileInfo->set_data_id(templateId);
+	{
+		Protocol::SimplePosInfo* spInfo = _projectileInfo->mutable_spawn_simple_pos_info();
+		spInfo->set_x(_owner->posInfo->x());
+		spInfo->set_y(_owner->posInfo->y());
+		spInfo->set_z(_owner->posInfo->z());
+	}
 
 	_impactCount = 0;
 }
@@ -53,6 +96,17 @@ void Projectile::SetInfo(BossRef owner, GimmickBaseRef ownerGimmick, int32 templ
 	_templateId = objectInfo->template_id();
 
 	_projectileData = GDataManager->GetProjectileDataById(templateId);
+
+	_projectileInfo->set_object_id(_objectId);
+	_projectileInfo->set_owner_object_id(_owner->_objectId);
+	_projectileInfo->set_owner_gimmick_id(_ownerGimmick->_gimmickData->DataId);
+	_projectileInfo->set_data_id(templateId);
+	{
+		Protocol::SimplePosInfo* spInfo = _projectileInfo->mutable_spawn_simple_pos_info();
+		spInfo->set_x(_owner->posInfo->x());
+		spInfo->set_y(_owner->posInfo->y());
+		spInfo->set_z(_owner->posInfo->z());
+	}
 
 	_impactCount = 0;
 }
@@ -77,6 +131,11 @@ void Projectile::Clear()
 
 	_timerJobs.clear();
 
+}
+
+void Projectile::SetDestPos(FVector3 destPos)
+{
+	_destPos = destPos;
 }
 
 void Projectile::ForceDelete()
@@ -131,15 +190,35 @@ void Projectile::SpawnProjectile()
 	// do projectile
 
 	RoomBaseRef roomRef = GetRoomRef();
-	if (roomRef != nullptr)
-	{
-		for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
-		{
-			_timerJobs.push_back(roomRef->DoTimer(_projectileData->ImpactTimeList[i], static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnImpactTimeHandler));
-		}
+	if (roomRef == nullptr)
+		return;
 
+	for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
+	{
+		_timerJobs.push_back(roomRef->DoTimer(_projectileData->ImpactTimeList[i], static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnImpactTimeHandler));
+	}
+	
+	if (_destPos != FVector3())
+	{
+		// 도착 시간 예상
+		float dist = (GetPosInfoVec() - _destPos).Magnitude();
+		// 밀리초 기준 시간 계산
+		uint64 time = (uint64)(dist / (_projectileData->MoveSpeed * 0.001f));
+		_timerJobs.push_back(roomRef->DoTimer(time, static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnDurationCompleteHandler));
+	}
+	else
+	{
 		_timerJobs.push_back(roomRef->DoTimer(_projectileData->Duration, static_pointer_cast<Projectile>(shared_from_this()), &Projectile::OnDurationCompleteHandler));
 	}
+
+	//// broadcast packet
+	//Protocol::S_SPAWN spawnPkt;
+	//{
+	//	Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+	//	objectInfo->CopyFrom(*objectInfo);
+	//}
+	//SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);
+	//roomRef->Broadcast(sendBuffer);
 }
 
 vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
@@ -147,6 +226,9 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 	vector<ObjectRef> objects;
 
 	RoomBaseRef room = _owner->room.load().lock();
+	if (room == nullptr)
+		return objects;
+
 	for (auto& item : room->_objects)
 	{
 		ObjectRef object = item.second;

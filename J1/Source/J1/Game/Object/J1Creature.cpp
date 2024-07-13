@@ -248,24 +248,24 @@ void AJ1Creature::ProcessProjectile(const Protocol::ProjectileInfo& Info)
 	//loc.Z = Info.spawn_simple_pos_info().z();
 	//TObjectPtr<UNiagaraComponent> NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), niagara, loc);
 
-	TSubclassOf<AActor> shield = Cast<UJ1GameInstance>(GetGameInstance())->ShieldMaster;
-	FVector loc;
-	loc.X = Info.spawn_simple_pos_info().x();
-	loc.Y = Info.spawn_simple_pos_info().y();
-	//loc.Z = Info.spawn_simple_pos_info().z();
-	loc.Z = 0;
-	if (Info.safe_zone_dir() == Protocol::DIR_UP)
-		UpZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
-	else if (Info.safe_zone_dir() == Protocol::DIR_LEFT)
-		LeftZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
-	else if (Info.safe_zone_dir() == Protocol::DIR_RIGHT)
-		RightZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
-	else if (Info.safe_zone_dir() == Protocol::DIR_DOWN)
-		DownZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
-
-	FTimerHandle TimerHandle;
-	float Delay = 10.0f; // 삭제까지의 시간 (초)
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AJ1Creature::destroyProjectile, Delay, false);
+	//TSubclassOf<AActor> shield = Cast<UJ1GameInstance>(GetGameInstance())->ShieldMaster;
+	//FVector loc;
+	//loc.X = Info.spawn_simple_pos_info().x();
+	//loc.Y = Info.spawn_simple_pos_info().y();
+	////loc.Z = Info.spawn_simple_pos_info().z();
+	//loc.Z = 0;
+	//if (Info.safe_zone_dir() == Protocol::DIR_UP)
+	//	UpZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	//else if (Info.safe_zone_dir() == Protocol::DIR_LEFT)
+	//	LeftZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	//else if (Info.safe_zone_dir() == Protocol::DIR_RIGHT)
+	//	RightZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	//else if (Info.safe_zone_dir() == Protocol::DIR_DOWN)
+	//	DownZone = GetWorld()->SpawnActor<AActor>(shield, loc, FRotator());
+	//
+	//FTimerHandle TimerHandle;
+	//float Delay = 10.0f; // 삭제까지의 시간 (초)
+	//GetWorldTimerManager().SetTimer(TimerHandle, this, &AJ1Creature::destroyProjectile, Delay, false);
 }
 
 void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)

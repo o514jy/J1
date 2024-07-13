@@ -30,6 +30,16 @@ struct FVector3
         return *this;
     }
 
+    bool operator==(const FVector3 other) const
+    {
+        return (X == other.X && Y == other.Y && Z == other.Z);
+    }
+
+    bool operator!=(const FVector3 other) const
+    {
+        return !(*this == other);
+    }
+
     // Vector addition
     FVector3 operator+(const FVector3& other) const
     {
