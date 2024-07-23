@@ -16,7 +16,7 @@ AJ1Projectile::AJ1Projectile()
 	// Create and configure a projectile movement component
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectileMovement->bRotationFollowsVelocity = true;
-	ProjectileMovement->bShouldBounce = true;
+	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.0f; // 중력 무시
 }
 
@@ -76,5 +76,5 @@ bool AJ1Projectile::HasReachedTarget()
 {
 	// Check if the projectile is close enough to the target location
 	// Adjust tolerance as needed
-	return FVector::Dist(GetActorLocation(), DestPos) <= 100.0f;
+	return FVector::Dist(GetActorLocation(), DestPos) <= 10.0f;
 }

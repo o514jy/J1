@@ -6,6 +6,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "J1/UI/J1HpBarWidget.h"
+#include "J1/Game/Object/J1ObjectManager.h"
 #include "J1/Data/J1AnimData.h"
 #include "J1/Data/J1Data.h"
 #include "J1/Data/J1NiagaraData.h"
@@ -336,6 +337,14 @@ void AJ1Creature::OnDead()
 	UAnimMontage* Montage = AnimEntry.Montage;
 	
 	PlayAnimMontage(Montage);
+
+	// Set a timer to call destroy function after 2 seconds
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AJ1Creature::DelayDestroyed, 2.0f, false);
+}
+
+void AJ1Creature::DelayDestroyed()
+{
+	GetManager(Object)->DespawnObject(ObjectId);
 }
 
 bool AJ1Creature::IsMyPlayer()

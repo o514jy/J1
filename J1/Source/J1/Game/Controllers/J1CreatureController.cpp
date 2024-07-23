@@ -3,7 +3,8 @@
 #include "J1/Game/Object/J1Creature.h"
 #include "Navigation/PathFollowingComponent.h"
 
-AJ1CreatureController::AJ1CreatureController()
+AJ1CreatureController::AJ1CreatureController(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }
 

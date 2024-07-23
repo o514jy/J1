@@ -39,6 +39,12 @@ void UJ1RangedNormalAttack::OnAttackEvent(int32 InTimeCount)
 		return;
 	}
 
+	// debug
+	Protocol::PosInfo* posinfo = ProjectileInfo->mutable_pos_info();
+	posinfo->set_x(Owner->GetActorLocation().X);
+	posinfo->set_y(Owner->GetActorLocation().Y);
+	posinfo->set_z(Owner->GetActorLocation().Z);
+
 	// 투사체 생성
 	Owner->GetManager(Object)->SpawnObject(*ProjectileInfo, Owner, this, DestPos);
 }

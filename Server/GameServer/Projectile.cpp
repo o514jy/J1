@@ -37,7 +37,8 @@ void Projectile::UpdateTick()
 	__super::UpdateTick();
 
 	// 목적지를 향해 이동
-	MoveToDestPos();
+	if (_projectileData != nullptr)
+		MoveToDestPos();
 }
 
 void Projectile::MoveToDestPos()

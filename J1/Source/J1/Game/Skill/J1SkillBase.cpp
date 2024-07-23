@@ -77,6 +77,14 @@ void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 			OtherPlayer->SetPosInfo(InSkillPkt.pos_info(), true);
 	}
 
+	// 위치 보정이 필요한 경우 해준다.
+	FVector pos(InSkillPkt.pos_info().x(), InSkillPkt.pos_info().y(), InSkillPkt.pos_info().z());
+	double dist = FVector::Dist(Owner->GetActorLocation(), pos);
+	if (dist > 100.f)
+	{
+		Owner->SetPosInfo(InSkillPkt.pos_info(), true);
+	}
+
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);
 	ImpactPos->CopyFrom(InSkillPkt.simple_pos_info());
 

@@ -12,7 +12,7 @@ class J1_API AJ1CreatureController : public AJ1AIController
 {
 	GENERATED_BODY()
 public:
-	AJ1CreatureController();
+	AJ1CreatureController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 	~AJ1CreatureController();
 
 public:

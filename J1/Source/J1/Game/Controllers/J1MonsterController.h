@@ -11,6 +11,10 @@ class J1_API AJ1MonsterController : public AJ1CreatureController
 {
 	GENERATED_BODY()
 public:
+	AJ1MonsterController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	~AJ1MonsterController();
+
+public:
 	TObjectPtr<AJ1Monster> GetOwner() { return Cast<AJ1Monster>(GetPawn()); }
 
 public:

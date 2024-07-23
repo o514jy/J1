@@ -5,6 +5,7 @@
 #include "J1/Data/J1Data.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
+#include "TimerManager.h"
 #include "J1Creature.generated.h"
 
 class Protocol::PosInfo;
@@ -17,9 +18,7 @@ class UWidgetComponent;
 UCLASS()
 class J1_API AJ1Creature : public ACharacter
 {
-public:
 	GENERATED_BODY()
-
 public:
 	// Sets default values for this character's properties
 	AJ1Creature();
@@ -93,6 +92,12 @@ public:
 public:
 	/** state **/
 	virtual void OnDead();
+	
+	UFUNCTION()
+	void DelayDestroyed();
+
+	UPROPERTY()
+	FTimerHandle TimerHandle;
 
 public:
 	/** helper **/

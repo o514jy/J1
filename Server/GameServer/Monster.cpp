@@ -39,7 +39,7 @@ void Monster::SetInfo(int32 templateId)
 
 void Monster::SetTargetObject(ObjectRef object)
 {
-	if (_targetObject == nullptr || _targetObject != object)
+	//if (_targetObject == nullptr || _targetObject != object)
 	{
 		// 타겟이 바뀌었다는 패킷을 보낸다.
 		Protocol::S_CHANGE_TARGET pkt;

@@ -2,6 +2,17 @@
 #include "Game/Object/J1Monster.h"
 #include "Game/Object/J1Player.h"
 #include "Navigation/PathFollowingComponent.h"
+#include "Navigation/CrowdFollowingComponent.h"
+
+AJ1MonsterController::AJ1MonsterController(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
+{
+	
+}
+
+AJ1MonsterController::~AJ1MonsterController()
+{
+}
 
 void AJ1MonsterController::Tick(float DeltaTime)
 {
@@ -50,7 +61,6 @@ void AJ1MonsterController::UpdateRun()
 	float OwnerAttackDist = GetOwner()->GetMonsterData()->DefaultAtkRange;
 	// OwnerAttackDist + player->GetCreatureData()->ColliderRadius
 	MoveRequest.SetAcceptanceRadius(OwnerAttackDist);
-
 
 	// AI에게 이동 명령을 내림
 	MoveTo(MoveRequest);
