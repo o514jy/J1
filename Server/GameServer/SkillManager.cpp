@@ -34,6 +34,9 @@ SkillBaseRef SkillManager::GenerateSkillById(int32 id)
 	case 1011:
 		skill = make_shared<RangedNormalAttack>();
 		break;
+	case 1012:
+		skill = make_shared<NormalAttack>();
+		break;
 	case 1100:
 		skill = make_shared<NormalAttack>();
 		break;

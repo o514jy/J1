@@ -76,6 +76,9 @@ MonsterRef ObjectManager::CreateMonster(int32 templateId, FVector3 spawnPos, Roo
 	monster->posInfo->set_x(spawnPos.X);
 	monster->posInfo->set_y(spawnPos.Y);
 	monster->posInfo->set_z(spawnPos.Z);
+	monster->posInfo->set_dest_x(spawnPos.X);
+	monster->posInfo->set_dest_y(spawnPos.Y);
+	monster->posInfo->set_dest_z(spawnPos.Z);
 
 	if (spawnedRoom != nullptr)
 		monster->room = spawnedRoom;

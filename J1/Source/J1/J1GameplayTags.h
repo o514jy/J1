@@ -45,6 +45,15 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill_RangedNormalAttack_0);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(GoblinSlingshot_Skill_RangedNormalAttack_End);
 
+	/** DemonRed **/
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(DemonRed);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(DemonRed_Skill);
+
+	/* DemonRed : normal attack */
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(DemonRed_Skill_NormalAttack);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(DemonRed_Skill_NormalAttack_0);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(DemonRed_Skill_NormalAttack_End);
+
 	/** Sevarog **/
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Sevarog_Skill);

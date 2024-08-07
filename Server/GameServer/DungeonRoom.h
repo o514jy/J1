@@ -16,12 +16,16 @@ public:
 	virtual void UpdateTick() override;
 
 public:
+	/** initialize **/
+	void SetInfo();
+
+public:
 	/** in game logic **/
 	virtual bool EnterRoom(ObjectRef object, bool randPos = true, FVector3 spawnPos = FVector3()) override;
 
 public:
 	/** information **/
-
+	SpawningPoolRef _spawningPool;
 
 	// temp
 	virtual void SetRoomState(Protocol::RoomState state);

@@ -3,6 +3,8 @@
 #include "Data.h"
 #include "Creature.h"
 #include "RoomBase.h"
+#include "SpawningPool.h"
+#include "Monster.h"
 
 StatComponent::StatComponent()
 {
@@ -64,6 +66,15 @@ void StatComponent::SetHp(float hp)
 	// check alive
 	if (_hp <= 0)
 	{
+		MonsterRef mon = dynamic_pointer_cast<Monster>(_owner);
+		if (mon != nullptr)
+		{
+			if (mon->_ownerSpawningPool != nullptr)
+			{
+				mon->_ownerSpawningPool->AddKillCount(1);
+			}
+		}
+
 		_owner->SetState(Protocol::MOVE_STATE_DEAD);
 	}
 }

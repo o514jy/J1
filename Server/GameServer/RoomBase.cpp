@@ -56,7 +56,8 @@ void RoomBase::UpdateTick()
 	// all object in start room process update tick 
 	for (auto& object : _objects)
 	{
-		object.second->UpdateTick();
+		if (object.second->room.load().lock() != nullptr)
+			object.second->UpdateTick();
 	}
 
 	// update navigation

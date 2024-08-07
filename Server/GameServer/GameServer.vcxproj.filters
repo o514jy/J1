@@ -58,6 +58,9 @@
     <Filter Include="Game\Object\Env">
       <UniqueIdentifier>{4160580f-b4f6-4faf-8ba4-5e95b44463ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Process">
+      <UniqueIdentifier>{b3353220-be41-469f-b7fb-848bcccb1267}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -216,6 +219,9 @@
     <ClCompile Include="RangedNormalAttack.cpp">
       <Filter>Game\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="SpawningPool.cpp">
+      <Filter>Game\Process</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -373,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="RangedNormalAttack.h">
       <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawningPool.h">
+      <Filter>Game\Process</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -40,6 +40,8 @@ public:
 	TSubclassOf<AJ1Monster> GoblinSpearClass;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Monster> GoblinSlingshotClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AJ1Monster> DemonRedClass;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Boss> StartBossClass;

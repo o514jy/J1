@@ -242,6 +242,11 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 		if (object->_objectType != Protocol::ObjectType::OBJECT_TYPE_CREATURE)
 			continue;
 
+		// 같은 편이면 우선 제외
+		CreatureRef creature = static_pointer_cast<Creature>(object);
+		if (creature->GetCreatureData()->CreatureType == _owner->GetCreatureData()->CreatureType)
+			continue;
+
 		EffectDataRef effectData = GDataManager->GetEffectDataById(effectId);
 		wstring effectType = effectData->EffectType;
 		if (effectType == L"Rectangle")

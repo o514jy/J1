@@ -24,6 +24,9 @@ TObjectPtr<UJ1SkillBase> UJ1SkillManager::GenerateSkillById(int32 InId)
 	case 1011:
 		skill = NewObject<UJ1RangedNormalAttack>();
 		break;
+	case 1012:
+		skill = NewObject<UJ1NormalAttack>();
+		break;
 	case 1100:
 		skill = NewObject<UJ1NormalAttack>();
 		break;

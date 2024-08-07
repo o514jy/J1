@@ -78,6 +78,9 @@ USING_SHARED_PTR(NavDevice);
 /** stat **/
 USING_SHARED_PTR(StatComponent);
 
+/** process **/
+USING_SHARED_PTR(SpawningPool);
+
 #define SEND_PACKET(pkt)													\
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);	\
 	session->Send(sendBuffer);

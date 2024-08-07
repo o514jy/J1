@@ -218,6 +218,7 @@
     <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="SkillComponent.cpp" />
     <ClCompile Include="SkillManager.cpp" />
+    <ClCompile Include="SpawningPool.cpp" />
     <ClCompile Include="SpreadCloud.cpp" />
     <ClCompile Include="StartRoom.cpp" />
     <ClCompile Include="StatComponent.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SkillManager.h" />
+    <ClInclude Include="SpawningPool.h" />
     <ClInclude Include="SpreadCloud.h" />
     <ClInclude Include="StartRoom.h" />
     <ClInclude Include="StatComponent.h" />

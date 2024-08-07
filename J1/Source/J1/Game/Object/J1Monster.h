@@ -21,6 +21,12 @@ public:
 	void SetTargetPlayer(TObjectPtr<AJ1Player> InPlayer);
 	TObjectPtr<AJ1Player> GetTargetPlayer() { return TargetPlayer; }
 
+	void SetTempSyncPos(FVector InSyncPos);
+	FVector GetTempSyncPos();
+
+	void SetbSetSyncPos(bool InbSyncPos);
+	bool GetbSetSyncPos() { return bSetSyncPos; }
+
 public:
 	/** initialize info **/
 	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo) override;
@@ -28,4 +34,7 @@ public:
 public:
 	/** information **/
 	TObjectPtr<AJ1Player> TargetPlayer = nullptr;
+
+	FVector TempSyncPos = FVector();
+	bool bSetSyncPos = false;
 };

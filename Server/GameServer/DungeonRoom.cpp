@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "DungeonRoom.h"
 #include "ObjectManager.h"
+#include "SpawningPool.h"
 
 DungeonRoom::DungeonRoom()
 {
@@ -22,6 +23,12 @@ void DungeonRoom::UpdateTick()
 
 	//cout << "Update StartRoom" << "\n";
 	DoTimer(TICK_COUNT, &DungeonRoom::UpdateTick);
+}
+
+void DungeonRoom::SetInfo()
+{
+	_spawningPool = make_shared<SpawningPool>();
+	_spawningPool->SetInfo(GetRoomRef());
 }
 
 bool DungeonRoom::EnterRoom(ObjectRef object, bool randPos, FVector3 spawnPos)
@@ -51,7 +58,8 @@ void DungeonRoom::SetRoomState(Protocol::RoomState state)
 	if (state == Protocol::RoomState::ROOM_STATE_BATTLE)
 	{
 		//SpawnBoss();
-		SpawnMonster();
+		//SpawnMonster();
+		_spawningPool->SpawnAndAddMonster();
 	}
 }
 
@@ -131,7 +139,7 @@ vector<MonsterRef> DungeonRoom::GetMonsters()
 
 	{
 		FVector3 spawnPos = FVector3(860.f, -600.f, 100.f);
-		MonsterRef mon = GObjectManager->CreateMonster(11, spawnPos, GetRoomRef());
+		MonsterRef mon = GObjectManager->CreateMonster(12, spawnPos, GetRoomRef());
 		AddObject(mon);
 		v.push_back(mon);
 	}

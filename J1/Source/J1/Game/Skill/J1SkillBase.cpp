@@ -6,6 +6,7 @@
 #include "J1/J1GameplayTags.h"
 #include "System/J1AssetManager.h"
 #include "J1/Game/Object/J1Creature.h"
+#include "J1/Game/Object/J1Monster.h"
 #include "J1/Data/J1DataManager.h"
 #include "J1/Data/J1AnimData.h"
 #include "J1/Game/Object/J1MyPlayer.h"
@@ -83,6 +84,13 @@ void UJ1SkillBase::DoSkill(const Protocol::S_SKILL& InSkillPkt)
 	if (dist > 100.f)
 	{
 		Owner->SetPosInfo(InSkillPkt.pos_info(), true);
+	}
+	else
+	{
+		if (TObjectPtr<AJ1Monster> Monster = Cast<AJ1Monster>(Owner))
+		{
+			Monster->SetTempSyncPos(pos);
+		}
 	}
 
 	Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_SKILL);

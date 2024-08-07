@@ -5,13 +5,27 @@
 #include "Navigation/CrowdFollowingComponent.h"
 
 AJ1MonsterController::AJ1MonsterController(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
+	//: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
+	: Super(ObjectInitializer)
 {
 	
 }
 
 AJ1MonsterController::~AJ1MonsterController()
 {
+}
+
+void AJ1MonsterController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UCrowdFollowingComponent* comp = FindComponentByClass<UCrowdFollowingComponent>();
+
+	if (comp)
+	{
+		comp->SetCrowdSeparation(true);
+		comp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);
+	}
 }
 
 void AJ1MonsterController::Tick(float DeltaTime)
@@ -38,6 +52,8 @@ void AJ1MonsterController::UpdateRun()
 {
 	Super::UpdateRun();
 
+	return;
+
 	if (GetOwner() == nullptr)
 		return;
 
@@ -55,12 +71,30 @@ void AJ1MonsterController::UpdateRun()
 	//location.Y = player->GetObjectInfo()->pos_info().y();
 	//location.Z = player->GetObjectInfo()->pos_info().z();
 
+	// 보정부터 해야하는 경우 이거먼저
+	//if (GetOwner()->bSetSyncPos == true)
+	//{
+	//	// 보정해야할 위치에 도착했을 경우 보정 끝
+	//	if (FVector::Dist(GetOwner()->GetActorLocation(), GetOwner()->GetTempSyncPos()) < 15.f)
+	//	{
+	//		GetOwner()->SetbSetSyncPos(false);
+	//	}
+	//	else
+	//	{
+	//		FAIMoveRequest MoveReq;
+	//		MoveReq.SetGoalLocation(GetOwner()->GetTempSyncPos());
+	//		MoveReq.SetAcceptanceRadius(0.f);
+	//		MoveTo(MoveReq);
+	//		return;
+	//	}
+	//}
+
 	// 이동 명령 생성
 	FAIMoveRequest MoveRequest;
 	MoveRequest.SetGoalActor(player);
 	float OwnerAttackDist = GetOwner()->GetMonsterData()->DefaultAtkRange;
 	// OwnerAttackDist + player->GetCreatureData()->ColliderRadius
-	MoveRequest.SetAcceptanceRadius(OwnerAttackDist);
+	MoveRequest.SetAcceptanceRadius(OwnerAttackDist - player->GetCreatureData()->ColliderRadius);
 
 	// AI에게 이동 명령을 내림
 	MoveTo(MoveRequest);

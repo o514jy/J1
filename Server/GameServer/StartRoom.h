@@ -39,6 +39,8 @@ public:
 	// ranged temp
 	MonsterRef GetRanged();
 	void SpawnRanged();
+	MonsterRef GetDemon();
+	void SpawnDemon();
 	MonsterRef _monster;
 	
 protected:

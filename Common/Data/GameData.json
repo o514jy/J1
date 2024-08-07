@@ -33,7 +33,7 @@
       "MaxWalkSpeed": 200.0,
       "MoveSpeedRate": 1.0,
       "SkillAttackId": 1010,
-      "DefaultAtkRange": 100.0,
+      "DefaultAtkRange": 80.0,
       "SearchMaxDistance": 500.0,
       "ChaseMaxDistance": 800.0
     },
@@ -50,8 +50,25 @@
       "MaxWalkSpeed": 200.0,
       "MoveSpeedRate": 1.0,
       "SkillAttackId": 1011,
-      "DefaultAtkRange": 400.0,
+      "DefaultAtkRange": 380.0,
       "SearchMaxDistance": 700.0,
+      "ChaseMaxDistance": 800.0
+    },
+    {
+      "DataId": 12,
+      "CreatureType": "Monster",
+      "DescriptionTextId": "DemonRed",
+      "MonsterType": "General",
+      "ColliderRadius": 26.0,
+      "ColliderHalfHeight": 52.0,
+      "MaxHp": 230.0,
+      "Atk": 60.0,
+      "Def": 0.0,
+      "MaxWalkSpeed": 200.0,
+      "MoveSpeedRate": 1.0,
+      "SkillAttackId": 1012,
+      "DefaultAtkRange": 80.0,
+      "SearchMaxDistance": 500.0,
       "ChaseMaxDistance": 800.0
     }
   ],
@@ -117,6 +134,17 @@
       "CoolTime": 0,
       "SkillDuration": 1170,
       "AnimImpactTimeList": [ 170 ],
+      "BuffIdList": [ 100000 ],
+      "EffectIdList": [ 10000 ]
+    },
+    {
+      "DataId": 1012,
+      "Name": "Normal Attack 1 (DemonRed)",
+      "Description": "Normal Attack 1 (DemonRed)",
+      "ProjectileIdList": [],
+      "CoolTime": 0,
+      "SkillDuration": 1030,
+      "AnimImpactTimeList": [ 420 ],
       "BuffIdList": [ 100000 ],
       "EffectIdList": [ 10000 ]
     },

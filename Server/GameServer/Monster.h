@@ -1,6 +1,8 @@
 #pragma once
 #include "Creature.h"
 
+class SpawningPool;
+
 class Monster : public Creature
 {
 public:
@@ -20,6 +22,7 @@ public:
 	void SetTargetObject(ObjectRef object); 
 
 	virtual void SetState(Protocol::MoveState moveState) override;
+	void SetOwnerSpawningPool(SpawningPoolRef ownerPool);
 
 	MonsterDataRef GetMonsterData() { return static_pointer_cast<MonsterData>(_creatureData); }
 
@@ -35,5 +38,9 @@ public:
 	MonsterAIControllerRef _aiController;
 
 	ObjectRef _targetObject;
+
+public:
+	/** information **/
+	SpawningPoolRef _ownerSpawningPool;
 };
 

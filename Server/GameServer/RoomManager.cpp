@@ -34,6 +34,7 @@ void RoomManager::InitializeAllRoom()
 		dungeonRoom->init(objFilePath);
 		_rooms.insert(make_pair(Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM, dungeonRoom));
 		dungeonRoom->_roomType = Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM;
+		dungeonRoom->SetInfo();
 	}
 }
 

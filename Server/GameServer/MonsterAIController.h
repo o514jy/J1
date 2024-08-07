@@ -28,5 +28,5 @@ public:
 
 public:
 	/** information **/
-	bool _shouldSyncPos = false;
+	bool _shouldSyncPos = true;
 };

@@ -113,6 +113,10 @@ void Navigation::UpdateTick()
 			object->posInfo->set_y(retPos.Y);
 			object->posInfo->set_z(retPos.Z);
 
+			object->posInfo->set_dest_x(retPos.X);
+			object->posInfo->set_dest_y(retPos.Y);
+			object->posInfo->set_dest_z(retPos.Z);
+
 			//ObjectRef obj = m_room.lock()->FindObjectByAgentIdx(i);
 			//if (obj != nullptr)
 			//{

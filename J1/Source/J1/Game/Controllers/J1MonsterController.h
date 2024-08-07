@@ -15,6 +15,9 @@ public:
 	~AJ1MonsterController();
 
 public:
+	virtual void BeginPlay() override;
+
+public:
 	TObjectPtr<AJ1Monster> GetOwner() { return Cast<AJ1Monster>(GetPawn()); }
 
 public:

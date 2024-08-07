@@ -60,7 +60,9 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			return nullptr;
 	}
 	
+	FTransform SpawnTransform;
 	FVector SpawnLocation(InObjectInfo.pos_info().x(), InObjectInfo.pos_info().y(), InObjectInfo.pos_info().z());
+	FRotator SpawnRotation;
 
 	TObjectPtr<AActor> object;
 
@@ -92,7 +94,9 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			}
 			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
-				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation));
+				FActorSpawnParameters actorSpawnParam;
+				actorSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation, &SpawnRotation, actorSpawnParam));
 				if (creature == nullptr)
 				{
 					int a = 3;
@@ -241,6 +245,8 @@ TSubclassOf<AJ1Creature> UJ1ObjectManager::GetCreatureClassById(int32 InTemplate
 		return instance->GoblinSpearClass;
 	case 11:
 		return instance->GoblinSlingshotClass;
+	case 12:
+		return instance->DemonRedClass;
 	case 100:
 		return instance->StartBossClass;
 	}
