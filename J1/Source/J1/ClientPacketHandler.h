@@ -36,8 +36,9 @@ enum : uint16
 	PKT_S_PROJECTILE = 1019,
 	PKT_S_BUFF = 1020,
 	PKT_S_STAT = 1021,
-	PKT_C_CHAT = 1022,
-	PKT_S_CHAT = 1023,
+	PKT_S_SPAWNING_POOL = 1022,
+	PKT_C_CHAT = 1023,
+	PKT_S_CHAT = 1024,
 };
 
 // Custom Handlers
@@ -56,6 +57,7 @@ bool Handle_S_GIMMICK(PacketSessionRef& session, Protocol::S_GIMMICK& pkt);
 bool Handle_S_PROJECTILE(PacketSessionRef& session, Protocol::S_PROJECTILE& pkt);
 bool Handle_S_BUFF(PacketSessionRef& session, Protocol::S_BUFF& pkt);
 bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt);
+bool Handle_S_SPAWNING_POOL(PacketSessionRef& session, Protocol::S_SPAWNING_POOL& pkt);
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt);
 
 class ClientPacketHandler
@@ -79,6 +81,7 @@ public:
 		GPacketHandler[PKT_S_PROJECTILE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_PROJECTILE>(Handle_S_PROJECTILE, session, buffer, len); };
 		GPacketHandler[PKT_S_BUFF] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_BUFF>(Handle_S_BUFF, session, buffer, len); };
 		GPacketHandler[PKT_S_STAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_STAT>(Handle_S_STAT, session, buffer, len); };
+		GPacketHandler[PKT_S_SPAWNING_POOL] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_SPAWNING_POOL>(Handle_S_SPAWNING_POOL, session, buffer, len); };
 		GPacketHandler[PKT_S_CHAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_CHAT>(Handle_S_CHAT, session, buffer, len); };
 	}
 

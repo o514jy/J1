@@ -95,7 +95,7 @@ TObjectPtr<AActor> UJ1ObjectManager::SpawnObject(Protocol::ObjectInfo InObjectIn
 			else if (monsterType == Protocol::MonsterType::MONSTER_TYPE_BOSS)
 			{
 				FActorSpawnParameters actorSpawnParam;
-				actorSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+				actorSpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 				creature = Cast<AJ1Creature>(GetWorld()->SpawnActor(CreatureClass, &SpawnLocation, &SpawnRotation, actorSpawnParam));
 				if (creature == nullptr)
 				{

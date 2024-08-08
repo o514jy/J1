@@ -99,12 +99,12 @@ void BaseAIController::BroadcastMove()
 
 void BaseAIController::BroadcastNowPos()
 {
-	cout << "monster pos [ " << _owner->posInfo->x() << ", " << _owner->posInfo->y() << ", " << _owner->posInfo->z() << " ]\n";
+	//cout << "monster pos [ " << _owner->posInfo->x() << ", " << _owner->posInfo->y() << ", " << _owner->posInfo->z() << " ]\n";
 	if (MonsterRef mon = static_pointer_cast<Monster>(_owner))
 	{
 		if (mon->_targetObject != nullptr)
 		{
-			cout << "target  pos [ " << mon->_targetObject->posInfo->x() << ", " << mon->_targetObject->posInfo->y() << ", " << mon->_targetObject->posInfo->z() << " ]\n";
+			//cout << "target  pos [ " << mon->_targetObject->posInfo->x() << ", " << mon->_targetObject->posInfo->y() << ", " << mon->_targetObject->posInfo->z() << " ]\n";
 		}
 	}
 	// 몬스터의 기본적인 상태 패킷을 보낸다.
@@ -215,6 +215,8 @@ void BaseAIController::RegisterTargetPosToNavDevice()
 
 	if (_navDevice != nullptr)
 		_navDevice->SetMoveTarget(dPos);
+	else
+		int aef = 3;
 }
 
 void BaseAIController::StopMovement()

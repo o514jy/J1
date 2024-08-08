@@ -36,8 +36,9 @@ enum : uint16
 	PKT_S_PROJECTILE = 1019,
 	PKT_S_BUFF = 1020,
 	PKT_S_STAT = 1021,
-	PKT_C_CHAT = 1022,
-	PKT_S_CHAT = 1023,
+	PKT_S_SPAWNING_POOL = 1022,
+	PKT_C_CHAT = 1023,
+	PKT_S_CHAT = 1024,
 };
 
 // Custom Handlers
@@ -89,6 +90,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_PROJECTILE& pkt) { return MakeSendBuffer(pkt, PKT_S_PROJECTILE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_BUFF& pkt) { return MakeSendBuffer(pkt, PKT_S_BUFF); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_STAT& pkt) { return MakeSendBuffer(pkt, PKT_S_STAT); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_SPAWNING_POOL& pkt) { return MakeSendBuffer(pkt, PKT_S_SPAWNING_POOL); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_S_CHAT); }
 
 private:

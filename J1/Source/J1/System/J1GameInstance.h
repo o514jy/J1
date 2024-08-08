@@ -10,6 +10,9 @@ class AJ1Monster;
 class AJ1Boss;
 class AJ1Portal;
 class AJ1Projectile;
+class UJ1SceneWidget;
+class UUserWidget;
+class UJ1DungeonStatusWidget;
 
 class UNiagaraSystem;
 
@@ -56,4 +59,14 @@ public:
 	/** projectile **/
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AJ1Projectile> RockForSlingshotClass;
+
+	/** UI **/
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1DungeonStatusWidget> DungeonStatusWidgetClass;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1SceneWidget> SceneWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UJ1SceneWidget> SceneWidgetInstance;
 };

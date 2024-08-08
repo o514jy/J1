@@ -114,6 +114,9 @@ extern S_SKILLDefaultTypeInternal _S_SKILL_default_instance_;
 class S_SPAWN;
 struct S_SPAWNDefaultTypeInternal;
 extern S_SPAWNDefaultTypeInternal _S_SPAWN_default_instance_;
+class S_SPAWNING_POOL;
+struct S_SPAWNING_POOLDefaultTypeInternal;
+extern S_SPAWNING_POOLDefaultTypeInternal _S_SPAWNING_POOL_default_instance_;
 class S_STAT;
 struct S_STATDefaultTypeInternal;
 extern S_STATDefaultTypeInternal _S_STAT_default_instance_;
@@ -144,6 +147,7 @@ template<> ::Protocol::S_NOTIFY_POS* Arena::CreateMaybeMessage<::Protocol::S_NOT
 template<> ::Protocol::S_PROJECTILE* Arena::CreateMaybeMessage<::Protocol::S_PROJECTILE>(Arena*);
 template<> ::Protocol::S_SKILL* Arena::CreateMaybeMessage<::Protocol::S_SKILL>(Arena*);
 template<> ::Protocol::S_SPAWN* Arena::CreateMaybeMessage<::Protocol::S_SPAWN>(Arena*);
+template<> ::Protocol::S_SPAWNING_POOL* Arena::CreateMaybeMessage<::Protocol::S_SPAWNING_POOL>(Arena*);
 template<> ::Protocol::S_STAT* Arena::CreateMaybeMessage<::Protocol::S_STAT>(Arena*);
 template<> ::Protocol::S_TELEPORT* Arena::CreateMaybeMessage<::Protocol::S_TELEPORT>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -3764,6 +3768,187 @@ class S_STAT final :
 };
 // -------------------------------------------------------------------
 
+class S_SPAWNING_POOL final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SPAWNING_POOL) */ {
+ public:
+  inline S_SPAWNING_POOL() : S_SPAWNING_POOL(nullptr) {}
+  ~S_SPAWNING_POOL() override;
+  explicit PROTOBUF_CONSTEXPR S_SPAWNING_POOL(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_SPAWNING_POOL(const S_SPAWNING_POOL& from);
+  S_SPAWNING_POOL(S_SPAWNING_POOL&& from) noexcept
+    : S_SPAWNING_POOL() {
+    *this = ::std::move(from);
+  }
+
+  inline S_SPAWNING_POOL& operator=(const S_SPAWNING_POOL& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_SPAWNING_POOL& operator=(S_SPAWNING_POOL&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_SPAWNING_POOL& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_SPAWNING_POOL* internal_default_instance() {
+    return reinterpret_cast<const S_SPAWNING_POOL*>(
+               &_S_SPAWNING_POOL_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(S_SPAWNING_POOL& a, S_SPAWNING_POOL& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_SPAWNING_POOL* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_SPAWNING_POOL* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_SPAWNING_POOL* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_SPAWNING_POOL>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_SPAWNING_POOL& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_SPAWNING_POOL& from) {
+    S_SPAWNING_POOL::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_SPAWNING_POOL* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.S_SPAWNING_POOL";
+  }
+  protected:
+  explicit S_SPAWNING_POOL(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTemplateIdFieldNumber = 1,
+    kKillCountFieldNumber = 2,
+    kMaxCountFieldNumber = 3,
+    kFinishedFieldNumber = 4,
+  };
+  // int32 template_id = 1;
+  void clear_template_id();
+  int32_t template_id() const;
+  void set_template_id(int32_t value);
+  private:
+  int32_t _internal_template_id() const;
+  void _internal_set_template_id(int32_t value);
+  public:
+
+  // int32 kill_count = 2;
+  void clear_kill_count();
+  int32_t kill_count() const;
+  void set_kill_count(int32_t value);
+  private:
+  int32_t _internal_kill_count() const;
+  void _internal_set_kill_count(int32_t value);
+  public:
+
+  // int32 max_count = 3;
+  void clear_max_count();
+  int32_t max_count() const;
+  void set_max_count(int32_t value);
+  private:
+  int32_t _internal_max_count() const;
+  void _internal_set_max_count(int32_t value);
+  public:
+
+  // bool finished = 4;
+  void clear_finished();
+  bool finished() const;
+  void set_finished(bool value);
+  private:
+  bool _internal_finished() const;
+  void _internal_set_finished(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.S_SPAWNING_POOL)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t template_id_;
+    int32_t kill_count_;
+    int32_t max_count_;
+    bool finished_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
 class C_CHAT final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_CHAT) */ {
  public:
@@ -3812,7 +3997,7 @@ class C_CHAT final :
                &_C_CHAT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(C_CHAT& a, C_CHAT& b) {
     a.Swap(&b);
@@ -3965,7 +4150,7 @@ class S_CHAT final :
                &_S_CHAT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(S_CHAT& a, S_CHAT& b) {
     a.Swap(&b);
@@ -6199,6 +6384,90 @@ inline void S_STAT::set_allocated_stat_info(::Protocol::StatInfo* stat_info) {
 
 // -------------------------------------------------------------------
 
+// S_SPAWNING_POOL
+
+// int32 template_id = 1;
+inline void S_SPAWNING_POOL::clear_template_id() {
+  _impl_.template_id_ = 0;
+}
+inline int32_t S_SPAWNING_POOL::_internal_template_id() const {
+  return _impl_.template_id_;
+}
+inline int32_t S_SPAWNING_POOL::template_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SPAWNING_POOL.template_id)
+  return _internal_template_id();
+}
+inline void S_SPAWNING_POOL::_internal_set_template_id(int32_t value) {
+  
+  _impl_.template_id_ = value;
+}
+inline void S_SPAWNING_POOL::set_template_id(int32_t value) {
+  _internal_set_template_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SPAWNING_POOL.template_id)
+}
+
+// int32 kill_count = 2;
+inline void S_SPAWNING_POOL::clear_kill_count() {
+  _impl_.kill_count_ = 0;
+}
+inline int32_t S_SPAWNING_POOL::_internal_kill_count() const {
+  return _impl_.kill_count_;
+}
+inline int32_t S_SPAWNING_POOL::kill_count() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SPAWNING_POOL.kill_count)
+  return _internal_kill_count();
+}
+inline void S_SPAWNING_POOL::_internal_set_kill_count(int32_t value) {
+  
+  _impl_.kill_count_ = value;
+}
+inline void S_SPAWNING_POOL::set_kill_count(int32_t value) {
+  _internal_set_kill_count(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SPAWNING_POOL.kill_count)
+}
+
+// int32 max_count = 3;
+inline void S_SPAWNING_POOL::clear_max_count() {
+  _impl_.max_count_ = 0;
+}
+inline int32_t S_SPAWNING_POOL::_internal_max_count() const {
+  return _impl_.max_count_;
+}
+inline int32_t S_SPAWNING_POOL::max_count() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SPAWNING_POOL.max_count)
+  return _internal_max_count();
+}
+inline void S_SPAWNING_POOL::_internal_set_max_count(int32_t value) {
+  
+  _impl_.max_count_ = value;
+}
+inline void S_SPAWNING_POOL::set_max_count(int32_t value) {
+  _internal_set_max_count(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SPAWNING_POOL.max_count)
+}
+
+// bool finished = 4;
+inline void S_SPAWNING_POOL::clear_finished() {
+  _impl_.finished_ = false;
+}
+inline bool S_SPAWNING_POOL::_internal_finished() const {
+  return _impl_.finished_;
+}
+inline bool S_SPAWNING_POOL::finished() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SPAWNING_POOL.finished)
+  return _internal_finished();
+}
+inline void S_SPAWNING_POOL::_internal_set_finished(bool value) {
+  
+  _impl_.finished_ = value;
+}
+inline void S_SPAWNING_POOL::set_finished(bool value) {
+  _internal_set_finished(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SPAWNING_POOL.finished)
+}
+
+// -------------------------------------------------------------------
+
 // C_CHAT
 
 // string msg = 1;
@@ -6328,6 +6597,8 @@ inline void S_CHAT::set_allocated_msg(std::string* msg) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

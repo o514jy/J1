@@ -67,6 +67,8 @@ public:
 
 	void HandleStat(const Protocol::S_STAT& StatPkt);
 
+	void HandleSpawningPool(const Protocol::S_SPAWNING_POOL& PoolPkt);
+
 public:
 	// GameServer
 	class FSocket* Socket;

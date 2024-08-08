@@ -31,6 +31,12 @@ public:
 	/** setter & getter **/
 	void AddKillCount(int32 count);
 
+	void SetFinished(bool flag);
+
+public:
+	/** network **/
+	void SendSpawningPoolPkt();
+
 public:
 	/** process **/
 	void SpawnAndAddMonster();
@@ -39,6 +45,10 @@ public:
 	/** information **/
 	int32 _killCount = 0;
 	int32 _CurrentPhase = 0;
+	int32 _maxCount = 0;
+	int32 _maxPhaseCount = 0;
+
+	bool _finished = false; // 상태 기반으로 필요할 경우 교체 예정
 
 	vector<vector<SpawnInfo>> _spawnInfos; // maxPhase == 3
 

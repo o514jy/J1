@@ -187,6 +187,16 @@ bool Handle_S_BUFF(PacketSessionRef& session, Protocol::S_BUFF& pkt)
 	return true;
 }
 
+bool Handle_S_SPAWNING_POOL(PacketSessionRef& session, Protocol::S_SPAWNING_POOL& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleSpawningPool(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)
 {
 	auto Msg = pkt.msg();

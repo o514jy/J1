@@ -10,6 +10,8 @@
 #include "Object/J1ObjectManager.h"
 #include "J1/Game/Stat/J1StatComponent.h"
 #include "J1/Game/Object/J1Boss.h"
+#include "J1/UI/J1DungeonStatusWidget.h"
+#include "J1/UI/J1SceneWidget.h"
 
 void UJ1NetworkManager::Tick(float DeltaTime)
 {
@@ -331,4 +333,23 @@ void UJ1NetworkManager::HandleStat(const Protocol::S_STAT& StatPkt)
 
 	TObjectPtr<UJ1StatComponent> stats = creature->StatComponent;
 	stats->ProcessStat(StatPkt.stat_info());
+}
+
+void UJ1NetworkManager::HandleSpawningPool(const Protocol::S_SPAWNING_POOL& PoolPkt)
+{
+	if (Socket == nullptr || GameServerSession == nullptr)
+		return;
+
+	auto* World = GetWorld();
+	if (World == nullptr)
+		return;
+
+	int killCount = PoolPkt.kill_count();
+	int maxCount = PoolPkt.max_count();
+	bool finished = PoolPkt.finished();
+
+	float ratio = (float)killCount / maxCount;
+	
+	auto sceneWidget = Cast<UJ1GameInstance>(GetGameInstance())->SceneWidgetInstance;
+	sceneWidget->DungeonStatusWBP->SetClearRatio(ratio);
 }

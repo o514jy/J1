@@ -2,6 +2,9 @@
 #include "J1AssetManager.h"
 #include "J1NetworkManager.h"
 #include "J1/Data/J1DataManager.h"
+#include "Blueprint/UserWidget.h"
+#include "J1/UI/J1SceneWidget.h"
+
 #include UE_INLINE_GENERATED_CPP_BY_NAME(J1GameInstance)
 
 UJ1GameInstance::UJ1GameInstance(const FObjectInitializer& ObjectInitializer)
@@ -26,4 +29,7 @@ void UJ1GameInstance::BeginPlay()
 	this->GetSubsystem<UJ1DataManager>()->SetInfo();
 
 	this->GetSubsystem<UJ1NetworkManager>()->ConnectToGameServer();
+
+	// temp
+	//SceneWidgetInstance = CreateWidget<UJ1SceneWidget>(GetWorld(), SceneWidgetClass);
 }
