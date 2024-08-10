@@ -12,6 +12,10 @@
 #include "J1/Game/Object/J1Boss.h"
 #include "J1/UI/J1DungeonStatusWidget.h"
 #include "J1/UI/J1SceneWidget.h"
+#include "J1/UI/J1DungeonClearWidget.h"
+
+#include "Blueprint/WidgetLayoutLibrary.h"
+#include "Components/CanvasPanelSlot.h"
 
 void UJ1NetworkManager::Tick(float DeltaTime)
 {
@@ -352,4 +356,37 @@ void UJ1NetworkManager::HandleSpawningPool(const Protocol::S_SPAWNING_POOL& Pool
 	
 	auto sceneWidget = Cast<UJ1GameInstance>(GetGameInstance())->SceneWidgetInstance;
 	sceneWidget->DungeonStatusWBP->SetClearRatio(ratio);
+
+	if (finished == true)
+	{
+		auto clearWidgetClass = Cast<UJ1GameInstance>(GetGameInstance())->DungeonClearWidgetClass;
+		auto clearWidgetInstance = Cast<UJ1GameInstance>(GetGameInstance())->DungeonClearWidgetInstance;
+		//clearWidgetInstance = CreateWidget<UJ1DungeonClearWidget>(GetWorld(), clearWidgetClass);
+
+		{
+			UJ1DungeonClearWidget* Widget = CreateWidget<UJ1DungeonClearWidget>(GetWorld(), clearWidgetClass);
+			if (Widget)
+			{
+				// 위젯을 뷰포트에 추가합니다.
+				Widget->AddToViewport();
+
+				// 위젯의 크기를 설정합니다.
+				FVector2D DesiredSize = FVector2D(350.0f, 300.0f);
+				UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(Widget->Slot);
+				if (CanvasSlot)
+				{
+					//CanvasSlot->SetSize(DesiredSize);
+
+					// 화면의 크기를 가져옵니다.
+					FVector2D ViewportSize = UWidgetLayoutLibrary::GetViewportSize(this);
+
+					// 화면 중앙 좌표를 계산합니다.
+					FVector2D CenterPosition = (ViewportSize - DesiredSize) / 2.0f;
+
+					// 위젯의 위치를 설정합니다.
+					CanvasSlot->SetPosition(CenterPosition);
+				}
+			}
+		}
+	}
 }

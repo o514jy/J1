@@ -234,6 +234,12 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 	{
 		ObjectRef object = item.second;
 
+		if (_owner == nullptr)
+			continue;
+
+		if (object == nullptr)
+			continue;
+
 		// 스킬 시전자 제외
 		if (object->_objectId == _owner->_objectId)
 			continue;

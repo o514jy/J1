@@ -122,6 +122,9 @@ float StatComponent::GetDef()
 
 void StatComponent::RefreshAll()
 {
+	if (_owner == nullptr)
+		return;
+
 	// todo : refresh all
 	cout << _owner->_objectId << "'s Stat is Modified!!" << "\n";
 

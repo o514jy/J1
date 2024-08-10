@@ -91,7 +91,7 @@ MonsterRef ObjectManager::CreateMonster(int32 templateId, FVector3 spawnPos, Roo
 	return monster;
 }
 
-BossRef ObjectManager::CreateBoss(int32 templateId)
+BossRef ObjectManager::CreateBoss(int32 templateId, FVector3 spawnPos, RoomBaseRef spawnedRoom)
 {
 	// ID »ý¼º±â
 	const uint64 newId = GenerateIdLocked(Protocol::OBJECT_TYPE_CREATURE);
@@ -106,6 +106,16 @@ BossRef ObjectManager::CreateBoss(int32 templateId)
 
 	boss->posInfo->set_object_id(newId);
 	boss->posInfo->set_state(Protocol::MoveState::MOVE_STATE_IDLE);
+
+	boss->posInfo->set_x(spawnPos.X);
+	boss->posInfo->set_y(spawnPos.Y);
+	boss->posInfo->set_z(spawnPos.Z);
+	boss->posInfo->set_dest_x(spawnPos.X);
+	boss->posInfo->set_dest_y(spawnPos.Y);
+	boss->posInfo->set_dest_z(spawnPos.Z);
+
+	if (spawnedRoom != nullptr)
+		boss->room = spawnedRoom;
 
 	boss->SetInfo(templateId);
 
@@ -138,7 +148,8 @@ ProjectileRef ObjectManager::CreateProjectile(int32 templateId, CreatureRef owne
 
 	// enter room
 	RoomBaseRef ownerRoom = owner->room.load().lock();
-	ownerRoom->AddObject(projectile);
+	if (ownerRoom)
+		ownerRoom->AddObject(projectile);
 
 	// enter game
 	DoAsync(&ObjectManager::AddObject, static_pointer_cast<Object>(projectile));

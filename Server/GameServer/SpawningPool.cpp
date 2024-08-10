@@ -3,6 +3,7 @@
 #include "ObjectManager.h"
 #include "RoomBase.h"
 #include "Monster.h"
+#include "Boss.h"
 
 SpawningPool::SpawningPool()
 {
@@ -20,7 +21,7 @@ void SpawningPool::SetInfo(RoomBaseRef ownerRoom)
 
 	// 툴로 소환 지역을 찍을 수 있으면 좋을듯
 
-	_maxPhaseCount = 3;
+	_maxPhaseCount = 4;
 	_spawnInfos.assign(_maxPhaseCount, vector<SpawnInfo>());
 
 	// phase 0
@@ -61,6 +62,10 @@ void SpawningPool::SetInfo(RoomBaseRef ownerRoom)
 	_spawnInfos[2].push_back(SpawnInfo(Utils::GetRandom(10, 12), 2630.f, 240.f, 100.f)); // 31
 	_spawnInfos[2].push_back(SpawnInfo(Utils::GetRandom(10, 12), 2730.f, 240.f, 100.f)); // 32
 
+	
+	_spawnInfos[3].push_back(SpawnInfo(100, 3460.f, -900.f, 100.f)); // 33
+	//_spawnInfos[3].push_back(SpawnInfo(100, 1800.f, -200.f, 100.f)); // 33
+
 	for (int i = 0; i < _maxPhaseCount; i++)
 	{
 		_maxCount += (int32)_spawnInfos[i].size();
@@ -73,18 +78,25 @@ void SpawningPool::AddKillCount(int32 count)
 
 	int32 pastPhase = _CurrentPhase;
 	// 일정 킬 수가 넘으면 페이즈 변환
-	if (_killCount >= 10 && _killCount <= 18)
+	if (_killCount >= 10 && _killCount < 18)
 	{
 		_CurrentPhase = 1;
 	}
-	else if (_killCount >= 18)
+	else if (_killCount >= 18 && _killCount < 31)
 	{
 		_CurrentPhase = 2;
+	}
+	else if (_killCount >= 31)
+	{
+		_CurrentPhase = 3;
 	}
 
 	// 페이즈가 바뀌었을 경우 몬스터 소환
 	if (pastPhase != _CurrentPhase)
-		SpawnAndAddMonster();
+	{
+		if (RoomBaseRef room = _OwnerRoom.lock())
+			room->DoTimer(1000, shared_from_this(), &SpawningPool::SpawnAndAddMonster);
+	}
 
 	// 목표 달성했을 경우 알려주기
 	if (_killCount == _maxCount)
@@ -131,18 +143,36 @@ void SpawningPool::SpawnAndAddMonster()
 	for (auto& info : _spawnInfos[_CurrentPhase])
 	{
 		FVector3 spawnPos = FVector3(info._spawnX, info._spawnY, info._spawnZ);
-		MonsterRef monster = GObjectManager->CreateMonster(info._dataId, spawnPos, OwnerRoom);
-		monster->SetOwnerSpawningPool(shared_from_this());
-		bool isSpawned = OwnerRoom->AddObject(monster);
-		if (isSpawned == false)
-			continue;
+		if (_CurrentPhase == _maxPhaseCount - 1)
+		{
+			// boss
+			BossRef boss = GObjectManager->CreateBoss(info._dataId, spawnPos, OwnerRoom);
+			boss->SetOwnerSpawningPool(shared_from_this());
+			bool isSpawned = OwnerRoom->AddObject(boss);
+			if (isSpawned == false)
+				continue;
 
-		monsters.push_back(monster);
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+			objectInfo->CopyFrom(*boss->objectInfo);
 
-		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-		objectInfo->CopyFrom(*monster->objectInfo);
+			cout << "Boss " << boss->objectInfo->object_id() << " is Spawned\n";
+		}
+		else
+		{
+			// monster
+			MonsterRef monster = GObjectManager->CreateMonster(info._dataId, spawnPos, OwnerRoom);
+			monster->SetOwnerSpawningPool(shared_from_this());
+			bool isSpawned = OwnerRoom->AddObject(monster);
+			if (isSpawned == false)
+				continue;
 
-		cout << "Monster " << monster->objectInfo->object_id() << " is Spawned\n";
+			monsters.push_back(monster);
+
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+			objectInfo->CopyFrom(*monster->objectInfo);
+
+			cout << "Monster " << monster->objectInfo->object_id() << " is Spawned\n";
+		}
 	}
 
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(spawnPkt);

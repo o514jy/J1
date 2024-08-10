@@ -3,6 +3,7 @@
 #include "InputGeom.h"
 #include "RoomBase.h"
 #include "Object.h"
+#include "Boss.h"
 // recast detour navigation
 #include "RecastNavigation/Recast.h"
 #include "RecastNavigation/RecastAlloc.h"
@@ -116,6 +117,12 @@ void Navigation::UpdateTick()
 			object->posInfo->set_dest_x(retPos.X);
 			object->posInfo->set_dest_y(retPos.Y);
 			object->posInfo->set_dest_z(retPos.Z);
+
+			if (BossRef boss = dynamic_pointer_cast<Boss>(object))
+			{
+				//object->posInfo->set_z(object->posInfo->z() - 200.f);
+				//object->posInfo->set_dest_z(object->posInfo->dest_z() - 200.f);
+			}
 
 			//ObjectRef obj = m_room.lock()->FindObjectByAgentIdx(i);
 			//if (obj != nullptr)

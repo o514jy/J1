@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Monster.h"
+#include "Player.h"
 #include "DungeonRoom.h"
 #include "ObjectManager.h"
 #include "SpawningPool.h"
@@ -31,6 +32,39 @@ void DungeonRoom::SetInfo()
 	_spawningPool->SetInfo(GetRoomRef());
 }
 
+void DungeonRoom::HandleTeleport(Protocol::C_TELEPORT pkt)
+{
+	__super::HandleTeleport(pkt);
+
+	const uint64 objectId = pkt.info().object_id();
+	if (_objects.find(objectId) == _objects.end())
+		return;
+
+	PlayerRef player = dynamic_pointer_cast<Player>(_objects[objectId]);
+	if (player == nullptr)
+		return;
+
+	// °ËÁõ
+	if (player->GetRoomRef()->_roomType != pkt.start_room_type())
+		return;
+
+	cout << "player " << objectId << "'s teleport request is accepted!!" << "\n";
+
+	// process teleport
+	{
+		Protocol::S_TELEPORT teleportPkt;
+		Protocol::ObjectInfo* info = teleportPkt.mutable_info();
+		info->CopyFrom(*player->objectInfo);
+		teleportPkt.set_start_room_type(pkt.start_room_type());
+		teleportPkt.set_dest_room_type(pkt.dest_room_type());
+
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(teleportPkt);
+		GameSessionRef session = player->session.lock();
+		if (session != nullptr)
+			session->Send(sendBuffer);
+	}
+}
+
 bool DungeonRoom::EnterRoom(ObjectRef object, bool randPos, FVector3 spawnPos)
 {
 	bool success = __super::EnterRoom(object, randPos);
@@ -53,14 +87,16 @@ bool DungeonRoom::EnterRoom(ObjectRef object, bool randPos, FVector3 spawnPos)
 
 void DungeonRoom::SetRoomState(Protocol::RoomState state)
 {
-	__super::SetRoomState(state);
-
-	if (state == Protocol::RoomState::ROOM_STATE_BATTLE)
+	if (_roomState != state && state == Protocol::RoomState::ROOM_STATE_BATTLE)
 	{
 		//SpawnBoss();
 		//SpawnMonster();
 		_spawningPool->SpawnAndAddMonster();
+
+		cout << "Battle State started!!" << "\n";
 	}
+
+	__super::SetRoomState(state);
 }
 
 MonsterRef DungeonRoom::GetMonster()

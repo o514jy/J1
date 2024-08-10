@@ -127,7 +127,10 @@ void AJ1MyPlayer::ProcessSkill(const Protocol::S_SKILL& InSkillPkt)
 
 void AJ1MyPlayer::ProcessTeleport(const Protocol::S_TELEPORT& TeleportPkt)
 {
-	UGameplayStatics::OpenLevel(this, LevelName_Dungeon_One);
+	if (TeleportPkt.dest_room_type() == Protocol::RoomType::ROOM_TYPE_DUNGEON_ROOM)
+		UGameplayStatics::OpenLevel(this, LevelName_Dungeon_One);
+	else if (TeleportPkt.dest_room_type() == Protocol::RoomType::ROOM_TYPE_START_ROOM)
+		UGameplayStatics::OpenLevel(this, LevelName_Start_Room);
 
 	// send pkt
 	Protocol::C_TELEPORT_FIN finPkt;

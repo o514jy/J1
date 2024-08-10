@@ -2,6 +2,7 @@
 #include "NavDevice.h"
 #include "Object.h"
 #include "Monster.h"
+#include "Boss.h"
 // recast-detour
 #include "RecastNavigation/Recast.h"
 #include "RecastNavigation/RecastDebugDraw.h"
@@ -72,7 +73,9 @@ void NavDevice::init(Navigation* sample, ObjectRef owner)
 	m_owner = owner;
 
 	// register to crowd
-	AddAgentToCrowd();
+	BossRef boss = dynamic_pointer_cast<Boss>(owner);
+	if (boss == nullptr)
+		AddAgentToCrowd();
 }
 
 void NavDevice::reset()
@@ -544,6 +547,9 @@ void NavDevice::SetMoveTarget(FVector3 destPos)
 	//	crowd->requestMoveTarget(i, m_targetRef, m_targetPos);
 	//}
 	const dtCrowdAgent* ag = crowd->getAgent(agentIdx);
+	if (ag == nullptr)
+		return;
+
 	if (ag->active == true)
 		crowd->requestMoveTarget(agentIdx, m_targetRef, m_targetPos);
 }

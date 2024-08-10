@@ -20,6 +20,10 @@ public:
 	void SetInfo();
 
 public:
+	/** network **/
+	virtual void HandleTeleport(Protocol::C_TELEPORT pkt) override;
+
+public:
 	/** in game logic **/
 	virtual bool EnterRoom(ObjectRef object, bool randPos = true, FVector3 spawnPos = FVector3()) override;
 

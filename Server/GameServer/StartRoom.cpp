@@ -39,7 +39,7 @@ BossRef StartRoom::GetSevarog()
 		return _sevarog;
 	}
 
-	_sevarog = GObjectManager->CreateBoss(100); // sevarog
+	_sevarog = GObjectManager->CreateBoss(100, FVector3(1000.f, 0, 100.0f), GetRoomRef()); // sevarog
 	_sevarog->posInfo->set_x(1000.0f);
 	_sevarog->posInfo->set_y(0.0f);
 	_sevarog->posInfo->set_z(100.0f);

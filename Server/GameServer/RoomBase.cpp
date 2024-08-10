@@ -56,7 +56,7 @@ void RoomBase::UpdateTick()
 	// all object in start room process update tick 
 	for (auto& object : _objects)
 	{
-		if (object.second->room.load().lock() != nullptr)
+		if (object.second != nullptr && object.second->room.load().lock() != nullptr)
 			object.second->UpdateTick();
 	}
 

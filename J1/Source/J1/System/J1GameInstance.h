@@ -13,6 +13,7 @@ class AJ1Projectile;
 class UJ1SceneWidget;
 class UUserWidget;
 class UJ1DungeonStatusWidget;
+class UJ1DungeonClearWidget;
 
 class UNiagaraSystem;
 
@@ -66,7 +67,11 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UJ1SceneWidget> SceneWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1DungeonClearWidget> DungeonClearWidgetClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UJ1SceneWidget> SceneWidgetInstance;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UJ1DungeonClearWidget> DungeonClearWidgetInstance;
 };

@@ -6,6 +6,7 @@
 #include "StartRoom.h"
 #include "NavDevice.h"
 #include "Navigation.h"
+#include "Boss.h"
 
 BaseAIController::BaseAIController()
 {
@@ -180,8 +181,10 @@ void BaseAIController::ChaseOrAttackTarget(float chaseRange, float attackRange)
 	else
 	{
 		// 공격 범위 밖이라면 추적
-		//BroadcastMove();
-		RegisterTargetPosToNavDevice();
+		if (BossRef boss = dynamic_pointer_cast<Boss>(_owner))
+			BroadcastMove();
+		else
+			RegisterTargetPosToNavDevice();
 
 		// 추적 범위 밖이면 idle로
 		if (distToTarget > chaseRange)
