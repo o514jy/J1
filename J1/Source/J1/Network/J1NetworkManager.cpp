@@ -371,7 +371,6 @@ void UJ1NetworkManager::HandleSpawningPool(const Protocol::S_SPAWNING_POOL& Pool
 				Widget->AddToViewport();
 
 				// 위젯의 크기를 설정합니다.
-				FVector2D DesiredSize = FVector2D(350.0f, 300.0f);
 				UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(Widget->Slot);
 				if (CanvasSlot)
 				{
@@ -381,7 +380,7 @@ void UJ1NetworkManager::HandleSpawningPool(const Protocol::S_SPAWNING_POOL& Pool
 					FVector2D ViewportSize = UWidgetLayoutLibrary::GetViewportSize(this);
 
 					// 화면 중앙 좌표를 계산합니다.
-					FVector2D CenterPosition = (ViewportSize - DesiredSize) / 2.0f;
+					FVector2D CenterPosition = ViewportSize / 2.0f;
 
 					// 위젯의 위치를 설정합니다.
 					CanvasSlot->SetPosition(CenterPosition);
