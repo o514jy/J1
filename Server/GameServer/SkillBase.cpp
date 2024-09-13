@@ -8,6 +8,7 @@
 #include "StartRoom.h"
 #include "BuffInstant.h"
 #include "SkillComponent.h"
+#include "EmptyRoom.h"
 
 SkillBase::SkillBase()
 {
@@ -60,7 +61,7 @@ void SkillBase::OnAnimCompleteHandler()
 		_owner->SetState(Protocol::MoveState::MOVE_STATE_IDLE);
 
 	RoomBaseRef roomRef = _owner->room.load().lock();
-	if (roomRef == nullptr)
+	if (roomRef == nullptr || roomRef == GEmptyRoom)
 		return;
 	
 	roomRef->DoTimer(_skillData->CoolTime, shared_from_this(), & SkillBase::SetCanUseSkill, true);
@@ -156,7 +157,7 @@ vector<ObjectRef> SkillBase::GatherObjectInEffectArea(int32 effectId)
 	vector<ObjectRef> objects;
 	
 	RoomBaseRef room = _owner->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return objects;
 
 	for (auto& item : room->_objects)

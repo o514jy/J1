@@ -4,6 +4,8 @@
 #include "DungeonRoom.h"
 #include "ObjectManager.h"
 #include "SpawningPool.h"
+#include "EquipmentItem.h"
+#include "Inventory.h"
 
 DungeonRoom::DungeonRoom()
 {
@@ -81,6 +83,14 @@ bool DungeonRoom::EnterRoom(ObjectRef object, bool randPos, FVector3 spawnPos)
 
 	// temp
 	_entered.store(true);
+
+	// temp
+	// 처음 들어왔으면 장비 하나 지급
+	if (PlayerRef owner = dynamic_pointer_cast<Player>(object))
+	{
+		ItemBaseRef newItem = ItemBase::MakeItem(5000);
+		owner->_inventoryComponent->Add(newItem);
+	}
 
 	return success;
 }

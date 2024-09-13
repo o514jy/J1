@@ -9,6 +9,7 @@
 #include "ObjectManager.h"
 #include "RoomManager.h"
 #include "StartRoom.h"
+#include "EmptyRoom.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -62,7 +63,7 @@ bool Handle_C_LEAVE_GAME(PacketSessionRef& session, Protocol::C_LEAVE_GAME& pkt)
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->HandleLeavePlayer(player);
@@ -79,7 +80,7 @@ bool Handle_C_MOVE(PacketSessionRef& session, Protocol::C_MOVE& pkt)
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->DoAsync(&RoomBase::HandleMove, pkt);
@@ -96,7 +97,7 @@ bool Handle_C_TELEPORT(PacketSessionRef& session, Protocol::C_TELEPORT& pkt)
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->DoAsync(&RoomBase::HandleTeleport, pkt);
@@ -113,7 +114,7 @@ bool Handle_C_TELEPORT_FIN(PacketSessionRef& session, Protocol::C_TELEPORT_FIN& 
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->DoAsync(&RoomBase::HandleTeleportFin, pkt);
@@ -130,7 +131,7 @@ bool Handle_C_NOTIFY_POS(PacketSessionRef& session, Protocol::C_NOTIFY_POS& pkt)
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->DoAsync(&RoomBase::HandleNotifyPos, pkt);
@@ -147,10 +148,44 @@ bool Handle_C_SKILL(PacketSessionRef& session, Protocol::C_SKILL& pkt)
 		return false;
 
 	RoomBaseRef room = player->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return false;
 
 	room->DoAsync(&RoomBase::HandleSkill, pkt);
+
+	return true;
+}
+
+bool Handle_C_EQUIP_ITEM(PacketSessionRef& session, Protocol::C_EQUIP_ITEM& pkt)
+{
+	auto gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->player.load();
+	if (player == nullptr)
+		return false;
+
+	RoomBaseRef room = player->room.load().lock();
+	if (room == nullptr || room == GEmptyRoom)
+		return false;
+
+	room->DoAsync(&RoomBase::HandleEquipItem, pkt, player);
+
+	return true;
+}
+
+bool Handle_C_UNEQUIP_ITEM(PacketSessionRef& session, Protocol::C_UNEQUIP_ITEM& pkt)
+{
+	auto gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->player.load();
+	if (player == nullptr)
+		return false;
+
+	RoomBaseRef room = player->room.load().lock();
+	if (room == nullptr || room == GEmptyRoom)
+		return false;
+
+	room->DoAsync(&RoomBase::HandleUnequipItem, pkt, player);
 
 	return true;
 }

@@ -234,18 +234,58 @@ inline bool MoveState_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MoveState>(
     MoveState_descriptor(), name, value);
 }
+enum StatType : int {
+  STAT_TYPE_MAX_HP = 0,
+  STAT_TYPE_HP = 1,
+  STAT_TYPE_HP_REGEN = 2,
+  STAT_TYPE_MAX_MP = 3,
+  STAT_TYPE_MP = 4,
+  STAT_TYPE_MP_REGEN = 5,
+  STAT_TYPE_ATTACK = 6,
+  STAT_TYPE_DEFENCE = 7,
+  STAT_TYPE_DODGE = 8,
+  STAT_TYPE_ATTACK_SPEED = 9,
+  STAT_TYPE_MOVE_SPEED = 10,
+  STAT_TYPE_CRI_RATE = 11,
+  STAT_TYPE_CRI_DAMAGE = 12,
+  STAT_TYPE_STR = 13,
+  STAT_TYPE_DEX = 14,
+  STAT_TYPE_INT = 15,
+  STAT_TYPE_CON = 16,
+  STAT_TYPE_WIS = 17,
+  StatType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  StatType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool StatType_IsValid(int value);
+constexpr StatType StatType_MIN = STAT_TYPE_MAX_HP;
+constexpr StatType StatType_MAX = STAT_TYPE_WIS;
+constexpr int StatType_ARRAYSIZE = StatType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StatType_descriptor();
+template<typename T>
+inline const std::string& StatType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StatType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StatType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    StatType_descriptor(), enum_t_value);
+}
+inline bool StatType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StatType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<StatType>(
+    StatType_descriptor(), name, value);
+}
 enum BuffType : int {
   BUFF_TYPE_NONE = 0,
   BUFF_TYPE_HIT = 1,
-  BUFF_TYPE_PARALYSIS = 2,
-  BUFF_TYPE_PUSH = 3,
-  BUFF_TYPE_MEZ = 4,
+  BUFF_TYPE_HEAL = 2,
+  BUFF_TYPE_BUFF_STAT = 3,
   BuffType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   BuffType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool BuffType_IsValid(int value);
 constexpr BuffType BuffType_MIN = BUFF_TYPE_NONE;
-constexpr BuffType BuffType_MAX = BUFF_TYPE_MEZ;
+constexpr BuffType BuffType_MAX = BUFF_TYPE_BUFF_STAT;
 constexpr int BuffType_ARRAYSIZE = BuffType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor();
@@ -375,14 +415,14 @@ inline bool SkillSlot_Parse(
     SkillSlot_descriptor(), name, value);
 }
 enum RoomType : int {
-  ROOOM_TYPE_NONE = 0,
+  ROOM_TYPE_NONE = 0,
   ROOM_TYPE_START_ROOM = 1,
   ROOM_TYPE_DUNGEON_ROOM = 2,
   RoomType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RoomType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RoomType_IsValid(int value);
-constexpr RoomType RoomType_MIN = ROOOM_TYPE_NONE;
+constexpr RoomType RoomType_MIN = ROOM_TYPE_NONE;
 constexpr RoomType RoomType_MAX = ROOM_TYPE_DUNGEON_ROOM;
 constexpr int RoomType_ARRAYSIZE = RoomType_MAX + 1;
 
@@ -454,6 +494,131 @@ inline bool Direction_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Direction>(
     Direction_descriptor(), name, value);
 }
+enum ItemType : int {
+  ITEM_TYPE_NONE = 0,
+  ITEM_TYPE_EQUIPMENT = 1,
+  ITEM_TYPE_CONSUMABLE = 2,
+  ItemType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ItemType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ItemType_IsValid(int value);
+constexpr ItemType ItemType_MIN = ITEM_TYPE_NONE;
+constexpr ItemType ItemType_MAX = ITEM_TYPE_CONSUMABLE;
+constexpr int ItemType_ARRAYSIZE = ItemType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemType_descriptor();
+template<typename T>
+inline const std::string& ItemType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ItemType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ItemType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ItemType_descriptor(), enum_t_value);
+}
+inline bool ItemType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ItemType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ItemType>(
+    ItemType_descriptor(), name, value);
+}
+enum ItemSubType : int {
+  ITEM_SUB_TYPE_NONE = 0,
+  ITEM_SUB_TYPE_MAINWEAPON = 1,
+  ITEM_SUB_TYPE_SUBWEAPON = 2,
+  ITEM_SUB_TYPE_HELMET = 3,
+  ITEM_SUB_TYPE_CHEST = 4,
+  ITEM_SUB_TYPE_LEG = 5,
+  ITEM_SUB_TYPE_SHOES = 6,
+  ITEM_SUB_TYPE_GLOVES = 7,
+  ITEM_SUB_TYPE_SHOULDER = 8,
+  ITEM_SUB_TYPE_RING = 9,
+  ITEM_SUB_TYPE_AMULET = 10,
+  ITEM_SUB_TYPE_CONSUMABLE = 12,
+  ItemSubType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ItemSubType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ItemSubType_IsValid(int value);
+constexpr ItemSubType ItemSubType_MIN = ITEM_SUB_TYPE_NONE;
+constexpr ItemSubType ItemSubType_MAX = ITEM_SUB_TYPE_CONSUMABLE;
+constexpr int ItemSubType_ARRAYSIZE = ItemSubType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemSubType_descriptor();
+template<typename T>
+inline const std::string& ItemSubType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ItemSubType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ItemSubType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ItemSubType_descriptor(), enum_t_value);
+}
+inline bool ItemSubType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ItemSubType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ItemSubType>(
+    ItemSubType_descriptor(), name, value);
+}
+enum ItemSlotType : int {
+  ITEM_SLOT_TYPE_NONE = 0,
+  ITEM_SLOT_TYPE_MAINWEAPON = 1,
+  ITEM_SLOT_TYPE_SUBWEAPON = 2,
+  ITEM_SLOT_TYPE_HELMET = 3,
+  ITEM_SLOT_TYPE_CHEST = 4,
+  ITEM_SLOT_TYPE_LEG = 5,
+  ITEM_SLOT_TYPE_SHOES = 6,
+  ITEM_SLOT_TYPE_GLOVES = 7,
+  ITEM_SLOT_TYPE_SHOULDER = 8,
+  ITEM_SLOT_TYPE_RING = 9,
+  ITEM_SLOT_TYPE_AMULET = 10,
+  ITEM_SLOT_TYPE_EQUIPMENT_MAX = 11,
+  ITEM_SLOT_TYPE_INVENTORY = 100,
+  ITEM_SLOT_TYPE_WAREHOUSE = 101,
+  ItemSlotType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ItemSlotType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ItemSlotType_IsValid(int value);
+constexpr ItemSlotType ItemSlotType_MIN = ITEM_SLOT_TYPE_NONE;
+constexpr ItemSlotType ItemSlotType_MAX = ITEM_SLOT_TYPE_WAREHOUSE;
+constexpr int ItemSlotType_ARRAYSIZE = ItemSlotType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemSlotType_descriptor();
+template<typename T>
+inline const std::string& ItemSlotType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ItemSlotType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ItemSlotType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ItemSlotType_descriptor(), enum_t_value);
+}
+inline bool ItemSlotType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ItemSlotType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ItemSlotType>(
+    ItemSlotType_descriptor(), name, value);
+}
+enum ItemStatus : int {
+  ITEM_STATUS_NONE = 0,
+  ITEM_STATUS_EQUIPPED = 1,
+  ITEM_STATUS_INVENTORY = 2,
+  ITEM_STATUS_WAREHOUSE = 3,
+  ItemStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ItemStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ItemStatus_IsValid(int value);
+constexpr ItemStatus ItemStatus_MIN = ITEM_STATUS_NONE;
+constexpr ItemStatus ItemStatus_MAX = ITEM_STATUS_WAREHOUSE;
+constexpr int ItemStatus_ARRAYSIZE = ItemStatus_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemStatus_descriptor();
+template<typename T>
+inline const std::string& ItemStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ItemStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ItemStatus_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ItemStatus_descriptor(), enum_t_value);
+}
+inline bool ItemStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ItemStatus* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ItemStatus>(
+    ItemStatus_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -511,6 +676,11 @@ template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MoveState>() {
   return ::Protocol::MoveState_descriptor();
 }
+template <> struct is_proto_enum< ::Protocol::StatType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::StatType>() {
+  return ::Protocol::StatType_descriptor();
+}
 template <> struct is_proto_enum< ::Protocol::BuffType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::BuffType>() {
@@ -550,6 +720,26 @@ template <> struct is_proto_enum< ::Protocol::Direction> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::Direction>() {
   return ::Protocol::Direction_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ItemType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ItemType>() {
+  return ::Protocol::ItemType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ItemSubType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ItemSubType>() {
+  return ::Protocol::ItemSubType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ItemSlotType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ItemSlotType>() {
+  return ::Protocol::ItemSlotType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ItemStatus> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ItemStatus>() {
+  return ::Protocol::ItemStatus_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

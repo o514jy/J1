@@ -37,8 +37,11 @@ enum : uint16
 	PKT_S_BUFF = 1020,
 	PKT_S_STAT = 1021,
 	PKT_S_SPAWNING_POOL = 1022,
-	PKT_C_CHAT = 1023,
-	PKT_S_CHAT = 1024,
+	PKT_C_EQUIP_ITEM = 1023,
+	PKT_C_UNEQUIP_ITEM = 1024,
+	PKT_S_ADD_ITEM = 1025,
+	PKT_C_CHAT = 1026,
+	PKT_S_CHAT = 1027,
 };
 
 // Custom Handlers
@@ -51,6 +54,8 @@ bool Handle_C_TELEPORT(PacketSessionRef& session, Protocol::C_TELEPORT& pkt);
 bool Handle_C_TELEPORT_FIN(PacketSessionRef& session, Protocol::C_TELEPORT_FIN& pkt);
 bool Handle_C_NOTIFY_POS(PacketSessionRef& session, Protocol::C_NOTIFY_POS& pkt);
 bool Handle_C_SKILL(PacketSessionRef& session, Protocol::C_SKILL& pkt);
+bool Handle_C_EQUIP_ITEM(PacketSessionRef& session, Protocol::C_EQUIP_ITEM& pkt);
+bool Handle_C_UNEQUIP_ITEM(PacketSessionRef& session, Protocol::C_UNEQUIP_ITEM& pkt);
 bool Handle_C_CHAT(PacketSessionRef& session, Protocol::C_CHAT& pkt);
 
 class ServerPacketHandler
@@ -68,6 +73,8 @@ public:
 		GPacketHandler[PKT_C_TELEPORT_FIN] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_TELEPORT_FIN>(Handle_C_TELEPORT_FIN, session, buffer, len); };
 		GPacketHandler[PKT_C_NOTIFY_POS] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_NOTIFY_POS>(Handle_C_NOTIFY_POS, session, buffer, len); };
 		GPacketHandler[PKT_C_SKILL] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_SKILL>(Handle_C_SKILL, session, buffer, len); };
+		GPacketHandler[PKT_C_EQUIP_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EQUIP_ITEM>(Handle_C_EQUIP_ITEM, session, buffer, len); };
+		GPacketHandler[PKT_C_UNEQUIP_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_UNEQUIP_ITEM>(Handle_C_UNEQUIP_ITEM, session, buffer, len); };
 		GPacketHandler[PKT_C_CHAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_CHAT>(Handle_C_CHAT, session, buffer, len); };
 	}
 
@@ -91,6 +98,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_BUFF& pkt) { return MakeSendBuffer(pkt, PKT_S_BUFF); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_STAT& pkt) { return MakeSendBuffer(pkt, PKT_S_STAT); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_SPAWNING_POOL& pkt) { return MakeSendBuffer(pkt, PKT_S_SPAWNING_POOL); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_ADD_ITEM& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_ITEM); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_S_CHAT); }
 
 private:

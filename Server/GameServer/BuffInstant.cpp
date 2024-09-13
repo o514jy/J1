@@ -4,6 +4,7 @@
 #include "Creature.h"
 #include "SkillBase.h"
 #include "RoomBase.h"
+#include "EmptyRoom.h"
 
 BuffInstant::BuffInstant()
 {
@@ -18,7 +19,12 @@ void BuffInstant::ApplyBuff()
 	if (_owner == nullptr)
 		return;
 
-	_owner->OnDamaged(static_pointer_cast<Object>(_ownerSkill->_owner), static_pointer_cast<BuffBase>(shared_from_this()));
+	if (_buffData->BuffType == L"Hit")
+	{
+		_owner->OnDamaged(static_pointer_cast<Object>(_ownerSkill->_owner), static_pointer_cast<BuffBase>(shared_from_this()));
+		return;
+	}
+
 
 	{
 		Protocol::S_BUFF buffPkt;
@@ -30,7 +36,7 @@ void BuffInstant::ApplyBuff()
 
 		RoomBaseRef room = _owner->room.load().lock();
 
-		if (room == nullptr)
+		if (room == nullptr || room == GEmptyRoom)
 			return;
 
 		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(buffPkt);

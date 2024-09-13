@@ -7,6 +7,7 @@
 #include "BuffBase.h"
 #include "StatComponent.h"
 #include "RoomBase.h"
+#include "EmptyRoom.h"
 
 Object::Object()
 {
@@ -19,6 +20,8 @@ Object::Object()
 
 	_objectId = 0;
 	_templateId = 0;
+
+	room.store(GEmptyRoom);
 }
 
 Object::~Object()
@@ -119,4 +122,10 @@ void Object::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 		return;
 
 	
+}
+
+void Object::OnDamaged(ObjectRef attacker, float damage)
+{
+	if (attacker == nullptr)
+		return;
 }

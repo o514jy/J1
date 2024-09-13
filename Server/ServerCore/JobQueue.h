@@ -25,7 +25,8 @@ public:
 	JobRef DoTimer(uint64 tickAfter, CallbackType&& callback)
 	{
 		JobRef job = make_shared<Job>(std::move(callback));
-		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
+		PushAfter(job, tickAfter, shared_from_this());
+		//GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 		return job;
 	}
 
@@ -34,7 +35,8 @@ public:
 	{
 		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
 		JobRef job = make_shared<Job>(owner, memFunc, std::forward<Args>(args)...);
-		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
+		PushAfter(job, tickAfter, shared_from_this());
+		//GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 		return job;
 	}
 
@@ -43,14 +45,16 @@ public:
 	{
 		shared_ptr<T> owner = static_pointer_cast<T>(InOwner);
 		JobRef job = make_shared<Job>(owner, memFunc, std::forward<Args>(args)...);
-		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
+		PushAfter(job, tickAfter, shared_from_this());
+		//GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 		return job;
 	}
 
 	void					ClearJobs() { _jobs.Clear(); }
 
 public:
-	void					Push(JobRef job, bool pushOnly = false);
+	virtual void			Push(JobRef job, bool pushOnly = false);
+	virtual void			PushAfter(JobRef job, uint64 tickAfter, weak_ptr<JobQueue> owner);
 	void					Execute();
 
 protected:

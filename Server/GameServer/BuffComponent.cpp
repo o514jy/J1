@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "BuffComponent.h"
 
+unordered_map<Protocol::BuffType, BuffPolicy*> _policies =
+{
+	{Protocol::BuffType::BUFF_TYPE_HIT, new HitBuffPolicy()}
+};
+
 BuffComponent::BuffComponent()
 {
 	_owner = nullptr;

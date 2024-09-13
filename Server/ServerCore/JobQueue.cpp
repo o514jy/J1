@@ -27,6 +27,11 @@ void JobQueue::Push(JobRef job, bool pushOnly)
 	}
 }
 
+void JobQueue::PushAfter(JobRef job, uint64 tickAfter, weak_ptr<JobQueue> owner)
+{
+	GJobTimer->Reserve(tickAfter, owner, job);
+}
+
 // 1) 일감이 너~무 몰리면?
 void JobQueue::Execute()
 {

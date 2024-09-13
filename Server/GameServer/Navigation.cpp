@@ -437,14 +437,8 @@ bool Navigation::handleBuild()
 	// See duDebugDrawPolyMesh or dtCreateNavMeshData as examples how to access the data.
 
 	//
-	// (Optional) Step 8. Create Detour data from Recast poly mesh.
+	// Step 8. Create Detour data from Recast poly mesh.
 	//
-
-	// The GUI may allow more max points per polygon than Detour can handle.
-	// Only build the detour navmesh if we do not exceed the limit.
-
-	// The GUI may allow more max points per polygon than Detour can handle.
-	// Only build the detour navmesh if we do not exceed the limit.
 	if (m_cfg.maxVertsPerPoly <= DT_VERTS_PER_POLYGON)
 	{
 		unsigned char* navData = 0;

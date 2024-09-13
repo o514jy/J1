@@ -61,6 +61,12 @@
     <Filter Include="Game\Process">
       <UniqueIdentifier>{b3353220-be41-469f-b7fb-848bcccb1267}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Inventory">
+      <UniqueIdentifier>{f7841441-6485-4b64-ae57-ccecf6725665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory\Item">
+      <UniqueIdentifier>{add79951-d736-4637-8e53-a32864d630b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -222,6 +228,21 @@
     <ClCompile Include="SpawningPool.cpp">
       <Filter>Game\Process</Filter>
     </ClCompile>
+    <ClCompile Include="ItemBase.cpp">
+      <Filter>Game\Inventory\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentItem.cpp">
+      <Filter>Game\Inventory\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyRoom.cpp">
+      <Filter>Game\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffPolicy.cpp">
+      <Filter>Game\Buff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -382,6 +403,21 @@
     </ClInclude>
     <ClInclude Include="SpawningPool.h">
       <Filter>Game\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBase.h">
+      <Filter>Game\Inventory\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentItem.h">
+      <Filter>Game\Inventory\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyRoom.h">
+      <Filter>Game\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffPolicy.h">
+      <Filter>Game\Buff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

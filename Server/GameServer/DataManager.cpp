@@ -294,6 +294,27 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
             _gimmickData.insert(make_pair(dataRef->DataId, dataRef));
         }
+
+        /** items **/
+        Value& items = doc["items"];
+        for (uint32 i = 0; i < items.Size(); i++)
+        {
+            Value& item = items[i];
+
+            wstring itemType = Utils::StrToWstr(item["ItemType"].GetString());
+            if (itemType == L"Equipment")
+            {
+                EquipmentDataRef dataRef = make_shared<EquipmentData>();
+                dataRef->DataId = item["DataId"].GetInt();
+                dataRef->Name = Utils::StrToWstr(item["Name"].GetString());
+                dataRef->DescriptionText = Utils::StrToWstr(item["DescriptionText"].GetString());
+                dataRef->ItemType = itemType;
+                dataRef->ItemSubType = Utils::StrToWstr(item["ItemSubType"].GetString());
+                dataRef->MoveSpeedBonus = item["MoveSpeedBonus"].GetInt();
+
+                _ItemData.insert(make_pair(dataRef->DataId, dataRef));
+            }
+        }
     }
     catch (std::exception& e) {
         // 예외 처리
@@ -364,4 +385,12 @@ GimmickDataRef DataManager::GetGimmickDataById(int32 id)
         return nullptr;
 
     return _gimmickData[id];
+}
+
+ItemDataRef DataManager::GetItemDataById(int32 id)
+{
+    if (_ItemData.find(id) == _ItemData.end())
+        return nullptr;
+
+    return _ItemData[id];
 }

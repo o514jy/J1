@@ -5,3 +5,4 @@ extern shared_ptr<class RoomManager> GRoomManager;
 extern shared_ptr<class DataManager> GDataManager;
 extern shared_ptr<class SkillManager> GSkillManager;
 
+extern shared_ptr<class RoomBase> GEmptyRoom;

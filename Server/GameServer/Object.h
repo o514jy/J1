@@ -53,7 +53,8 @@ public:
 
 public:
 	/** battle **/
-	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff);
+	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff); // legacy
+	virtual void OnDamaged(ObjectRef attacker, float damage);
 
 public:
 	/* stat */

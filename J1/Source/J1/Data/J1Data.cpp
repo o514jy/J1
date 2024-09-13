@@ -315,4 +315,27 @@ void UJ1GameData::ParseJsonData(const FString& path)
             GimmickData.Add(data->DataId, data);
         }
     }
+
+    const TArray<TSharedPtr<FJsonValue>> items = JsonObject->GetArrayField(TEXT("buffs"));
+    {
+        for (int32 i = 0; i < items.Num(); i++)
+        {
+            TSharedPtr<FJsonObject> item = items[i]->AsObject();
+
+            FString ItemType = item->GetStringField(TEXT("ItemType"));
+            if (ItemType == TEXT("Equipment"))
+            {
+                UEquipmentItemData* data = NewObject<UEquipmentItemData>();
+
+                data->DataId = item->GetIntegerField(TEXT("DataId"));
+                data->Name = item->GetStringField(TEXT("BuffDurationType"));
+                data->ItemType = ItemType;
+                data->DescriptionText = item->GetStringField(TEXT("DescriptionText"));
+                data->ItemSubType = item->GetStringField(TEXT("ItemSubType"));
+                data->MoveSpeedBonus = item->GetIntegerField(TEXT("MoveSpeedBonus"));
+
+                ItemData.Add(data->DataId, data);
+            }
+        }
+    }
 }

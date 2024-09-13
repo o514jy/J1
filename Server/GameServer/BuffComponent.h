@@ -1,10 +1,16 @@
 #pragma once
 
+#include "BuffPolicy.h"
+
 class BuffComponent
 {
 public:
 	BuffComponent();
 	~BuffComponent();
+
+public:
+	/** static **/
+	unordered_map<Protocol::BuffType, BuffPolicy*> _policies;
 
 public:
 	/** initialize **/

@@ -33,7 +33,8 @@ public:
 
 public:
 	/** battle **/
-	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff) override;
+	virtual void OnDamaged(ObjectRef attacker, BuffBaseRef buff) override; // legacy
+	virtual void OnDamaged(ObjectRef attacker, float damage) override;
 
 protected:
 	/** information **/

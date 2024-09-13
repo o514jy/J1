@@ -76,7 +76,7 @@ void UJ1StatComponent::SetHp(float InHp)
 			Owner->SetMoveState(Protocol::MoveState::MOVE_STATE_DEAD);
 	}
 
-	ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
+	//ScreenDebugMessageString(FString::Printf(TEXT("%d hp update : %f"), Owner->GetObjectId(), Hp));
 }
 
 float UJ1StatComponent::GetHp()

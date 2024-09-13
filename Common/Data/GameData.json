@@ -6,7 +6,7 @@
       "DescriptionTextId": "Aurora",
       "ColliderRadius": 42.0,
       "ColliderHalfHeight": 96.0,
-      "MaxHp": 10000.0,
+      "MaxHp": 5000.0,
       "Atk": 100.0,
       "Def": 0.0,
       "MaxWalkSpeed": 400.0,
@@ -445,6 +445,16 @@
       "ProjectileIdList": [ 1000009 ],
       "MissionIdList": [],
       "SkillIdList": [ 1102 ]
+    }
+  ],
+  "items": [
+    {
+      "DataId": 5000,
+      "Name": "Boots of Swiftness",
+      "DescriptionText": "buddy buddy",
+      "ItemType": "Equipment",
+      "ItemSubType": "Leg",
+      "MoveSpeedBonus": 500
     }
   ]
 }

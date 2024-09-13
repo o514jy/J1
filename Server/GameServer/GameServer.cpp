@@ -50,7 +50,7 @@ int main()
 	ServerServiceRef service = make_shared<ServerService>(
 		NetAddress(L"127.0.0.1", 7777),
 		make_shared<IocpCore>(),
-		[=]() { return make_shared<GameSession>(); }, // TODO : SessionManager 등
+		[=]() { return make_shared<GameSession>(); },
 		100);
 
 	ASSERT_CRASH(service->Start());

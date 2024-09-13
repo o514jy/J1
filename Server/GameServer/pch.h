@@ -39,6 +39,7 @@ USING_SHARED_PTR(Portal);
 USING_SHARED_PTR(RoomBase);
 USING_SHARED_PTR(StartRoom);
 USING_SHARED_PTR(DungeonRoom);
+USING_SHARED_PTR(EmptyRoom);
 
 /** data **/
 USING_SHARED_PTR(CreatureData);
@@ -53,6 +54,8 @@ USING_SHARED_PTR(CircleEffectData);
 USING_SHARED_PTR(BuffData);
 USING_SHARED_PTR(ProjectileData);
 USING_SHARED_PTR(GimmickData);
+USING_SHARED_PTR(ItemData);
+USING_SHARED_PTR(EquipmentData);
 
 /** skill **/
 USING_SHARED_PTR(SkillBase);
@@ -80,6 +83,12 @@ USING_SHARED_PTR(StatComponent);
 
 /** process **/
 USING_SHARED_PTR(SpawningPool);
+
+/** item **/
+USING_SHARED_PTR(ItemBase);
+USING_SHARED_PTR(EquipmentItem);
+USING_SHARED_PTR(Inventory);
+
 
 #define SEND_PACKET(pkt)													\
 	SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);	\

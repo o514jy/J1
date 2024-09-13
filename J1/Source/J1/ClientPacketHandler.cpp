@@ -7,8 +7,7 @@
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 /*
- * 현재 월드의 InstanceSubSystem인 US1NetworkManager를 가져오는 함수 입니다.
- * PIE의 경우 GWorld로 접근할 경우 첫 번째만 접근하는 문제가 존재해서 해결버전입니다.
+ * PIE의 경우 GWorld로 접근할 경우 첫 번째만 접근하는 문제의 해결버전입니다.
  */
 UJ1NetworkManager* GetWorldNetwork(const PacketSessionRef& Session)
 {
@@ -195,6 +194,11 @@ bool Handle_S_SPAWNING_POOL(PacketSessionRef& session, Protocol::S_SPAWNING_POOL
 	}
 
 	return true;
+}
+
+bool Handle_S_ADD_ITEM(PacketSessionRef& session, Protocol::S_ADD_ITEM& pkt)
+{
+	return false;
 }
 
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)

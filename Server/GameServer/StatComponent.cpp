@@ -125,6 +125,9 @@ void StatComponent::RefreshAll()
 	if (_owner == nullptr)
 		return;
 
+	if (_owner->room.load().lock() == nullptr)
+		return;
+
 	// todo : refresh all
 	cout << _owner->_objectId << "'s Stat is Modified!!" << "\n";
 

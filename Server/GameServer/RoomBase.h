@@ -2,6 +2,8 @@
 
 #include "JobQueue.h"
 
+class EmptyRoom;
+
 class RoomBase : public JobQueue
 {
 public:
@@ -43,13 +45,16 @@ public:
 
 	void HandleSkill(Protocol::C_SKILL pkt);
 
+	void HandleEquipItem(Protocol::C_EQUIP_ITEM pkt, PlayerRef player);
+	void HandleUnequipItem(Protocol::C_UNEQUIP_ITEM pkt, PlayerRef player);
+
 public:
 	/** get **/
 	RoomBaseRef GetRoomRef();
 
 public:
 	/** use outside **/
-	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
+	virtual void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 	bool AddObject(ObjectRef object);
 	bool RemoveObject(uint64 objectId);
 

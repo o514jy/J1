@@ -191,7 +191,7 @@ void Projectile::SpawnProjectile()
 	// do projectile
 
 	RoomBaseRef roomRef = GetRoomRef();
-	if (roomRef == nullptr)
+	if (roomRef == nullptr || roomRef == GEmptyRoom)
 		return;
 
 	for (int32 i = 0; i < _projectileData->ImpactTimeList.size(); i++)
@@ -227,7 +227,7 @@ vector<ObjectRef> Projectile::GatherObjectInEffectArea(int32 effectId)
 	vector<ObjectRef> objects;
 
 	RoomBaseRef room = _owner->room.load().lock();
-	if (room == nullptr)
+	if (room == nullptr || room == GEmptyRoom)
 		return objects;
 
 	for (auto& item : room->_objects)

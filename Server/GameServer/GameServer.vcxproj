@@ -169,16 +169,19 @@
     <ClCompile Include="BuffBase.cpp" />
     <ClCompile Include="BuffComponent.cpp" />
     <ClCompile Include="BuffInstant.cpp" />
+    <ClCompile Include="BuffPolicy.cpp" />
     <ClCompile Include="ChunkyTriMesh.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DungeonRoom.cpp" />
+    <ClCompile Include="EmptyRoom.cpp" />
     <ClCompile Include="Enum.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Env.cpp" />
+    <ClCompile Include="EquipmentItem.cpp" />
     <ClCompile Include="FindSafeZone.cpp" />
     <ClCompile Include="FVector3.cpp" />
     <ClCompile Include="GameServer.cpp" />
@@ -188,6 +191,8 @@
     <ClCompile Include="GimmickComponent.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="InputGeom.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="MeshLoaderObj.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAIController.cpp" />
@@ -236,14 +241,17 @@
     <ClInclude Include="BuffBase.h" />
     <ClInclude Include="BuffComponent.h" />
     <ClInclude Include="BuffInstant.h" />
+    <ClInclude Include="BuffPolicy.h" />
     <ClInclude Include="ChunkyTriMesh.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DungeonRoom.h" />
+    <ClInclude Include="EmptyRoom.h" />
     <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="Env.h" />
+    <ClInclude Include="EquipmentItem.h" />
     <ClInclude Include="FindSafeZone.h" />
     <ClInclude Include="FVector3.h" />
     <ClInclude Include="GameSession.h" />
@@ -252,6 +260,8 @@
     <ClInclude Include="GimmickComponent.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="InputGeom.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="ItemBase.h" />
     <ClInclude Include="MeshLoaderObj.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAIController.h" />

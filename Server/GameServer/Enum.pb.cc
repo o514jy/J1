@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[15];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[20];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -47,34 +47,67 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\000\022\023\n\017MOVE_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN"
   "\020\002\022\023\n\017MOVE_STATE_DASH\020\003\022\024\n\020MOVE_STATE_SK"
   "ILL\020\004\022\023\n\017MOVE_STATE_DEAD\020\006\022\026\n\022MOVE_STATE"
-  "_GIMMICK\020\007*q\n\010BuffType\022\022\n\016BUFF_TYPE_NONE"
-  "\020\000\022\021\n\rBUFF_TYPE_HIT\020\001\022\027\n\023BUFF_TYPE_PARAL"
-  "YSIS\020\002\022\022\n\016BUFF_TYPE_PUSH\020\003\022\021\n\rBUFF_TYPE_"
-  "MEZ\020\004*\217\001\n\020BuffDurationType\022\033\n\027BUFF_DURAT"
-  "ION_TYPE_NONE\020\000\022\036\n\032BUFF_DURATION_TYPE_IN"
-  "STANT\020\001\022\035\n\031BUFF_DURATION_TYPE_FINITE\020\002\022\037"
-  "\n\033BUFF_DURATION_TYPE_INFINITE\020\003*Q\n\tSkill"
-  "Type\022\023\n\017SKILL_TYPE_NONE\020\000\022\024\n\020SKILL_TYPE_"
-  "CLOSE\020\001\022\031\n\025SKILL_TYPE_PROJECTILE\020\002*l\n\nEf"
-  "fectType\022\024\n\020EFFECT_TYPE_NONE\020\000\022\031\n\025EFFECT"
-  "_TYPE_RECTANGLE\020\001\022\026\n\022EFFECT_TYPE_CIRCLE\020"
-  "\002\022\025\n\021EFFECT_TYPE_PIZZA\020\003*\305\001\n\tSkillSlot\022\023"
-  "\n\017SKILL_SLOT_NONE\020\000\022\025\n\021SKILL_SLOT_ATTACK"
-  "\020\001\022\020\n\014SKILL_SLOT_Q\020\002\022\020\n\014SKILL_SLOT_W\020\003\022\020"
-  "\n\014SKILL_SLOT_E\020\004\022\020\n\014SKILL_SLOT_R\020\005\022\023\n\017SK"
-  "ILL_SLOT_DASH\020\006\022\027\n\023SKILL_SLOD_ADVANCED\020\007"
-  "\022\026\n\022SKILL_SLOT_GIMMICK\020\010*U\n\010RoomType\022\023\n\017"
-  "ROOOM_TYPE_NONE\020\000\022\030\n\024ROOM_TYPE_START_ROO"
-  "M\020\001\022\032\n\026ROOM_TYPE_DUNGEON_ROOM\020\002*O\n\tRoomS"
-  "tate\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022ROOM_STATE_"
-  "PREPARE\020\001\022\025\n\021ROOM_STATE_BATTLE\020\002*P\n\tDire"
-  "ction\022\014\n\010DIR_NONE\020\000\022\n\n\006DIR_UP\020\001\022\r\n\tDIR_R"
-  "IGHT\020\002\022\014\n\010DIR_DOWN\020\003\022\014\n\010DIR_LEFT\020\004b\006prot"
-  "o3"
+  "_GIMMICK\020\007*\223\003\n\010StatType\022\024\n\020STAT_TYPE_MAX"
+  "_HP\020\000\022\020\n\014STAT_TYPE_HP\020\001\022\026\n\022STAT_TYPE_HP_"
+  "REGEN\020\002\022\024\n\020STAT_TYPE_MAX_MP\020\003\022\020\n\014STAT_TY"
+  "PE_MP\020\004\022\026\n\022STAT_TYPE_MP_REGEN\020\005\022\024\n\020STAT_"
+  "TYPE_ATTACK\020\006\022\025\n\021STAT_TYPE_DEFENCE\020\007\022\023\n\017"
+  "STAT_TYPE_DODGE\020\010\022\032\n\026STAT_TYPE_ATTACK_SP"
+  "EED\020\t\022\030\n\024STAT_TYPE_MOVE_SPEED\020\n\022\026\n\022STAT_"
+  "TYPE_CRI_RATE\020\013\022\030\n\024STAT_TYPE_CRI_DAMAGE\020"
+  "\014\022\021\n\rSTAT_TYPE_STR\020\r\022\021\n\rSTAT_TYPE_DEX\020\016\022"
+  "\021\n\rSTAT_TYPE_INT\020\017\022\021\n\rSTAT_TYPE_CON\020\020\022\021\n"
+  "\rSTAT_TYPE_WIS\020\021*^\n\010BuffType\022\022\n\016BUFF_TYP"
+  "E_NONE\020\000\022\021\n\rBUFF_TYPE_HIT\020\001\022\022\n\016BUFF_TYPE"
+  "_HEAL\020\002\022\027\n\023BUFF_TYPE_BUFF_STAT\020\003*\217\001\n\020Buf"
+  "fDurationType\022\033\n\027BUFF_DURATION_TYPE_NONE"
+  "\020\000\022\036\n\032BUFF_DURATION_TYPE_INSTANT\020\001\022\035\n\031BU"
+  "FF_DURATION_TYPE_FINITE\020\002\022\037\n\033BUFF_DURATI"
+  "ON_TYPE_INFINITE\020\003*Q\n\tSkillType\022\023\n\017SKILL"
+  "_TYPE_NONE\020\000\022\024\n\020SKILL_TYPE_CLOSE\020\001\022\031\n\025SK"
+  "ILL_TYPE_PROJECTILE\020\002*l\n\nEffectType\022\024\n\020E"
+  "FFECT_TYPE_NONE\020\000\022\031\n\025EFFECT_TYPE_RECTANG"
+  "LE\020\001\022\026\n\022EFFECT_TYPE_CIRCLE\020\002\022\025\n\021EFFECT_T"
+  "YPE_PIZZA\020\003*\305\001\n\tSkillSlot\022\023\n\017SKILL_SLOT_"
+  "NONE\020\000\022\025\n\021SKILL_SLOT_ATTACK\020\001\022\020\n\014SKILL_S"
+  "LOT_Q\020\002\022\020\n\014SKILL_SLOT_W\020\003\022\020\n\014SKILL_SLOT_"
+  "E\020\004\022\020\n\014SKILL_SLOT_R\020\005\022\023\n\017SKILL_SLOT_DASH"
+  "\020\006\022\027\n\023SKILL_SLOD_ADVANCED\020\007\022\026\n\022SKILL_SLO"
+  "T_GIMMICK\020\010*T\n\010RoomType\022\022\n\016ROOM_TYPE_NON"
+  "E\020\000\022\030\n\024ROOM_TYPE_START_ROOM\020\001\022\032\n\026ROOM_TY"
+  "PE_DUNGEON_ROOM\020\002*O\n\tRoomState\022\023\n\017ROOM_S"
+  "TATE_NONE\020\000\022\026\n\022ROOM_STATE_PREPARE\020\001\022\025\n\021R"
+  "OOM_STATE_BATTLE\020\002*P\n\tDirection\022\014\n\010DIR_N"
+  "ONE\020\000\022\n\n\006DIR_UP\020\001\022\r\n\tDIR_RIGHT\020\002\022\014\n\010DIR_"
+  "DOWN\020\003\022\014\n\010DIR_LEFT\020\004*Q\n\010ItemType\022\022\n\016ITEM"
+  "_TYPE_NONE\020\000\022\027\n\023ITEM_TYPE_EQUIPMENT\020\001\022\030\n"
+  "\024ITEM_TYPE_CONSUMABLE\020\002*\311\002\n\013ItemSubType\022"
+  "\026\n\022ITEM_SUB_TYPE_NONE\020\000\022\034\n\030ITEM_SUB_TYPE"
+  "_MAINWEAPON\020\001\022\033\n\027ITEM_SUB_TYPE_SUBWEAPON"
+  "\020\002\022\030\n\024ITEM_SUB_TYPE_HELMET\020\003\022\027\n\023ITEM_SUB"
+  "_TYPE_CHEST\020\004\022\025\n\021ITEM_SUB_TYPE_LEG\020\005\022\027\n\023"
+  "ITEM_SUB_TYPE_SHOES\020\006\022\030\n\024ITEM_SUB_TYPE_G"
+  "LOVES\020\007\022\032\n\026ITEM_SUB_TYPE_SHOULDER\020\010\022\026\n\022I"
+  "TEM_SUB_TYPE_RING\020\t\022\030\n\024ITEM_SUB_TYPE_AMU"
+  "LET\020\n\022\034\n\030ITEM_SUB_TYPE_CONSUMABLE\020\014*\225\003\n\014"
+  "ItemSlotType\022\027\n\023ITEM_SLOT_TYPE_NONE\020\000\022\035\n"
+  "\031ITEM_SLOT_TYPE_MAINWEAPON\020\001\022\034\n\030ITEM_SLO"
+  "T_TYPE_SUBWEAPON\020\002\022\031\n\025ITEM_SLOT_TYPE_HEL"
+  "MET\020\003\022\030\n\024ITEM_SLOT_TYPE_CHEST\020\004\022\026\n\022ITEM_"
+  "SLOT_TYPE_LEG\020\005\022\030\n\024ITEM_SLOT_TYPE_SHOES\020"
+  "\006\022\031\n\025ITEM_SLOT_TYPE_GLOVES\020\007\022\033\n\027ITEM_SLO"
+  "T_TYPE_SHOULDER\020\010\022\027\n\023ITEM_SLOT_TYPE_RING"
+  "\020\t\022\031\n\025ITEM_SLOT_TYPE_AMULET\020\n\022 \n\034ITEM_SL"
+  "OT_TYPE_EQUIPMENT_MAX\020\013\022\034\n\030ITEM_SLOT_TYP"
+  "E_INVENTORY\020d\022\034\n\030ITEM_SLOT_TYPE_WAREHOUS"
+  "E\020e*r\n\nItemStatus\022\024\n\020ITEM_STATUS_NONE\020\000\022"
+  "\030\n\024ITEM_STATUS_EQUIPPED\020\001\022\031\n\025ITEM_STATUS"
+  "_INVENTORY\020\002\022\031\n\025ITEM_STATUS_WAREHOUSE\020\003b"
+  "\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 1642, descriptor_table_protodef_Enum_2eproto,
+    false, false, 2967, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -198,9 +231,39 @@ bool MoveState_IsValid(int value) {
   }
 }
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StatType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
   return file_level_enum_descriptors_Enum_2eproto[7];
+}
+bool StatType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[8];
 }
 bool BuffType_IsValid(int value) {
   switch (value) {
@@ -208,7 +271,6 @@ bool BuffType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
-    case 4:
       return true;
     default:
       return false;
@@ -217,7 +279,7 @@ bool BuffType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* BuffDurationType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[8];
+  return file_level_enum_descriptors_Enum_2eproto[9];
 }
 bool BuffDurationType_IsValid(int value) {
   switch (value) {
@@ -233,7 +295,7 @@ bool BuffDurationType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[9];
+  return file_level_enum_descriptors_Enum_2eproto[10];
 }
 bool SkillType_IsValid(int value) {
   switch (value) {
@@ -248,7 +310,7 @@ bool SkillType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EffectType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[10];
+  return file_level_enum_descriptors_Enum_2eproto[11];
 }
 bool EffectType_IsValid(int value) {
   switch (value) {
@@ -264,7 +326,7 @@ bool EffectType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SkillSlot_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[11];
+  return file_level_enum_descriptors_Enum_2eproto[12];
 }
 bool SkillSlot_IsValid(int value) {
   switch (value) {
@@ -285,7 +347,7 @@ bool SkillSlot_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[12];
+  return file_level_enum_descriptors_Enum_2eproto[13];
 }
 bool RoomType_IsValid(int value) {
   switch (value) {
@@ -300,7 +362,7 @@ bool RoomType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RoomState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[13];
+  return file_level_enum_descriptors_Enum_2eproto[14];
 }
 bool RoomState_IsValid(int value) {
   switch (value) {
@@ -315,7 +377,7 @@ bool RoomState_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Direction_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[14];
+  return file_level_enum_descriptors_Enum_2eproto[15];
 }
 bool Direction_IsValid(int value) {
   switch (value) {
@@ -324,6 +386,87 @@ bool Direction_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[16];
+}
+bool ItemType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemSubType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[17];
+}
+bool ItemSubType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 12:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemSlotType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[18];
+}
+bool ItemSlotType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 100:
+    case 101:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ItemStatus_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[19];
+}
+bool ItemStatus_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
       return true;
     default:
       return false;

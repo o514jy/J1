@@ -98,3 +98,10 @@ void Creature::OnDamaged(ObjectRef attacker, BuffBaseRef buff)
 	GetStatComponent()->SetHp(finalHp); // 0일때 사망처리는 sethp 쪽에서 해준다.
 }
 
+void Creature::OnDamaged(ObjectRef attacker, float damage)
+{
+	__super::OnDamaged(attacker, damage);
+
+
+}
+

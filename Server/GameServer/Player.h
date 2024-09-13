@@ -18,10 +18,14 @@ public:
 	/** initialize **/
 	virtual void SetInfo(int32 templateId) override;
 
+	virtual void Clear() override;
+
 public:
 	/** setter & getter **/
 	PlayerDataRef GetPlayerData() { return static_pointer_cast<PlayerData>(_creatureData); }
 
 public:
+	/** component **/
+	InventoryRef _inventoryComponent;
 };
 

@@ -125,3 +125,19 @@ public:
 	vector<int32> MissionIdList;
 	vector<int32> SkillIdList;
 };
+
+class ItemData
+{
+public:
+	int32 DataId;
+	wstring Name;
+	wstring DescriptionText;
+	wstring ItemType;
+	wstring ItemSubType;
+};
+
+class EquipmentData : public ItemData
+{
+public:
+	int32 MoveSpeedBonus;
+};

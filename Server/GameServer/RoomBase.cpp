@@ -8,6 +8,7 @@
 #include "ObjectManager.h"
 #include "Creature.h"
 #include "SkillComponent.h"
+#include "EmptyRoom.h"
 // recast-detour
 #include "InputGeom.h"
 #include "SampleInterfaces.h"
@@ -20,7 +21,7 @@ RoomBase::RoomBase()
 	_entered = false;
 
 	_roomState = Protocol::RoomState::ROOM_STATE_PREPARE;
-	_roomType = Protocol::RoomType::ROOOM_TYPE_NONE;
+	_roomType = Protocol::RoomType::ROOM_TYPE_NONE;
 }
 
 RoomBase::~RoomBase()
@@ -284,7 +285,7 @@ void RoomBase::HandleTeleportFin(Protocol::C_TELEPORT_FIN pkt)
 {
 	cout << "TeleportFin Pkt is dilivered!!" << "\n";
 
-	if (pkt.dest_room_type() == Protocol::RoomType::ROOOM_TYPE_NONE)
+	if (pkt.dest_room_type() == Protocol::RoomType::ROOM_TYPE_NONE)
 		return;
 
 	RoomBaseRef destRoom = GRoomManager->GetRoom(pkt.dest_room_type());
@@ -362,6 +363,21 @@ void RoomBase::HandleSkill(Protocol::C_SKILL pkt)
 	creature->_skillComponent->DoSkill(pkt);
 }
 
+void RoomBase::HandleEquipItem(Protocol::C_EQUIP_ITEM pkt, PlayerRef player)
+{
+	if (player == nullptr)
+		return;
+
+	
+}
+
+void RoomBase::HandleUnequipItem(Protocol::C_UNEQUIP_ITEM pkt, PlayerRef player)
+{
+	if (player == nullptr)
+		return;
+
+}
+
 RoomBaseRef RoomBase::GetRoomRef()
 {
 	return static_pointer_cast<RoomBase>(shared_from_this());
@@ -406,6 +422,8 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 
 	_objects.erase(objectId);
 
+	delObject->room.store(GEmptyRoom);
+
 	// temp
 	{
 		// device의 통제를 받았으면 삭제
@@ -419,6 +437,8 @@ bool RoomBase::RemoveObject_internal(uint64 objectId)
 
 	return true;
 }
+
+
 
 void RoomBase::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 {
