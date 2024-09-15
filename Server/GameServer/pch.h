@@ -63,6 +63,7 @@ USING_SHARED_PTR(SpreadCloud);
 USING_SHARED_PTR(SkillComponent);
 
 /** buff **/
+USING_SHARED_PTR(BuffComponent);
 USING_SHARED_PTR(BuffBase);
 USING_SHARED_PTR(BuffPolicy);
 USING_SHARED_PTR(HitBuffPolicy);

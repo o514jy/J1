@@ -389,3 +389,16 @@ void UJ1NetworkManager::HandleSpawningPool(const Protocol::S_SPAWNING_POOL& Pool
 		}
 	}
 }
+
+void UJ1NetworkManager::HandleApplyBuff(const Protocol::S_APPLY_BUFF& applyBuffPkt)
+{
+	TObjectPtr<AJ1Creature> target = GetManager(Object)->GetCreatureById(applyBuffPkt.object_id());
+	if (target == nullptr)
+		return;
+
+	
+}
+
+void UJ1NetworkManager::HandleRemoveBuff(const Protocol::S_REMOVE_BUFF& removeBuffPkt)
+{
+}

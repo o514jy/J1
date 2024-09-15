@@ -22,8 +22,6 @@ public:
 
 public:
 	/** process **/
-	vector<BuffBaseRef> GenerateBuffs(vector<int32> buffIds, SkillBaseRef skill); // legacy
-
 	void ApplyBuff(int32 templateId, CreatureRef caster);
 	void ApplyBuff(BuffDataRef buffData, CreatureRef caster, bool send = true);
 
@@ -31,7 +29,7 @@ public:
 	void ApplyDurationBuff(BuffDataRef buffData, CreatureRef caster, bool send = true);
 	void ApplyInfiniteBuff(BuffDataRef buffData, CreatureRef caster,  bool send = true);
 
-	void RemoveBuff(uint64 buffId, bool send = true);
+	void RemoveBuffById(uint64 buffId, bool send = true);
 	void RemoveBuff(BuffBaseRef buff, bool send = true);
 	void RemoveAllBuff();
 

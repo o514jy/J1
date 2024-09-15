@@ -8,6 +8,8 @@
 #include "SafeZone.h"
 #include "StartRoom.h"
 #include "Projectile.h"
+#include "Creature.h"
+#include "BuffComponent.h"
 
 SpreadCloud::SpreadCloud()
 {
@@ -65,6 +67,20 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 	// buff 처리
 	for (auto& object : objects)
 	{
+		if (object == nullptr)
+			continue;
+
+		RoomBaseRef room = object->GetRoomRef();
+		if (room == nullptr || room == GEmptyRoom)
+			return;
+
+		// 1) 생존지대에 있었으면 빼준다.
+		if (safePlayers.find((int32)object->_objectId) != safePlayers.end())
+			continue;
+
+		// 2) 버프 적용
+		object->_buffComponent->ApplyBuff(_skillData->BuffIdList[timeCount], _owner);
+
 		//// 0) 생존지대에 있었으면 빼준다.
 		//if (safePlayers.find((int32)object->_objectId) != safePlayers.end())
 		//{

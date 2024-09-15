@@ -45,23 +45,6 @@ void BuffComponent::SetInfo(CreatureRef owner)
 	_owner = owner;
 }
 
-void BuffComponent::Clear()
-{
-
-}
-
-vector<BuffBaseRef> BuffComponent::GenerateBuffs(vector<int32> buffIds, SkillBaseRef skill)
-{
-	vector<BuffBaseRef> generatedBuffs;
-
-	for (int32 buffId : buffIds)
-	{
-
-	}
-
-	return generatedBuffs;
-}
-
 void BuffComponent::ApplyBuff(int32 templateId, CreatureRef caster)
 {
 	BuffDataRef buffData = GDataManager->GetBuffDataById(templateId);
@@ -153,7 +136,7 @@ void BuffComponent::ApplyInfiniteBuff(BuffDataRef buffData, CreatureRef caster, 
 		SendApply(buff);
 }
 
-void BuffComponent::RemoveBuff(uint64 buffId, bool send)
+void BuffComponent::RemoveBuffById(uint64 buffId, bool send)
 {
 	if (_buffs.find(buffId) == _buffs.end())
 		return;

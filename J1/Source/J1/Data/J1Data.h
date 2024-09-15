@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "J1Core.h"
 #include "Engine/DataAsset.h"
 #include "J1Data.generated.h"
 
@@ -217,7 +218,7 @@ public:
 	float BuffDurationPeriod;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	float BuffDurationMagnitude;
+	int32 BuffDurationMagnitude;
 };
 
 UCLASS(BlueprintType)

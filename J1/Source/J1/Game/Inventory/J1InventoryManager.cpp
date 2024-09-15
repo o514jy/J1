@@ -17,10 +17,10 @@ void UJ1InventoryManager::Add(const Protocol::ItemInfo& InItemInfo)
 	TObjectPtr<UItemData> itemData = *itemDataPtr;
 
 	TObjectPtr<UJ1ItemBase> item = nullptr;
-	if (itemData->ItemType == L"Equipment")
-	{
-		item = 
-	}
+	//if (itemData->ItemType == L"Equipment")
+	//{
+	//	item = 
+	//}
 
 	//AllItems.Add(InItemInfo.item_id(), )
 }

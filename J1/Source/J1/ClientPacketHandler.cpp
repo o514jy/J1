@@ -186,6 +186,26 @@ bool Handle_S_BUFF(PacketSessionRef& session, Protocol::S_BUFF& pkt)
 	return true;
 }
 
+bool Handle_S_APPLY_BUFF(PacketSessionRef& session, Protocol::S_APPLY_BUFF& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleApplyBuff(pkt);
+	}
+
+	return true;
+}
+
+bool Handle_S_REMOVE_BUFF(PacketSessionRef& session, Protocol::S_REMOVE_BUFF& pkt)
+{
+	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))
+	{
+		GameNetwork->HandleRemoveBuff(pkt);
+	}
+
+	return true;
+}
+
 bool Handle_S_SPAWNING_POOL(PacketSessionRef& session, Protocol::S_SPAWNING_POOL& pkt)
 {
 	if (UJ1NetworkManager* GameNetwork = GetWorldNetwork(session))

@@ -59,6 +59,7 @@ public:
 public:
 	/* stat */
 	StatComponentRef _statComponent;
+	BuffComponentRef _buffComponent;
 
 public:
 	atomic<weak_ptr<RoomBase>> room;

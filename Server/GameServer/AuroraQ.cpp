@@ -3,6 +3,8 @@
 #include "Data.h"
 #include "DataManager.h"
 #include "BuffInstant.h"
+#include "Creature.h"
+#include "BuffComponent.h"
 
 AuroraQ::AuroraQ()
 {
@@ -28,6 +30,15 @@ void AuroraQ::OnAttackEvent(int32 timeCount)
 	// buff 처리
 	for (auto& object : objects)
 	{
+		if (object == nullptr)
+			continue;
+
+		RoomBaseRef room = object->GetRoomRef();
+		if (room == nullptr || room == GEmptyRoom)
+			return;
+
+		object->_buffComponent->ApplyBuff(_skillData->BuffIdList[timeCount], _owner);
+
 		//// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
 		//wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;
 		//

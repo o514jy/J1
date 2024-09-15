@@ -328,6 +328,11 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	SkillComponent->SetInfo(this, CreatureData);
 }
 
+void AJ1Creature::ApplyBuff(Protocol::S_APPLY_BUFF& pkt)
+{
+
+}
+
 void AJ1Creature::OnDead()
 {
 	int32 OwnerDataId = GetTemplateId();

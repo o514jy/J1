@@ -264,7 +264,7 @@ void UJ1GameData::ParseJsonData(const FString& path)
             data->BuffDurationType = buff->GetStringField(TEXT("BuffDurationType"));
             data->BuffAmountRate = buff->GetNumberField(TEXT("BuffAmountRate"));
             data->BuffDurationPeriod = buff->GetNumberField(TEXT("BuffDurationPeriod"));
-            data->BuffDurationMagnitude = buff->GetNumberField(TEXT("BuffDurationMagnitude"));
+            data->BuffDurationMagnitude = buff->GetIntegerField(TEXT("BuffDurationMagnitude"));
 
             BuffData.Add(data->DataId, data);
         }

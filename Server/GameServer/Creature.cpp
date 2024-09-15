@@ -4,6 +4,7 @@
 #include "SkillComponent.h"
 #include "StatComponent.h"
 #include "BuffBase.h"
+#include "BuffComponent.h"
 
 Creature::Creature()
 {
@@ -66,6 +67,9 @@ void Creature::SetInfo(int32 templateId)
 	/* skill component */
 	_skillComponent = make_shared<SkillComponent>();
 	_skillComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()), _creatureData);
+	/* buff component */
+	_buffComponent = make_shared<BuffComponent>();
+	_buffComponent->SetInfo(static_pointer_cast<Creature>(shared_from_this()));
 }
 
 void Creature::SetCreatureData(CreatureDataRef creatureData)

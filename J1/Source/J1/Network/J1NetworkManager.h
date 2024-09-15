@@ -69,6 +69,11 @@ public:
 
 	void HandleSpawningPool(const Protocol::S_SPAWNING_POOL& PoolPkt);
 
+	// buff
+	void HandleApplyBuff(const Protocol::S_APPLY_BUFF& applyBuffPkt);
+
+	void HandleRemoveBuff(const Protocol::S_REMOVE_BUFF& removeBuffPkt);
+
 public:
 	// GameServer
 	class FSocket* Socket;

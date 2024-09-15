@@ -90,6 +90,10 @@ public:
 	virtual void SetInfo(const Protocol::ObjectInfo& InObjectInfo);
 
 public:
+	/** buff **/
+	void ApplyBuff(Protocol::S_APPLY_BUFF& pkt);
+
+public:
 	/** state **/
 	virtual void OnDead();
 	
