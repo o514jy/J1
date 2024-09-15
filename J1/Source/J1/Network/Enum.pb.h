@@ -305,7 +305,7 @@ inline bool BuffType_Parse(
 enum BuffDurationType : int {
   BUFF_DURATION_TYPE_NONE = 0,
   BUFF_DURATION_TYPE_INSTANT = 1,
-  BUFF_DURATION_TYPE_FINITE = 2,
+  BUFF_DURATION_TYPE_DURATION = 2,
   BUFF_DURATION_TYPE_INFINITE = 3,
   BuffDurationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   BuffDurationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
@@ -328,6 +328,35 @@ inline bool BuffDurationType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BuffDurationType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<BuffDurationType>(
     BuffDurationType_descriptor(), name, value);
+}
+enum CreatureStateFlag : int {
+  CREATURE_STATE_FLAG_NONE = 0,
+  CREATURE_STATE_FLAG_SLOW = 1,
+  CREATURE_STATE_FLAG_STUN = 2,
+  CREATURE_STATE_FLAG_FASTER = 3,
+  CREATURE_STATE_FLAG_POISON = 4,
+  CREATURE_STATE_FLAG_MAX_COUNT = 5,
+  CreatureStateFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  CreatureStateFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool CreatureStateFlag_IsValid(int value);
+constexpr CreatureStateFlag CreatureStateFlag_MIN = CREATURE_STATE_FLAG_NONE;
+constexpr CreatureStateFlag CreatureStateFlag_MAX = CREATURE_STATE_FLAG_MAX_COUNT;
+constexpr int CreatureStateFlag_ARRAYSIZE = CreatureStateFlag_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CreatureStateFlag_descriptor();
+template<typename T>
+inline const std::string& CreatureStateFlag_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CreatureStateFlag>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function CreatureStateFlag_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    CreatureStateFlag_descriptor(), enum_t_value);
+}
+inline bool CreatureStateFlag_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CreatureStateFlag* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CreatureStateFlag>(
+    CreatureStateFlag_descriptor(), name, value);
 }
 enum SkillType : int {
   SKILL_TYPE_NONE = 0,
@@ -690,6 +719,11 @@ template <> struct is_proto_enum< ::Protocol::BuffDurationType> : ::std::true_ty
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::BuffDurationType>() {
   return ::Protocol::BuffDurationType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::CreatureStateFlag> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::CreatureStateFlag>() {
+  return ::Protocol::CreatureStateFlag_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::SkillType> : ::std::true_type {};
 template <>

@@ -136,6 +136,7 @@ PROTOBUF_CONSTEXPR ObjectInfo::ObjectInfo(
   , /*decltype(_impl_.object_id_)*/uint64_t{0u}
   , /*decltype(_impl_.template_id_)*/0
   , /*decltype(_impl_.object_type_)*/0
+  , /*decltype(_impl_.state_flag_)*/0
   , /*decltype(_impl_.creature_type_)*/0
   , /*decltype(_impl_.monster_type_)*/0
   , /*decltype(_impl_.projectile_type_)*/0
@@ -252,6 +253,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.template_id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.object_type_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.pos_info_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.state_flag_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.stat_info_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.creature_type_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _impl_.skill_info_),
@@ -278,7 +280,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 50, -1, -1, sizeof(::Protocol::StatInfo)},
   { 61, -1, -1, sizeof(::Protocol::BuffInfo)},
   { 70, -1, -1, sizeof(::Protocol::ObjectInfo)},
-  { 87, -1, -1, sizeof(::Protocol::ItemInfo)},
+  { 88, -1, -1, sizeof(::Protocol::ItemInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -313,28 +315,28 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\002\022\016\n\006max_hp\030\003 \001(\002\022\013\n\003atk\030\004 \001(\002\022\013\n\003def\030\005 "
   "\001(\002\"Q\n\010BuffInfo\022\027\n\017owner_object_id\030\001 \001(\004"
   "\022\027\n\017giver_object_id\030\002 \001(\004\022\023\n\013template_id"
-  "\030\003 \001(\005\"\273\003\n\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004"
+  "\030\003 \001(\005\"\317\003\n\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004"
   "\022\023\n\013template_id\030\002 \001(\005\022)\n\013object_type\030\003 \001"
   "(\0162\024.Protocol.ObjectType\022#\n\010pos_info\030\004 \001"
-  "(\0132\021.Protocol.PosInfo\022%\n\tstat_info\030\005 \001(\013"
-  "2\022.Protocol.StatInfo\022-\n\rcreature_type\030\006 "
-  "\001(\0162\026.Protocol.CreatureType\022\'\n\nskill_inf"
-  "o\030\007 \001(\0132\023.Protocol.SkillInfo\022+\n\014monster_"
-  "type\030\010 \001(\0162\025.Protocol.MonsterType\0221\n\017pro"
-  "jectile_type\030\t \001(\0162\030.Protocol.Projectile"
-  "Type\0221\n\017projectile_info\030\n \001(\0132\030.Protocol"
-  ".ProjectileInfo\022#\n\010env_type\030\013 \001(\0162\021.Prot"
-  "ocol.EnvType\"o\n\010ItemInfo\022\017\n\007item_id\030\001 \001("
-  "\004\022\023\n\013template_id\030\002 \001(\005\022.\n\016item_slot_type"
-  "\030\003 \001(\0162\026.Protocol.ItemSlotType\022\r\n\005count\030"
-  "\004 \001(\005b\006proto3"
+  "(\0132\021.Protocol.PosInfo\022\022\n\nstate_flag\030\005 \001("
+  "\005\022%\n\tstat_info\030\006 \001(\0132\022.Protocol.StatInfo"
+  "\022-\n\rcreature_type\030\007 \001(\0162\026.Protocol.Creat"
+  "ureType\022\'\n\nskill_info\030\010 \001(\0132\023.Protocol.S"
+  "killInfo\022+\n\014monster_type\030\t \001(\0162\025.Protoco"
+  "l.MonsterType\0221\n\017projectile_type\030\n \001(\0162\030"
+  ".Protocol.ProjectileType\0221\n\017projectile_i"
+  "nfo\030\013 \001(\0132\030.Protocol.ProjectileInfo\022#\n\010e"
+  "nv_type\030\014 \001(\0162\021.Protocol.EnvType\"o\n\010Item"
+  "Info\022\017\n\007item_id\030\001 \001(\004\022\023\n\013template_id\030\002 \001"
+  "(\005\022.\n\016item_slot_type\030\003 \001(\0162\026.Protocol.It"
+  "emSlotType\022\r\n\005count\030\004 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 1373, descriptor_table_protodef_Struct_2eproto,
+    false, false, 1393, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 8,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2377,6 +2379,7 @@ ObjectInfo::ObjectInfo(const ObjectInfo& from)
     , decltype(_impl_.object_id_){}
     , decltype(_impl_.template_id_){}
     , decltype(_impl_.object_type_){}
+    , decltype(_impl_.state_flag_){}
     , decltype(_impl_.creature_type_){}
     , decltype(_impl_.monster_type_){}
     , decltype(_impl_.projectile_type_){}
@@ -2414,6 +2417,7 @@ inline void ObjectInfo::SharedCtor(
     , decltype(_impl_.object_id_){uint64_t{0u}}
     , decltype(_impl_.template_id_){0}
     , decltype(_impl_.object_type_){0}
+    , decltype(_impl_.state_flag_){0}
     , decltype(_impl_.creature_type_){0}
     , decltype(_impl_.monster_type_){0}
     , decltype(_impl_.projectile_type_){0}
@@ -2510,60 +2514,68 @@ const char* ObjectInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.StatInfo stat_info = 5;
+      // int32 state_flag = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.state_flag_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.StatInfo stat_info = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_stat_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.CreatureType creature_type = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+      // .Protocol.CreatureType creature_type = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_creature_type(static_cast<::Protocol::CreatureType>(val));
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.SkillInfo skill_info = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+      // .Protocol.SkillInfo skill_info = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_skill_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.MonsterType monster_type = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+      // .Protocol.MonsterType monster_type = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_monster_type(static_cast<::Protocol::MonsterType>(val));
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.ProjectileType projectile_type = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+      // .Protocol.ProjectileType projectile_type = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_projectile_type(static_cast<::Protocol::ProjectileType>(val));
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.ProjectileInfo projectile_info = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+      // .Protocol.ProjectileInfo projectile_info = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_projectile_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.EnvType env_type = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+      // .Protocol.EnvType env_type = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_env_type(static_cast<::Protocol::EnvType>(val));
@@ -2625,53 +2637,59 @@ uint8_t* ObjectInfo::_InternalSerialize(
         _Internal::pos_info(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.StatInfo stat_info = 5;
+  // int32 state_flag = 5;
+  if (this->_internal_state_flag() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_state_flag(), target);
+  }
+
+  // .Protocol.StatInfo stat_info = 6;
   if (this->_internal_has_stat_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::stat_info(this),
+      InternalWriteMessage(6, _Internal::stat_info(this),
         _Internal::stat_info(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.CreatureType creature_type = 6;
+  // .Protocol.CreatureType creature_type = 7;
   if (this->_internal_creature_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      6, this->_internal_creature_type(), target);
+      7, this->_internal_creature_type(), target);
   }
 
-  // .Protocol.SkillInfo skill_info = 7;
+  // .Protocol.SkillInfo skill_info = 8;
   if (this->_internal_has_skill_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, _Internal::skill_info(this),
+      InternalWriteMessage(8, _Internal::skill_info(this),
         _Internal::skill_info(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.MonsterType monster_type = 8;
+  // .Protocol.MonsterType monster_type = 9;
   if (this->_internal_monster_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      8, this->_internal_monster_type(), target);
+      9, this->_internal_monster_type(), target);
   }
 
-  // .Protocol.ProjectileType projectile_type = 9;
+  // .Protocol.ProjectileType projectile_type = 10;
   if (this->_internal_projectile_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      9, this->_internal_projectile_type(), target);
+      10, this->_internal_projectile_type(), target);
   }
 
-  // .Protocol.ProjectileInfo projectile_info = 10;
+  // .Protocol.ProjectileInfo projectile_info = 11;
   if (this->_internal_has_projectile_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(10, _Internal::projectile_info(this),
+      InternalWriteMessage(11, _Internal::projectile_info(this),
         _Internal::projectile_info(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.EnvType env_type = 11;
+  // .Protocol.EnvType env_type = 12;
   if (this->_internal_env_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      11, this->_internal_env_type(), target);
+      12, this->_internal_env_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2697,21 +2715,21 @@ size_t ObjectInfo::ByteSizeLong() const {
         *_impl_.pos_info_);
   }
 
-  // .Protocol.StatInfo stat_info = 5;
+  // .Protocol.StatInfo stat_info = 6;
   if (this->_internal_has_stat_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.stat_info_);
   }
 
-  // .Protocol.SkillInfo skill_info = 7;
+  // .Protocol.SkillInfo skill_info = 8;
   if (this->_internal_has_skill_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.skill_info_);
   }
 
-  // .Protocol.ProjectileInfo projectile_info = 10;
+  // .Protocol.ProjectileInfo projectile_info = 11;
   if (this->_internal_has_projectile_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -2734,25 +2752,30 @@ size_t ObjectInfo::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_object_type());
   }
 
-  // .Protocol.CreatureType creature_type = 6;
+  // int32 state_flag = 5;
+  if (this->_internal_state_flag() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_state_flag());
+  }
+
+  // .Protocol.CreatureType creature_type = 7;
   if (this->_internal_creature_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_creature_type());
   }
 
-  // .Protocol.MonsterType monster_type = 8;
+  // .Protocol.MonsterType monster_type = 9;
   if (this->_internal_monster_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_monster_type());
   }
 
-  // .Protocol.ProjectileType projectile_type = 9;
+  // .Protocol.ProjectileType projectile_type = 10;
   if (this->_internal_projectile_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_projectile_type());
   }
 
-  // .Protocol.EnvType env_type = 11;
+  // .Protocol.EnvType env_type = 12;
   if (this->_internal_env_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_env_type());
@@ -2800,6 +2823,9 @@ void ObjectInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   }
   if (from._internal_object_type() != 0) {
     _this->_internal_set_object_type(from._internal_object_type());
+  }
+  if (from._internal_state_flag() != 0) {
+    _this->_internal_set_state_flag(from._internal_state_flag());
   }
   if (from._internal_creature_type() != 0) {
     _this->_internal_set_creature_type(from._internal_creature_type());

@@ -283,21 +283,21 @@ void Projectile::ProcessBuff(vector<ObjectRef>& objects)
 	// buff 처리
 	for (auto& object : objects)
 	{
-		// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
-		wstring buffDurationType = GDataManager->GetBuffDataById(_projectileData->BuffIdList[_impactCount])->BuffDurationType;
-
-		// 2) 버프 지속시간 타입에 맞는 버프 생성
-		BuffBaseRef buff = nullptr;
-		if (buffDurationType == L"Instant")
-		{
-			buff = make_shared<BuffInstant>();
-		}
-
-		// 3) 버프 초기화 및 설정
-		buff->SetInfo(_projectileData->BuffIdList[_impactCount], object, _ownerSkill);
-
-		// 4) 들어온 object에게 buff 부여
-		buff->ApplyBuff();
+		//// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
+		//wstring buffDurationType = GDataManager->GetBuffDataById(_projectileData->BuffIdList[_impactCount])->BuffDurationType;
+		//
+		//// 2) 버프 지속시간 타입에 맞는 버프 생성
+		//BuffBaseRef buff = nullptr;
+		//if (buffDurationType == L"Instant")
+		//{
+		//	buff = make_shared<BuffInstant>();
+		//}
+		//
+		//// 3) 버프 초기화 및 설정
+		//buff->SetInfo(_projectileData->BuffIdList[_impactCount], object, _ownerSkill);
+		//
+		//// 4) 들어온 object에게 buff 부여
+		//buff->ApplyBuff();
 	}
 }
 

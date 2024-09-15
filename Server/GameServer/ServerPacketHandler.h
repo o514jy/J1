@@ -35,13 +35,15 @@ enum : uint16
 	PKT_S_GIMMICK = 1018,
 	PKT_S_PROJECTILE = 1019,
 	PKT_S_BUFF = 1020,
-	PKT_S_STAT = 1021,
-	PKT_S_SPAWNING_POOL = 1022,
-	PKT_C_EQUIP_ITEM = 1023,
-	PKT_C_UNEQUIP_ITEM = 1024,
-	PKT_S_ADD_ITEM = 1025,
-	PKT_C_CHAT = 1026,
-	PKT_S_CHAT = 1027,
+	PKT_S_APPLY_BUFF = 1021,
+	PKT_S_REMOVE_BUFF = 1022,
+	PKT_S_STAT = 1023,
+	PKT_S_SPAWNING_POOL = 1024,
+	PKT_C_EQUIP_ITEM = 1025,
+	PKT_C_UNEQUIP_ITEM = 1026,
+	PKT_S_ADD_ITEM = 1027,
+	PKT_C_CHAT = 1028,
+	PKT_S_CHAT = 1029,
 };
 
 // Custom Handlers
@@ -96,6 +98,8 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_GIMMICK& pkt) { return MakeSendBuffer(pkt, PKT_S_GIMMICK); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_PROJECTILE& pkt) { return MakeSendBuffer(pkt, PKT_S_PROJECTILE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_BUFF& pkt) { return MakeSendBuffer(pkt, PKT_S_BUFF); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_APPLY_BUFF& pkt) { return MakeSendBuffer(pkt, PKT_S_APPLY_BUFF); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_REMOVE_BUFF& pkt) { return MakeSendBuffer(pkt, PKT_S_REMOVE_BUFF); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_STAT& pkt) { return MakeSendBuffer(pkt, PKT_S_STAT); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_SPAWNING_POOL& pkt) { return MakeSendBuffer(pkt, PKT_S_SPAWNING_POOL); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_ADD_ITEM& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_ITEM); }

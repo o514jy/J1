@@ -1412,16 +1412,17 @@ class ObjectInfo final :
 
   enum : int {
     kPosInfoFieldNumber = 4,
-    kStatInfoFieldNumber = 5,
-    kSkillInfoFieldNumber = 7,
-    kProjectileInfoFieldNumber = 10,
+    kStatInfoFieldNumber = 6,
+    kSkillInfoFieldNumber = 8,
+    kProjectileInfoFieldNumber = 11,
     kObjectIdFieldNumber = 1,
     kTemplateIdFieldNumber = 2,
     kObjectTypeFieldNumber = 3,
-    kCreatureTypeFieldNumber = 6,
-    kMonsterTypeFieldNumber = 8,
-    kProjectileTypeFieldNumber = 9,
-    kEnvTypeFieldNumber = 11,
+    kStateFlagFieldNumber = 5,
+    kCreatureTypeFieldNumber = 7,
+    kMonsterTypeFieldNumber = 9,
+    kProjectileTypeFieldNumber = 10,
+    kEnvTypeFieldNumber = 12,
   };
   // .Protocol.PosInfo pos_info = 4;
   bool has_pos_info() const;
@@ -1441,7 +1442,7 @@ class ObjectInfo final :
       ::Protocol::PosInfo* pos_info);
   ::Protocol::PosInfo* unsafe_arena_release_pos_info();
 
-  // .Protocol.StatInfo stat_info = 5;
+  // .Protocol.StatInfo stat_info = 6;
   bool has_stat_info() const;
   private:
   bool _internal_has_stat_info() const;
@@ -1459,7 +1460,7 @@ class ObjectInfo final :
       ::Protocol::StatInfo* stat_info);
   ::Protocol::StatInfo* unsafe_arena_release_stat_info();
 
-  // .Protocol.SkillInfo skill_info = 7;
+  // .Protocol.SkillInfo skill_info = 8;
   bool has_skill_info() const;
   private:
   bool _internal_has_skill_info() const;
@@ -1477,7 +1478,7 @@ class ObjectInfo final :
       ::Protocol::SkillInfo* skill_info);
   ::Protocol::SkillInfo* unsafe_arena_release_skill_info();
 
-  // .Protocol.ProjectileInfo projectile_info = 10;
+  // .Protocol.ProjectileInfo projectile_info = 11;
   bool has_projectile_info() const;
   private:
   bool _internal_has_projectile_info() const;
@@ -1522,7 +1523,16 @@ class ObjectInfo final :
   void _internal_set_object_type(::Protocol::ObjectType value);
   public:
 
-  // .Protocol.CreatureType creature_type = 6;
+  // int32 state_flag = 5;
+  void clear_state_flag();
+  int32_t state_flag() const;
+  void set_state_flag(int32_t value);
+  private:
+  int32_t _internal_state_flag() const;
+  void _internal_set_state_flag(int32_t value);
+  public:
+
+  // .Protocol.CreatureType creature_type = 7;
   void clear_creature_type();
   ::Protocol::CreatureType creature_type() const;
   void set_creature_type(::Protocol::CreatureType value);
@@ -1531,7 +1541,7 @@ class ObjectInfo final :
   void _internal_set_creature_type(::Protocol::CreatureType value);
   public:
 
-  // .Protocol.MonsterType monster_type = 8;
+  // .Protocol.MonsterType monster_type = 9;
   void clear_monster_type();
   ::Protocol::MonsterType monster_type() const;
   void set_monster_type(::Protocol::MonsterType value);
@@ -1540,7 +1550,7 @@ class ObjectInfo final :
   void _internal_set_monster_type(::Protocol::MonsterType value);
   public:
 
-  // .Protocol.ProjectileType projectile_type = 9;
+  // .Protocol.ProjectileType projectile_type = 10;
   void clear_projectile_type();
   ::Protocol::ProjectileType projectile_type() const;
   void set_projectile_type(::Protocol::ProjectileType value);
@@ -1549,7 +1559,7 @@ class ObjectInfo final :
   void _internal_set_projectile_type(::Protocol::ProjectileType value);
   public:
 
-  // .Protocol.EnvType env_type = 11;
+  // .Protocol.EnvType env_type = 12;
   void clear_env_type();
   ::Protocol::EnvType env_type() const;
   void set_env_type(::Protocol::EnvType value);
@@ -1573,6 +1583,7 @@ class ObjectInfo final :
     uint64_t object_id_;
     int32_t template_id_;
     int object_type_;
+    int32_t state_flag_;
     int creature_type_;
     int monster_type_;
     int projectile_type_;
@@ -2698,7 +2709,27 @@ inline void ObjectInfo::set_allocated_pos_info(::Protocol::PosInfo* pos_info) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.pos_info)
 }
 
-// .Protocol.StatInfo stat_info = 5;
+// int32 state_flag = 5;
+inline void ObjectInfo::clear_state_flag() {
+  _impl_.state_flag_ = 0;
+}
+inline int32_t ObjectInfo::_internal_state_flag() const {
+  return _impl_.state_flag_;
+}
+inline int32_t ObjectInfo::state_flag() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.state_flag)
+  return _internal_state_flag();
+}
+inline void ObjectInfo::_internal_set_state_flag(int32_t value) {
+  
+  _impl_.state_flag_ = value;
+}
+inline void ObjectInfo::set_state_flag(int32_t value) {
+  _internal_set_state_flag(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.state_flag)
+}
+
+// .Protocol.StatInfo stat_info = 6;
 inline bool ObjectInfo::_internal_has_stat_info() const {
   return this != internal_default_instance() && _impl_.stat_info_ != nullptr;
 }
@@ -2788,7 +2819,7 @@ inline void ObjectInfo::set_allocated_stat_info(::Protocol::StatInfo* stat_info)
   // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.stat_info)
 }
 
-// .Protocol.CreatureType creature_type = 6;
+// .Protocol.CreatureType creature_type = 7;
 inline void ObjectInfo::clear_creature_type() {
   _impl_.creature_type_ = 0;
 }
@@ -2808,7 +2839,7 @@ inline void ObjectInfo::set_creature_type(::Protocol::CreatureType value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.creature_type)
 }
 
-// .Protocol.SkillInfo skill_info = 7;
+// .Protocol.SkillInfo skill_info = 8;
 inline bool ObjectInfo::_internal_has_skill_info() const {
   return this != internal_default_instance() && _impl_.skill_info_ != nullptr;
 }
@@ -2898,7 +2929,7 @@ inline void ObjectInfo::set_allocated_skill_info(::Protocol::SkillInfo* skill_in
   // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.skill_info)
 }
 
-// .Protocol.MonsterType monster_type = 8;
+// .Protocol.MonsterType monster_type = 9;
 inline void ObjectInfo::clear_monster_type() {
   _impl_.monster_type_ = 0;
 }
@@ -2918,7 +2949,7 @@ inline void ObjectInfo::set_monster_type(::Protocol::MonsterType value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.monster_type)
 }
 
-// .Protocol.ProjectileType projectile_type = 9;
+// .Protocol.ProjectileType projectile_type = 10;
 inline void ObjectInfo::clear_projectile_type() {
   _impl_.projectile_type_ = 0;
 }
@@ -2938,7 +2969,7 @@ inline void ObjectInfo::set_projectile_type(::Protocol::ProjectileType value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.projectile_type)
 }
 
-// .Protocol.ProjectileInfo projectile_info = 10;
+// .Protocol.ProjectileInfo projectile_info = 11;
 inline bool ObjectInfo::_internal_has_projectile_info() const {
   return this != internal_default_instance() && _impl_.projectile_info_ != nullptr;
 }
@@ -3028,7 +3059,7 @@ inline void ObjectInfo::set_allocated_projectile_info(::Protocol::ProjectileInfo
   // @@protoc_insertion_point(field_set_allocated:Protocol.ObjectInfo.projectile_info)
 }
 
-// .Protocol.EnvType env_type = 11;
+// .Protocol.EnvType env_type = 12;
 inline void ObjectInfo::clear_env_type() {
   _impl_.env_type_ = 0;
 }

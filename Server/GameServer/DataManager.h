@@ -54,5 +54,10 @@ private:
 	unordered_map<int32, GimmickDataRef> _gimmickData;
 
 	unordered_map<int32, ItemDataRef> _ItemData;
+
+public:
+	/** helper **/
+	Protocol::BuffType GetBuffType(wstring buffTypeStr);
+	Protocol::BuffDurationType GetBuffDurationType(wstring buffDurationTypeStr);
 };
 

@@ -8,7 +8,7 @@ public:
 
 public:
 	/** initialize **/
-	virtual void SetInfo(int32 templateId, ObjectRef owner, SkillBaseRef skill);
+	virtual void SetInfo(uint64 buffId, int32 templateId, CreatureRef target, CreatureRef caster, BuffPolicyRef policy);
 
 public:
 	/** setter & getter **/
@@ -21,13 +21,28 @@ public:
 public:
 	/** process **/
 	virtual void ApplyBuff();
-	virtual void ClearBuff();
+	virtual void RevertBuff();
+
+public:
+	/** helper **/
+	uint64 GetRemainingLifetimeInTicks();
+	float GetRemainingLifetimeInSeconds();
 
 public:
 	/** information **/
-	ObjectRef _owner;
-	SkillBaseRef _ownerSkill;
+
+	// cache
+	uint64 _buffId;
+	int32 _templateId;
+	Protocol::BuffType _buffType;
+
+	CreatureRef _owner;
+	CreatureRef _caster;
 	BuffDataRef _buffData;
+
+	BuffPolicyRef _policy;
+
+	uint64 _despawnTick;
 
 	float _finalAmount;
 

@@ -4,12 +4,22 @@
 #include "DataManager.h"
 #include "Object.h"
 #include "Creature.h"
+#include "BuffPolicy.h"
+#include "Data.h"
 
 BuffBase::BuffBase()
 {
+	_buffId = 0;
+	_templateId = 0;
+	_buffType = Protocol::BuffType::BUFF_TYPE_NONE;
+
 	_owner = nullptr;
-	_ownerSkill = nullptr;
+	_caster = nullptr;
 	_buffData = nullptr;
+
+	_policy = nullptr;
+
+	_despawnTick = 0;
 	
 	_finalAmount = 0;
 
@@ -19,25 +29,21 @@ BuffBase::BuffBase()
 BuffBase::~BuffBase()
 {
 	_owner = nullptr;
-	_ownerSkill = nullptr;
 
 	delete _buffInfo;
 }
 
-void BuffBase::SetInfo(int32 templateId, ObjectRef owner, SkillBaseRef skill)
+void BuffBase::SetInfo(uint64 buffId, int32 templateId, CreatureRef target, CreatureRef caster, BuffPolicyRef policy)
 {
-	_owner = owner;
-	_ownerSkill = skill;
-	
+	_buffId = buffId;
+	_templateId = templateId;
+	_owner = target;
+	_caster = caster;
 	_buffData = GDataManager->GetBuffDataById(templateId);
-
-	/* buffInfo */
-	_buffInfo->set_template_id(templateId);
-	_buffInfo->set_giver_object_id(_owner->_objectId);
-	_buffInfo->set_giver_object_id(skill->_owner->_objectId);
-
-	// temp : calculate final amount
-	_finalAmount = skill->_owner->GetCreatureData()->Atk * _buffData->BuffAmountRate;
+	_buffType = _buffData->BuffType;
+	
+	if (_buffData->BuffDurationType == Protocol::BuffDurationType::BUFF_DURATION_TYPE_DURATION)
+		_despawnTick = ::GetTickCount64() + _buffData->BuffDurationMagnitude;
 }
 
 float BuffBase::GetFinalAmount()
@@ -47,8 +53,26 @@ float BuffBase::GetFinalAmount()
 
 void BuffBase::ApplyBuff()
 {
+	if (_policy == nullptr)
+		return;
+
+	_policy->ApplyBuff(_caster, _owner, _buffData);
 }
 
-void BuffBase::ClearBuff()
+void BuffBase::RevertBuff()
 {
+	if (_policy == nullptr)
+		return;
+
+	_policy->RevertBuff(_owner, _buffData);
+}
+
+uint64 BuffBase::GetRemainingLifetimeInTicks()
+{
+	return max(0, (_despawnTick - GetTickCount64()));
+}
+
+float BuffBase::GetRemainingLifetimeInSeconds()
+{
+	return GetRemainingLifetimeInTicks() / 1000.0f;
 }

@@ -54,6 +54,13 @@ public:
 
 public:
 	/** use outside **/
+	template<typename T>
+	void Broadcast(T& pkt, uint64 exceptId = 0)
+	{
+		SendBufferRef sendBuffer = ServerPacketHandler::MakeSendBuffer(pkt);
+		Broadcast(sendBuffer, exceptId);
+	}
+
 	virtual void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 	bool AddObject(ObjectRef object);
 	bool RemoveObject(uint64 objectId);

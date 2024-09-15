@@ -18,3 +18,11 @@ void HitBuffPolicy::ApplyBuff(CreatureRef caster, CreatureRef target, BuffDataRe
 void HitBuffPolicy::RevertBuff(CreatureRef target, BuffDataRef buffData)
 {
 }
+
+void DummyBuffPolicy::ApplyBuff(CreatureRef caster, CreatureRef target, BuffDataRef buffData)
+{
+}
+
+void DummyBuffPolicy::RevertBuff(CreatureRef target, BuffDataRef buffData)
+{
+}

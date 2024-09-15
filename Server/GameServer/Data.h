@@ -105,11 +105,11 @@ class BuffData
 {
 public:
 	int32 DataId;
-	wstring BuffType;
-	wstring BuffDurationType;
+	Protocol::BuffType BuffType;
+	Protocol::BuffDurationType BuffDurationType;
 	float BuffAmountRate;
 	float BuffDurationPeriod;
-	float BuffDurationMagnitude;
+	uint64 BuffDurationMagnitude;
 };
 
 class GimmickData

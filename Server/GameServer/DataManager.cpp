@@ -250,11 +250,11 @@ void DataManager::ParseJsonData(const WCHAR* path)
 
             BuffDataRef dataRef = make_shared<BuffData>();
             dataRef->DataId = buff["DataId"].GetInt();
-            dataRef->BuffType = Utils::StrToWstr(buff["BuffType"].GetString());
-            dataRef->BuffDurationType = Utils::StrToWstr(buff["BuffDurationType"].GetString());
+            dataRef->BuffType = GetBuffType(Utils::StrToWstr(buff["BuffType"].GetString()));
+            dataRef->BuffDurationType = GetBuffDurationType(Utils::StrToWstr(buff["BuffDurationType"].GetString()));
             dataRef->BuffAmountRate = buff["BuffAmountRate"].GetFloat();
             dataRef->BuffDurationPeriod = buff["BuffDurationPeriod"].GetFloat();
-            dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetFloat();
+            dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetUint64();
 
             _buffData.insert(make_pair(dataRef->DataId, dataRef));
         }
@@ -393,4 +393,32 @@ ItemDataRef DataManager::GetItemDataById(int32 id)
         return nullptr;
 
     return _ItemData[id];
+}
+
+Protocol::BuffType DataManager::GetBuffType(wstring buffTypeStr)
+{
+    Protocol::BuffType buffType = Protocol::BuffType::BUFF_TYPE_NONE;
+
+    if (buffTypeStr == L"Hit")
+        buffType = Protocol::BuffType::BUFF_TYPE_HIT;
+    else if (buffTypeStr == L"Heal")
+        buffType = Protocol::BuffType::BUFF_TYPE_HEAL;
+    else if (buffTypeStr == L"BuffStat")
+        buffType = Protocol::BuffType::BUFF_TYPE_BUFF_STAT;
+
+    return buffType;
+}
+
+Protocol::BuffDurationType DataManager::GetBuffDurationType(wstring buffDurationTypeStr)
+{
+    Protocol::BuffDurationType buffDurationType = Protocol::BuffDurationType::BUFF_DURATION_TYPE_NONE;
+
+    if (buffDurationTypeStr == L"Instant")
+        buffDurationType = Protocol::BuffDurationType::BUFF_DURATION_TYPE_INSTANT;
+    else if (buffDurationTypeStr == L"Duration")
+        buffDurationType = Protocol::BuffDurationType::BUFF_DURATION_TYPE_DURATION;
+    else if (buffDurationTypeStr == L"Infinite")
+        buffDurationType = Protocol::BuffDurationType::BUFF_DURATION_TYPE_INFINITE;
+
+    return buffDurationType;
 }

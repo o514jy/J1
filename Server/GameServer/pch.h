@@ -64,6 +64,10 @@ USING_SHARED_PTR(SkillComponent);
 
 /** buff **/
 USING_SHARED_PTR(BuffBase);
+USING_SHARED_PTR(BuffPolicy);
+USING_SHARED_PTR(HitBuffPolicy);
+USING_SHARED_PTR(DummyBuffPolicy);
+
 
 /** gimmick **/
 USING_SHARED_PTR(GimmickBase);

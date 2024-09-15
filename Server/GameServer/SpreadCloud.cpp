@@ -65,27 +65,27 @@ void SpreadCloud::OnAttackEvent(int32 timeCount)
 	// buff 처리
 	for (auto& object : objects)
 	{
-		// 0) 생존지대에 있었으면 빼준다.
-		if (safePlayers.find((int32)object->_objectId) != safePlayers.end())
-		{
-			continue;
-		}
-
-		// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
-		wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;
-
-		// 2) 버프 지속시간 타입에 맞는 버프 생성
-		BuffBaseRef buff = nullptr;
-		if (buffDurationType == L"Instant")
-		{
-			buff = make_shared<BuffInstant>();
-		}
-
-		// 3) 버프 초기화 및 설정
-		buff->SetInfo(_skillData->BuffIdList[timeCount], object, static_pointer_cast<SkillBase>(shared_from_this()));
-
-		// 4) 들어온 object에게 buff 부여
-		buff->ApplyBuff();
+		//// 0) 생존지대에 있었으면 빼준다.
+		//if (safePlayers.find((int32)object->_objectId) != safePlayers.end())
+		//{
+		//	continue;
+		//}
+		//
+		//// 1) attack 시점에 사용할 buff 생성을 위해 버프 타입 및 지속시간 확인
+		//wstring buffDurationType = GDataManager->GetBuffDataById(_skillData->BuffIdList[timeCount])->BuffDurationType;
+		//
+		//// 2) 버프 지속시간 타입에 맞는 버프 생성
+		//BuffBaseRef buff = nullptr;
+		//if (buffDurationType == L"Instant")
+		//{
+		//	buff = make_shared<BuffInstant>();
+		//}
+		//
+		//// 3) 버프 초기화 및 설정
+		//buff->SetInfo(_skillData->BuffIdList[timeCount], object, static_pointer_cast<SkillBase>(shared_from_this()));
+		//
+		//// 4) 들어온 object에게 buff 부여
+		//buff->ApplyBuff();
 	}
 }
 

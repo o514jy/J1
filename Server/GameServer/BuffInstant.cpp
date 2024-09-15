@@ -19,11 +19,11 @@ void BuffInstant::ApplyBuff()
 	if (_owner == nullptr)
 		return;
 
-	if (_buffData->BuffType == L"Hit")
-	{
-		_owner->OnDamaged(static_pointer_cast<Object>(_ownerSkill->_owner), static_pointer_cast<BuffBase>(shared_from_this()));
-		return;
-	}
+	//if (_buffData->BuffType == L"Hit")
+	//{
+	//	_owner->OnDamaged(static_pointer_cast<Object>(_ownerSkill->_owner), static_pointer_cast<BuffBase>(shared_from_this()));
+	//	return;
+	//}
 
 
 	{

@@ -10,6 +10,12 @@ public:
 class HitBuffPolicy : public BuffPolicy
 {
 public:
-	virtual void ApplyBuff(CreatureRef caster, CreatureRef target, BuffDataRef buffData);
-	virtual void RevertBuff(CreatureRef target, BuffDataRef buffData);
+	virtual void ApplyBuff(CreatureRef caster, CreatureRef target, BuffDataRef buffData) override;
+	virtual void RevertBuff(CreatureRef target, BuffDataRef buffData) override;
+};
+
+class DummyBuffPolicy : public BuffPolicy
+{
+	virtual void ApplyBuff(CreatureRef caster, CreatureRef target, BuffDataRef buffData) override;
+	virtual void RevertBuff(CreatureRef target, BuffDataRef buffData) override;
 };

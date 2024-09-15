@@ -11,6 +11,8 @@ Creature::Creature()
 
 	_skillComponent = nullptr;
 	_creatureData = nullptr;
+
+	
 }
 
 Creature::~Creature()
@@ -102,6 +104,13 @@ void Creature::OnDamaged(ObjectRef attacker, float damage)
 {
 	__super::OnDamaged(attacker, damage);
 
+	// 이미 죽었으면 데미지 처리x
+	if (GetState() == Protocol::MOVE_STATE_DEAD)
+		return;
 
+	float finalHp = max(0, GetStatComponent()->GetHp() - damage);
+
+	// 0일때 사망처리는 sethp 쪽에서 해준다.
+	GetStatComponent()->SetHp(finalHp);
 }
 

@@ -35,13 +35,15 @@ enum : uint16
 	PKT_S_GIMMICK = 1018,
 	PKT_S_PROJECTILE = 1019,
 	PKT_S_BUFF = 1020,
-	PKT_S_STAT = 1021,
-	PKT_S_SPAWNING_POOL = 1022,
-	PKT_C_EQUIP_ITEM = 1023,
-	PKT_C_UNEQUIP_ITEM = 1024,
-	PKT_S_ADD_ITEM = 1025,
-	PKT_C_CHAT = 1026,
-	PKT_S_CHAT = 1027,
+	PKT_S_APPLY_BUFF = 1021,
+	PKT_S_REMOVE_BUFF = 1022,
+	PKT_S_STAT = 1023,
+	PKT_S_SPAWNING_POOL = 1024,
+	PKT_C_EQUIP_ITEM = 1025,
+	PKT_C_UNEQUIP_ITEM = 1026,
+	PKT_S_ADD_ITEM = 1027,
+	PKT_C_CHAT = 1028,
+	PKT_S_CHAT = 1029,
 };
 
 // Custom Handlers
@@ -59,6 +61,8 @@ bool Handle_S_SKILL(PacketSessionRef& session, Protocol::S_SKILL& pkt);
 bool Handle_S_GIMMICK(PacketSessionRef& session, Protocol::S_GIMMICK& pkt);
 bool Handle_S_PROJECTILE(PacketSessionRef& session, Protocol::S_PROJECTILE& pkt);
 bool Handle_S_BUFF(PacketSessionRef& session, Protocol::S_BUFF& pkt);
+bool Handle_S_APPLY_BUFF(PacketSessionRef& session, Protocol::S_APPLY_BUFF& pkt);
+bool Handle_S_REMOVE_BUFF(PacketSessionRef& session, Protocol::S_REMOVE_BUFF& pkt);
 bool Handle_S_STAT(PacketSessionRef& session, Protocol::S_STAT& pkt);
 bool Handle_S_SPAWNING_POOL(PacketSessionRef& session, Protocol::S_SPAWNING_POOL& pkt);
 bool Handle_S_ADD_ITEM(PacketSessionRef& session, Protocol::S_ADD_ITEM& pkt);
@@ -84,6 +88,8 @@ public:
 		GPacketHandler[PKT_S_GIMMICK] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_GIMMICK>(Handle_S_GIMMICK, session, buffer, len); };
 		GPacketHandler[PKT_S_PROJECTILE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_PROJECTILE>(Handle_S_PROJECTILE, session, buffer, len); };
 		GPacketHandler[PKT_S_BUFF] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_BUFF>(Handle_S_BUFF, session, buffer, len); };
+		GPacketHandler[PKT_S_APPLY_BUFF] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_APPLY_BUFF>(Handle_S_APPLY_BUFF, session, buffer, len); };
+		GPacketHandler[PKT_S_REMOVE_BUFF] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_REMOVE_BUFF>(Handle_S_REMOVE_BUFF, session, buffer, len); };
 		GPacketHandler[PKT_S_STAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_STAT>(Handle_S_STAT, session, buffer, len); };
 		GPacketHandler[PKT_S_SPAWNING_POOL] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_SPAWNING_POOL>(Handle_S_SPAWNING_POOL, session, buffer, len); };
 		GPacketHandler[PKT_S_ADD_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_ADD_ITEM>(Handle_S_ADD_ITEM, session, buffer, len); };
