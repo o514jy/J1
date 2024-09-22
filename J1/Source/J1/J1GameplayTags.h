@@ -8,6 +8,7 @@ namespace J1GameplayTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_SetDestinationClick);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_BaseAttack);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_Q);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Input_Action_I);
 
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_Begin);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Event_Montage_End);

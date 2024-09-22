@@ -391,7 +391,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 1.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     },
     {
       "DataId": 100001,
@@ -399,7 +399,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 3.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     },
     {
       "DataId": 100010,
@@ -407,7 +407,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 1.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     },
     {
       "DataId": 100101,
@@ -415,7 +415,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 4.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     },
     {
       "DataId": 100102,
@@ -423,7 +423,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 10.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     },
     {
       "DataId": 100103,
@@ -431,7 +431,7 @@
       "BuffDurationType": "Instant",
       "BuffAmountRate": 50.0,
       "BuffDurationPeriod": 0.0,
-      "BuffDurationMagnitude": 0.0
+      "BuffDurationMagnitude": 0
     }
   ],
   "gimmicks": [

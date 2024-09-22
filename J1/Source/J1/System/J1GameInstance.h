@@ -11,9 +11,18 @@ class AJ1Boss;
 class AJ1Portal;
 class AJ1Projectile;
 class UJ1SceneWidget;
+class UJ1InventoryWidget;
+class UJ1StartRoomSceneWidget;
 class UUserWidget;
 class UJ1DungeonStatusWidget;
 class UJ1DungeonClearWidget;
+class UJ1EquipmentSlotsWidget;
+class UJ1InventorySlotsWidget;
+class UJ1ItemSlotWidget;
+class UJ1ItemEntryWidget;
+class UJ1ItemDragWidget;
+class UJ1DragDropOperation;
+class UJ1PopupPosWidget;
 
 class UNiagaraSystem;
 
@@ -74,4 +83,24 @@ public:
 	TObjectPtr<UJ1SceneWidget> SceneWidgetInstance;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UJ1DungeonClearWidget> DungeonClearWidgetInstance;
+
+	/* Scene */
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1StartRoomSceneWidget> StartRoomWidgetClass;
+	/* Popup */
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1InventoryWidget> InventoryWidgetClass;
+	/* sub widget */
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1EquipmentSlotsWidget> EquipmentSlotsWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1InventorySlotsWidget> InventorySlotsWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1ItemSlotWidget> ItemSlotWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1ItemEntryWidget> ItemEntryWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1ItemDragWidget> ItemDragWidgetClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UJ1PopupPosWidget> PopupPosWidgetClass;
 };

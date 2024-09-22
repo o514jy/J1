@@ -13,3 +13,29 @@
 
 #define LevelName_Dungeon_One TEXT("DungeonMap_One")
 #define LevelName_Start_Room TEXT("DevMap")
+
+/** enum class **/
+UENUM(BlueprintType)
+enum class EUIType : uint8
+{
+	None,
+	PopupPos,
+	/* Scene */
+	StartRoom,
+	/* Popup */
+	Inventory,
+	DungeonClear,
+	/* sub widget */
+	InventorySlots,
+	EquipmentSlots,
+	ItemSlot,
+	ItemEntry,
+	ItemDrag
+};
+
+UENUM(BlueprintType)
+enum class EEventType : uint8
+{
+	None,
+	ToggleInventory,
+};

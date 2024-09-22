@@ -6,6 +6,7 @@ namespace J1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Input_Action_SetDestinationClick, "Input.Action.SetDestinationClick");
 	UE_DEFINE_GAMEPLAY_TAG(Input_Action_BaseAttack, "Input.Action.BaseAttack");
 	UE_DEFINE_GAMEPLAY_TAG(Input_Action_Q, "Input.Action.Q");
+	UE_DEFINE_GAMEPLAY_TAG(Input_Action_I, "Input.Action.I");
 
 	/** Event **/
 	UE_DEFINE_GAMEPLAY_TAG(Event_Montage_Begin, "Event.Montage.Begin");

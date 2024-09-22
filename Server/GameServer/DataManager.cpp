@@ -254,7 +254,7 @@ void DataManager::ParseJsonData(const WCHAR* path)
             dataRef->BuffDurationType = GetBuffDurationType(Utils::StrToWstr(buff["BuffDurationType"].GetString()));
             dataRef->BuffAmountRate = buff["BuffAmountRate"].GetFloat();
             dataRef->BuffDurationPeriod = buff["BuffDurationPeriod"].GetFloat();
-            dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetUint64();
+            dataRef->BuffDurationMagnitude = buff["BuffDurationMagnitude"].GetInt();
 
             _buffData.insert(make_pair(dataRef->DataId, dataRef));
         }

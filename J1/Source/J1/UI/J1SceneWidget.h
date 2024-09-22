@@ -1,14 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/J1UserWidget.h"
 #include "J1SceneWidget.generated.h"
 
 class UJ1DungeonStatusWidget;
 
 UCLASS()
-class J1_API UJ1SceneWidget : public UUserWidget
+class J1_API UJ1SceneWidget : public UJ1UserWidget
 {
 	GENERATED_BODY()
 public:

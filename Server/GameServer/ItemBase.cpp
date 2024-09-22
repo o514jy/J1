@@ -9,6 +9,8 @@ ItemBase::ItemBase()
 	_itemInfo = nullptr;
 	_itemData = nullptr;
 	_itemId = 0;
+
+	_itemInfo = new Protocol::ItemInfo();
 }
 
 ItemBase::~ItemBase()

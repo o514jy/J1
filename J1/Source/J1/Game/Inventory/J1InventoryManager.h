@@ -18,8 +18,16 @@ public:
 	void SetInfo(TObjectPtr<AJ1MyPlayer> InOwner);
 
 public:
+	/** setter & getter **/
+	TArray<TObjectPtr<UJ1ItemBase>> GetAllInventoryItemArray();
+
+public:
 	/** process **/
 	void Add(const Protocol::ItemInfo& InItemInfo);
+
+public:
+	/** helper **/
+
 
 public:
 	/** information **/

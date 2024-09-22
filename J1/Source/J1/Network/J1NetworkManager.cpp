@@ -396,9 +396,14 @@ void UJ1NetworkManager::HandleApplyBuff(const Protocol::S_APPLY_BUFF& applyBuffP
 	if (target == nullptr)
 		return;
 
-	
+	target->ApplyBuff(applyBuffPkt);
 }
 
 void UJ1NetworkManager::HandleRemoveBuff(const Protocol::S_REMOVE_BUFF& removeBuffPkt)
 {
+	TObjectPtr<AJ1Creature> target = GetManager(Object)->GetCreatureById(removeBuffPkt.object_id());
+	if (target == nullptr)
+		return;
+
+	target->RemoveBuff(removeBuffPkt);
 }

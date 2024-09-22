@@ -14,6 +14,7 @@ class UJ1SkillComponent;
 class UJ1SkillBase;
 class UJ1StatComponent;
 class UWidgetComponent;
+class UBuffData;
 
 UCLASS()
 class J1_API AJ1Creature : public ACharacter
@@ -91,7 +92,8 @@ public:
 
 public:
 	/** buff **/
-	void ApplyBuff(Protocol::S_APPLY_BUFF& pkt);
+	void ApplyBuff(const Protocol::S_APPLY_BUFF& pkt);
+	void RemoveBuff(const Protocol::S_REMOVE_BUFF& pkt);
 
 public:
 	/** state **/
@@ -117,6 +119,10 @@ public:
 	int32 TemplateId; // data id
 
 	FGameplayTag TemplateTag; // key tag for data id
+
+	TMap<int32, TObjectPtr<UBuffData>> CurrentBuffs;
+
+	int32 StateFlag;
 
 	TObjectPtr<UCreatureData> CreatureData;
 

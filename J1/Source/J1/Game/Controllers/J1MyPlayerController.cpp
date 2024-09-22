@@ -31,6 +31,11 @@
 #include "Kismet/KismetMathLibrary.h"
 // Skill
 #include "J1/Game/Skill/J1SkillComponent.h"
+// UI
+#include "J1/UI/J1UIManager.h"
+#include "J1/UI/Inventory/J1InventoryWidget.h"
+// Event
+#include "Event/J1EventManager.h"
 
 AJ1MyPlayerController::AJ1MyPlayerController()
 {
@@ -56,6 +61,7 @@ void AJ1MyPlayerController::SetupInputComponent()
 		auto SetDestinationClickAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_SetDestinationClick);
 		auto BaseAttackAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_BaseAttack);
 		auto QAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_Q);
+		auto IAction = InputData->FindInputActionByTag(J1GameplayTags::Input_Action_I);
 
 		// Mouse Right Button
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Started, this, &AJ1MyPlayerController::OnInputStarted);
@@ -68,6 +74,9 @@ void AJ1MyPlayerController::SetupInputComponent()
 
 		// Q
 		EnhancedInputComponent->BindAction(QAction, ETriggerEvent::Triggered, this, &AJ1MyPlayerController::OnQTriggered);
+		
+		// I
+		EnhancedInputComponent->BindAction(IAction, ETriggerEvent::Completed, this, &AJ1MyPlayerController::OnITriggered);
 	}
 	else
 	{
@@ -255,6 +264,12 @@ void AJ1MyPlayerController::OnQTriggered()
 	{
 		creature->SkillComponent->RegisterAuroraQ(location);
 	}
+}
+
+void AJ1MyPlayerController::OnITriggered()
+{
+	// 인벤토리 클릭 이벤트
+	GetManager(Event)->OnBroadcastEvent(EEventType::ToggleInventory);
 }
 
 void AJ1MyPlayerController::AutoRun()

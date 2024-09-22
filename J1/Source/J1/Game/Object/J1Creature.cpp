@@ -63,6 +63,8 @@ AJ1Creature::AJ1Creature()
 
 	// temp
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Player"));
+
+	StateFlag = 0;
 }
 
 AJ1Creature::~AJ1Creature()
@@ -328,9 +330,25 @@ void AJ1Creature::SetInfo(const Protocol::ObjectInfo& InObjectInfo)
 	SkillComponent->SetInfo(this, CreatureData);
 }
 
-void AJ1Creature::ApplyBuff(Protocol::S_APPLY_BUFF& pkt)
+void AJ1Creature::ApplyBuff(const Protocol::S_APPLY_BUFF& pkt)
 {
+	TObjectPtr<UBuffData>* dataPtr = GetManager(Data)->GameData->BuffData.Find(pkt.buff_template_id());
+	if (dataPtr == nullptr)
+		return;
 
+	CurrentBuffs.Add(pkt.buff_id(), *dataPtr);
+	StateFlag = pkt.state_flag();
+
+	// 1. 파티클 스폰 (TODO)
+
+	// 2. 데미지 폰트 (TODO)
+}
+
+void AJ1Creature::RemoveBuff(const Protocol::S_REMOVE_BUFF& pkt)
+{
+	// 1. 버프 해제 & 파티클 디스폰 (TODO)
+	CurrentBuffs.Remove(pkt.buff_id());
+	StateFlag = pkt.state_flag();
 }
 
 void AJ1Creature::OnDead()

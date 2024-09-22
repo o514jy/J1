@@ -64,6 +64,9 @@ protected:
 	/** Input handlers for Q action. */
 	void OnQTriggered();
 
+	/** Input handlers for I action. */
+	void OnITriggered();
+
 public:
 	/** move **/
 	void AutoRun();
