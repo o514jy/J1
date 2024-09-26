@@ -6,32 +6,39 @@
 
 class UJ1EquipmentSlotsWidget;
 class UJ1InventorySlotsWidget;
+//class FTimerHandle;
 
+class UCanvasPanelSlot;
 class UButton;
+
+class USizeBox;
 
 UCLASS()
 class J1_API UJ1InventoryWidget : public UJ1PopupWidget
 {
 	GENERATED_BODY()
 public:
+	/** initialize **/
 	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 
-	UFUNCTION(BlueprintCallable)
-	void OnInventoryNameButtonPressed();
-	UFUNCTION(BlueprintCallable)
-	void OnInventoryNameButtonReleased();
-
-	// 마우스 위치를 계속 업데이트하는 함수
-	UFUNCTION()
-	void UpdateLocation();
-
-private:
-	/** helper **/
-	UFUNCTION()
-	void StartUpdate();
+public:
+	/** drag **/
 
 	UFUNCTION()
-	void StopUpdate();
+	void OnButtonPressed();
+
+	UFUNCTION()
+	void OnButtonReleased();
+
+	void UpdatePosition();
+
+	bool GetMousePositionOnViewport(FVector2D& OutPos);
+
+	FTimerHandle UpdateHandle;
+
+	FVector2D Position;
+	FVector2D MousePos;
 
 public:
 	/** information **/
@@ -45,8 +52,5 @@ public:
 	TObjectPtr<UJ1InventorySlotsWidget> InventorySlotsWidget;
 
 	UPROPERTY(meta = (BindWidget))
-	UCanvasPanelSlot* MainCanvasPanel;
-
-private:
-	FTimerHandle UpdateLocationTimerHandle;
+	TObjectPtr<USizeBox> RootSizeBox;
 };

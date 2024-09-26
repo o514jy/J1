@@ -30,7 +30,8 @@ enum class EUIType : uint8
 	EquipmentSlots,
 	ItemSlot,
 	ItemEntry,
-	ItemDrag
+	ItemDrag,
+	DungeonStatus
 };
 
 UENUM(BlueprintType)

@@ -40,8 +40,8 @@ TObjectPtr<UJ1PopupWidget> UJ1UIManager::CreatePopupWidget(EUIType InType)
 	if (widgetPtr == nullptr)
 		Popups.Add(InType, widget);
 
-	//if (PopupPosWidgetInstance != nullptr)
-	//	widget->defaultOpenPos = PopupPosWidgetInstance->GetPopupWidgetPos(InType);
+	if (PopupPosWidgetInstance != nullptr)
+		widget->defaultOpenPos = PopupPosWidgetInstance->GetPopupWidgetPos(InType);
 
 	return widget;
 }
@@ -55,6 +55,13 @@ TObjectPtr<UJ1PopupWidget> UJ1UIManager::ShowPopupWidget(EUIType InType)
 
 	widget->SetbIsOpened(true);
 	widget->AddToViewport();
+
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	//FInputModeGameAndUI InputMode;
+	//InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	//InputMode.SetHideCursorDuringCapture(false);
+	//if (PlayerController)
+	//	PlayerController->SetInputMode(InputMode);
 	//widget->SetPositionInViewport(widget->defaultOpenPos, false);
 
 	PopupStack.Add(widget);
